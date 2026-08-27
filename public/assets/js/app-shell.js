@@ -5,12 +5,11 @@ function enhanceNexoraShell(){
     const nav=qs('nav',side);
     const extra=document.createElement('div');
     extra.className='sidebar-extra';
-    extra.innerHTML='<a href="projetos.html" style="display:flex;gap:11px;padding:11px 12px;color:#9cafc6;font-weight:700"><span>◉</span><span>Comunidade</span></a><a href="apoie.html" style="display:flex;gap:11px;margin:8px 4px;padding:12px;border:1px solid #347cff;border-radius:12px;background:linear-gradient(135deg,#0b2144,#183978);color:#fff;font-weight:900;text-decoration:none"><span>💙</span><span>Apoie a Nexora</span></a><a href="mailto:suporte@nexora.academy" style="display:flex;gap:11px;padding:11px 12px;color:#9cafc6;font-weight:700"><span>?</span><span>Suporte</span></a>';
+    extra.innerHTML='<a href="projetos.html" style="display:flex;gap:11px;padding:10px 12px;color:#9cafc6;font-weight:700"><span>◉</span><span>Comunidade</span></a><a href="apoie.html" style="display:flex;gap:11px;margin:6px 2px;padding:11px 12px;border:1px solid #347cff;border-radius:12px;background:linear-gradient(135deg,#0b2144,#183978);color:#fff;font-weight:900;text-decoration:none"><span>♡</span><span>Apoie o projeto</span></a><a href="mailto:suporte@nexora.academy" style="display:flex;gap:11px;padding:10px 12px;color:#9cafc6;font-weight:700"><span>?</span><span>Suporte</span></a>';
     nav.after(extra);
-    const foot=qs('.side-footer',side);
-    if(foot) foot.remove();
+    const foot=qs('.side-footer',side);if(foot)foot.remove();
     const f=document.createElement('div');f.className='side-footer';
-    f.innerHTML='<div class="lc-promo"><div class="lc-mark"><span class="lc-symbol">LC</span><span><b>LC SOLUÇÕES</b><br>DIGITAIS</span></div><p>Sites, sistemas, automações e soluções digitais que transformam ideias em resultados.</p><a href="https://wa.me/5573981250366?text=Ol%C3%A1%2C%20vim%20pela%20Nexora%20Academy%20e%20quero%20conhecer%20a%20LC%20Solu%C3%A7%C3%B5es%20Digitais" target="_blank" rel="noopener">Conheça nossos serviços ↗</a></div><div class="side-user"><span class="side-avatar">N</span><div><b data-user-name>Aluno</b><small data-user-role>Estudante</small></div></div>';
+    f.innerHTML='<a href="https://wa.me/5573981250366?text=Ol%C3%A1%2C%20conheci%20a%20LC%20pela%20Nexora%20Academy." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid #1e4167;border-radius:11px;background:#071526;text-decoration:none"><span class="lc-symbol" style="width:30px;height:30px;font-size:13px;border-radius:9px">LC</span><span style="min-width:0"><b style="display:block;font-size:11px;color:#55c8ff">PARCEIRO TECNOLÓGICO</b><small style="color:#9cafc6">LC Soluções Digitais ↗</small></span></a><div class="side-user"><span class="side-avatar">N</span><div><b data-user-name>Aluno</b><small data-user-role>Estudante</small></div></div>';
     side.appendChild(f);
   }
 }
