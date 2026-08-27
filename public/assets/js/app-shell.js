@@ -4,6 +4,7 @@ function enhanceNexoraShell(){
   qsa('.brand').forEach(el=>{el.innerHTML='<img src="../assets/brand/nexora-logo.svg" alt="Nexora Academy">'});
   const side=qs('.sidebar');if(!side)return;
   const nav=qs('nav',side);
+  if(nav&&!qs('[data-nav="start"]',nav)){const first=nav.querySelector('a');const a=document.createElement('a');a.href='comece-aqui.html';a.dataset.nav='start';a.innerHTML='<span>◎</span><span>Comece aqui</span>';if(first)first.after(a);else nav.appendChild(a)}
   if(nav&&!qs('.sidebar-extra',side)){
     const extra=document.createElement('div');extra.className='sidebar-extra';
     extra.innerHTML='<a href="apoie.html" style="display:flex;gap:11px;margin:8px;padding:10px 12px;border:1px solid #24527d;border-radius:11px;background:#0a1c31;color:#dcefff;font-weight:850;text-decoration:none"><span>♡</span><span>Apoie a Nexora</span></a>';
@@ -16,6 +17,10 @@ function nxCourseVisual(title){
   const t=(title||'').toLowerCase();
   if(t.includes('ia generativa'))return '../assets/visuals/course-ai.svg';
   if(t.includes('desenvolvimento de sistemas'))return '../assets/visuals/course-dev.svg';
+  if(/lógica|pensamento computacional|pseudocódigo|matemática/.test(t))return '../assets/visuals/visual-logic-web.svg';
+  if(/terminal|git/.test(t))return '../assets/visuals/visual-data-api.svg';
+  if(/introdução à web/.test(t))return '../assets/visuals/visual-logic-web.svg';
+  if(/python/.test(t))return '../assets/visuals/visual-react.svg';
   return '../assets/visuals/landing-orbit.svg';
 }
 function nxModuleVisual(title,courseTitle=''){
@@ -89,7 +94,7 @@ function decorateNexoraUI(){
   qsa('.v3-lab').forEach(lab=>{
     const head=lab.querySelector('.v3-lab-head');if(!head||head.querySelector('.nx-lab-mark'))return;
     const t=(head.textContent||'').toLowerCase(),m=document.createElement('span');m.className='nx-lab-mark';
-    m.textContent=t.includes('sql')?'SQL':t.includes('react')?'R':t.includes('typescript')?'TS':t.includes('javascript')?'JS':t.includes('prompt')?'AI':t.includes('planilha')?'Σ':t.includes('automação')?'FLOW':t.includes('agente')?'AGT':t.includes('api')?'API':t.includes('terminal')?'>_':t.includes('rag')?'RAG':'LAB';
+    m.textContent=t.includes('sql')?'SQL':t.includes('react')?'R':t.includes('typescript')?'TS':t.includes('python')?'PY':t.includes('javascript')?'JS':t.includes('prompt')?'AI':t.includes('planilha')?'Σ':t.includes('automação')?'FLOW':t.includes('agente')?'AGT':t.includes('api')?'API':t.includes('terminal')?'>_':t.includes('rag')?'RAG':'LAB';
     head.prepend(m);
   });
 }
