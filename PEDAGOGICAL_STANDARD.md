@@ -32,20 +32,41 @@ Oferecer educação tecnológica gratuita, rigorosa, acessível e orientada à p
 - Síntese e próximos passos.
 - Referências para aprofundamento.
 
+## Regra de progressão — ensinar antes de pedir
+Nenhuma atividade pode exigir um conceito que ainda não tenha sido ensinado, demonstrado e exemplificado na própria microaula ou em uma microaula anterior claramente identificada.
+
+A sequência obrigatória para um conceito novo é:
+1. O que é — definição simples e tecnicamente correta.
+2. Para que serve — problema real que o conceito resolve.
+3. Como funciona — decomposição das partes do conceito.
+4. Exemplo resolvido — o aluno vê a solução antes de produzir a sua.
+5. Erro comum — contraexemplo ou falha típica e a explicação do motivo.
+6. Faça comigo — alteração pequena de um exemplo pronto.
+7. Só então: prática independente, laboratório ou checkpoint.
+8. Feedback objetivo e recuperação imediata quando houver erro.
+
+Microlearning significa dividir o conhecimento em unidades menores; nunca significa resumir ou omitir fundamentos necessários.
+
 ## Padrão de aula
-Cada aula deve conter, quando aplicável:
+Cada microaula deve conter, quando aplicável:
 1. Título específico e resultado de aprendizagem.
-2. Pré-requisitos.
-3. Contextualização: por que isso importa.
-4. Explicação aprofundada em seções progressivas.
-5. Exemplo concreto e exemplo inadequado/erro comum.
-6. Demonstração ou procedimento passo a passo.
-7. Prática guiada.
-8. Desafio independente.
-9. Critérios para conferir a própria resposta.
-10. Resumo de retenção.
-11. Vocabulário-chave.
-12. Referências e leituras complementares.
+2. Pré-requisitos já ensinados.
+3. Definição conceitual completa.
+4. Contextualização: por que aquilo importa.
+5. Funcionamento explicado por partes.
+6. Exemplo concreto totalmente resolvido.
+7. Exemplo inadequado/erro comum com explicação.
+8. Prática guiada antes da prática independente.
+9. Laboratório ou múltipla escolha somente depois do ensino.
+10. Critérios para conferir a resposta.
+11. Resumo de retenção.
+12. Referências editoriais prioritariamente oficiais/primárias.
+
+## Formato das atividades
+- Priorizar prompts, múltipla escolha, planilhas, código, SQL, APIs, seleção/classificação e artefatos funcionais.
+- Evitar redações e respostas discursivas longas como mecanismo padrão de avaliação.
+- Projetos devem resultar em link, arquivo, código, planilha, automação, imagem, aplicação ou outra evidência verificável.
+- Reflexões escritas só podem existir como recurso opcional de estudo, nunca como requisito comum de conclusão.
 
 ## Apostilas
 Apostila não é cópia da tela da aula. Deve funcionar como material autônomo de estudo, com capa, objetivos, sumário, capítulos, exemplos, boxes de atenção, exercícios, gabarito comentado quando apropriado, glossário e referências. Preferência por HTML acessível e versão PDF quando necessário.
@@ -58,7 +79,7 @@ Apostila não é cópia da tela da aula. Deve funcionar como material autônomo 
 - Questões devem evitar ambiguidade e alternativas artificialmente óbvias.
 
 ## Projetos
-Projetos devem produzir portfólio verificável. Rubrica mínima: entendimento do problema, planejamento, execução, testes/validação, documentação, qualidade da entrega e reflexão sobre melhorias.
+Projetos devem produzir portfólio verificável. Rubrica mínima: entendimento do problema, planejamento, execução, testes/validação, qualidade da entrega e capacidade de demonstrar o fluxo. A evidência principal é funcional; redação não substitui implementação.
 
 ## Certificação
 Certificado somente após requisitos acadêmicos definidos. Doação, contratação da LC ou qualquer relação comercial não influencia aprovação.
