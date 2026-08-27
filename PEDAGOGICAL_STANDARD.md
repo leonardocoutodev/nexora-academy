@@ -15,6 +15,17 @@ Oferecer educação tecnológica gratuita, rigorosa, acessível e orientada à p
 9. Acessibilidade, leitura em dispositivos móveis e clareza textual fazem parte da qualidade acadêmica.
 10. Publicidade e doações nunca condicionam acesso, nota ou certificação.
 
+## Arquitetura da jornada
+A Nexora organiza aprendizagem em quatro níveis visíveis ao aluno:
+1. Iniciante — primeiro contato, com Lógica de Programação Básica como recomendação padrão.
+2. Fundamentos — cursos curtos para consolidar pensamento computacional, pseudocódigo, matemática, terminal/Git, Web e Python.
+3. Profissional — formações completas orientadas a projetos e portfólio.
+4. Especialização — camada futura de aprofundamento por área.
+
+Lógica de Programação Básica deve ser recomendada a todo aluno que entra em trilhas de programação, mas não é obrigatória para quem demonstra domínio no diagnóstico de fundamentos. O diagnóstico é formativo, de múltipla escolha, não vale nota, não interfere em certificado e existe apenas para evitar repetição desnecessária.
+
+As rotas por objetivo podem incluir cursos recomendados, opcionais e um curso/formação de destino. Ao concluir uma etapa, a plataforma deve recomendar a próxima etapa coerente com a rota escolhida.
+
 ## Arquitetura mínima de cada módulo
 - Visão geral e competências.
 - Diagnóstico ou pergunta de abertura.
