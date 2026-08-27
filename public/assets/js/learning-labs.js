@@ -149,6 +149,38 @@
   }
   function wireHtml(root){root.querySelector('[data-preview]').onclick=()=>{root.querySelector('[data-preview-frame]').srcdoc=root.querySelector('[data-html]').value;complete({type:'html'})};}
 
+
+  function reactLab(){
+    const starter='function CursoCard({curso}) {\\n  return <article><h3>{curso.nome}</h3><button>Favoritar</button></article>;\\n}\\n\\nconst cursos = [{id:1,nome:"JavaScript"},{id:2,nome:"React"}];\\n\\nfunction App(){\\n  const [busca,setBusca] = useState("");\\n  const filtrados = cursos.filter(c => c.nome.toLowerCase().includes(busca.toLowerCase()));\\n  return <main>{filtrados.map(c => <CursoCard key={c.id} curso={c} />)}</main>;\\n}';
+    return frame('React Lab — componentes e estado','react',
+      '<p class="v3-lab-instructions">Edite o exemplo sem sair da aula. O validador procura quatro competências: componente, props, estado e lista com key estável. A prévia abaixo representa o resultado esperado.</p>'+
+      '<textarea class="v3-editor" data-react>'+esc(starter)+'</textarea>'+
+      '<div class="v3-toolbar"><button class="v3-btn" type="button" data-react-check>Validar JSX</button><button class="v3-btn secondary" type="button" data-react-preview>Atualizar prévia</button></div>'+
+      '<div class="v3-feedback" data-feedback>Meta: 4/4 critérios encontrados.</div>'+
+      '<div class="v3-preview" data-react-frame style="padding:18px;color:#172235;font-family:Arial;min-height:150px"><h3 style="margin-top:0">Catálogo</h3><div style="display:flex;gap:10px;flex-wrap:wrap"><div style="border:1px solid #ccd7e2;border-radius:10px;padding:12px">JavaScript <button>Favoritar</button></div><div style="border:1px solid #ccd7e2;border-radius:10px;padding:12px">React <button>Favoritar</button></div></div></div>'
+    );
+  }
+  function wireReact(root){
+    const ed=root.querySelector('[data-react]'),fb=root.querySelector('[data-feedback]'),preview=root.querySelector('[data-react-frame]');
+    root.querySelector('[data-react-check]').onclick=()=>{
+      const s=ed.value;
+      const checks=[
+        /function\s+[A-Z]\w*\s*\(/.test(s)||/const\s+[A-Z]\w*\s*=/.test(s),
+        /\{\s*curso\s*\}|props/.test(s),
+        /useState\s*\(/.test(s),
+        /\.map\s*\(/.test(s)&&/key\s*=/.test(s)
+      ];
+      const score=checks.filter(Boolean).length;
+      feedback(fb,score===4,'4/4 critérios encontrados. O exemplo demonstra componente, props, estado e renderização de lista com key.':score+'/4 critérios encontrados. Revise componente, props, useState e map com key estável.');
+      if(score===4)complete({type:'react'});
+    };
+    root.querySelector('[data-react-preview]').onclick=()=>{
+      const names=[...ed.value.matchAll(/nome\s*:\s*["']([^"']+)["']/g)].map(m=>m[1]).slice(0,6);
+      const list=names.length?names:['JavaScript','React'];
+      preview.innerHTML='<h3 style="margin-top:0">Prévia didática</h3><div style="display:flex;gap:10px;flex-wrap:wrap">'+list.map(n=>'<div style="border:1px solid #ccd7e2;border-radius:10px;padding:12px">'+esc(n)+' <button>Favoritar</button></div>').join('')+'</div>';
+    };
+  }
+
   function sqlLab(){
     const data=[{id:1,produto:'Mouse',valor:120},{id:2,produto:'Monitor',valor:800},{id:3,produto:'Teclado',valor:250},{id:4,produto:'Cadeira',valor:950}];
     return frame('SQL Lab — consulta local','sql',
@@ -235,6 +267,7 @@
     else if(type==='spreadsheet')html=spreadsheetLab();
     else if(type==='javascript')html=javascriptLab('javascript');
     else if(type==='typescript')html=javascriptLab('typescript');
+    else if(type==='react')html=reactLab();
     else if(type==='html')html=htmlLab();
     else if(type==='sql')html=sqlLab();
     else if(type==='terminal')html=terminalLab(module);
@@ -250,6 +283,7 @@
     else if(type==='spreadsheet')wireSheet(el);
     else if(type==='javascript')wireJs(el,'javascript');
     else if(type==='typescript')wireJs(el,'typescript');
+    else if(type==='react')wireReact(el);
     else if(type==='html')wireHtml(el);
     else if(type==='sql')wireSql(el);
     else if(type==='terminal')wireTerminal(el,module);
