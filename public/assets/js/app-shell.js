@@ -94,7 +94,7 @@ function decorateNexoraUI(){
   qsa('.v3-lab').forEach(lab=>{
     const head=lab.querySelector('.v3-lab-head');if(!head||head.querySelector('.nx-lab-mark'))return;
     const t=(head.textContent||'').toLowerCase(),m=document.createElement('span');m.className='nx-lab-mark';
-    m.textContent=t.includes('sql')?'SQL':t.includes('react')?'R':t.includes('typescript')?'TS':t.includes('python')?'PY':t.includes('javascript')?'JS':t.includes('prompt')?'AI':t.includes('planilha')?'Σ':t.includes('automação')?'FLOW':t.includes('agente')?'AGT':t.includes('api')?'API':t.includes('terminal')?'>_':t.includes('rag')?'RAG':'LAB';
+    m.textContent=t.includes('sql')?'SQL':t.includes('react')?'R':t.includes('typescript')?'TS':t.includes('python')?'PY':t.includes('javascript')?'JS':t.includes('pseudocódigo')?'PSEU':t.includes('lógica')?'ALG':t.includes('prompt')?'AI':t.includes('planilha')?'Σ':t.includes('automação')?'FLOW':t.includes('agente')?'AGT':t.includes('api')?'API':t.includes('terminal')?'>_':t.includes('rag')?'RAG':'LAB';
     head.prepend(m);
   });
 }
