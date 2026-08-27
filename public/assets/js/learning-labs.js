@@ -227,6 +227,65 @@
     root.querySelector('[data-send]').onclick=()=>{const method=root.querySelector('[data-method]').value,path=root.querySelector('[data-path]').value.trim();if(path!='/api/produtos'){out.textContent='HTTP 404\\n{"error":"Rota não encontrada"}';return}if(method==='GET'){out.textContent='HTTP 200\\n'+JSON.stringify({produtos:[{id:1,nome:'Mouse',preco:120},{id:2,nome:'Monitor',preco:800}]},null,2);complete({type:'api'})}else{try{const body=JSON.parse(root.querySelector('[data-body]').value||'{}');if(!body.nome||!Number.isFinite(Number(body.preco)))throw new Error('nome e preco são obrigatórios');out.textContent='HTTP 201\\n'+JSON.stringify({id:3,...body},null,2);complete({type:'api'})}catch(e){out.textContent='HTTP 422\\n'+JSON.stringify({error:e.message},null,2)}}};
   }
 
+
+  function automationLab(){
+    const steps=[
+      {id:'trigger',label:'1. Gatilho',desc:'O evento que inicia o fluxo.'},
+      {id:'validate_in',label:'2. Validar entrada',desc:'Campos, tipos e obrigatoriedade antes da IA.'},
+      {id:'rules',label:'3. Regras determinísticas',desc:'Resolva com lógica simples o que não precisa de IA.'},
+      {id:'ai',label:'4. IA com saída estruturada',desc:'Use IA apenas na interpretação/geração necessária.'},
+      {id:'validate_out',label:'5. Validar saída',desc:'Schema, valores permitidos e fallback.'},
+      {id:'action',label:'6. Ação + log',desc:'Só execute depois da validação e registre o resultado.'}
+    ];
+    const scrambled=[steps[3],steps[0],steps[5],steps[1],steps[4],steps[2]];
+    return frame('Flow Builder — automação confiável','automação',
+      '<p class="v3-lab-instructions">Clique nos blocos na ordem em que um fluxo profissional deve executar. Você já viu cada conceito antes desta prática.</p>'+
+      '<div class="nx-flow-pool" data-pool>'+scrambled.map(s=>'<button type="button" class="v3-option nx-flow-step" data-step="'+s.id+'"><span><b>'+esc(s.label)+'</b><small>'+esc(s.desc)+'</small></span></button>').join('')+'</div>'+
+      '<div class="nx-flow-built" data-built><span class="muted">Seu fluxo aparecerá aqui.</span></div>'+
+      '<div class="v3-toolbar"><button class="v3-btn" type="button" data-flow-check>Validar fluxo</button><button class="v3-btn secondary" type="button" data-flow-reset>Recomeçar</button></div>'+
+      '<div class="v3-feedback" data-feedback>Meta: nenhuma ação deve acontecer antes da validação da entrada e da saída.</div>'
+    );
+  }
+  function wireAutomation(root){
+    const expected=['trigger','validate_in','rules','ai','validate_out','action'],chosen=[],built=root.querySelector('[data-built]'),fb=root.querySelector('[data-feedback]');
+    function paint(){
+      built.innerHTML=chosen.length?chosen.map((id,i)=>'<span class="v3-pill">'+(i+1)+' · '+esc(id.replaceAll('_',' '))+'</span>').join('<span class="nx-flow-arrow">→</span>'):'<span class="muted">Seu fluxo aparecerá aqui.</span>';
+    }
+    root.querySelectorAll('[data-step]').forEach(btn=>btn.onclick=()=>{if(chosen.includes(btn.dataset.step))return;chosen.push(btn.dataset.step);btn.disabled=true;paint()});
+    root.querySelector('[data-flow-reset]').onclick=()=>{chosen.splice(0);root.querySelectorAll('[data-step]').forEach(b=>b.disabled=false);paint();feedback(fb,false,'Fluxo limpo. Monte novamente na ordem correta.')};
+    root.querySelector('[data-flow-check]').onclick=()=>{
+      const ok=chosen.length===expected.length&&chosen.every((x,i)=>x===expected[i]);
+      feedback(fb,ok,ok?'Fluxo correto: gatilho → validar entrada → regras → IA → validar saída → ação/log.':'Ainda não. Uma automação segura valida antes de interpretar e valida novamente antes de agir.');
+      if(ok)complete({type:'automation'});
+    };
+  }
+
+  function agentLab(){
+    return frame('Agent Lab — escolha de ferramentas','agente',
+      '<p class="v3-lab-instructions">Cenário: um cliente já cadastrado pediu suporte. O agente precisa localizar o cadastro, abrir um ticket e só então oferecer o envio de uma confirmação.</p>'+
+      '<div class="v3-console" data-agent-log>Estado: pedido recebido. Nenhuma ferramenta executada.</div>'+
+      '<div class="nx-agent-tools">'+
+        '<button type="button" class="v3-btn secondary" data-tool="create">criar_cliente()</button>'+
+        '<button type="button" class="v3-btn secondary" data-tool="find">buscar_cliente()</button>'+
+        '<button type="button" class="v3-btn secondary" data-tool="ticket">criar_ticket()</button>'+
+        '<button type="button" class="v3-btn secondary" data-tool="send">enviar_confirmacao()</button>'+
+      '</div>'+
+      '<div class="v3-feedback" data-feedback>Escolha a primeira ferramenta. Use o resultado real de cada chamada para decidir o próximo passo.</div>'
+    );
+  }
+  function wireAgent(root){
+    let stage=0;const log=root.querySelector('[data-agent-log]'),fb=root.querySelector('[data-feedback]');
+    const expected=['find','ticket','send'];
+    root.querySelectorAll('[data-tool]').forEach(btn=>btn.onclick=()=>{
+      const tool=btn.dataset.tool;
+      if(tool==='create'){feedback(fb,false,'Não crie um cliente antes de verificar se ele já existe.');return}
+      if(tool!==expected[stage]){feedback(fb,false,stage===0?'Primeiro localize o cliente.':stage===1?'Use o ID encontrado para criar o ticket.':'A confirmação só pode ser enviada depois do ticket.');return}
+      if(stage===0){log.textContent+='\\nbuscar_cliente({telefone}) → {id:91,nome:"Ana"}';stage++;feedback(fb,true,'Cliente encontrado. Agora use o ID real retornado para a próxima ferramenta.')}
+      else if(stage===1){log.textContent+='\\ncriar_ticket({cliente_id:91,assunto:"suporte"}) → {id:302,status:"aberto"}';stage++;feedback(fb,true,'Ticket criado. A próxima ação envia comunicação: confirme conscientemente executando a ferramenta adequada.')}
+      else {log.textContent+='\\nenviar_confirmacao({ticket_id:302}) → {status:"enviado"}';stage++;feedback(fb,true,'Fluxo concluído com ferramentas específicas, estado real e ordem controlada.');complete({type:'agent'})}
+    });
+  }
+
   function ragLab(){
     const chunks=[
       'Chunk A — Férias: solicitação deve ser enviada com antecedência mínima definida na política interna.',
@@ -281,6 +340,8 @@
     else if(type==='sql')html=sqlLab();
     else if(type==='terminal')html=terminalLab(module);
     else if(type==='api')html=apiLab();
+    else if(type==='automation')html=automationLab();
+    else if(type==='agent')html=agentLab();
     else if(type==='rag')html=ragLab();
     else if(type==='auth')html=authLab();
     else if(type==='code_ai')html=codeAiLab();
@@ -297,6 +358,8 @@
     else if(type==='sql')wireSql(el);
     else if(type==='terminal')wireTerminal(el,module);
     else if(type==='api')wireApi(el);
+    else if(type==='automation')wireAutomation(el);
+    else if(type==='agent')wireAgent(el);
     else if(type==='rag')wireRag(el);
     else if(type==='auth')wireAuth(el);
     else if(type==='code_ai')wireCodeAi(el);
