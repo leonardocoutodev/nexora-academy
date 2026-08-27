@@ -697,3 +697,19 @@ label{color:#b9cce0;font-weight:760}
   .nx-phase-divider{grid-template-columns:1fr;gap:5px;padding-top:15px}
   .nx-phase-divider span{grid-row:auto;justify-self:start}.nx-phase-divider:after{grid-column:1}
 }
+
+/* ==========================================================
+   NEXORA FOUNDATION JOURNEYS
+   ========================================================== */
+.nx-start-banner{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;
+  margin-top:18px;padding:22px;border:1px solid rgba(93,188,255,.35);border-radius:18px;
+  background:radial-gradient(circle at 0 0,rgba(72,164,255,.13),transparent 40%),linear-gradient(135deg,#0b2139,#081523)
+}
+.nx-start-banner h2{margin:5px 0 7px;font-size:26px}.nx-start-banner p{margin:0;color:#9fb5ca;max-width:820px;line-height:1.6}
+.nx-catalog-section{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;padding:20px 3px 5px;margin-top:4px}
+.nx-catalog-section span{font-size:10px;font-weight:1000;letter-spacing:.13em;color:#62c2ff;padding:6px 9px;border:1px solid rgba(84,164,232,.26);border-radius:999px;background:rgba(7,23,38,.65)}
+.nx-catalog-section strong{font-size:14px;color:#c7d9e9}
+.nx-recommended-course{border-color:rgba(88,194,255,.52)!important;box-shadow:0 18px 58px rgba(22,113,190,.13)}
+.nx-recommended-course:before{content:"RECOMENDADO";position:absolute;right:14px;top:14px;font-size:9px;font-weight:1000;letter-spacing:.12em;color:#75d1ff;padding:6px 8px;border-radius:999px;border:1px solid rgba(90,196,255,.32);background:#071a2a;z-index:4}
+@media(max-width:700px){.nx-start-banner{grid-template-columns:1fr}.nx-start-banner .v3-btn{width:100%;justify-content:center}.nx-catalog-section{grid-template-columns:1fr;gap:5px}}
