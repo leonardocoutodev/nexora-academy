@@ -547,3 +547,25 @@ label{color:#b9cce0;font-weight:760}
 .nx-module-side{display:grid;justify-items:end;gap:9px}
 @media(max-width:980px){.catalog-course{grid-template-columns:150px minmax(0,1fr)!important}.catalog-course>div:last-child{grid-column:2}.nx-module-visual-thumb{display:none}}
 @media(max-width:680px){.catalog-course{grid-template-columns:1fr!important}.nx-course-cover-frame{height:170px}.catalog-course>div:last-child{grid-column:auto}.nx-public-formation{padding-top:195px!important}.nx-public-cover{height:170px}.nx-public-formation:after{top:105px}}
+
+/* ==========================================================
+   NEXORA DEPTH LEARNING — ensinar antes de praticar
+   ========================================================== */
+.nx-teaching-stage{min-height:370px;display:flex;flex-direction:column;justify-content:flex-start}
+.nx-teaching-stage .v3-stage-actions{margin-top:auto;padding-top:22px}
+.nx-teaching-stage.type-concept{border-color:rgba(74,170,255,.38)!important;background:radial-gradient(circle at 100% 0,rgba(55,149,255,.11),transparent 35%),rgba(7,22,37,.94)!important}
+.nx-teaching-stage.type-purpose{border-color:rgba(98,221,183,.30)!important;background:radial-gradient(circle at 100% 0,rgba(71,211,166,.09),transparent 35%),rgba(7,22,37,.94)!important}
+.nx-teaching-stage.type-mechanics{border-color:rgba(130,111,255,.34)!important;background:radial-gradient(circle at 100% 0,rgba(127,101,255,.11),transparent 36%),rgba(7,22,37,.94)!important}
+.nx-teaching-stage.type-example{border-color:rgba(80,174,255,.42)!important}
+.nx-teaching-stage.type-mistake{border-color:rgba(255,135,125,.30)!important;background:radial-gradient(circle at 100% 0,rgba(255,101,101,.08),transparent 36%),rgba(7,22,37,.94)!important}
+.nx-teaching-stage.type-guided{border-color:rgba(255,205,102,.31)!important;background:radial-gradient(circle at 100% 0,rgba(255,195,73,.07),transparent 36%),rgba(7,22,37,.94)!important}
+.nx-teaching-stage.type-recap{border-color:rgba(104,229,174,.36)!important;background:radial-gradient(circle at 100% 0,rgba(70,218,162,.09),transparent 36%),rgba(7,22,37,.94)!important}
+.nx-teaching-stage p{max-width:930px;font-size:18px!important;line-height:1.78!important}
+.nx-teaching-list{display:grid;gap:10px;list-style:none;padding:0;margin:16px 0 0;max-width:930px}
+.nx-teaching-list li{position:relative;padding:13px 15px 13px 42px;border:1px solid rgba(78,151,214,.20);border-radius:12px;background:rgba(4,15,26,.56);color:#c7d7e6;line-height:1.58}
+.nx-teaching-list li:before{content:"";position:absolute;left:16px;top:18px;width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,#4db8ff,#8068ff);box-shadow:0 0 13px rgba(70,166,255,.25)}
+.nx-teaching-code{margin-top:15px!important;min-height:auto!important;white-space:pre-wrap!important;color:#d8ecff!important;font-size:15px!important;line-height:1.7!important;border-color:rgba(85,169,241,.32)!important}
+.nx-source-card{position:relative;overflow:hidden}
+.nx-source-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(#5bc6ff,#7967ff)}
+#sources>p{max-width:880px}
+@media(max-width:700px){.nx-teaching-stage{min-height:0}.nx-teaching-stage p{font-size:16px!important}.nx-teaching-list li{padding-left:38px}}
