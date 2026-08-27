@@ -1,0 +1,13 @@
+{
+  "name": "nexora-academy-supabase",
+  "private": true,
+  "version": "4.0.0",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "check": "wrangler check"
+  },
+  "devDependencies": {
+    "wrangler": "latest"
+  }
+}
