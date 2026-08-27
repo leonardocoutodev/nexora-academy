@@ -12,9 +12,36 @@ function enhanceNexoraShell(){
   let foot=qs('.side-footer',side);if(!foot){foot=document.createElement('div');foot.className='side-footer';side.appendChild(foot)}
   foot.innerHTML='<div id="sideGame" class="v3-gamification-mini"><div class="top"><span>NÍVEL <strong data-level>1</strong></span><span><strong data-xp>0</strong> XP</span></div><div class="v3-xpbar"><span data-xpbar style="width:0%"></span></div><div class="v3-streak">🔥 <span data-streak>0</span> dias de sequência</div></div><a href="https://wa.me/5573981250366?text=Ol%C3%A1%2C%20conheci%20a%20LC%20pela%20Nexora%20Academy." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;margin:8px;padding:9px 10px;border:1px solid #183a58;border-radius:11px;background:#071522;text-decoration:none"><span class="lc-symbol" style="width:28px;height:28px;font-size:12px;border-radius:8px">LC</span><span><b style="display:block;font-size:10px;color:#55c8ff">PARCEIRO TECNOLÓGICO</b><small style="color:#8fa7bf">LC Soluções Digitais ↗</small></span></a><div class="side-user"><span class="side-avatar">N</span><div><b data-user-name>Aluno</b><small data-user-role>Estudante</small></div></div>';
 }
+function decorateNexoraUI(){
+  qsa('.v3-course-card').forEach(card=>{
+    const t=(card.textContent||'').toLowerCase();
+    if(t.includes('ia generativa'))card.classList.add('nx-theme-ai');
+    if(t.includes('desenvolvimento de sistemas'))card.classList.add('nx-theme-dev');
+    if(!card.querySelector('.nx-course-orb')){
+      const mark=document.createElement('span');
+      mark.className='nx-course-orb';
+      mark.textContent=t.includes('ia generativa')?'AI':t.includes('desenvolvimento de sistemas')?'DEV':'NX';
+      card.appendChild(mark);
+    }
+  });
+  qsa('.v3-project-card').forEach(card=>{if(!card.querySelector('.nx-boss-stamp')){const s=document.createElement('span');s.className='nx-boss-stamp';s.textContent='BOSS';card.appendChild(s)}});
+  qsa('.v3-lab').forEach(lab=>{
+    const head=lab.querySelector('.v3-lab-head');if(!head||head.querySelector('.nx-lab-mark'))return;
+    const t=(head.textContent||'').toLowerCase(),m=document.createElement('span');m.className='nx-lab-mark';
+    m.textContent=t.includes('sql')?'SQL':t.includes('react')?'R':t.includes('typescript')?'TS':t.includes('javascript')?'JS':t.includes('prompt')?'AI':t.includes('planilha')?'Σ':t.includes('api')?'API':t.includes('terminal')?'>_':t.includes('rag')?'RAG':'LAB';
+    head.prepend(m);
+  });
+}
+function watchNexoraDecorations(){
+  decorateNexoraUI();
+  let queued=false;
+  const obs=new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;decorateNexoraUI()})});
+  obs.observe(document.body,{childList:true,subtree:true});
+}
 async function loadGamification(){try{const g=await NexoraSupabase.gamification();if(!g)return;const within=((Number(g.xp_total)||0)%500)/5;qsa('[data-level]').forEach(x=>x.textContent=g.level||1);qsa('[data-xp]').forEach(x=>x.textContent=g.xp_total||0);qsa('[data-streak]').forEach(x=>x.textContent=g.current_streak||0);qsa('[data-xpbar]').forEach(x=>x.style.width=Math.max(0,Math.min(100,within))+'%');window.NexoraGamification=g;return g}catch{return null}}
 async function nexoraBoot(active='dashboard'){
   enhanceNexoraShell();
+  watchNexoraDecorations();
   const u=await NexoraSupabase.user();
   if(!u){location.replace('login.html');return null}
   const profile=await NexoraSupabase.profile().catch(()=>null);
@@ -26,4 +53,4 @@ async function nexoraBoot(active='dashboard'){
   const gamification=await loadGamification();
   return {u,profile,name,gamification};
 }
-window.nexoraBoot=nexoraBoot;window.loadGamification=loadGamification;
+window.nexoraBoot=nexoraBoot;window.loadGamification=loadGamification;window.decorateNexoraUI=decorateNexoraUI;
