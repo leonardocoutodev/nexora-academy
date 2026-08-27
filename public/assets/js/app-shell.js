@@ -33,9 +33,9 @@ function showNexoraCelebration({xp=0,level=1,previousLevel=1,title='Missão conc
   const wrap=document.createElement('div');wrap.className='nx-celebration '+(levelUp?'level-up ':'')+'kind-'+kind;
   const particles=Array.from({length:22},(_,i)=>'<i style="--i:'+i+';--x:'+((i*47)%100)+'%;--d:'+(.55+(i%6)*.09)+'s"></i>').join('');
   wrap.innerHTML='<div class="nx-celebration-backdrop"></div>'+particles+'<div class="nx-celebration-card">'+
-    (levelUp?'<img src="../assets/visuals/level-up.svg" alt="" class="nx-level-art">':'<div class="nx-xp-orb">+'+Number(xp||0)+'</div>')+
+    (levelUp?'<img src="../assets/visuals/level-up.svg" alt="" class="nx-level-art">':kind==='boss'?'<div class="nx-xp-orb">⚔</div>':'<div class="nx-xp-orb">+'+Number(xp||0)+'</div>')+
     '<div class="eyebrow">'+(levelUp?'NOVO NÍVEL':'PROGRESSO SALVO')+'</div><h2>'+ (levelUp?'Level Up!':title) +'</h2>'+
-    '<p>'+(levelUp?'Você chegou ao nível <b>'+level+'</b>.':'Você ganhou <b>+'+Number(xp||0)+' XP</b>.')+'</p>'+
+    '<p>'+(levelUp?'Você chegou ao nível <b>'+level+'</b>.':kind==='boss'?'Sua entrega foi registrada e entrou na fila de avaliação.':'Você ganhou <b>+'+Number(xp||0)+' XP</b>.')+'</p>'+
     '<div class="nx-celebration-meta"><span>Nível '+level+'</span><span>XP creditado</span></div></div>';
   document.body.appendChild(wrap);
   requestAnimationFrame(()=>wrap.classList.add('show'));
