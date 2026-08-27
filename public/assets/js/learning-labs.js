@@ -36,16 +36,22 @@
     return {q:'Qual comportamento demonstra melhor aprendizagem prática?',opts:['Executar, conferir e corrigir','Copiar sem testar','Pular a validação','Aceitar qualquer resultado'],a:0,ok:'Correto. Execução e validação tornam a aprendizagem observável.'};
   }
 
-  function mcq(module,title='Checkpoint rápido'){
-    const b=bank(module);
+  function lessonCheck(module,cp){
+    if(cp&&cp.question&&Array.isArray(cp.options)&&cp.options.length>=2){
+      return {q:cp.question,opts:cp.options,a:Number(cp.answer||0),ok:cp.feedback||'Correto. Você identificou o conceito ensinado nesta microaula.'};
+    }
+    return bank(module);
+  }
+  function mcq(module,cp,title='Checkpoint rápido'){
+    const b=lessonCheck(module,cp);
     return frame(title,'múltipla escolha',
       '<p class="v3-lab-instructions">'+esc(b.q)+'</p><div class="v3-mcq" data-mcq>'+
       b.opts.map((o,i)=>'<label class="v3-option"><input type="radio" name="v3q" value="'+i+'"><span><b>'+String.fromCharCode(65+i)+'.</b> '+esc(o)+'</span></label>').join('')+
       '</div><div class="v3-toolbar"><button class="v3-btn" type="button" data-check>Verificar resposta</button></div><div class="v3-feedback" data-feedback>Escolha uma alternativa.</div>'
     );
   }
-  function wireMcq(root,module){
-    const b=bank(module),btn=root.querySelector('[data-check]'),fb=root.querySelector('[data-feedback]');
+  function wireMcq(root,module,cp){
+    const b=lessonCheck(module,cp),btn=root.querySelector('[data-check]'),fb=root.querySelector('[data-feedback]');
     root.querySelectorAll('.v3-option').forEach(x=>x.onclick=()=>{root.querySelectorAll('.v3-option').forEach(y=>y.classList.remove('selected'));x.classList.add('selected')});
     btn.onclick=()=>{const x=root.querySelector('input[name=v3q]:checked');if(!x)return feedback(fb,false,'Escolha uma alternativa antes de verificar.');const ok=Number(x.value)===b.a;root.querySelectorAll('.v3-option').forEach((o,i)=>{o.classList.toggle('correct',i===b.a);o.classList.toggle('wrong',i===Number(x.value)&&!ok)});feedback(fb,ok,ok?b.ok:'Ainda não. Observe o procedimento demonstrado na microaula e tente novamente.');if(ok){btn.disabled=true;complete({type:'mcq'})}};
   }
@@ -277,7 +283,7 @@
     else if(type==='code_ai')html=codeAiLab();
     else if(type==='product')html=productLab(module);
     else if(type==='project'||type==='boss')html=bossLab(module);
-    else html=mcq(module);
+    else html=mcq(module,ctx.lesson?.lab_config?.checkpoint);
     el.innerHTML=html;
     if(type==='prompt')wirePrompt(el,module);
     else if(type==='spreadsheet')wireSheet(el);
@@ -293,7 +299,7 @@
     else if(type==='code_ai')wireCodeAi(el);
     else if(type==='product')wireProduct(el);
     else if(type==='project'||type==='boss'){complete({type:'boss-info'})}
-    else wireMcq(el,module);
+    else wireMcq(el,module,ctx.lesson?.lab_config?.checkpoint);
   }
   window.NexoraLabs={render,isComplete:()=>state.complete};
 })();
