@@ -18,9 +18,13 @@ window.NexoraSupabase={
  rest:(path,options={})=>sbRest("nexora",path,options),
  rpc:(name,args={})=>sbRest("nexora",`rpc/${name}`,{method:"POST",body:JSON.stringify(args)}),
  profile:async()=>{const u=await authUser();if(!u)return null;const rows=await sbRest("nexora",`profiles?id=eq.${encodeURIComponent(u.id)}&select=id,full_name,role,status`);return rows[0]||null},
- courses:()=>sbRest("nexora","courses?status=eq.published&select=id,slug,title,description,minimum_score,position&order=position.asc"),
+ courses:()=>sbRest("nexora","courses?status=eq.published&select=id,slug,title,description,minimum_score,position,course_type,level_label,category_label,is_recommended_start,recommendation_note&order=position.asc"),
  enrollments:async()=>{const u=await authUser();if(!u)return[];return sbRest("nexora",`enrollments?user_id=eq.${encodeURIComponent(u.id)}&select=id,course_id,status,enrolled_at`)},
  progress:async()=>{const u=await authUser();if(!u)return[];return sbRest("nexora",`lesson_progress?user_id=eq.${encodeURIComponent(u.id)}&select=lesson_id,progress,completed_at,updated_at`)},
+ learningPaths:()=>sbRest("nexora","learning_paths?status=eq.published&select=id,slug,title,description,goal,position&order=position.asc"),
+ learningPathCourses:()=>sbRest("nexora","learning_path_courses?select=path_id,course_id,position,role&order=position.asc"),
+ learningPreference:async()=>{const u=await authUser();if(!u)return null;const r=await sbRest("nexora",`user_learning_preferences?user_id=eq.${encodeURIComponent(u.id)}&select=user_id,goal,experience_level,preferred_path_id,diagnostic_score,foundation_status,updated_at`);return r[0]||null},
+ saveLearningPreference:async data=>{const u=await authUser();if(!u)throw new Error("Não autenticado");const body={user_id:u.id,...data,updated_at:new Date().toISOString()};const r=await sbRest("nexora","user_learning_preferences?on_conflict=user_id",{method:"POST",headers:{Prefer:"resolution=merge-duplicates,return=representation"},body:JSON.stringify(body)});return r[0]||r},
  gamification:async()=>{const r=await sbRest("nexora","rpc/get_gamification_summary",{method:"POST",body:"{}"});return Array.isArray(r)?r[0]:r},
  completeLesson:async lessonId=>{const r=await sbRest("nexora","rpc/complete_lesson_mission",{method:"POST",body:JSON.stringify({p_lesson_id:lessonId})});return Array.isArray(r)?r[0]:r}
 };
