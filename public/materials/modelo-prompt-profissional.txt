@@ -1,0 +1,26 @@
+NEXORA ACADEMY — MODELO DE PROMPT PROFISSIONAL
+
+1. OBJETIVO
+Descreva em uma frase o resultado que você quer obter.
+Exemplo: Produza um resumo executivo de até 200 palavras com problema, impacto, 3 ações e riscos.
+
+2. CONTEXTO
+Forneça somente as informações necessárias para executar a tarefa.
+
+3. RESTRIÇÕES
+- Não invente dados ausentes.
+- Sinalize dúvidas como "INFORMAÇÃO AUSENTE".
+- Use somente as fontes fornecidas quando a tarefa exigir precisão factual.
+
+4. FORMATO DE SAÍDA
+Defina estrutura, tamanho, campos obrigatórios e linguagem.
+
+5. CRITÉRIOS DE QUALIDADE
+Liste como você vai conferir a resposta.
+Exemplo: todos os números devem estar presentes na fonte; nenhuma ação pode aparecer sem responsável.
+
+6. TESTE
+Use um caso normal, um incompleto e um caso limite.
+
+7. ITERAÇÃO
+Em vez de pedir "faça melhor", diga exatamente o que falhou e o que precisa mudar.
