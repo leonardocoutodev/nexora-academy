@@ -38,7 +38,10 @@
 
   function lessonCheck(module,cp){
     if(cp&&cp.question&&Array.isArray(cp.options)&&cp.options.length>=2){
-      return {q:cp.question,opts:cp.options,a:Number(cp.answer||0),ok:cp.feedback||'Correto. Você identificou o conceito ensinado nesta microaula.'};
+      const len=cp.options.length,seed=[...cp.question].reduce((s,ch)=>s+ch.charCodeAt(0),0),shift=seed%len;
+      const opts=cp.options.slice(shift).concat(cp.options.slice(0,shift));
+      const original=Number(cp.answer||0),a=(original-shift+len)%len;
+      return {q:cp.question,opts,a,ok:cp.feedback||'Correto. Você identificou o conceito ensinado nesta microaula.'};
     }
     return bank(module);
   }
