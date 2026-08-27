@@ -579,3 +579,90 @@ label{color:#b9cce0;font-weight:760}
 .nx-agent-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:13px}
 .nx-agent-tools .v3-btn{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 @media(max-width:620px){.nx-flow-pool,.nx-agent-tools{grid-template-columns:1fr}}
+
+
+/* ==========================================================
+   NEXORA MOBILE LESSON REPAIR — leitura e navegação
+   ========================================================== */
+.lesson-list{display:grid;gap:7px;min-width:0}
+.lesson-row{
+  display:grid!important;
+  grid-template-columns:32px minmax(0,1fr) 14px;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+  padding:10px 9px;
+  color:#c6d7e8!important;
+  text-decoration:none!important;
+  border:1px solid rgba(72,145,207,.16);
+  background:rgba(4,15,27,.46);
+}
+.lesson-row>span{min-width:0}
+.lesson-row>span:nth-child(2){display:block;overflow:hidden}
+.lesson-row strong{
+  display:block;
+  min-width:0;
+  font-size:12px;
+  line-height:1.38;
+  color:#e7f3ff;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.lesson-row small{
+  display:block;
+  margin-top:3px;
+  font-size:10px;
+  line-height:1.35;
+  color:#7892ab;
+}
+.lesson-row-icon{
+  width:29px;height:29px;border-radius:9px;display:grid;place-items:center;
+  background:#0b243d;border:1px solid rgba(77,158,228,.22);
+  color:#7ec8ff;font-size:10px;font-weight:900;
+}
+.lesson-row.done{border-color:rgba(67,190,137,.20);background:rgba(6,31,27,.46)}
+.lesson-row.done .lesson-row-icon{background:#0a3528;color:#68e3a7;border-color:rgba(75,210,151,.24)}
+.lesson-row.active{border-color:rgba(77,166,247,.48)!important;background:linear-gradient(100deg,rgba(16,54,94,.86),rgba(7,24,40,.78))!important}
+.quick-links{display:grid;gap:7px}
+.quick-link{display:flex!important;align-items:center;justify-content:space-between;gap:10px;min-width:0;padding:10px 11px;text-decoration:none!important}
+
+.nx-mobile-module-status{display:none}
+.nx-lesson-page .v3-lesson-main,.nx-lesson-page .v3-lesson-side,.nx-lesson-page .card{min-width:0}
+.nx-lesson-page .v3-stage{overflow:hidden}
+.nx-lesson-page .v3-stage p,.nx-lesson-page .nx-teaching-list li{overflow-wrap:anywhere}
+.nx-lesson-page pre,.nx-lesson-page code{max-width:100%;overflow:auto}
+
+@media(max-width:760px){
+  .nx-lesson-page .main-inner{padding-bottom:132px!important}
+  .nx-lesson-page .v3-lesson-shell{display:block!important}
+  .nx-lesson-page .v3-lesson-side{display:grid!important;grid-template-columns:1fr!important;margin-top:16px}
+  .nx-lesson-page .v3-mission-head{padding:20px!important}
+  .nx-lesson-page .v3-mission-head h1{font-size:clamp(27px,8vw,34px)!important;line-height:1.08!important}
+  .nx-lesson-page .v3-stage{padding:20px!important}
+  .nx-lesson-page .v3-stage h2{font-size:24px!important;line-height:1.16!important}
+  .nx-lesson-page .v3-stage p{font-size:16px!important;line-height:1.68!important}
+  .nx-mobile-module-status{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    margin-top:12px;padding:9px 11px;border-radius:11px;
+    border:1px solid rgba(74,155,224,.18);background:rgba(4,15,27,.42);
+    color:#91a9c0;font-size:11px;font-weight:750;
+  }
+  .nx-mobile-module-status span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nx-mobile-module-status strong{color:#71c3ff;font-size:12px}
+  .nx-lesson-page .v3-section-head{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+    gap:10px!important;
+  }
+  .nx-lesson-page .v3-section-head>a{width:100%;display:flex;justify-content:center}
+  .nx-lesson-page .lesson-actions{display:grid;grid-template-columns:1fr;gap:9px}
+  .nx-lesson-page .lesson-actions>a,.nx-lesson-page .lesson-actions>button{width:100%;justify-content:center;text-align:center}
+  .nx-lesson-page .v3-lesson-side .card{padding:18px!important}
+  .nx-lesson-page .lesson-row{grid-template-columns:34px minmax(0,1fr) 16px;padding:11px}
+  .nx-lesson-page .lesson-row strong{font-size:13px}
+  .nx-lesson-page .lesson-row small{font-size:10px}
+  .nx-lesson-page .bottom-nav{
+    left:14px!important;right:14px!important;bottom:max(10px,env(safe-area-inset-bottom))!important;
+    border-radius:18px!important;
+  }
+}
