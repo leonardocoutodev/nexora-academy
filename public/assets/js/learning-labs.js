@@ -171,7 +171,7 @@
         /\.map\s*\(/.test(s)&&/key\s*=/.test(s)
       ];
       const score=checks.filter(Boolean).length;
-      feedback(fb,score===4,'4/4 critérios encontrados. O exemplo demonstra componente, props, estado e renderização de lista com key.':score+'/4 critérios encontrados. Revise componente, props, useState e map com key estável.');
+      feedback(fb,score===4,score===4?'4/4 critérios encontrados. O exemplo demonstra componente, props, estado e renderização de lista com key.':score+'/4 critérios encontrados. Revise componente, props, useState e map com key estável.');
       if(score===4)complete({type:'react'});
     };
     root.querySelector('[data-react-preview]').onclick=()=>{
