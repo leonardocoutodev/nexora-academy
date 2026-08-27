@@ -13,6 +13,10 @@ function enhanceNexoraShell(){
     side.appendChild(f);
   }
 }
+if(location.pathname.endsWith('/aula.html')){
+  const css=document.createElement('link');css.rel='stylesheet';css.href='../assets/css/lesson-enrich.css';document.head.appendChild(css);
+  const js=document.createElement('script');js.src='../assets/js/lesson-enrich.js';js.defer=true;document.head.appendChild(js);
+}
 async function nexoraBoot(active='dashboard'){
   enhanceNexoraShell();
   const u=await NexoraSupabase.user();
