@@ -5,7 +5,7 @@ function enhanceNexoraShell(){
     const nav=qs('nav',side);
     const extra=document.createElement('div');
     extra.className='sidebar-extra';
-    extra.innerHTML='<a href="projetos.html" style="display:flex;gap:11px;padding:11px 12px;color:#9cafc6;font-weight:700"><span>◉</span><span>Comunidade</span></a><a href="mailto:suporte@nexora.academy" style="display:flex;gap:11px;padding:11px 12px;color:#9cafc6;font-weight:700"><span>?</span><span>Suporte</span></a>';
+    extra.innerHTML='<a href="projetos.html" style="display:flex;gap:11px;padding:11px 12px;color:#9cafc6;font-weight:700"><span>◉</span><span>Comunidade</span></a><a href="apoie.html" style="display:flex;gap:11px;margin:8px 4px;padding:12px;border:1px solid #347cff;border-radius:12px;background:linear-gradient(135deg,#0b2144,#183978);color:#fff;font-weight:900;text-decoration:none"><span>💙</span><span>Apoie a Nexora</span></a><a href="mailto:suporte@nexora.academy" style="display:flex;gap:11px;padding:11px 12px;color:#9cafc6;font-weight:700"><span>?</span><span>Suporte</span></a>';
     nav.after(extra);
     const foot=qs('.side-footer',side);
     if(foot) foot.remove();
