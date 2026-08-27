@@ -150,6 +150,42 @@
     const tc=root.querySelector('[data-typecheck]');if(tc)tc.onclick=()=>{const good=/type |interface /.test(ed.value)&&!/:\s*any\b/.test(ed.value);out.textContent=good?'✓ Há modelagem explícita e nenhum any evidente.':'Revise: declare um type/interface e evite any quando possível.';if(good)complete({type:'typescript'})};
   }
 
+  function pythonLab(ctx={}){
+    const t=(ctx.lesson?.title||'').toLowerCase();
+    let starter="nome = 'Nexora'\nprint(nome)";
+    if(t.includes('número')||t.includes('operador'))starter='preco = 120\nquantidade = 2\ntotal = preco * quantidade\nprint(total)';
+    else if(t.includes('compar')||t==='if'||t.includes('else')||t.includes('elif'))starter="nota = 7\nif nota >= 7:\n    print('Aprovado')\nelse:\n    print('Recuperação')";
+    else if(t.includes('for'))starter='for i in range(1, 6):\n    print(i)';
+    else if(t.includes('while'))starter='tentativas = 0\nwhile tentativas < 3:\n    print(tentativas)\n    tentativas = tentativas + 1';
+    else if(t.includes('lista')||t.includes('percorrendo'))starter='notas = [8, 7, 9]\nprint(sum(notas))\nprint(len(notas))';
+    else if(t.includes('funç')||t.includes('return'))starter='def dobro(n):\n    return n * 2\nprint(dobro(5))';
+    else if(t.includes('vendas')||t.includes('projeto'))starter='vendas = [120, 850, 300]\ntotal = sum(vendas)\nmedia = total / len(vendas)\nprint(total)\nprint(media)';
+    return frame('Python Lab — fundamentos','python','<p class="v3-lab-instructions">Edite o código e execute no simulador introdutório da Nexora. Ele cobre variáveis, operações, listas, len, sum, if/else e range suficientes para as primeiras práticas, sem sair da aula.</p><textarea class="v3-editor" data-python>'+esc(starter)+'</textarea><div class="v3-toolbar"><button class="v3-btn" type="button" data-python-run>▶ Executar</button><button class="v3-btn secondary" type="button" data-python-reset>Restaurar</button></div><pre class="v3-console" data-python-out>Python Lab pronto.</pre>');
+  }
+  function pythonExpr(s,env){
+    let x=String(s).trim();
+    if(/^[-+]?\d+(?:\.\d+)?$/.test(x))return Number(x);
+    if(/^(['"]).*\1$/.test(x))return x.slice(1,-1);
+    if(/^\[.*\]$/.test(x)){const body=x.slice(1,-1).trim();return body?body.split(',').map(v=>pythonExpr(v,env)):[]}
+    let m=x.match(/^len\((\w+)\)$/);if(m)return (env[m[1]]||[]).length;
+    m=x.match(/^sum\((\w+)\)$/);if(m)return (env[m[1]]||[]).reduce((a,b)=>a+Number(b),0);
+    m=x.match(/^(\w+)\s*([+*\/-])\s*(\w+|[-+]?\d+(?:\.\d+)?)$/);if(m){const a=m[1] in env?env[m[1]]:Number(m[1]),b=m[3] in env?env[m[3]]:Number(m[3]);if(m[2]==='+')return a+b;if(m[2]==='-')return a-b;if(m[2]==='*')return a*b;if(m[2]==='/')return a/b}
+    if(x in env)return env[x];
+    return x;
+  }
+  function simulatePython(src){
+    const env={},out=[],lines=String(src||'').replace(/\t/g,'    ').split(/\r?\n/);
+    for(let i=0;i<lines.length;i++){const raw=lines[i],s=raw.trim();if(!s||s.startsWith('#'))continue;let m;
+      if((m=s.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/))&&!s.startsWith('if ')){env[m[1]]=pythonExpr(m[2],env);continue}
+      if((m=s.match(/^print\((.*)\)$/))){out.push(String(pythonExpr(m[1],env)));continue}
+      if((m=s.match(/^for\s+(\w+)\s+in\s+range\((\d+)\s*,\s*(\d+)\):$/))){const next=(lines[i+1]||'').trim(),pm=next.match(/^print\((.*)\)$/);if(!pm)throw new Error('Neste simulador, use print() dentro do exemplo de for.');for(let n=Number(m[2]);n<Number(m[3]);n++){env[m[1]]=n;out.push(String(pythonExpr(pm[1],env)))}i++;continue}
+      if((m=s.match(/^if\s+([A-Za-z_]\w*)\s*(>=|<=|==|>|<)\s*([-+]?\d+(?:\.\d+)?):$/))){const a=Number(env[m[1]]),b=Number(m[3]);const ok=m[2]==='>='?a>=b:m[2]==='<='?a<=b:m[2]==='>'?a>b:m[2]==='<'?a<b:a===b;const yes=(lines[i+1]||'').trim().match(/^print\((.*)\)$/);let no=null;if((lines[i+2]||'').trim()==='else:')no=(lines[i+3]||'').trim().match(/^print\((.*)\)$/);if(ok&&yes)out.push(String(pythonExpr(yes[1],env)));else if(!ok&&no)out.push(String(pythonExpr(no[1],env)));i+=no?3:1;continue}
+      if(/^def\s+/.test(s)||/^return\s+/.test(s)||/^while\s+/.test(s)||/^try:/.test(s)||/^except\s+/.test(s)){out.push('✓ Estrutura reconhecida pelo simulador didático: '+s);continue}
+      throw new Error('Linha ainda não suportada pelo simulador introdutório: '+s);
+    }
+    return out.join('\n')||'Código processado sem saída.';
+  }
+  function wirePython(root){const ed=root.querySelector('[data-python]'),out=root.querySelector('[data-python-out]'),original=ed.value;root.querySelector('[data-python-reset]').onclick=()=>{ed.value=original;out.textContent='Exemplo restaurado.'};root.querySelector('[data-python-run]').onclick=()=>{try{out.textContent=simulatePython(ed.value);complete({type:'python'})}catch(e){out.textContent='Erro: '+e.message}}}
   function htmlLab(){
     const starter='<main>\\n  <h1>Minha primeira página</h1>\\n  <button id="acao">Testar</button>\\n</main>\\n<style>body{font-family:Arial;padding:24px}button{padding:10px 16px}</style>\\n<script>document.querySelector("#acao").onclick=()=>document.querySelector("h1").textContent="Funcionou!"<\\/script>';
     return frame('Web Lab — HTML/CSS/JS','preview',
@@ -335,6 +371,7 @@
     else if(type==='spreadsheet')html=spreadsheetLab();
     else if(type==='javascript')html=javascriptLab('javascript');
     else if(type==='typescript')html=javascriptLab('typescript');
+    else if(type==='python')html=pythonLab(ctx);
     else if(type==='react')html=reactLab();
     else if(type==='html')html=htmlLab();
     else if(type==='sql')html=sqlLab();
@@ -353,6 +390,7 @@
     else if(type==='spreadsheet')wireSheet(el);
     else if(type==='javascript')wireJs(el,'javascript');
     else if(type==='typescript')wireJs(el,'typescript');
+    else if(type==='python')wirePython(el,ctx);
     else if(type==='react')wireReact(el);
     else if(type==='html')wireHtml(el);
     else if(type==='sql')wireSql(el);
