@@ -59,6 +59,43 @@
     btn.onclick=()=>{const x=root.querySelector('input[name=v3q]:checked');if(!x)return feedback(fb,false,'Escolha uma alternativa antes de verificar.');const ok=Number(x.value)===b.a;root.querySelectorAll('.v3-option').forEach((o,i)=>{o.classList.toggle('correct',i===b.a);o.classList.toggle('wrong',i===Number(x.value)&&!ok)});feedback(fb,ok,ok?b.ok:'Ainda não. Observe o procedimento demonstrado na microaula e tente novamente.');if(ok){btn.disabled=true;complete({type:'mcq'})}};
   }
 
+  function logicLab(){
+    const steps=[
+      ['entrada','1. Definir entradas','Quais dados o algoritmo recebe?'],
+      ['regra','2. Aplicar a regra','Que transformação ou condição precisa acontecer?'],
+      ['saida','3. Definir a saída','Qual resultado deve ser observável?'],
+      ['teste','4. Testar o limite','Qual caso de fronteira prova que a regra está correta?']
+    ];
+    const mixed=[steps[2],steps[0],steps[3],steps[1]];
+    return frame('Algorithm Builder','lógica','<p class="v3-lab-instructions">Monte um algoritmo na ordem correta. O objetivo não é decorar código: é organizar entrada, regra, saída e teste.</p><div class="nx-flow-pool" data-logic-pool>'+mixed.map(s=>'<button type="button" class="v3-option nx-flow-step" data-logic="'+s[0]+'"><span><b>'+esc(s[1])+'</b><small>'+esc(s[2])+'</small></span></button>').join('')+'</div><div class="nx-flow-built" data-logic-built><span class="muted">Seu algoritmo aparecerá aqui.</span></div><div class="v3-toolbar"><button type="button" class="v3-btn" data-logic-check>Validar algoritmo</button><button type="button" class="v3-btn secondary" data-logic-reset>Recomeçar</button></div><div class="v3-feedback" data-feedback>Sequência esperada: primeiro entenda os dados, depois a regra, o resultado e o teste.</div>');
+  }
+  function wireLogic(root){
+    const expected=['entrada','regra','saida','teste'],chosen=[],built=root.querySelector('[data-logic-built]'),fb=root.querySelector('[data-feedback]');
+    const paint=()=>{built.innerHTML=chosen.length?chosen.map((x,i)=>'<span class="v3-pill">'+(i+1)+' · '+esc(x)+'</span>').join('<span class="nx-flow-arrow">→</span>'):'<span class="muted">Seu algoritmo aparecerá aqui.</span>'};
+    root.querySelectorAll('[data-logic]').forEach(b=>b.onclick=()=>{if(chosen.includes(b.dataset.logic))return;chosen.push(b.dataset.logic);b.disabled=true;paint()});
+    root.querySelector('[data-logic-reset]').onclick=()=>{chosen.splice(0);root.querySelectorAll('[data-logic]').forEach(b=>b.disabled=false);paint();feedback(fb,false,'Recomece pela pergunta: quais dados entram?')};
+    root.querySelector('[data-logic-check]').onclick=()=>{const ok=chosen.length===4&&chosen.every((x,i)=>x===expected[i]);feedback(fb,ok,ok?'Algoritmo bem estruturado: entrada → regra → saída → teste.':'Ainda não. Uma solução verificável começa definindo entrada e termina testando o resultado.');if(ok)complete({type:'logic'})};
+  }
+
+  function pseudocodeLab(){
+    const blocks=[
+      ['ler','LER valor_pedido'],
+      ['decidir','SE valor_pedido >= 200 ENTÃO'],
+      ['sim','    frete ← 0'],
+      ['senao','SENÃO'],
+      ['nao','    frete ← 20'],
+      ['mostrar','MOSTRAR frete']
+    ],mixed=[blocks[3],blocks[0],blocks[5],blocks[1],blocks[4],blocks[2]];
+    return frame('Pseudocódigo Builder','pseudocódigo','<p class="v3-lab-instructions">Ordene os blocos para representar a regra: pedidos de R$ 200 ou mais têm frete grátis; abaixo disso, frete de R$ 20.</p><div class="nx-flow-pool" data-pseudo-pool>'+mixed.map(x=>'<button type="button" class="v3-option nx-flow-step" data-pseudo="'+x[0]+'"><code>'+esc(x[1])+'</code></button>').join('')+'</div><pre class="v3-console" data-pseudo-built>Seu pseudocódigo aparecerá aqui.</pre><div class="v3-toolbar"><button type="button" class="v3-btn" data-pseudo-check>Validar</button><button type="button" class="v3-btn secondary" data-pseudo-reset>Recomeçar</button></div><div class="v3-feedback" data-feedback>Leia a entrada antes de testar a condição e mostre a saída apenas depois de definir o frete.</div>');
+  }
+  function wirePseudocode(root){
+    const expected=['ler','decidir','sim','senao','nao','mostrar'],chosen=[],pre=root.querySelector('[data-pseudo-built]'),fb=root.querySelector('[data-feedback]');
+    const labels={ler:'LER valor_pedido',decidir:'SE valor_pedido >= 200 ENTÃO',sim:'    frete ← 0',senao:'SENÃO',nao:'    frete ← 20',mostrar:'MOSTRAR frete'};
+    const paint=()=>pre.textContent=chosen.length?chosen.map(x=>labels[x]).join('\n'):'Seu pseudocódigo aparecerá aqui.';
+    root.querySelectorAll('[data-pseudo]').forEach(b=>b.onclick=()=>{if(chosen.includes(b.dataset.pseudo))return;chosen.push(b.dataset.pseudo);b.disabled=true;paint()});
+    root.querySelector('[data-pseudo-reset]').onclick=()=>{chosen.splice(0);root.querySelectorAll('[data-pseudo]').forEach(b=>b.disabled=false);paint();feedback(fb,false,'Pseudocódigo limpo. Comece por LER o valor.')};
+    root.querySelector('[data-pseudo-check]').onclick=()=>{const ok=chosen.length===expected.length&&chosen.every((x,i)=>x===expected[i]);feedback(fb,ok,ok?'Fluxo correto. Você preservou leitura, decisão, dois ramos e saída.':'Ainda não. Revise a ordem: LER → SE → caminho verdadeiro → SENÃO → caminho falso → MOSTRAR.');if(ok)complete({type:'pseudocode'})};
+  }
   function promptLab(module){
     const base= module.toLowerCase().includes('imagem')
       ? 'Crie uma imagem para divulgar um workshop.'
@@ -241,16 +278,16 @@
   }
 
   function terminalLab(module){
-    const cloud=module.toLowerCase().includes('cloudflare');
-    const steps=cloud?['npx wrangler --version','npx wrangler dev','npx wrangler deploy']:['git status','git add .','git commit -m "feat: minha alteração"','git push'];
+    const low=module.toLowerCase(),cloud=low.includes('cloudflare'),basic=low.includes('terminal sem medo');
+    const steps=cloud?['npx wrangler --version','npx wrangler dev','npx wrangler deploy']:basic?['pwd','ls','mkdir projeto','cd projeto']:['git status','git add .','git commit -m "feat: minha alteração"','git push'];
     return frame(cloud?'Terminal Cloudflare':'Terminal Git','terminal',
       '<p class="v3-lab-instructions">Digite os comandos no terminal simulado. Nada é executado no seu computador; o objetivo é aprender sequência, sintaxe e interpretação da saída.</p><pre class="v3-console" data-term-out>$ ambiente Nexora pronto</pre><div class="v3-api-row" style="margin-top:10px"><input data-term placeholder="'+esc(steps[0])+'"><button class="v3-btn" type="button" data-term-send>Executar</button></div><small class="muted" data-term-help style="display:block;margin-top:10px">Próximo objetivo: '+esc(steps[0])+'</small>'
     );
   }
   function wireTerminal(root,module){
-    const cloud=module.toLowerCase().includes('cloudflare'),steps=cloud?['npx wrangler --version','npx wrangler dev','npx wrangler deploy']:['git status','git add .','git commit -m "feat: minha alteração"','git push'];let i=0;
+    const low=module.toLowerCase(),cloud=low.includes('cloudflare'),basic=low.includes('terminal sem medo'),steps=cloud?['npx wrangler --version','npx wrangler dev','npx wrangler deploy']:basic?['pwd','ls','mkdir projeto','cd projeto']:['git status','git add .','git commit -m "feat: minha alteração"','git push'];let i=0;
     const inp=root.querySelector('[data-term]'),out=root.querySelector('[data-term-out]'),help=root.querySelector('[data-term-help]');
-    root.querySelector('[data-term-send]').onclick=()=>{const cmd=inp.value.trim();if(cmd!==steps[i]){out.textContent+='\n$ '+cmd+'\nComando válido, mas a missão atual espera: '+steps[i];return}out.textContent+='\n$ '+cmd+'\n'+(cloud?(i===0?'wrangler 4.x':i===1?'Ready on http://localhost:8787':'Deployed successfully ✓'):(i===0?'working tree status exibido':i===1?'changes staged':i===2?'commit criado ✓':'push concluído ✓'));i++;inp.value='';if(i>=steps.length){help.textContent='✓ Sequência concluída.';complete({type:'terminal'})}else{help.textContent='Próximo objetivo: '+steps[i];inp.placeholder=steps[i]}};
+    root.querySelector('[data-term-send]').onclick=()=>{const cmd=inp.value.trim();if(cmd!==steps[i]){out.textContent+='\n$ '+cmd+'\nComando válido, mas a missão atual espera: '+steps[i];return}out.textContent+='\n$ '+cmd+'\n'+(cloud?(i===0?'wrangler 4.x':i===1?'Ready on http://localhost:8787':'Deployed successfully ✓'):basic?(i===0?'/home/aluno':i===1?'README.md  src/':i===2?'pasta projeto criada ✓':'diretório atual: projeto ✓'):(i===0?'working tree status exibido':i===1?'changes staged':i===2?'commit criado ✓':'push concluído ✓'));i++;inp.value='';if(i>=steps.length){help.textContent='✓ Sequência concluída.';complete({type:'terminal'})}else{help.textContent='Próximo objetivo: '+steps[i];inp.placeholder=steps[i]}};
   }
 
   function apiLab(){
@@ -367,7 +404,9 @@
     const module=ctx.module?.title||ctx.lesson?.lab_config?.module||'Módulo';
     const type=ctx.lesson?.lab_type||'checkpoint';
     let html='';
-    if(type==='prompt')html=promptLab(module);
+    if(type==='logic')html=logicLab();
+    else if(type==='pseudocode')html=pseudocodeLab();
+    else if(type==='prompt')html=promptLab(module);
     else if(type==='spreadsheet')html=spreadsheetLab();
     else if(type==='javascript')html=javascriptLab('javascript');
     else if(type==='typescript')html=javascriptLab('typescript');
@@ -386,7 +425,9 @@
     else if(type==='project'||type==='boss')html=bossLab(module);
     else html=mcq(module,ctx.lesson?.lab_config?.checkpoint);
     el.innerHTML=html;
-    if(type==='prompt')wirePrompt(el,module);
+    if(type==='logic')wireLogic(el);
+    else if(type==='pseudocode')wirePseudocode(el);
+    else if(type==='prompt')wirePrompt(el,module);
     else if(type==='spreadsheet')wireSheet(el);
     else if(type==='javascript')wireJs(el,'javascript');
     else if(type==='typescript')wireJs(el,'typescript');
