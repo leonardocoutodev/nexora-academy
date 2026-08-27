@@ -84,3 +84,12 @@ body{background:radial-gradient(circle at 75% -10%,rgba(57,152,255,.08),transpar
 @media(max-width:760px){.main-inner{padding-left:14px!important;padding-right:14px!important}.v3-hero,.v3-mission-head,.v3-stage{padding:18px}.v3-hero h1{font-size:34px}.v3-mission-head h1{font-size:31px}.v3-metrics{grid-template-columns:1fr 1fr}.v3-grid,.v3-lesson-side{display:grid;grid-template-columns:1fr}.v3-course-card{grid-template-columns:1fr}.v3-module{grid-template-columns:42px minmax(0,1fr)}.v3-module>div:last-child{grid-column:2}.v3-badge-grid{grid-template-columns:1fr 1fr}.v3-material-grid{grid-template-columns:1fr}.v3-rubric{grid-template-columns:1fr 1fr}.v3-api-row{grid-template-columns:90px 1fr}.v3-api-row .v3-btn{grid-column:1/-1}.v3-editor{min-height:145px}.v3-certificate{padding:20px}.v3-certificate h1{font-size:30px}}
 @media(max-width:420px){.v3-metrics{grid-template-columns:1fr}.v3-badge-grid{grid-template-columns:1fr}.v3-rubric{grid-template-columns:1fr}}
 @media print{.sidebar,.mobile-header,.bottom-nav,.v3-toolbar,.support-strip{display:none!important}.main{margin:0!important}.main-inner{max-width:none!important}.v3-certificate{border:2px solid #222;background:#fff!important;color:#111!important;box-shadow:none}.v3-certificate *{color:#111!important}}
+
+/* QA UI/UX V3 */
+.v3-btn{min-height:44px}
+.v3-btn:focus-visible,.sidebar a:focus-visible,.bottom-nav a:focus-visible,.v3-option:focus-within,input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid rgba(91,183,255,.78);outline-offset:2px}
+input,select{min-height:44px}
+.v3-option input{min-height:auto}
+.bottom-nav{padding-bottom:max(7px,env(safe-area-inset-bottom))}
+@media(max-height:760px) and (min-width:821px){.sidebar{overflow-y:auto!important}.side-footer{position:static!important;margin-top:18px!important}.sidebar{padding-bottom:22px!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
