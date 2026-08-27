@@ -532,3 +532,18 @@ label{color:#b9cce0;font-weight:760}
   .nx-boss-banner-copy{padding:24px}.nx-boss-banner-copy h2{font-size:30px}
 }
 @media(prefers-reduced-motion:reduce){.nx-celebration>i{display:none}.nx-celebration-card,.nx-visual-guide{animation:none!important;transition:none!important}}
+
+.catalog-course{grid-template-columns:190px minmax(0,1fr) auto!important;align-items:stretch!important}
+.catalog-course .nx-course-art,.catalog-course .nx-course-orb{display:none!important}
+.nx-course-cover-frame{position:relative;overflow:hidden;min-height:178px;border-radius:16px;border:1px solid rgba(79,158,226,.24);background:#06121f}
+.nx-course-cover-frame img{width:100%;height:100%;object-fit:cover;display:block;opacity:.9;transition:.25s ease}
+.catalog-course:hover .nx-course-cover-frame img{transform:scale(1.035);opacity:1}
+.nx-course-cover-frame:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(4,10,18,.75))}
+.nx-course-cover-frame span{position:absolute;left:12px;bottom:11px;z-index:1;padding:6px 8px;border-radius:999px;background:rgba(4,13,23,.72);border:1px solid rgba(106,187,255,.24);color:#cfe9ff;font-size:10px;font-weight:900;letter-spacing:.08em}
+.nx-public-formation{position:relative;overflow:hidden;padding-top:220px!important}
+.nx-public-cover{position:absolute;left:0;right:0;top:0;width:100%;height:195px;object-fit:cover;opacity:.88;border-bottom:1px solid rgba(78,159,225,.24)}
+.nx-public-formation:after{content:"";position:absolute;left:0;right:0;top:125px;height:75px;background:linear-gradient(transparent,#071522);pointer-events:none}
+.nx-public-formation>*:not(.nx-public-cover){position:relative;z-index:1}
+.nx-module-side{display:grid;justify-items:end;gap:9px}
+@media(max-width:980px){.catalog-course{grid-template-columns:150px minmax(0,1fr)!important}.catalog-course>div:last-child{grid-column:2}.nx-module-visual-thumb{display:none}}
+@media(max-width:680px){.catalog-course{grid-template-columns:1fr!important}.nx-course-cover-frame{height:170px}.catalog-course>div:last-child{grid-column:auto}.nx-public-formation{padding-top:195px!important}.nx-public-cover{height:170px}.nx-public-formation:after{top:105px}}
