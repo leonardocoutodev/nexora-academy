@@ -404,3 +404,30 @@ label{color:#b9cce0;font-weight:760}
   .v3-stage h2{font-size:23px!important}
   .v3-pill{font-size:11px!important}
 }
+
+/* visual identity helpers */
+.nx-course-orb{
+  position:absolute;right:22px;top:20px;z-index:0;width:68px;height:68px;border-radius:22px;
+  display:grid;place-items:center;font-size:17px;font-weight:1000;letter-spacing:-.03em;color:rgba(224,243,255,.72);
+  border:1px solid rgba(94,178,255,.19);background:linear-gradient(145deg,rgba(64,154,244,.15),rgba(97,72,202,.10));
+  box-shadow:inset 0 1px rgba(255,255,255,.05),0 14px 34px rgba(0,0,0,.13);transform:rotate(8deg);
+}
+.v3-course-card>div{position:relative;z-index:1}.v3-course-card>div:first-child{padding-right:64px}
+.nx-theme-ai{background:radial-gradient(circle at 100% 0,rgba(139,95,255,.17),transparent 34%),linear-gradient(135deg,rgba(10,27,51,.97),rgba(10,14,34,.98))!important}
+.nx-theme-ai:before{background:linear-gradient(#9e78ff,#55d8ff)!important}
+.nx-theme-ai .nx-course-orb{color:#ded5ff;border-color:rgba(155,117,255,.28);background:linear-gradient(145deg,rgba(132,88,255,.22),rgba(63,187,255,.10))}
+.nx-theme-dev{background:radial-gradient(circle at 100% 0,rgba(57,214,164,.11),transparent 32%),linear-gradient(135deg,rgba(8,30,47,.97),rgba(5,18,30,.98))!important}
+.nx-theme-dev:before{background:linear-gradient(#62e4ae,#4ba8ff)!important}
+.nx-theme-dev .nx-course-orb{color:#bcf4de;border-color:rgba(94,224,173,.25);background:linear-gradient(145deg,rgba(52,201,153,.16),rgba(52,131,244,.10))}
+.nx-boss-stamp{
+  position:absolute;right:18px;top:17px;padding:7px 9px;border-radius:9px;border:1px solid rgba(255,207,99,.24);
+  background:rgba(68,45,6,.24);color:#ffda7e;font-size:10px;font-weight:1000;letter-spacing:.14em;transform:rotate(3deg)
+}
+.v3-project-card{position:relative;overflow:hidden}
+.nx-lab-mark{
+  flex:0 0 auto;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+  border:1px solid rgba(93,184,255,.28);background:linear-gradient(145deg,rgba(52,153,244,.18),rgba(112,77,231,.13));
+  color:#cfeaff;font:900 11px/1 ui-monospace,SFMono-Regular,Consolas,monospace;box-shadow:inset 0 1px rgba(255,255,255,.05)
+}
+.v3-lab-head{display:flex!important;justify-content:flex-start!important}.v3-lab-head>span:last-child{margin-left:auto}
+@media(max-width:600px){.nx-course-orb{width:54px;height:54px;border-radius:17px;right:13px;top:13px}.v3-course-card>div:first-child{padding-right:38px}.nx-boss-stamp{position:static;display:inline-flex;margin-bottom:10px}.nx-lab-mark{width:36px;height:36px}}
