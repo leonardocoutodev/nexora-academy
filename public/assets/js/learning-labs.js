@@ -280,7 +280,7 @@
   function terminalLab(module){
     const low=module.toLowerCase(),cloud=low.includes('cloudflare'),basic=low.includes('terminal sem medo');
     const steps=cloud?['npx wrangler --version','npx wrangler dev','npx wrangler deploy']:basic?['pwd','ls','mkdir projeto','cd projeto']:['git status','git add .','git commit -m "feat: minha alteração"','git push'];
-    return frame(cloud?'Terminal Cloudflare':'Terminal Git','terminal',
+    return frame(cloud?'Terminal Cloudflare':basic?'Terminal Básico':'Terminal Git','terminal',
       '<p class="v3-lab-instructions">Digite os comandos no terminal simulado. Nada é executado no seu computador; o objetivo é aprender sequência, sintaxe e interpretação da saída.</p><pre class="v3-console" data-term-out>$ ambiente Nexora pronto</pre><div class="v3-api-row" style="margin-top:10px"><input data-term placeholder="'+esc(steps[0])+'"><button class="v3-btn" type="button" data-term-send>Executar</button></div><small class="muted" data-term-help style="display:block;margin-top:10px">Próximo objetivo: '+esc(steps[0])+'</small>'
     );
   }
