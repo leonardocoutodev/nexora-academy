@@ -27,19 +27,42 @@ function nxModuleVisual(title,courseTitle=''){
   if(/banco|api|autenticação|full stack|cloudflare|testes/.test(t))return '../assets/visuals/visual-data-api.svg';
   return nxCourseVisual(courseTitle||title);
 }
-function showNexoraCelebration({xp=0,level=1,previousLevel=1,title='Missão concluída',kind='xp'}={}){
+function showNexoraCelebration({xp=0,level=1,previousLevel=1,title='Missão concluída',kind='xp',detail='',streak=0,duration=0}={}){
   document.querySelector('.nx-celebration')?.remove();
   const levelUp=Number(level)>Number(previousLevel||level);
-  const wrap=document.createElement('div');wrap.className='nx-celebration '+(levelUp?'level-up ':'')+'kind-'+kind;
-  const particles=Array.from({length:22},(_,i)=>'<i style="--i:'+i+';--x:'+((i*47)%100)+'%;--d:'+(.55+(i%6)*.09)+'s"></i>').join('');
-  wrap.innerHTML='<div class="nx-celebration-backdrop"></div>'+particles+'<div class="nx-celebration-card">'+
-    (levelUp?'<img src="../assets/visuals/level-up.svg" alt="" class="nx-level-art">':kind==='boss'?'<div class="nx-xp-orb">⚔</div>':'<div class="nx-xp-orb">+'+Number(xp||0)+'</div>')+
-    '<div class="eyebrow">'+(levelUp?'NOVO NÍVEL':'PROGRESSO SALVO')+'</div><h2>'+ (levelUp?'Level Up!':title) +'</h2>'+
-    '<p>'+(levelUp?'Você chegou ao nível <b>'+level+'</b>.':kind==='boss'?'Sua entrega foi registrada e entrou na fila de avaliação.':'Você ganhou <b>+'+Number(xp||0)+' XP</b>.')+'</p>'+
-    '<div class="nx-celebration-meta"><span>Nível '+level+'</span><span>XP creditado</span></div></div>';
+  const defaults={mission:2800,quiz:3200,boss:3400,module:4300,streak:4000,certificate:4700,xp:2800};
+  const hold=Number(duration||0)||(levelUp?4600:(defaults[kind]||3000));
+  const labels={mission:'MISSÃO CONCLUÍDA',quiz:'CHECKPOINT APROVADO',boss:'BOSS FIGHT REGISTRADO',module:'MÓDULO CONCLUÍDO',streak:'SEQUÊNCIA ATIVA',certificate:'CERTIFICADO DESBLOQUEADO',xp:'PROGRESSO SALVO'};
+  const icons={boss:'⚔',module:'✓',streak:'🔥',certificate:'▣'};
+  const copy=levelUp
+    ?'Você chegou ao nível <b>'+level+'</b>.'
+    :detail
+      ?detail
+      :kind==='boss'
+        ?'Sua entrega foi registrada e entrou na fila de avaliação.'
+        :kind==='module'
+          ?'Você concluiu todas as microaulas deste módulo. O próximo passo é consolidar com quiz e Boss Fight.'
+          :kind==='streak'
+            ?'Você manteve uma sequência de <b>'+Number(streak||0)+' dias</b>. Consistência também é progresso.'
+            :kind==='certificate'
+              ?'Todos os requisitos acadêmicos foram atendidos. Seu certificado já está disponível.'
+              :'Você ganhou <b>+'+Number(xp||0)+' XP</b>.';
+  const wrap=document.createElement('div');wrap.className='nx-celebration '+(levelUp?'level-up ':'')+'kind-'+kind;wrap.style.setProperty('--nx-celebration-duration',hold+'ms');
+  const particles=Array.from({length:26},(_,i)=>'<i style="--i:'+i+';--x:'+((i*47)%100)+'%;--d:'+(.7+(i%6)*.11)+'s"></i>').join('');
+  const art=levelUp
+    ?'<img src="../assets/visuals/level-up.svg" alt="" class="nx-level-art">'
+    :icons[kind]
+      ?'<div class="nx-xp-orb nx-icon-orb">'+icons[kind]+'</div>'
+      :'<div class="nx-xp-orb">+'+Number(xp||0)+'</div>';
+  wrap.innerHTML='<div class="nx-celebration-backdrop"></div>'+particles+'<div class="nx-celebration-card">'+art+
+    '<div class="eyebrow">'+(levelUp?'NOVO NÍVEL':(labels[kind]||'PROGRESSO SALVO'))+'</div><h2>'+ (levelUp?'Level Up!':title) +'</h2>'+
+    '<p>'+copy+'</p>'+
+    '<div class="nx-celebration-meta"><span>Nível '+level+'</span>'+(streak?'<span>🔥 '+streak+' dias</span>':'')+(Number(xp)>0?'<span>+'+Number(xp)+' XP</span>':'')+'</div>'+
+    '<div class="nx-celebration-timer"><span></span></div></div>';
   document.body.appendChild(wrap);
   requestAnimationFrame(()=>wrap.classList.add('show'));
-  setTimeout(()=>{wrap.classList.remove('show');setTimeout(()=>wrap.remove(),350)},levelUp?2400:1450);
+  setTimeout(()=>{wrap.classList.remove('show');setTimeout(()=>wrap.remove(),380)},hold);
+  return hold;
 }
 function decorateNexoraUI(){
   qsa('.v3-course-card').forEach(card=>{
