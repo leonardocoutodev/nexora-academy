@@ -10,5 +10,19 @@ async function createProfile(req){ const u=await requireUser(req), b=await body(
 async function me(req){ const u=await requireUser(req); const r=await rest(req,`profiles?id=eq.${encodeURIComponent(u.id)}&select=id,full_name,role,status`); const data=await r.json(); return json({user:u,profile:data[0]||null}); }
 async function courses(req){ await requireUser(req); const r=await rest(req,"courses?select=id,slug,title,description,status,minimum_score,position&order=position.asc"); const data=await r.json(); return json({courses:data}); }
 async function progress(req){ const u=await requireUser(req), b=await body(req); const payload={user_id:u.id,lesson_id:b.lesson_id,progress:Math.max(0,Math.min(100,Number(b.progress??100))),updated_at:new Date().toISOString(),completed_at:Number(b.progress??100)>=100?new Date().toISOString():null}; const r=await rest(req,"lesson_progress?on_conflict=user_id,lesson_id",{method:"POST",headers:{Prefer:"resolution=merge-duplicates,return=representation"},body:JSON.stringify(payload)}); const data=await r.json().catch(()=>({})); if(!r.ok)return json({error:data.message||"Falha ao salvar progresso"},r.status);return json({ok:true,data}); }
-async function router(req,env){ const url=new URL(req.url); if(url.pathname==="/api/health")return json({ok:true,service:"nexora-academy-supabase",database:"supabase",time:new Date().toISOString()}); if(url.pathname==="/api/nexora/profile"&&req.method==="POST")return createProfile(req); if(url.pathname==="/api/nexora/me")return me(req); if(url.pathname==="/api/nexora/courses")return courses(req); if(url.pathname==="/api/nexora/progress"&&req.method==="POST")return progress(req); return env.ASSETS.fetch(req); }
+async function staticAsset(req,env){
+  const response=await env.ASSETS.fetch(req);
+  if(!response)return response;
+  const url=new URL(req.url);
+  const headers=new Headers(response.headers);
+  const dynamicAsset=/\.(?:html|css|js)$/i.test(url.pathname)||url.pathname==='/'||!url.pathname.split('/').pop()?.includes('.');
+  if(dynamicAsset){
+    headers.set('cache-control','no-store, max-age=0, must-revalidate');
+    headers.set('pragma','no-cache');
+    headers.set('expires','0');
+    headers.set('x-nexora-build','depth-mobile-fix-20260827');
+  }
+  return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
+}
+async function router(req,env){ const url=new URL(req.url); if(url.pathname==="/api/health")return json({ok:true,service:"nexora-academy-supabase",database:"supabase",time:new Date().toISOString()}); if(url.pathname==="/api/nexora/profile"&&req.method==="POST")return createProfile(req); if(url.pathname==="/api/nexora/me")return me(req); if(url.pathname==="/api/nexora/courses")return courses(req); if(url.pathname==="/api/nexora/progress"&&req.method==="POST")return progress(req); return staticAsset(req,env); }
 export default {async fetch(req,env,ctx){try{return await router(req,env)}catch(e){return json({error:e.message||"Erro interno"},e.status||500)}}};
