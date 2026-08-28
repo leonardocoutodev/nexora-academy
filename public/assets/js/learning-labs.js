@@ -435,7 +435,7 @@
     return frame(cfg.title||'Expression Lab','expressões',
       '<p class="v3-lab-instructions">'+esc(cfg.scenario||'Escolha a expressão que representa a regra e valide-a contra os casos de teste.')+'</p>'+
       (cfg.instruction?'<div class="v3-feedback">'+esc(cfg.instruction)+'</div>':'')+
-      '<div class="v3-mcq" data-expression-options>'+options.map((o,i)=>'<label class="v3-option"><input type="radio" name="expressionLab" value="'+i+'"><span><b>'+String.fromCharCode(65+i)+'.</b> <code>'+esc(o)+'</code></span></label>').join('')+'</div>'+
+      '<div class="v3-mcq" data-expression-options>'+options.map((o,i)=>'<button type="button" class="v3-option" data-expression-option="'+i+'"><span><b>'+String.fromCharCode(65+i)+'.</b> <code>'+esc(o)+'</code></span></button>').join('')+'</div>'+
       (cases.length?'<div class="nx-expression-cases"><div class="eyebrow">CASOS DE TESTE</div>'+cases.map(x=>'<div class="nx-expression-case"><span>'+esc(x.input||'Caso')+'</span><strong>'+esc(x.expected||'')+'</strong></div>').join('')+'</div>':'')+
       '<div class="v3-toolbar"><button class="v3-btn" type="button" data-expression-check>Executar cenários</button></div>'+
       '<div class="v3-feedback" data-feedback>Escolha uma expressão e confronte-a com todos os casos, especialmente os limites.</div>'
@@ -443,12 +443,12 @@
   }
   function wireExpression(root,ctx){
     const cfg=ctx.lesson?.lab_config?.expression||{},answer=Number(cfg.answer||0),btn=root.querySelector('[data-expression-check]'),fb=root.querySelector('[data-feedback]');
-    root.querySelectorAll('[data-expression-options] .v3-option').forEach(x=>x.onclick=()=>{root.querySelectorAll('[data-expression-options] .v3-option').forEach(y=>y.classList.remove('selected'));x.classList.add('selected')});
+    const optionRoot=root.querySelector('[data-expression-options]');
+    optionRoot.querySelectorAll('[data-expression-option]').forEach(x=>x.onclick=()=>{optionRoot.querySelectorAll('[data-expression-option]').forEach(y=>y.classList.remove('selected'));x.classList.add('selected');optionRoot.dataset.selected=x.dataset.expressionOption});
     btn.onclick=()=>{
-      const selected=root.querySelector('input[name=expressionLab]:checked');
-      if(!selected)return feedback(fb,false,'Escolha uma expressão antes de executar os cenários.');
-      const chosen=Number(selected.value),ok=chosen===answer;
-      root.querySelectorAll('[data-expression-options] .v3-option').forEach((o,i)=>{o.classList.toggle('correct',i===answer);o.classList.toggle('wrong',i===chosen&&!ok)});
+      if(optionRoot.dataset.selected==null)return feedback(fb,false,'Escolha uma expressão antes de executar os cenários.');
+      const chosen=Number(optionRoot.dataset.selected),ok=chosen===answer;
+      optionRoot.querySelectorAll('[data-expression-option]').forEach((o,i)=>{o.classList.toggle('correct',i===answer);o.classList.toggle('wrong',i===chosen&&!ok)});
       feedback(fb,ok,ok?(cfg.feedback||'A expressão representa a regra e permanece correta nos casos de teste.'):(cfg.feedback_incorrect||'Essa expressão falha em pelo menos um cenário. Releia a regra e teste novamente os limites.'));
       if(ok){btn.disabled=true;complete({type:'expression',answer:chosen})}
     };
