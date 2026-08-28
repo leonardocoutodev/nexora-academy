@@ -96,7 +96,7 @@ input,select{min-height:44px}
 
 
 /* ==========================================================
-   NEXORA VISUAL POLISH — premium edtech, gamificado sem infantilizar
+   LC VISUAL POLISH — premium edtech, gamificado sem infantilizar
    ========================================================== */
 :root{
   --nx-bg-0:#030912;
@@ -739,7 +739,7 @@ label{color:#b9cce0;font-weight:760}
 
 
 /* ==========================================================
-   NEXORA MOBILE-FIRST HARDENING — 2026-08-28
+   LC MOBILE-FIRST HARDENING — 2026-08-28
    Prioridade: ergonomia, descoberta, desempenho e safe areas.
    ========================================================== */
 input[type="checkbox"],input[type="radio"]{min-height:0!important;width:auto;accent-color:#4da7ff}
@@ -922,3 +922,50 @@ input[type="checkbox"],input[type="radio"]{min-height:0!important;width:auto;acc
   .v3-toolbar{gap:7px!important}
   .card .v3-toolbar>.v3-btn,.card .v3-toolbar>.btn-secondary{flex:1 1 100%}
 }
+
+
+/* ==========================================================
+   LC VISUAL IDENTITY OVERRIDES — approved 2026-08-28
+   ========================================================== */
+:root{
+  --v3-bg:var(--lc-ink);
+  --v3-panel:var(--lc-navy);
+  --v3-panel2:var(--lc-surface-2);
+  --v3-line:var(--lc-border);
+  --v3-text:var(--lc-white);
+  --v3-muted:var(--lc-text-secondary);
+  --v3-blue:var(--lc-blue);
+  --v3-cyan:var(--lc-mint);
+  --v3-purple:var(--lc-blue);
+  --v3-green:var(--lc-mint);
+  --v3-amber:var(--lc-warning);
+  --v3-red:var(--lc-error);
+  --nx-bg-0:var(--lc-ink);
+  --nx-bg-1:#081523;
+  --nx-bg-2:var(--lc-navy);
+  --nx-surface:rgba(13,27,46,.78);
+  --nx-surface-strong:rgba(13,27,46,.96);
+  --nx-border:rgba(157,172,193,.20);
+  --nx-border-strong:rgba(40,120,255,.44);
+  --nx-blue:var(--lc-blue);
+  --nx-cyan:var(--lc-mint);
+  --nx-violet:var(--lc-blue);
+  --nx-mint:var(--lc-mint);
+}
+body{
+  background:
+    radial-gradient(circle at 12% -6%,rgba(40,120,255,.13),transparent 27rem),
+    radial-gradient(circle at 88% 2%,rgba(56,230,176,.07),transparent 31rem),
+    linear-gradient(180deg,var(--lc-ink) 0%,#081523 44%,#06101c 100%)!important;
+}
+.v3-hero,.v3-mission-head{
+  background:
+    radial-gradient(circle at 92% 8%,rgba(56,230,176,.08),transparent 36%),
+    linear-gradient(135deg,#0a1d37,var(--lc-navy) 62%,#0a1727)!important;
+}
+.v3-xpbar span,.v3-progress>span,.v3-quiz-progress span{
+  background:linear-gradient(90deg,var(--lc-blue),var(--lc-mint))!important;
+  box-shadow:0 0 18px rgba(40,120,255,.26);
+}
+.v3-step-dot.current{background:linear-gradient(90deg,var(--lc-blue),var(--lc-mint))!important}
+.v3-module.current .v3-node{background:linear-gradient(135deg,var(--lc-blue),#3e8dff)!important}

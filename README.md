@@ -1,6 +1,6 @@
-# Nexora Academy
+# LC — Learn & Create
 
-A **Nexora Academy** é uma iniciativa gratuita de educação em tecnologia, programação e inteligência artificial, idealizada e desenvolvida por **Leonardo Couto**.
+A **LC — Learn & Create** é uma plataforma gratuita de educação em tecnologia, programação e inteligência artificial, idealizada e desenvolvida por **Leonardo Couto**.
 
 A plataforma foi desenhada para unir conteúdo aprofundado, prática guiada, laboratórios internos, avaliações objetivas, projetos funcionais e materiais de apoio. O acesso acadêmico não depende de pagamento.
 
@@ -16,7 +16,7 @@ A plataforma foi desenhada para unir conteúdo aprofundado, prática guiada, lab
 
 ## Princípios acadêmicos
 
-O conteúdo deve funcionar sozinho dentro da Nexora. Materiais de apoio aprofundam o aprendizado, mas não substituem aulas completas. Recursos visuais são usados quando explicam um conceito específico; não devem ser repetidos apenas para preencher espaço. A revisão editorial inclui português, clareza, consistência terminológica e correção pedagógica.
+O conteúdo deve funcionar sozinho dentro da LC. Materiais de apoio aprofundam o aprendizado, mas não substituem aulas completas. Recursos visuais são usados quando explicam um conceito específico; não devem ser repetidos apenas para preencher espaço. A revisão editorial inclui português, clareza, consistência terminológica e correção pedagógica.
 
 ## Gratuidade e contribuições
 
@@ -24,7 +24,7 @@ Todos os cursos, aulas, laboratórios, avaliações e certificados seguem as mes
 
 ## Autoria e atuação profissional
 
-**Idealizada e desenvolvida por Leonardo Couto.** A Nexora também funciona como demonstração prática de competências aplicadas em desenvolvimento de plataformas, sistemas, automações, dashboards e soluções digitais vinculadas à atuação profissional de Leonardo Couto / LC Soluções Digitais.
+**Idealizada e desenvolvida por Leonardo Couto.** A LC também funciona como demonstração prática de competências aplicadas em desenvolvimento de plataformas, sistemas, automações, dashboards e soluções digitais vinculadas à atuação profissional de Leonardo Couto / LC Soluções Digitais.
 
 ## Stack
 
@@ -58,6 +58,8 @@ O comando `check` executa a auditoria de HTML, JavaScript e links locais, os tes
 - As Edge Functions versionadas em `supabase/functions` exigem segredos configurados no Supabase; nunca adicione chaves ao repositório.
 
 Variáveis esperadas pelas funções de pagamento:
+
+> Compatibilidade: alguns identificadores técnicos ainda usam o codinome legado `nexora` (schema, rotas e nomes de Edge Functions). Eles são preservados nesta fase para não interromper sessões, integrações ou deploys.
 
 - `MERCADOPAGO_ACCESS_TOKEN`
 - `MERCADOPAGO_WEBHOOK_SECRET`

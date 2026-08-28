@@ -1,6 +1,6 @@
-# Supabase da Nexora
+# Supabase da LC
 
-Projeto atual: `kvwsqfnyebyjncfgvqnd`, com dados no schema exposto `nexora` e funções auxiliares no schema privado `nexora_private`.
+Projeto atual (identificadores técnicos legados preservados por compatibilidade): `kvwsqfnyebyjncfgvqnd`, com dados no schema exposto `nexora` e funções auxiliares no schema privado `nexora_private`.
 
 As migrations anteriores permanecem registradas no projeto remoto. Novas alterações devem ser adicionadas em `supabase/migrations`, revisadas pelos advisors de segurança e desempenho e aplicadas primeiro em uma branch de desenvolvimento.
 

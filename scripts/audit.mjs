@@ -22,12 +22,16 @@ for(const file of files.filter(file=>file.endsWith(".html"))){
 const mobileCss=fs.readFileSync(path.join(root,"assets/css/academy-v3.css"),"utf8");
 const lessonCss=fs.readFileSync(path.join(root,"assets/css/learning-release.css"),"utf8");
 const appShellSource=fs.readFileSync(path.join(root,"assets/js/app-shell.js"),"utf8");
+const brandCss=fs.readFileSync(path.join(root,"assets/css/lc-brand.css"),"utf8");
 for(const [label,source,patterns] of [
-  ["academy-v3.css",mobileCss,["NEXORA MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more",'input[type="checkbox"]']],
+  ["academy-v3.css",mobileCss,["LC MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more",'input[type="checkbox"]']],
   ["learning-release.css",lessonCss,["nx-mobile-lesson-picker","nx-book-dots button","nx-mobile-pdf-note"]],
-  ["app-shell.js",appShellSource,["enhanceMobileNavigation","aria-current","nx-mobile-more","inert"]]
+  ["app-shell.js",appShellSource,["enhanceMobileNavigation","aria-current","nx-mobile-more","inert","lc-mark.svg"]],
+  ["lc-brand.css",brandCss,["--lc-ink:#07111F","--lc-blue:#2878FF","--lc-mint:#38E6B0","--lc-font:Inter"]]
 ])for(const pattern of patterns){if(!source.includes(pattern))failures.push(`${label}: proteção mobile ausente (${pattern})`)}
 for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/apoie.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!/viewport-fit=cover/.test(html))failures.push(`${rel}: viewport-fit=cover ausente`)}
+for(const requiredBrand of ["assets/brand/lc-mark.svg","assets/css/lc-brand.css","manifest.webmanifest"]){if(!fs.existsSync(path.join(root,requiredBrand)))failures.push(`ativo LC ausente: ${requiredBrand}`)}
+for(const file of files.filter(file=>/\.(?:html|js|css)$/.test(file))){const source=fs.readFileSync(file,"utf8");if(source.includes("nexora-logo.svg")||source.includes("Nexora Academy"))failures.push(`${path.relative(root,file)}: resíduo público da marca anterior`)}
 const labSource=fs.readFileSync(path.join(root,"assets/js/learning-labs.js"),"utf8");
 if(labSource.includes("new Function"))failures.push("learning-labs.js não pode executar código no contexto da aplicação");
 for(const required of ["supabase/migrations/20260828090000_nexora_security_hardening.sql","supabase/functions/nexora-mercadopago-donation/index.ts","supabase/functions/nexora-mercadopago-webhook/index.ts"]){if(!fs.existsSync(required))failures.push(`arquivo operacional ausente: ${required}`)}

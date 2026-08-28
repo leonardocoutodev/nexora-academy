@@ -16,7 +16,7 @@ Mapas e diagramas são opcionais e precisam ser específicos para o conceito. Um
 Todo conteúdo publicado deve passar por revisão de ortografia, concordância, pontuação, terminologia e clareza pedagógica.
 
 ## Autoria e marca
-A Nexora Academy é idealizada e desenvolvida por Leonardo Couto. A LC Soluções Digitais pode aparecer como marca profissional relacionada ao trabalho de desenvolvimento, sem publicidade invasiva durante aulas, quizzes ou laboratórios.
+A LC é idealizada e desenvolvida por Leonardo Couto. A LC Soluções Digitais pode aparecer como marca profissional relacionada ao trabalho de desenvolvimento, sem publicidade invasiva durante aulas, quizzes ou laboratórios.
 
 ## Contribuições
-A Nexora permanece gratuita. A contribuição é voluntária, aceita qualquer valor a partir de R$ 1 e não altera acesso, nota, XP, prioridade, certificado ou qualquer requisito acadêmico.
+A LC permanece gratuita. A contribuição é voluntária, aceita qualquer valor a partir de R$ 1 e não altera acesso, nota, XP, prioridade, certificado ou qualquer requisito acadêmico.

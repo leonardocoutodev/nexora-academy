@@ -1,4 +1,4 @@
-# Nexora Academy — Padrão Acadêmico e Pedagógico
+# LC — Padrão Acadêmico e Pedagógico
 
 ## Missão
 Oferecer educação tecnológica gratuita, rigorosa, acessível e orientada à prática. Gratuidade não significa conteúdo superficial.
@@ -16,7 +16,7 @@ Oferecer educação tecnológica gratuita, rigorosa, acessível e orientada à p
 10. Publicidade e doações nunca condicionam acesso, nota ou certificação.
 
 ## Arquitetura da jornada
-A Nexora organiza aprendizagem em quatro níveis visíveis ao aluno:
+A LC organiza aprendizagem em quatro níveis visíveis ao aluno:
 1. Iniciante — primeiro contato, com Lógica de Programação Básica como recomendação padrão.
 2. Fundamentos — cursos curtos para consolidar pensamento computacional, pseudocódigo, matemática, terminal/Git, Web e Python.
 3. Profissional — formações completas orientadas a projetos e portfólio.
@@ -109,4 +109,4 @@ Antes de publicar um módulo:
 Conteúdo de IA, frameworks, APIs, Cloudflare, Supabase e ferramentas de desenvolvimento deve ser revisado periodicamente e sempre que uma mudança relevante tornar instruções incorretas ou obsoletas.
 
 ## Modelo gratuito e sustentabilidade
-A Nexora é um projeto educacional gratuito. Apoio financeiro é voluntário. A LC Soluções Digitais pode aparecer como parceira/mantenedora e divulgar serviços de forma identificada, proporcional e não intrusiva. O aluno sempre deve conseguir recusar a oferta e continuar estudando normalmente.
+A LC é um projeto educacional gratuito. Apoio financeiro é voluntário. A LC Soluções Digitais pode aparecer como parceira/mantenedora e divulgar serviços de forma identificada, proporcional e não intrusiva. O aluno sempre deve conseguir recusar a oferta e continuar estudando normalmente.
