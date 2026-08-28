@@ -26,52 +26,97 @@ Lógica de Programação Básica deve ser recomendada a todo aluno que entra em 
 
 As rotas por objetivo podem incluir cursos recomendados, opcionais e um curso/formação de destino. Ao concluir uma etapa, a plataforma deve recomendar a próxima etapa coerente com a rota escolhida.
 
-## Arquitetura mínima de cada módulo
-- Visão geral e competências.
-- Diagnóstico ou pergunta de abertura.
-- Aula 1: fundamentos e modelo mental.
-- Aula 2: aplicação/oficina guiada.
-- Aula 3: laboratório, estudo de caso ou projeto.
-- Apostila digital do módulo.
-- Glossário.
-- Exemplos comentados.
-- Checklist operacional.
-- Exercícios de recuperação e fixação.
-- Quiz formativo com feedback explicativo.
-- Atividade aplicada.
-- Critérios/rubrica de avaliação.
-- Síntese e próximos passos.
-- Referências para aprofundamento.
+## Arquitetura de qualidade de cada módulo
+Um módulo precisa construir uma competência progressivamente. Ele deve combinar, conforme o tema:
+- contexto e modelo mental;
+- explicações substantivas;
+- exemplos resolvidos;
+- prática guiada;
+- exercícios ou laboratório;
+- avaliação formativa;
+- material de apoio;
+- atividade integradora quando fizer sentido;
+- referências e critérios de domínio.
+
+Esses elementos são requisitos de qualidade do **módulo**, não uma obrigação de repetir o mesmo bloco em todas as aulas.
 
 ## Regra de progressão — ensinar antes de pedir
-Nenhuma atividade pode exigir um conceito que ainda não tenha sido ensinado, demonstrado e exemplificado na própria microaula ou em uma microaula anterior claramente identificada.
+Nenhuma atividade pode exigir um conceito que ainda não tenha sido ensinado, demonstrado ou construído previamente.
 
-A sequência obrigatória para um conceito novo é:
-1. O que é — definição simples e tecnicamente correta.
-2. Para que serve — problema real que o conceito resolve.
-3. Como funciona — decomposição das partes do conceito.
-4. Exemplo resolvido — o aluno vê a solução antes de produzir a sua.
-5. Erro comum — contraexemplo ou falha típica e a explicação do motivo.
-6. Faça comigo — alteração pequena de um exemplo pronto.
-7. Só então: prática independente, laboratório ou checkpoint.
-8. Feedback objetivo e recuperação imediata quando houver erro.
+Para conceitos novos, a ordem de dependência é:
+1. tornar o problema compreensível;
+2. apresentar e explicar o conceito;
+3. demonstrar pelo menos uma aplicação;
+4. permitir tentativa guiada quando necessária;
+5. só então exigir aplicação independente;
+6. oferecer feedback que explique a causa do acerto ou erro.
 
-Microlearning significa dividir o conhecimento em unidades menores; nunca significa resumir ou omitir fundamentos necessários.
+A forma editorial usada para cumprir essa progressão depende do assunto. Microlearning pode dividir uma competência em partes, mas nunca deve empobrecer ou fragmentar artificialmente o conteúdo.
 
-## Padrão de aula
-Cada microaula deve conter, quando aplicável:
-1. Título específico e resultado de aprendizagem.
-2. Pré-requisitos já ensinados.
-3. Definição conceitual completa.
-4. Contextualização: por que aquilo importa.
-5. Funcionamento explicado por partes.
-6. Exemplo concreto totalmente resolvido.
-7. Exemplo inadequado/erro comum com explicação.
-8. Prática guiada antes da prática independente.
-9. Laboratório ou múltipla escolha somente depois do ensino.
-10. Critérios para conferir a resposta.
-11. Resumo de retenção.
-12. Referências editoriais prioritariamente oficiais/primárias.
+## Padrão editorial de aula
+A LC não usa um único template textual para todas as aulas. Cada aula deve ensinar completamente a competência proposta e escolher a estrutura que melhor se adapta ao conteúdo.
+
+Formatos aceitos incluem:
+- **aula conceitual:** contexto → conceito → funcionamento → exemplo → aplicação;
+- **oficina prática:** problema → demonstração → construção guiada → desafio;
+- **debugging:** comportamento incorreto → investigação → hipótese → correção → explicação;
+- **estudo de caso:** cenário → dados → decisão → consequências → atividade;
+- **tutorial técnico:** objetivo → preparação → execução → validação → problemas frequentes;
+- **aula de projeto:** briefing → planejamento → construção → teste → critérios de aceite.
+
+Blocos editoriais disponíveis, usados somente quando acrescentam valor:
+- contexto;
+- por que isso importa;
+- conceito;
+- como funciona;
+- exemplo ou demonstração;
+- comparação;
+- erro comum;
+- pergunta rápida de compreensão;
+- prática guiada;
+- contexto profissional;
+- critérios de domínio;
+- resumo.
+
+**Nenhum bloco deve existir apenas porque um template exige.** Se um conceito não precisa de “erro comum”, o bloco não deve ser inventado. Se um assunto exige vários exemplos, eles devem existir. Se um único estudo de caso aprofundado ensina melhor, ele deve ser priorizado.
+
+## Experiência de leitura
+- A aula deve ser uma narrativa contínua, não uma sequência de cards independentes.
+- Scroll é aceitável e esperado quando há conteúdo útil.
+- Evitar interrupções artificiais por botões “Continuar”.
+- Parágrafos, subtítulos, código, listas, diagramas e interações devem aparecer no momento em que ajudam a compreensão.
+- Interações de checagem são curtas e contextuais; não substituem explicação.
+- Materiais complementares não devem quebrar o fluxo principal da aula.
+- O objetivo é reduzir a sensação de peso sem reduzir profundidade.
+
+## Objetivos de aprendizagem
+Objetivos devem ser específicos à competência da aula. Evitar fórmulas repetidas como “explicar X, aplicar X e validar X” quando não descrevem de forma natural o resultado esperado.
+
+Prefira verbos observáveis e contextualizados, como:
+- diferenciar;
+- modelar;
+- construir;
+- prever;
+- diagnosticar;
+- comparar;
+- escolher;
+- validar;
+- compor;
+- demonstrar.
+
+## Avaliação alinhada à competência
+Checkpoints e quizzes devem medir aplicação e compreensão, não apenas reconhecimento de definições.
+
+Priorizar:
+- cenários;
+- previsão de comportamento;
+- escolha de estratégia;
+- identificação de erro;
+- casos de fronteira;
+- interpretação de código, fluxo ou dados;
+- decisões justificáveis a partir do conteúdo.
+
+Alternativas não devem ser artificialmente óbvias e o feedback deve explicar o raciocínio correto.
 
 ## Formato das atividades
 - Priorizar prompts, múltipla escolha, planilhas, código, SQL, APIs, seleção/classificação e artefatos funcionais.
