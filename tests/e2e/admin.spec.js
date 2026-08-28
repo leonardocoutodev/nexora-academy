@@ -30,7 +30,7 @@ test('admin can issue certificate from student detail',async({page})=>{
   await expect(issue).toBeVisible();
   await issue.click();
   await expect(page.locator('#adminToast')).toContainText('Certificado emitido com sucesso');
-  await expect(page.getByText('LC-ADMIN-2026')).toBeVisible();
+  await expect(page.locator('#studentDialog a[href*="LC-ADMIN-2026"]').first()).toBeVisible();
 });
 
 test('admin Boss review can approve with score',async({page})=>{
