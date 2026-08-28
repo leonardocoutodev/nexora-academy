@@ -55,6 +55,21 @@ if(lessonHtml.includes('id="bookPages"')||lessonHtml.includes("Deslize para avan
 const labSource=fs.readFileSync(path.join(root,"assets/js/learning-labs.js"),"utf8");
 if(labSource.includes("new Function"))failures.push("learning-labs.js não pode executar código no contexto da aplicação");
 for(const required of ["supabase/migrations/20260828090000_nexora_security_hardening.sql","supabase/migrations/20260828144500_lc_editorial_pilot_logic_module_1.sql","supabase/migrations/20260828152000_lc_editorial_logic_module_2.sql","supabase/migrations/20260828152500_lc_editorial_logic_module_3.sql","supabase/migrations/20260828153000_lc_editorial_logic_module_4.sql","supabase/migrations/20260828153500_lc_editorial_logic_module_5.sql","supabase/migrations/20260828170000_lc_phase1_functional_integrity.sql","supabase/migrations/20260828181500_lc_phase3_operations.sql","supabase/migrations/20260828184500_lc_phase4_analytics.sql","supabase/migrations/20260828185000_lc_phase4_app_sessions.sql","supabase/migrations/20260828185200_lc_anon_rpc_access.sql","supabase/migrations/20260828185500_lc_analytics_privacy_guard.sql","supabase/functions/lc-mercadopago-donation/index.ts","supabase/functions/lc-mercadopago-webhook/index.ts"]){if(!fs.existsSync(required))failures.push(`arquivo operacional ausente: ${required}`)}
+for(const required of [
+  "playwright.config.js",
+  "lighthouserc.cjs",
+  "tests/e2e/helpers/mock-supabase.js",
+  "tests/e2e/helpers/quality.js",
+  "tests/e2e/public.spec.js",
+  "tests/e2e/student-flows.spec.js",
+  "tests/e2e/admin.spec.js",
+  "tests/e2e/responsive.spec.js",
+  "tests/e2e/visual.spec.js",
+  "scripts/quality-static.mjs",
+  ".github/workflows/quality.yml",
+  ".github/workflows/production-quality.yml",
+  "docs/LC_QUALITY.md"
+]){if(!fs.existsSync(required))failures.push(`arquivo de qualidade ausente: ${required}`)}
 const legacyPalette=["#8457ff","#754fff","#9b6fff","#7e59ff","#7c63ff","#8c72ff","#7564ff","#7664ff","#8b6dff","#6e5cff","rgba(124,99,255","rgba(140,114,255","rgba(142,111,255"];
 for(const rel of ["assets/css/styles.css","assets/css/academy-v3.css"]){const source=fs.readFileSync(path.join(root,rel),"utf8").toLowerCase();for(const legacy of legacyPalette){if(source.includes(legacy.toLowerCase()))failures.push(`${rel}: cor legada fora da paleta LC (${legacy})`)}}
 const projectsHtml=fs.readFileSync(path.join(root,"pages/projetos.html"),"utf8");
