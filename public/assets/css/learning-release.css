@@ -6,3 +6,38 @@ html,body{max-width:100%;overflow-x:hidden}.nx-visual-guide{overflow:hidden;min-
 @media(max-width:390px){.nx-lesson-page .v3-mission-meta{gap:6px}.nx-lesson-page .v3-pill{font-size:11px;padding:7px 9px}.bottom-nav a span:last-child{font-size:11px}.nx-pdf-frame{height:390px}.nx-book-paper{padding:22px 18px 28px}.nx-book-top span:last-child{display:none}}
 @media(prefers-reduced-motion:reduce){.nx-book-pages{scroll-behavior:auto}.nx-book-dots button{transition:none}}
 @media print{.bottom-nav,.mobile-header,.nx-book-controls,.nx-book-top{display:none!important}.nx-lesson-page .main-inner{padding-bottom:0!important}.nx-book-pages{display:block;overflow:visible}.nx-book-page{page-break-after:always}.nx-book-paper{box-shadow:none;min-height:0}}
+
+
+/* Mobile-first lesson ergonomics — 2026-08-28 */
+.nx-mobile-lesson-picker{display:none}
+.nx-mobile-pdf-note{display:none}
+@media(max-width:760px){
+  .nx-lesson-page .main-inner{padding-bottom:calc(120px + env(safe-area-inset-bottom))!important}
+  .nx-lesson-page .v3-mission-head{padding:18px!important}
+  .nx-mobile-lesson-picker{display:block;margin-top:12px;border:1px solid rgba(75,154,222,.22);border-radius:13px;background:rgba(4,16,28,.48);overflow:hidden}
+  .nx-mobile-lesson-picker summary{list-style:none;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 13px;color:#dcecff;font-size:13px;font-weight:850;cursor:pointer}
+  .nx-mobile-lesson-picker summary::-webkit-details-marker{display:none}
+  .nx-mobile-lesson-picker summary:after{content:"⌄";color:#6fc4ff;font-size:17px;transition:transform .16s ease}
+  .nx-mobile-lesson-picker[open] summary:after{transform:rotate(180deg)}
+  .nx-mobile-lesson-picker .lesson-list{padding:0 9px 10px;max-height:50dvh;overflow:auto;overscroll-behavior:contain}
+  .nx-mobile-lesson-picker .lesson-row{min-height:50px}
+  .nx-book-controls{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .nx-book-dots{grid-column:1/-1;grid-row:1;overflow-x:auto;justify-content:flex-start;padding:2px 0;scrollbar-width:none}
+  .nx-book-dots::-webkit-scrollbar{display:none}
+  .nx-book-controls>#bookPrev{grid-column:1;grid-row:2}
+  .nx-book-controls>#bookNext{grid-column:2;grid-row:2}
+  .nx-book-dots button{position:relative;flex:0 0 30px;width:30px!important;height:30px!important;background:transparent!important}
+  .nx-book-dots button:after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:99px;background:#39516b;transform:translate(-50%,-50%)}
+  .nx-book-dots button.active:after{width:20px;background:#68adf2}
+  .nx-book-top{font-size:11px!important;letter-spacing:.05em!important}
+  .nx-pdf-frame{display:none!important}
+  .nx-mobile-pdf-note{display:block;margin-top:11px;padding:10px 11px;border:1px solid rgba(76,150,214,.18);border-radius:10px;background:rgba(4,16,28,.46);color:#8fa9c1;font-size:12px;line-height:1.5}
+  .nx-material-actions>*{min-height:48px}
+  .bottom-nav.nx-mobile-nav{grid-template-columns:repeat(5,minmax(0,1fr))!important;min-height:68px!important}
+  .bottom-nav.nx-mobile-nav>a,.bottom-nav.nx-mobile-nav>button{font-size:10.5px!important;padding:5px 2px!important}
+}
+@media(max-width:390px){
+  .nx-book-paper{min-height:0!important}
+  .nx-book-section p{font-size:16.5px!important}
+  .nx-book-controls>#bookPrev,.nx-book-controls>#bookNext{font-size:13px!important}
+}
