@@ -1,3 +1,6 @@
+const LC_APP_SHELL_URL=document.currentScript?.src||'';
+let __lcAnalyticsPromise=null;
+function ensureLCAnalytics(){if(window.LCAnalytics)return Promise.resolve(window.LCAnalytics);if(__lcAnalyticsPromise)return __lcAnalyticsPromise;__lcAnalyticsPromise=new Promise(resolve=>{const s=document.createElement('script');s.src=LC_APP_SHELL_URL?new URL('analytics.js',LC_APP_SHELL_URL).href:'../assets/js/analytics.js';s.onload=()=>resolve(window.LCAnalytics||null);s.onerror=()=>resolve(null);document.head.appendChild(s)});return __lcAnalyticsPromise}
 const LC_ICON_PATHS={
   dashboard:'<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M9.5 20v-5.5h5V20"/>',
   courses:'<path d="M5 4.5h11.5A2.5 2.5 0 0 1 19 7v12.5H7.5A2.5 2.5 0 0 1 5 17z"/><path d="M5 17a2.5 2.5 0 0 1 2.5-2.5H19"/><path d="M8.5 8h6.5"/>',
@@ -148,9 +151,11 @@ async function loadGamification(){try{const g=await LCSupabase.gamification();if
 async function lcBoot(active='dashboard'){
   enhanceLCShell(active);
   watchLCDecorations();
+  await ensureLCAnalytics();
   const u=await LCSupabase.user();
   if(!u){location.replace('login.html');return null}
   const profile=await LCSupabase.profile().catch(()=>null);
+  window.LCAnalytics?.identify().catch(()=>{});window.LCAnalytics?.once('app-session',()=>window.LCAnalytics.track('app_session_started',{}, {entry_section:active}));
   const name=profile?.full_name||u.user_metadata?.full_name||u.email?.split('@')[0]||'Aluno';
   qsa('[data-user-name]').forEach(el=>el.textContent=name);const initials=String(name).trim().split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]?.toUpperCase()||'').join('')||'AL';qsa('[data-user-avatar]').forEach(el=>el.textContent=initials);
   qsa('[data-user-role]').forEach(el=>el.textContent=profile?.role==='admin'?'Administrador':'Estudante');

@@ -3,6 +3,8 @@ const AdminOps=(()=>{
   const one=x=>Array.isArray(x)?x[0]:x;
   const fmtDate=v=>v?new Date(v).toLocaleString('pt-BR'):'—';
   const pct=v=>Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
+  const num=v=>Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:1});
+  const goalLabel=v=>({primeiro_emprego:'Primeiro emprego',web:'Sites e sistemas',automacao:'Python e automação',dados:'Dados',ia:'IA no trabalho',fundamentos:'Fundamentos','não informado':'Não informado'}[v]||v||'Não informado');
   const statusLabel=v=>({active:'Ativo',blocked:'Bloqueado',inactive:'Inativo',completed:'Concluída',paused:'Pausada',cancelled:'Cancelada',submitted:'Em avaliação',revision_requested:'Ajustes solicitados',approved:'Aprovado',reviewed:'Avaliado'}[v]||v||'—');
   const statusClass=v=>['active','completed','approved','reviewed'].includes(v)?'ok':['blocked','cancelled'].includes(v)?'bad':['submitted','revision_requested','paused'].includes(v)?'warn':'';
   function toast(msg,kind='ok'){const el=qs('#adminToast');el.textContent=msg;el.className='lc-admin-toast '+kind;el.hidden=false;clearTimeout(window.__adminToastTimer);window.__adminToastTimer=setTimeout(()=>el.hidden=true,3200)}
@@ -74,6 +76,55 @@ const AdminOps=(()=>{
     qs('#certificateCount').textContent=state.certificateRows.length+' certificado'+(state.certificateRows.length===1?'':'s');
     qs('#certificateList').innerHTML=state.certificateRows.length?state.certificateRows.map(r=>'<article class="lc-admin-cert"><span><b>'+esc(r.student_name)+'</b><small>'+esc(r.email||'')+'</small></span><span><b>'+esc(r.course_title)+'</b><small>'+esc(r.verification_code)+'</small></span><span><small>Emitido</small><b>'+esc(fmtDate(r.issued_at))+'</b></span><a class="v3-btn secondary" href="../verificar.html?code='+encodeURIComponent(r.verification_code)+'" target="_blank" rel="noopener">Verificar ↗</a></article>').join(''):'<div class="lc-admin-empty">Nenhum certificado encontrado.</div>';
   }
+  function renderDailyChart(rows){
+    const el=qs('#analyticsDailyChart');if(!el)return;
+    const values=rows.map(r=>Number(r.sessions||0)),max=Math.max(1,...values),w=680,h=170,p=18;
+    const points=values.map((v,i)=>{const x=rows.length<=1?w/2:p+(i/(rows.length-1))*(w-p*2),y=h-p-(v/max)*(h-p*2);return x.toFixed(1)+','+y.toFixed(1)}).join(' ');
+    const area=points?((p+','+(h-p))+' '+points+' '+((w-p)+','+(h-p))):'';
+    el.innerHTML='<svg class="lc-analytics-spark" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Sessões por dia"><polygon class="lc-chart-area" points="'+area+'"></polygon><polyline class="lc-chart-line" points="'+points+'"></polyline></svg>';
+    const total=rows.reduce((s,r)=>s+Number(r.sessions||0),0),active=Math.max(0,...rows.map(r=>Number(r.active_users||0))),minutes=rows.reduce((s,r)=>s+Number(r.engagement_minutes||0),0);
+    qs('#analyticsDailyMeta').textContent=total+' sessões no período • pico diário de '+active+' usuário(s) ativo(s) • '+num(minutes)+' min de engajamento acumulado';
+  }
+  function renderBars(el,rows,labelFn,valueFn,detailFn){
+    if(!el)return;const values=rows.map(valueFn),max=Math.max(1,...values);
+    el.innerHTML=rows.length?rows.map(r=>{const value=Number(valueFn(r)||0),width=Math.max(value>0?4:0,Math.round(value/max*100));return '<div class="lc-analytics-bar"><div><b>'+esc(labelFn(r))+'</b><small>'+esc(detailFn(r))+'</small></div><div class="lc-analytics-bar-track"><span style="width:'+width+'%"></span></div><strong>'+num(value)+'</strong></div>'}).join(''):'<div class="lc-admin-empty">Ainda não há dados suficientes neste período.</div>';
+  }
+  async function loadLessonAnalytics(){
+    const courseId=qs('#analyticsLessonCourse')?.value||'',days=Number(qs('#analyticsDays')?.value||30),host=qs('#analyticsLessons');
+    if(!host)return;
+    if(!courseId){host.innerHTML='<div class="lc-admin-empty">Selecione um curso para analisar as aulas.</div>';return}
+    host.innerHTML='<div class="loading">Calculando desempenho das aulas</div>';
+    try{
+      const rows=await LCSupabase.rpc('admin_analytics_lessons',{p_course_id:courseId,p_days:days});
+      host.innerHTML=(Array.isArray(rows)?rows:[]).length?'<div class="lc-analytics-row lc-analytics-row-head"><span>Aula</span><span>Aberturas</span><span>Conclusão</span><span>Tempo</span><span>Scroll</span><span>Checagens</span><span>Labs</span></div>'+rows.map(r=>'<div class="lc-analytics-row"><span><b>'+esc(r.lesson_title)+'</b><small>'+esc(r.module_title)+'</small></span><span><b>'+num(r.opens)+'</b><small>'+num(r.unique_learners)+' aluno(s)</small></span><span><b>'+pct(r.completion_from_opens)+'</b><small>'+num(r.completions)+' conclusão(ões)</small></span><span><b>'+num(Number(r.avg_engagement_seconds||0)/60)+' min</b><small>tempo ativo</small></span><span><b>'+pct(r.avg_scroll_percent)+'</b><small>profundidade média</small></span><span><b>'+pct(r.inline_correct_rate)+'</b><small>'+num(r.inline_checks)+' tentativa(s)</small></span><span><b>'+num(r.lab_completions)+'</b><small>Lab concluído</small></span></div>').join(''):'<div class="lc-admin-empty">Ainda não há eventos de aula para este curso no período.</div>';
+    }catch(e){host.innerHTML='<div class="v3-feedback bad">'+esc(e.message)+'</div>'}
+  }
+  async function loadAnalytics(){
+    const days=Number(qs('#analyticsDays')?.value||30);
+    try{
+      const[overviewRaw,funnel,daily,courses,devices,goals]=await Promise.all([
+        LCSupabase.rpc('admin_analytics_overview',{p_days:days}),
+        LCSupabase.rpc('admin_analytics_funnel',{p_days:days}),
+        LCSupabase.rpc('admin_analytics_daily',{p_days:days}),
+        LCSupabase.rpc('admin_analytics_courses',{p_days:days}),
+        LCSupabase.rpc('admin_analytics_devices',{p_days:days}),
+        LCSupabase.rpc('admin_analytics_goals',{})
+      ]);
+      const o=one(overviewRaw)||{};
+      const metrics={analyticsActive:o.active_users,analyticsSessions:o.sessions,analyticsLessonOpens:o.lesson_opens,analyticsLessonDone:o.lesson_completions,analyticsEngagement:num(o.avg_engagement_minutes)+' min',analyticsQuizPass:pct(o.quiz_pass_rate),analyticsMobile:pct(o.mobile_share),analyticsEvents:o.events};
+      Object.entries(metrics).forEach(([id,v])=>{const el=qs('#'+id);if(el)el.textContent=typeof v==='number'?num(v):v});
+      qs('#analyticsSince').textContent=o.instrumented_since?'Instrumentação ativa desde '+fmtDate(o.instrumented_since)+'. O painel de eventos reflete o comportamento observado a partir desse momento.':'A instrumentação entra em vigor com esta versão. Os primeiros eventos aparecerão assim que alunos navegarem pela plataforma.';
+      const f=Array.isArray(funnel)?funnel:[],fmax=Math.max(1,...f.map(x=>Number(x.people||0)));
+      qs('#analyticsFunnel').innerHTML=f.map(x=>'<div class="lc-funnel-row"><span><b>'+esc(x.stage)+'</b><small>'+num(x.people)+' pessoa(s)/sessão(ões)</small></span><div><i style="width:'+Math.round(Number(x.people||0)/fmax*100)+'%"></i></div><strong>'+num(x.people)+'</strong></div>').join('');
+      renderDailyChart(Array.isArray(daily)?daily:[]);
+      const cr=Array.isArray(courses)?courses:[];
+      qs('#analyticsCourses').innerHTML=cr.length?'<div class="lc-course-analytics-row lc-course-analytics-head"><span>Curso</span><span>Alunos ativos</span><span>Aulas</span><span>Quiz</span><span>Boss</span><span>Cert.</span><span>Engajamento</span></div>'+cr.map(r=>'<div class="lc-course-analytics-row"><span><b>'+esc(r.course_title)+'</b><small>'+num(r.enrollments)+' matrícula(s) • '+num(r.course_opens)+' abertura(s)</small></span><span><b>'+num(r.active_learners)+'</b><small>no período</small></span><span><b>'+num(r.lesson_completions)+'</b><small>'+num(r.lesson_opens)+' abertas</small></span><span><b>'+pct(r.quiz_pass_rate)+'</b><small>média '+pct(r.avg_quiz_score)+'</small></span><span><b>'+num(r.boss_submissions)+'</b><small>envios</small></span><span><b>'+num(r.certificates)+'</b><small>emitidos</small></span><span><b>'+num(r.engagement_minutes)+' min</b><small>tempo ativo</small></span></div>').join(''):'<div class="lc-admin-empty">Ainda não há dados por curso no período.</div>';
+      renderBars(qs('#analyticsDevices'),Array.isArray(devices)?devices:[],r=>({mobile:'Mobile',tablet:'Tablet',desktop:'Desktop',unknown:'Desconhecido'}[r.device_type]||r.device_type),r=>Number(r.sessions||0),r=>num(r.active_users)+' usuário(s) • '+num(r.events)+' eventos');
+      renderBars(qs('#analyticsGoals'),Array.isArray(goals)?goals:[],r=>goalLabel(r.goal),r=>Number(r.learners||0),r=>'diagnóstico médio '+num(r.avg_diagnostic_score)+'/6 • '+num(r.mastered)+' base dominada');
+      await loadLessonAnalytics();
+    }catch(e){toast('Analytics: '+e.message,'bad')}
+  }
+
   async function loadAudit(){
     const rows=await LCSupabase.rpc('admin_audit_feed',{p_limit:50});
     qs('#auditList').innerHTML=(Array.isArray(rows)?rows:[]).length?rows.map(r=>'<article class="lc-admin-audit"><span><b>'+esc(r.actor_name)+'</b><small>'+esc(r.action)+' • '+esc(r.target_type)+'</small></span><small>'+esc(fmtDate(r.created_at))+'</small></article>').join(''):'<div class="lc-admin-empty">Nenhuma ação administrativa registrada ainda.</div>';
@@ -92,16 +143,16 @@ const AdminOps=(()=>{
     const p=await LCSupabase.profile();if(p?.role!=='admin'){setState(qs('#state'),'error','Acesso administrativo não autorizado.');return}
     try{
       state.courses=await LCSupabase.rest('courses?status=eq.published&select=id,title&order=position.asc');
-      ['studentCourse','bossCourse','certificateCourse'].forEach(id=>{const sel=qs('#'+id);state.courses.forEach(c=>sel.insertAdjacentHTML('beforeend','<option value="'+c.id+'">'+esc(c.title)+'</option>'))});
+      ['studentCourse','bossCourse','certificateCourse','analyticsLessonCourse'].forEach(id=>{const sel=qs('#'+id);state.courses.forEach(c=>sel.insertAdjacentHTML('beforeend','<option value="'+c.id+'">'+esc(c.title)+'</option>'))});
       qsa('[data-admin-tab]').forEach(b=>b.onclick=()=>setTab(b.dataset.adminTab));
       qs('#studentDialogClose').onclick=()=>qs('#studentDialog').close();
       qs('#studentDialog').addEventListener('click',e=>{if(e.target===qs('#studentDialog'))qs('#studentDialog').close()});
-      wireFilters();
-      await Promise.all([loadSummary(),loadStudents(),loadBoss(),loadCertificates(),loadAudit()]);
+      wireFilters();qs('#analyticsDays').onchange=()=>loadAnalytics();qs('#analyticsLessonCourse').onchange=()=>loadLessonAnalytics();
+      await Promise.all([loadSummary(),loadStudents(),loadBoss(),loadCertificates(),loadAudit(),loadAnalytics()]);
       qs('#state').classList.add('hidden');qs('#content').classList.remove('hidden');
-      const initial=location.hash.replace('#','');setTab(['overview','students','boss','certificates','audit'].includes(initial)?initial:'overview');
+      const initial=location.hash.replace('#','');setTab(['overview','analytics','students','boss','certificates','audit'].includes(initial)?initial:'overview');
     }catch(e){setState(qs('#state'),'error',e.message)}
   }
-  return{init,setTab,loadStudents,loadBoss,loadCertificates,loadAudit}
+  return{init,setTab,loadStudents,loadBoss,loadCertificates,loadAudit,loadAnalytics,loadLessonAnalytics}
 })();
 AdminOps.init();
