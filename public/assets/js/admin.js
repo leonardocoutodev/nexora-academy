@@ -41,7 +41,7 @@ const AdminOps=(()=>{
   }
   async function openStudent(userId){
     const dlg=qs('#studentDialog'),body=qs('#studentDialogBody');
-    body.innerHTML='<div class="loading">Carregando aluno</div>';dlg.showModal();
+    body.innerHTML='<div class="loading">Carregando aluno</div>';if(!dlg.open)dlg.showModal();
     try{
       const d=one(await LCSupabase.rpc('admin_student_detail',{p_user_id:userId}));
       const p=d.profile||{},enrolls=d.enrollments||[],attempts=d.attempts||[],subs=d.submissions||[],certs=d.certificates||[];
