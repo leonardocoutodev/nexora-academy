@@ -3,7 +3,7 @@
   const SESSION_TIMEOUT=30*60*1000;
   const MAX_PROPERTY_KEYS=24;
   const now=()=>Date.now();
-  const uuid=()=>crypto?.randomUUID?crypto.randomUUID().replaceAll('-',''):(Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2));
+  const uuid=()=>globalThis.crypto?.randomUUID?globalThis.crypto.randomUUID().replaceAll('-',''):(Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2));
   function loadSession(){
     try{
       const raw=localStorage.getItem(SESSION_KEY),parsed=raw?JSON.parse(raw):null,t=now();
