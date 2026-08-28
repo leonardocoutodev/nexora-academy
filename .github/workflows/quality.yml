@@ -50,7 +50,7 @@ jobs:
           LC_VISUAL_COMPARE: "true"
         run: npx playwright test tests/e2e/visual.spec.js --project=chromium --update-snapshots
       - name: Save approved visual baseline
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.visual.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: tests/e2e/**/*-snapshots
