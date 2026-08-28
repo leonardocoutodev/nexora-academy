@@ -1,25 +1,143 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07111F"><link rel="icon" type="image/svg+xml" href="../../assets/brand/lc-mark.svg"><link rel="manifest" href="../../manifest.webmanifest"><title>Admin — LC</title><link rel="stylesheet" href="../../assets/css/styles.css"><link rel="stylesheet" href="../../assets/css/academy-v3.css"></head><body><div class="app-shell"><aside class="sidebar"><div class="brand"><img src="../../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div><nav><a href="../dashboard.html"><span>⌂</span><span>Área do aluno</span></a><a href="../cursos.html"><span>▤</span><span>Cursos</span></a><a href="../projetos.html"><span>◇</span><span>Boss Fights</span></a><a href="../biblioteca.html"><span>▥</span><span>Biblioteca</span></a></nav></aside><main class="main"><header class="mobile-header"><div class="brand"><img src="../../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div><a class="btn-ghost" href="../dashboard.html">Área do aluno</a></header><div class="main-inner"><div id="state" class="loading">Carregando painel administrativo</div><section id="content" class="hidden"><div class="v3-hero"><div class="eyebrow">ADMINISTRAÇÃO</div><h1>LC</h1><p>Visão operacional, avaliação acadêmica e integridade do projeto educacional.</p></div><div class="v3-metrics"><div class="v3-metric"><small>Alunos</small><strong id="students">0</strong></div><div class="v3-metric"><small>Matrículas ativas</small><strong id="enrolls">0</strong></div><div class="v3-metric"><small>Boss pendentes</small><strong id="pendingBoss">0</strong></div><div class="v3-metric"><small>Certificados</small><strong id="certs">0</strong></div></div><div class="v3-grid"><section class="v3-stack"><section class="card card-pad"><div class="eyebrow">CONTEÚDO</div><h2>Saúde acadêmica</h2><div class="soft-list"><div><span><b>Missões publicadas</b><small>Conteúdo disponível aos alunos</small></span><strong id="lessons">0</strong></div><div><span><b>Módulos</b><small>Estrutura curricular publicada</small></span><strong id="modules">0</strong></div><div><span><b>Avaliações</b><small>Checkpoints + avaliações finais</small></span><strong id="assessments">0</strong></div><div><span><b>Questões</b><small>Banco de avaliação</small></span><strong id="questions">0</strong></div><div><span><b>Materiais</b><small>Learning resources</small></span><strong id="resources">0</strong></div></div></section><section class="card card-pad"><div class="eyebrow">PROGRESSO</div><h2>Atividade acadêmica</h2><div class="soft-list"><div><span><b>Missões concluídas</b><small>Registros com 100% de progresso</small></span><strong id="completed">0</strong></div><div><span><b>Boss Fights enviados</b><small>Total de submissões registradas</small></span><strong id="submissions">0</strong></div><div><span><b>Boss Fights publicados</b><small>Projetos avaliáveis</small></span><strong id="bosses">0</strong></div></div></section></section><aside class="v3-stack"><section class="card card-pad"><div class="eyebrow">MODELO ATUAL</div><h3>Projeto 100% gratuito</h3><p class="muted">Apoio financeiro é voluntário e não interfere em acesso, nota, avaliação ou certificado.</p><a class="v3-btn secondary" href="../apoie.html">Ver página de apoio</a></section><section class="card card-pad"><div class="eyebrow">AÇÕES</div><div class="quick-links"><a class="quick-link" href="../cursos.html"><span>Revisar cursos</span><span>→</span></a><a class="quick-link" href="../biblioteca.html"><span>Revisar materiais</span><span>→</span></a><a class="quick-link" href="#reviewQueueSection"><span>Avaliar Boss Fights</span><span>↓</span></a></div></section></aside></div><section id="reviewQueueSection" class="card card-pad" style="margin-top:18px"><div class="v3-section-head"><div><div class="eyebrow">AVALIAÇÃO ACADÊMICA</div><h2>Fila de Boss Fights</h2><p class="muted">Abra a entrega, atribua nota e feedback e então aprove ou solicite ajustes. A aprovação válida concede XP automaticamente.</p></div><span class="v3-pill" id="reviewQueueCount">0 pendentes</span></div><div id="reviewQueue" class="v3-stack"></div></section></section></div><nav class="bottom-nav nx-admin-mobile-nav"><a href="../dashboard.html"><span>⌂</span><span>Aluno</span></a><a href="../cursos.html"><span>▤</span><span>Cursos</span></a><a href="../biblioteca.html"><span>▥</span><span>Biblioteca</span></a><a href="#reviewQueueSection"><span>◇</span><span>Avaliar</span></a></nav></main></div><script src="../../assets/js/ui.js"></script><script src="../../assets/js/supabase-lc.js"></script><script>
-(async()=>{const u=await LCSupabase.user();if(!u){location.replace('../login.html');return}const profile=await LCSupabase.profile();if(profile?.role!=='admin'){setState(qs('#state'),'error','Acesso administrativo não autorizado.');return}try{
-  const[a,e,l,b,m,as,q,r,cp,s,c,courses,projects,mods]=await Promise.all([
-    LCSupabase.rest('profiles?select=id,full_name'),
-    LCSupabase.rest('enrollments?status=eq.active&select=id'),
-    LCSupabase.rest('lessons?status=eq.published&select=id'),
-    LCSupabase.rest('projects?status=eq.published&select=id'),
-    LCSupabase.rest('modules?select=id,title,course_id,position'),
-    LCSupabase.rest('assessments?status=eq.published&select=id'),
-    LCSupabase.rest('questions?select=id'),
-    LCSupabase.rest('learning_resources?status=eq.published&select=id'),
-    LCSupabase.rest('lesson_progress?progress=gte.100&select=lesson_id'),
-    LCSupabase.rest('project_submissions?select=id,project_id,user_id,submission_url,status,score,feedback,submitted_at,reviewed_at'),
-    LCSupabase.rest('certificates?select=id'),
-    LCSupabase.rest('courses?select=id,title'),
-    LCSupabase.rest('projects?status=eq.published&select=id,course_id,module_id,title,rubric,xp_reward'),
-    LCSupabase.rest('modules?select=id,title,course_id,position')
-  ]);
-  const pending=s.filter(x=>x.status==='submitted').sort((x,y)=>new Date(x.submitted_at)-new Date(y.submitted_at));
-  qs('#students').textContent=a.length;qs('#enrolls').textContent=e.length;qs('#lessons').textContent=l.length;qs('#bosses').textContent=b.length;qs('#modules').textContent=m.length;qs('#assessments').textContent=as.length;qs('#questions').textContent=q.length;qs('#resources').textContent=r.length;qs('#completed').textContent=cp.length;qs('#submissions').textContent=s.length;qs('#certs').textContent=c.length;qs('#pendingBoss').textContent=pending.length;qs('#reviewQueueCount').textContent=pending.length+' pendente'+(pending.length===1?'':'s');
-  const users=new Map(a.map(x=>[x.id,x])),courseMap=new Map(courses.map(x=>[x.id,x])),projectMap=new Map(projects.map(x=>[x.id,x])),moduleMap=new Map(mods.map(x=>[x.id,x]));
-  qs('#reviewQueue').innerHTML=pending.length?pending.map(sub=>{const project=projectMap.get(sub.project_id),course=courseMap.get(project?.course_id),mod=moduleMap.get(project?.module_id),student=users.get(sub.user_id),criteria=Array.isArray(project?.rubric?.criteria)?project.rubric.criteria:[];return '<article class="v3-project-card" data-review-card="'+sub.id+'"><div class="eyebrow">'+esc(course?.title||'CURSO')+(mod?' • '+esc(mod.title):'')+'</div><h3>'+esc(project?.title||'Boss Fight')+'</h3><p class="muted"><b>Aluno:</b> '+esc(student?.full_name||'Aluno')+' • enviado em '+new Date(sub.submitted_at).toLocaleString('pt-BR')+'</p><div class="v3-rubric">'+criteria.map(x=>'<div><b>'+esc(x.weight)+'%</b><br>'+esc(x.name||x.label||'Critério')+'</div>').join('')+'</div><div class="v3-toolbar" style="margin-top:12px"><a class="v3-btn secondary" href="'+esc(sub.submission_url||'#')+'" target="_blank" rel="noopener">Abrir entrega ↗</a></div><div style="margin-top:14px"><label for="score-'+sub.id+'">Nota (0–100)</label><input id="score-'+sub.id+'" data-review-score="'+sub.id+'" type="number" min="0" max="100" inputmode="decimal" placeholder="Ex.: 85"><label for="feedback-'+sub.id+'" style="display:block;margin-top:10px">Feedback</label><textarea id="feedback-'+sub.id+'" data-review-feedback="'+sub.id+'" rows="4" placeholder="Explique o que foi bem feito e o que precisa melhorar."></textarea><div class="v3-toolbar" style="margin-top:12px"><button class="v3-btn" type="button" data-review-action="approved" data-review-id="'+sub.id+'">Aprovar</button><button class="v3-btn secondary" type="button" data-review-action="revision_requested" data-review-id="'+sub.id+'">Solicitar ajustes</button></div><div class="v3-feedback" data-review-msg="'+sub.id+'" style="display:none"></div></div></article>'}).join(''):'<div class="v3-feedback ok">Nenhuma Boss Fight aguardando avaliação.</div>';
-  qsa('[data-review-action]').forEach(btn=>btn.onclick=async()=>{const id=btn.dataset.reviewId,status=btn.dataset.reviewAction,scoreEl=qs('[data-review-score="'+id+'"]'),feedbackEl=qs('[data-review-feedback="'+id+'"]'),msg=qs('[data-review-msg="'+id+'"]');const score=scoreEl.value===''?null:Number(scoreEl.value),feedback=feedbackEl.value.trim();if(status==='approved'&&(score===null||!Number.isFinite(score))){msg.style.display='block';msg.className='v3-feedback bad';msg.textContent='Informe uma nota antes de aprovar.';return}if(score!==null&&(score<0||score>100)){msg.style.display='block';msg.className='v3-feedback bad';msg.textContent='A nota precisa estar entre 0 e 100.';return}qsa('[data-review-id="'+id+'"]').forEach(x=>x.disabled=true);msg.style.display='block';msg.className='v3-feedback';msg.textContent=status==='approved'?'Aprovando entrega...':'Registrando pedido de ajustes...';try{await LCSupabase.rpc('review_project_submission',{p_submission_id:id,p_status:status,p_score:score,p_feedback:feedback});msg.className='v3-feedback ok';msg.textContent=status==='approved'?'Boss Fight aprovada. A nota foi registrada e o XP será concedido automaticamente quando aplicável.':'Ajustes solicitados. O aluno poderá corrigir e reenviar a mesma entrega.';setTimeout(()=>location.reload(),700)}catch(err){msg.className='v3-feedback bad';msg.textContent=err.message;qsa('[data-review-id="'+id+'"]').forEach(x=>x.disabled=false)}});qs('#state').classList.add('hidden');qs('#content').classList.remove('hidden');
-}catch(err){setState(qs('#state'),'error',err.message)}})();
-</script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07111F">
+  <link rel="icon" type="image/svg+xml" href="../../assets/brand/lc-mark.svg">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <title>Operações — LC</title>
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <link rel="stylesheet" href="../../assets/css/academy-v3.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><img src="../../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div>
+    <nav>
+      <a href="../dashboard.html"><span>⌂</span><span>Área do aluno</span></a>
+      <a href="../cursos.html"><span>▤</span><span>Cursos</span></a>
+      <a href="../projetos.html"><span>◇</span><span>Boss Fights</span></a>
+      <a href="../biblioteca.html"><span>▥</span><span>Biblioteca</span></a>
+    </nav>
+  </aside>
+  <main class="main">
+    <header class="mobile-header">
+      <div class="brand"><img src="../../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div>
+      <a class="btn-ghost" href="../dashboard.html">Área do aluno</a>
+    </header>
+    <div class="main-inner">
+      <div id="state" class="loading">Carregando central operacional</div>
+      <section id="content" class="hidden">
+        <div class="v3-hero lc-admin-hero">
+          <div class="eyebrow">CENTRAL OPERACIONAL</div>
+          <h1>Operações acadêmicas</h1>
+          <p>Alunos, matrículas, progresso, avaliações, Boss Fights, certificados e histórico administrativo em uma única central.</p>
+        </div>
+
+        <div class="lc-admin-tabs" role="tablist" aria-label="Áreas administrativas">
+          <button type="button" role="tab" data-admin-tab="overview">Visão geral</button>
+          <button type="button" role="tab" data-admin-tab="students">Alunos</button>
+          <button type="button" role="tab" data-admin-tab="boss">Boss Fights</button>
+          <button type="button" role="tab" data-admin-tab="certificates">Certificados</button>
+          <button type="button" role="tab" data-admin-tab="audit">Auditoria</button>
+        </div>
+
+        <section data-admin-panel="overview">
+          <div class="v3-metrics lc-admin-metrics">
+            <div class="v3-metric"><small>Alunos</small><strong id="students">0</strong></div>
+            <div class="v3-metric"><small>Alunos ativos</small><strong id="activeStudents">0</strong></div>
+            <div class="v3-metric"><small>Matrículas ativas</small><strong id="activeEnrollments">0</strong></div>
+            <div class="v3-metric"><small>Aulas concluídas</small><strong id="completedLessons">0</strong></div>
+            <div class="v3-metric"><small>Boss pendentes</small><strong id="pendingBoss">0</strong></div>
+            <div class="v3-metric"><small>Certificados</small><strong id="certificates">0</strong></div>
+          </div>
+          <div class="v3-grid">
+            <section class="card card-pad">
+              <div class="eyebrow">ATENÇÕES</div>
+              <h2>O que precisa de ação</h2>
+              <div id="attentionList" class="lc-admin-attention-list"></div>
+            </section>
+            <aside class="card card-pad">
+              <div class="eyebrow">CATÁLOGO</div>
+              <div class="soft-list">
+                <div><span><b>Cursos publicados</b><small>Disponíveis aos alunos</small></span><strong id="publishedCourses">0</strong></div>
+                <div><span><b>Aulas publicadas</b><small>Conteúdo ativo</small></span><strong id="publishedLessons">0</strong></div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section data-admin-panel="students" hidden>
+          <div class="v3-section-head">
+            <div><div class="eyebrow">ALUNOS</div><h2>Gestão acadêmica</h2><p class="muted">Pesquise alunos, visualize progresso e gerencie acesso e matrículas.</p></div>
+            <span class="v3-pill" id="studentCount">0 resultados</span>
+          </div>
+          <div class="lc-admin-filterbar">
+            <input id="studentSearch" type="search" placeholder="Nome ou e-mail">
+            <select id="studentStatus"><option value="">Todos os status</option><option value="active">Ativo</option><option value="inactive">Inativo</option><option value="blocked">Bloqueado</option></select>
+            <select id="studentCourse"><option value="">Todos os cursos</option></select>
+            <button id="studentApply" class="v3-btn secondary" type="button">Filtrar</button>
+          </div>
+          <div id="studentList" class="lc-admin-table"></div>
+        </section>
+
+        <section data-admin-panel="boss" hidden>
+          <div class="v3-section-head">
+            <div><div class="eyebrow">BOSS FIGHTS</div><h2>Avaliação de entregas</h2><p class="muted">Avalie trabalhos, atribua nota e registre feedback.</p></div>
+            <span class="v3-pill" id="bossCount">0 entregas</span>
+          </div>
+          <div class="lc-admin-filterbar">
+            <select id="bossStatus"><option value="">Todos os status</option><option value="submitted">Em avaliação</option><option value="revision_requested">Ajustes solicitados</option><option value="approved">Aprovado</option><option value="reviewed">Avaliado</option></select>
+            <select id="bossCourse"><option value="">Todos os cursos</option></select>
+            <button id="bossApply" class="v3-btn secondary" type="button">Filtrar</button>
+          </div>
+          <div id="bossList" class="lc-admin-stack"></div>
+        </section>
+
+        <section data-admin-panel="certificates" hidden>
+          <div class="v3-section-head">
+            <div><div class="eyebrow">CERTIFICADOS</div><h2>Emissões</h2><p class="muted">Localize certificados e valide códigos de verificação.</p></div>
+            <span class="v3-pill" id="certificateCount">0 certificados</span>
+          </div>
+          <div class="lc-admin-filterbar">
+            <input id="certificateSearch" type="search" placeholder="Aluno, e-mail ou código">
+            <select id="certificateCourse"><option value="">Todos os cursos</option></select>
+            <button id="certificateApply" class="v3-btn secondary" type="button">Filtrar</button>
+          </div>
+          <div id="certificateList" class="lc-admin-stack"></div>
+        </section>
+
+        <section data-admin-panel="audit" hidden>
+          <div class="v3-section-head">
+            <div><div class="eyebrow">AUDITORIA</div><h2>Histórico administrativo</h2><p class="muted">Alterações de acesso, matrículas e avaliações ficam registradas.</p></div>
+          </div>
+          <div id="auditList" class="lc-admin-stack"></div>
+        </section>
+      </section>
+    </div>
+
+    <nav class="bottom-nav nx-admin-mobile-nav">
+      <button type="button" data-admin-tab="overview"><span>⌂</span><span>Resumo</span></button>
+      <button type="button" data-admin-tab="students"><span>◎</span><span>Alunos</span></button>
+      <button type="button" data-admin-tab="boss"><span>◇</span><span>Boss</span></button>
+      <button type="button" data-admin-tab="certificates"><span>▣</span><span>Cert.</span></button>
+      <button type="button" data-admin-tab="audit"><span>⋯</span><span>Auditoria</span></button>
+    </nav>
+  </main>
+</div>
+
+<dialog id="studentDialog" class="nx-sheet lc-admin-dialog">
+  <div class="nx-sheet-head">
+    <div><div class="eyebrow">GESTÃO DO ALUNO</div><h2>Detalhes acadêmicos</h2></div>
+    <button id="studentDialogClose" class="nx-mobile-more-close" type="button" aria-label="Fechar">×</button>
+  </div>
+  <div id="studentDialogBody" class="nx-sheet-scroll"></div>
+</dialog>
+<div id="adminToast" class="lc-admin-toast" hidden></div>
+
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/supabase-lc.js"></script>
+<script src="../../assets/js/admin.js"></script>
+</body>
+</html>
