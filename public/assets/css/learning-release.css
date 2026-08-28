@@ -116,3 +116,80 @@ html,body{max-width:100%;overflow-x:hidden}.nx-visual-guide{overflow:hidden;min-
   .nx-section-nav a{font-size:11px}
   .nx-flow-block p{font-size:16px}
 }
+
+
+/* ==========================================================
+   LC EDITORIAL PILOT — applied learning blocks 2026-08-28
+   ========================================================== */
+.nx-flow-porque,.nx-flow-funciona,.nx-flow-compare,.nx-flow-pratica-guiada,.nx-flow-dominio{
+  padding-left:8px;
+}
+.nx-flow-porque .nx-section-kicker{color:#8fb8ff}
+.nx-flow-funciona .nx-section-kicker{color:var(--lc-mint)}
+.nx-flow-compare{
+  border-left:3px solid rgba(40,120,255,.38);
+  padding-left:22px;
+}
+.nx-flow-pratica-guiada{
+  border-left:3px solid rgba(56,230,176,.48);
+  padding-left:22px;
+}
+.nx-flow-dominio{
+  border-left:3px solid rgba(157,172,193,.26);
+  padding-left:22px;
+}
+.nx-inline-check{
+  margin-top:18px;
+  padding:16px;
+  border:1px solid rgba(40,120,255,.24);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(40,120,255,.07),rgba(13,27,46,.45));
+}
+.nx-inline-question{
+  margin:0 0 12px!important;
+  color:var(--lc-white)!important;
+  font-weight:700;
+  line-height:1.55!important;
+}
+.nx-inline-options{
+  display:grid;
+  gap:8px;
+}
+.nx-inline-options button{
+  width:100%;
+  min-height:46px;
+  padding:11px 13px;
+  border:1px solid rgba(157,172,193,.18);
+  border-radius:11px;
+  background:rgba(7,17,31,.72);
+  color:var(--lc-text-primary);
+  text-align:left;
+  font:inherit;
+  line-height:1.45;
+}
+.nx-inline-options button:hover,
+.nx-inline-options button:focus-visible{
+  border-color:rgba(40,120,255,.62);
+  outline:none;
+}
+.nx-inline-options button.correct{
+  border-color:rgba(56,230,176,.62);
+  background:rgba(56,230,176,.10);
+}
+.nx-inline-options button.wrong{
+  border-color:rgba(255,77,79,.52);
+  background:rgba(255,77,79,.08);
+}
+.nx-inline-feedback{
+  margin-top:10px;
+  color:var(--lc-text-secondary);
+  font-size:13px;
+  line-height:1.5;
+}
+.nx-inline-feedback.ok{color:var(--lc-mint)}
+.nx-inline-feedback.bad{color:#ff9b9c}
+@media(max-width:760px){
+  .nx-flow-compare,.nx-flow-pratica-guiada,.nx-flow-dominio{padding-left:15px}
+  .nx-inline-check{margin-top:15px;padding:13px}
+  .nx-inline-options button{min-height:48px;font-size:15px}
+}
