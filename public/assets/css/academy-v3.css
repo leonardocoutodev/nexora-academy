@@ -433,7 +433,7 @@ label{color:#b9cce0;font-weight:760}
 @media(max-width:600px){.nx-course-orb{width:54px;height:54px;border-radius:17px;right:13px;top:13px}.v3-course-card>div:first-child{padding-right:38px}.nx-boss-stamp{position:static;display:inline-flex;margin-bottom:10px}.nx-lab-mark{width:36px;height:36px}}
 
 /* ==========================================================
-   NEXORA VISUAL CONTENT LAYER
+   LC VISUAL CONTENT LAYER
    ========================================================== */
 .nx-course-art{
   position:absolute!important;right:84px!important;bottom:-6px!important;width:260px!important;max-width:31%!important;
@@ -549,7 +549,7 @@ label{color:#b9cce0;font-weight:760}
 @media(max-width:680px){.catalog-course{grid-template-columns:1fr!important}.nx-course-cover-frame{height:170px}.catalog-course>div:last-child{grid-column:auto}.nx-public-formation{padding-top:195px!important}.nx-public-cover{height:170px}.nx-public-formation:after{top:105px}}
 
 /* ==========================================================
-   NEXORA DEPTH LEARNING — ensinar antes de praticar
+   LC DEPTH LEARNING — ensinar antes de praticar
    ========================================================== */
 .nx-teaching-stage{min-height:370px;display:flex;flex-direction:column;justify-content:flex-start}
 .nx-teaching-stage .v3-stage-actions{margin-top:auto;padding-top:22px}
@@ -570,7 +570,7 @@ label{color:#b9cce0;font-weight:760}
 #sources>p{max-width:880px}
 @media(max-width:700px){.nx-teaching-stage{min-height:0}.nx-teaching-stage p{font-size:16px!important}.nx-teaching-list li{padding-left:38px}}
 
-/* NEXORA FLOW AND AGENT LABS */
+/* LC FLOW AND AGENT LABS */
 .nx-flow-pool{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .nx-flow-step{width:100%;text-align:left;min-height:78px}
 .nx-flow-step small{display:block;color:#8fa9c2;margin-top:4px;line-height:1.45}
@@ -582,7 +582,7 @@ label{color:#b9cce0;font-weight:760}
 
 
 /* ==========================================================
-   NEXORA MOBILE LESSON REPAIR — leitura e navegação
+   LC MOBILE LESSON REPAIR — leitura e navegação
    ========================================================== */
 .lesson-list{display:grid;gap:7px;min-width:0}
 .lesson-row{
@@ -668,7 +668,7 @@ label{color:#b9cce0;font-weight:760}
 }
 
 /* ==========================================================
-   NEXORA CELEBRATION V2 — milestones com presença maior
+   LC CELEBRATION V2 — milestones com presença maior
    ========================================================== */
 .nx-celebration-card{overflow:hidden}
 .nx-icon-orb{font-size:42px!important}
@@ -699,7 +699,7 @@ label{color:#b9cce0;font-weight:760}
 }
 
 /* ==========================================================
-   NEXORA FOUNDATION JOURNEYS
+   LC FOUNDATION JOURNEYS
    ========================================================== */
 .nx-start-banner{
   display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;
@@ -715,7 +715,7 @@ label{color:#b9cce0;font-weight:760}
 @media(max-width:700px){.nx-start-banner{grid-template-columns:1fr}.nx-start-banner .v3-btn{width:100%;justify-content:center}.nx-catalog-section{grid-template-columns:1fr;gap:5px}}
 
 /* ==========================================================
-   NEXORA START PAGE — diagnóstico e rotas
+   LC START PAGE — diagnóstico e rotas
    ========================================================== */
 .nx-start-hero{border-color:rgba(78,179,255,.36)!important}
 .nx-start-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;align-items:start}
