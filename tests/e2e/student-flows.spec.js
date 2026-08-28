@@ -6,7 +6,7 @@ import {expectNoHorizontalOverflow,waitForStablePage} from './helpers/quality.js
 test.beforeEach(async({page})=>{await installMockSupabase(page)});
 
 test('@compat course map renders authenticated learning flow',async({page})=>{
-  await page.goto('/pages/curso.html?id='+IDS.course,{waitUntil:'domcontentloaded',timeout:30_000});
+  await page.goto('/pages/curso.html?id='+IDS.course,{waitUntil:'commit',timeout:15_000});
   await expect(page.getByRole('heading',{name:'Lógica de Programação Básica'})).toBeVisible();
   await expect(page.getByText('Pensar antes de programar')).toBeVisible();
   await expect(page.getByRole('link',{name:/Continuar aulas/})).toBeVisible();
