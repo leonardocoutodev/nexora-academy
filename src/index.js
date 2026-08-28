@@ -22,7 +22,7 @@ async function staticAsset(req,env){
     headers.set('cache-control','no-store, max-age=0, must-revalidate');
     headers.set('pragma','no-cache');
     headers.set('expires','0');
-    headers.set('x-lc-build','6.0.0-identity-20260828');
+    headers.set('x-lc-build','6.0.0-phase2-20260828');
   }
   return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
 }
