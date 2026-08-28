@@ -1,7 +1,7 @@
 function injectV3(){if(!document.querySelector('link[href*="academy-v3.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='../assets/css/academy-v3.css';l.dataset.v3='1';document.head.appendChild(l)}}
 function enhanceLCShell(active='dashboard'){
   injectV3();
-  qsa('.brand').forEach(el=>{el.innerHTML='<img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-name">LC</span>'});
+  qsa('.brand').forEach(el=>{el.innerHTML='<img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span>'});
   const side=qs('.sidebar');if(!side)return;
   const nav=qs('nav',side);
   if(nav&&!qs('[data-nav="start"]',nav)){const first=nav.querySelector('a');const a=document.createElement('a');a.href='comece-aqui.html';a.dataset.nav='start';a.innerHTML='<span>◎</span><span>Comece aqui</span>';if(first)first.after(a);else nav.appendChild(a)}
