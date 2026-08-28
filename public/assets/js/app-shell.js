@@ -151,6 +151,7 @@ async function lcBoot(active='dashboard'){
   const u=await LCSupabase.user();
   if(!u){location.replace('login.html');return null}
   const profile=await LCSupabase.profile().catch(()=>null);
+  window.LCAnalytics?.identify().catch(()=>{});
   const name=profile?.full_name||u.user_metadata?.full_name||u.email?.split('@')[0]||'Aluno';
   qsa('[data-user-name]').forEach(el=>el.textContent=name);const initials=String(name).trim().split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]?.toUpperCase()||'').join('')||'AL';qsa('[data-user-avatar]').forEach(el=>el.textContent=initials);
   qsa('[data-user-role]').forEach(el=>el.textContent=profile?.role==='admin'?'Administrador':'Estudante');
