@@ -1,0 +1,53 @@
+name: Deploy Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lc-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - name: Deploy Worker academy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || secrets.CF_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::Cloudflare API token is not configured in GitHub Actions secrets."
+            exit 1
+          fi
+          npm run deploy
+      - name: Smoke test production
+        run: |
+          set -e
+          URL="https://academy.nexora-84f.workers.dev"
+          ok=0
+          for i in $(seq 1 12); do
+            if curl -fsS --max-time 15 "$URL/api/health" | grep -q '"ok":true'; then
+              curl -fsS --max-time 15 -D /tmp/lc-headers -o /tmp/lc-index "$URL/"
+              if grep -qi '^x-lc-build: 6.0.0-phase2-20260828' /tmp/lc-headers; then
+                echo "LC production smoke test passed."
+                ok=1
+                break
+              fi
+            fi
+            echo "Waiting for production propagation ($i/12)..."
+            sleep 5
+          done
+          test "$ok" = "1"
