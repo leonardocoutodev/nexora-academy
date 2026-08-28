@@ -6,7 +6,7 @@ import {expectNoHorizontalOverflow,waitForStablePage} from './helpers/quality.js
 test.beforeEach(async({page})=>{await installMockSupabase(page,{role:'admin'})});
 
 test('@compat admin analytics renders operational data',async({page})=>{
-  await page.goto('/pages/admin/#analytics');
+  await page.goto('/pages/admin/#analytics',{waitUntil:'domcontentloaded',timeout:30_000});
   await expect(page.getByRole('heading',{name:'Analytics educacional'})).toBeVisible();
   await expect(page.locator('#analyticsActive')).toHaveText('18');
   await expect(page.locator('#analyticsMobile')).toContainText('68');
