@@ -172,16 +172,15 @@
   function wireJs(root,kind){
     const ed=root.querySelector('[data-code]'),out=root.querySelector('[data-console]');
     const run=()=>{
-      if(kind==='typescript'){
-        const stripped=ed.value.replace(/type\s+\w+\s*=\s*\{[^}]*\};?/gs,'').replace(/:\s*\w+(\[\])?/g,'');
-        try{const logs=[];new Function('console',stripped)({log:(...a)=>logs.push(a.map(x=>typeof x==='string'?x:JSON.stringify(x,null,2)).join(' '))});out.textContent=logs.join('\n')||'Código executado sem saída.';complete({type:'typescript'})}catch(e){out.textContent='Erro: '+e.message}
-      }else{
-        const iframe=document.createElement('iframe');iframe.sandbox='allow-scripts';iframe.style.display='none';document.body.appendChild(iframe);
-        const code=JSON.stringify(ed.value);
-        iframe.srcdoc='<script>window.addEventListener("message",e=>{const logs=[];const c={log:(...a)=>logs.push(a.map(x=>{try{return typeof x==="string"?x:JSON.stringify(x)}catch{return String(x)}}).join(" "))};try{new Function("console",e.data)(c);parent.postMessage({nexoraConsole:logs.join("\\n")||"Código executado sem saída."},"*")}catch(err){parent.postMessage({nexoraConsole:"Erro: "+err.message},"*")}});<\/script>';
-        const listener=e=>{if(e.data&&e.data.nexoraConsole!==undefined){out.textContent=e.data.nexoraConsole;window.removeEventListener('message',listener);iframe.remove();if(!String(e.data.nexoraConsole).startsWith('Erro:'))complete({type:'javascript'})}};
-        window.addEventListener('message',listener);setTimeout(()=>iframe.contentWindow.postMessage(ed.value,'*'),80);setTimeout(()=>{if(iframe.isConnected){out.textContent='Execução interrompida por limite de tempo.';iframe.remove();window.removeEventListener('message',listener)}},1800);
-      }
+      const iframe=document.createElement('iframe');iframe.sandbox='allow-scripts';iframe.src='../lab-runner.html';iframe.hidden=true;document.body.appendChild(iframe);
+      const requestId=crypto.randomUUID();
+      const code=kind==='typescript'?ed.value.replace(/type\s+\w+\s*=\s*\{[^}]*\};?/gs,'').replace(/:\s*\w+(\[\])?/g,''):ed.value;
+      let finished=false;
+      const cleanup=()=>{window.removeEventListener('message',listener);iframe.remove()};
+      const listener=e=>{if(e.source!==iframe.contentWindow||e.data?.type!=='nexora-lab-result'||e.data?.requestId!==requestId)return;finished=true;out.textContent=e.data.output;cleanup();if(e.data.ok)complete({type:kind})};
+      window.addEventListener('message',listener);
+      iframe.addEventListener('load',()=>iframe.contentWindow.postMessage({type:'nexora-lab-run',requestId,code},'*'),{once:true});
+      setTimeout(()=>{if(!finished&&iframe.isConnected){out.textContent='Execução interrompida por limite de tempo.';cleanup()}},1800);
     };
     root.querySelector('[data-run]').onclick=run;
     const tc=root.querySelector('[data-typecheck]');if(tc)tc.onclick=()=>{const good=/type |interface /.test(ed.value)&&!/:\s*any\b/.test(ed.value);out.textContent=good?'✓ Há modelagem explícita e nenhum any evidente.':'Revise: declare um type/interface e evite any quando possível.';if(good)complete({type:'typescript'})};

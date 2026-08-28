@@ -1,6 +1,7 @@
 const SUPABASE_URL = "https://kvwsqfnyebyjncfgvqnd.supabase.co";
 const SUPABASE_KEY = "sb_publishable_CssKC6R2Nqtl3McbvR3f4A_jNJtz3hg";
-function json(data,status=200,headers={}) { return new Response(JSON.stringify(data),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store",...headers}}); }
+const SECURITY_HEADERS={"x-content-type-options":"nosniff","referrer-policy":"strict-origin-when-cross-origin","permissions-policy":"camera=(), microphone=(), geolocation=()","x-frame-options":"SAMEORIGIN"};
+function json(data,status=200,headers={}) { return new Response(JSON.stringify(data),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store",...SECURITY_HEADERS,...headers}}); }
 async function body(req){ try{return await req.json()}catch{return {}} }
 function bearer(req){const h=req.headers.get("authorization")||"";return h.startsWith("Bearer ")?h.slice(7):null}
 async function supabaseUser(req){ const token=bearer(req); if(!token)return null; const r=await fetch(SUPABASE_URL+"/auth/v1/user",{headers:{apikey:SUPABASE_KEY,authorization:`Bearer ${token}`}}); if(!r.ok)return null; return await r.json(); }
@@ -15,12 +16,13 @@ async function staticAsset(req,env){
   if(!response)return response;
   const url=new URL(req.url);
   const headers=new Headers(response.headers);
+  Object.entries(SECURITY_HEADERS).forEach(([name,value])=>headers.set(name,value));
   const dynamicAsset=/\.(?:html|css|js)$/i.test(url.pathname)||url.pathname==='/'||!url.pathname.split('/').pop()?.includes('.');
   if(dynamicAsset){
     headers.set('cache-control','no-store, max-age=0, must-revalidate');
     headers.set('pragma','no-cache');
     headers.set('expires','0');
-    headers.set('x-nexora-build','depth-mobile-fix-20260827');
+    headers.set('x-nexora-build','5.1.0-security-20260828');
   }
   return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
 }

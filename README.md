@@ -36,9 +36,33 @@ Todos os cursos, aulas, laboratórios, avaliações e certificados seguem as mes
 ## Deploy
 
 ```bash
-npm install
-npx wrangler deploy
+npm ci
+npm run check
+npm run deploy
 ```
+
+## Desenvolvimento e validação
+
+```bash
+npm ci
+npm run check
+```
+
+O comando `check` executa a auditoria de HTML, JavaScript e links locais, os testes do Worker e uma compilação de validação do Cloudflare Wrangler. O CI do GitHub repete essas verificações em cada push e pull request.
+
+## Segurança e serviços externos
+
+- Os laboratórios JavaScript e TypeScript são executados em um `iframe` isolado. A página principal não usa avaliação dinâmica de código.
+- O Worker e os arquivos estáticos enviam cabeçalhos de segurança e políticas de cache.
+- Alterações de banco ficam versionadas em `supabase/migrations`.
+- As Edge Functions versionadas em `supabase/functions` exigem segredos configurados no Supabase; nunca adicione chaves ao repositório.
+
+Variáveis esperadas pelas funções de pagamento:
+
+- `MERCADOPAGO_ACCESS_TOKEN`
+- `MERCADOPAGO_WEBHOOK_SECRET`
+- `NEXORA_APP_URL`
+- `NEXORA_ALLOWED_ORIGINS` (lista separada por vírgulas, opcional)
 
 ## Política de mudanças
 

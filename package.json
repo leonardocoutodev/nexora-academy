@@ -1,13 +1,16 @@
 {
   "name": "nexora-academy-supabase",
   "private": true,
-  "version": "4.0.0",
+  "version": "5.1.0",
+  "type": "module",
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
-    "check": "wrangler check"
+    "audit": "node scripts/audit.mjs",
+    "test": "node --test",
+    "check": "npm run audit && npm test && wrangler deploy --dry-run"
   },
   "devDependencies": {
-    "wrangler": "latest"
+    "wrangler": "4.127.0"
   }
 }
