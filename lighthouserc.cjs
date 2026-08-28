@@ -1,0 +1,29 @@
+module.exports={
+  ci:{
+    collect:{
+      url:[
+        'http://127.0.0.1:8787/',
+        'http://127.0.0.1:8787/pages/login.html',
+        'http://127.0.0.1:8787/pages/cadastro.html'
+      ],
+      numberOfRuns:1,
+      settings:{
+        preset:'desktop',
+        chromeFlags:'--headless --no-sandbox --disable-gpu',
+        onlyCategories:['performance','accessibility','best-practices','seo']
+      }
+    },
+    assert:{
+      assertions:{
+        'categories:performance':['error',{minScore:0.75}],
+        'categories:accessibility':['error',{minScore:0.95}],
+        'categories:best-practices':['error',{minScore:0.90}],
+        'categories:seo':['error',{minScore:0.90}],
+        'cumulative-layout-shift':['error',{maxNumericValue:0.12}],
+        'largest-contentful-paint':['error',{maxNumericValue:4500}],
+        'total-blocking-time':['error',{maxNumericValue:500}]
+      }
+    },
+    upload:{target:'filesystem',outputDir:'.lighthouseci'}
+  }
+};

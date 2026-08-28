@@ -8,7 +8,8 @@
     "dev": "wrangler dev",
     "audit": "node scripts/audit.mjs",
     "test": "node --test",
-    "check": "npm run audit && npm test && wrangler deploy --dry-run"
+    "check": "npm run audit && npm run quality:static && npm test && wrangler deploy --dry-run",
+    "quality:static": "node scripts/quality-static.mjs"
   },
   "devDependencies": {
     "wrangler": "4.127.0"

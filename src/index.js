@@ -1,4 +1,4 @@
-const BUILD_ID = "6.2.0-phase4-20260828";
+const BUILD_ID = "6.3.0-phase5-20260828";
 const SUPABASE_URL = "https://kvwsqfnyebyjncfgvqnd.supabase.co";
 const SUPABASE_KEY = "sb_publishable_CssKC6R2Nqtl3McbvR3f4A_jNJtz3hg";
 const SECURITY_HEADERS={"x-content-type-options":"nosniff","referrer-policy":"strict-origin-when-cross-origin","permissions-policy":"camera=(), microphone=(), geolocation=()","x-frame-options":"SAMEORIGIN"};
@@ -18,6 +18,10 @@ async function staticAsset(req,env){
   const url=new URL(req.url);
   const headers=new Headers(response.headers);
   Object.entries(SECURITY_HEADERS).forEach(([name,value])=>headers.set(name,value));
+  if(url.protocol!=='https:'){
+    const csp=headers.get('content-security-policy');
+    if(csp)headers.set('content-security-policy',csp.split(';').map(x=>x.trim()).filter(x=>x&&x.toLowerCase()!=='upgrade-insecure-requests').join('; '));
+  }
   const dynamicAsset=/\.(?:html|css|js)$/i.test(url.pathname)||url.pathname==='/'||!url.pathname.split('/').pop()?.includes('.');
   if(dynamicAsset){
     headers.set('cache-control','no-store, max-age=0, must-revalidate');
