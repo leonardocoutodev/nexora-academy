@@ -8,7 +8,7 @@ for(const entry of [
   {path:'/pages/cadastro.html',title:/Criar conta — LC/}
 ]){
   test('@compat public route '+entry.path,async({page})=>{
-    await page.goto(entry.path);
+    await page.goto(entry.path,{waitUntil:'domcontentloaded',timeout:30_000});
     await expect(page).toHaveTitle(entry.title);
     await expect(page.locator('body')).toBeVisible();
     await expectNoHorizontalOverflow(page);
