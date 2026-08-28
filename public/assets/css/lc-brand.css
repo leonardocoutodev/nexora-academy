@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
 :root{
   --lc-ink:#07111F;
   --lc-navy:#0D1B2E;
@@ -24,3 +26,7 @@
   --lc-motion-slow:250ms;
   --lc-ease:cubic-bezier(.2,0,0,1);
 }
+
+
+html{font-family:var(--lc-font)}
+body,button,input,textarea,select{font-family:var(--lc-font)}
