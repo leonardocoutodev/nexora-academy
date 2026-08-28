@@ -23,6 +23,16 @@ test('admin can inspect student academic detail',async({page})=>{
   await expect(page.getByText('70%')).toBeVisible();
 });
 
+test('admin can issue certificate from student detail',async({page})=>{
+  await page.goto('/pages/admin/#students');
+  await page.locator('[data-student="'+IDS.user+'"]').click();
+  const issue=page.locator('[data-issue-certificate="'+IDS.course+'"]');
+  await expect(issue).toBeVisible();
+  await issue.click();
+  await expect(page.locator('#adminToast')).toContainText('Certificado emitido com sucesso');
+  await expect(page.locator('#studentDialog a[href*="LC-ADMIN-2026"]').first()).toBeVisible();
+});
+
 test('admin Boss review can approve with score',async({page})=>{
   await page.goto('/pages/admin/#boss');
   await page.locator('[data-boss-score="'+IDS.submission+'"]').fill('90');
