@@ -31,7 +31,7 @@ if(countImportant(lessonCss)>3)failures.push(`learning-release.css: orçamento d
 if(countImportant(globalCss)>8)failures.push(`styles.css: orçamento de !important excedido (${countImportant(globalCss)} > 8)`);
 if(/nx-book(?:-|\b)/.test(lessonCss))failures.push("learning-release.css: CSS legado do livro horizontal ainda presente");
 for(const legacySection of ["LC VISUAL POLISH","LC MOBILE LESSON REPAIR","LC VISUAL IDENTITY OVERRIDES"]){if(mobileCss.includes(legacySection))failures.push(`academy-v3.css: camada legada ainda presente (${legacySection})`)}
-const maxWidths=[...new Set([...globalCss.matchAll(/max-width:(\d+)px/g),...mobileCss.matchAll(/max-width:(\d+)px/g),...lessonCss.matchAll(/max-width:(\d+)px/g)].map(m=>Number(m[1])))];
+const maxWidths=[...new Set([...globalCss.matchAll(/@media[^\{]*max-width:(\d+)px/g),...mobileCss.matchAll(/@media[^\{]*max-width:(\d+)px/g),...lessonCss.matchAll(/@media[^\{]*max-width:(\d+)px/g)].map(m=>Number(m[1])))];
 for(const width of maxWidths){if(![1100,900,820,620,420].includes(width))failures.push(`CSS: breakpoint não canônico ${width}px`)}
 if(!headersSource.includes("fonts.googleapis.com")||!headersSource.includes("fonts.gstatic.com"))failures.push("CSP: fontes oficiais LC não estão liberadas");
 for(const [label,source,patterns] of [
