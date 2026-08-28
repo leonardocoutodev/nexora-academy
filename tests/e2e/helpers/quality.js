@@ -1,3 +1,7 @@
+export async function blockExternalFonts(page){
+  await page.route(/https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/,route=>route.abort());
+}
+
 import {expect} from '@playwright/test';
 
 export async function expectNoHorizontalOverflow(page,tolerance=1){
