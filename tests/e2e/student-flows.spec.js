@@ -42,7 +42,7 @@ test('data model lab classifies roles before completion',async({page})=>{
 test('expression lab validates boundary cases',async({page})=>{
   await page.goto('/pages/aula.html?id='+IDS.lessonExpression);
   await expect(page.getByRole('heading',{name:'Expressões e fronteiras'})).toBeVisible();
-  await page.locator('input[name="expressionLab"][value="1"]').check();
+  await page.locator('[data-expression-option="1"]').click();
   await page.locator('[data-expression-check]').click();
   await expect(page.locator('[data-feedback]')).toContainText('preserva a fronteira');
   await expect(page.locator('#completeBtn')).toBeEnabled();
