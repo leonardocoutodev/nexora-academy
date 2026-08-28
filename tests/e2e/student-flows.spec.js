@@ -54,8 +54,9 @@ test('certificate can be issued after eligibility',async({page})=>{
   const issue=page.locator('[data-issue="'+IDS.course+'"]');
   await expect(issue).toBeVisible();
   await issue.click();
-  await expect(page.getByText('CERTIFICADO EMITIDO')).toBeVisible();
-  await expect(page.getByText('LC-QA-2026')).toBeVisible();
+  const card=page.locator('[data-cert-card="'+IDS.course+'"]');
+  await expect(card.getByText('CERTIFICADO EMITIDO',{exact:true})).toBeVisible();
+  await expect(card.getByText('LC-QA-2026')).toBeVisible();
 });
 
 test('authenticated learning pages have no serious accessibility violations',async({page})=>{
