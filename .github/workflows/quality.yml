@@ -1,0 +1,93 @@
+name: Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install browser QA tooling
+        run: npm install --no-save --package-lock=false @playwright/test@1.55.0 @axe-core/playwright@4.10.2
+      - name: Install browser engines
+        run: npx playwright install --with-deps chromium firefox webkit
+      - name: Restore visual baseline
+        id: visual
+        uses: actions/cache/restore@v4
+        with:
+          path: tests/e2e/**/*-snapshots
+          key: lc-visual-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            lc-visual-${{ runner.os }}-
+      - name: Chromium E2E, accessibility and responsive matrix
+        env:
+          LC_VISUAL_COMPARE: ${{ steps.visual.outputs.cache-matched-key != '' }}
+        run: npx playwright test --project=chromium
+      - name: Firefox and WebKit compatibility smoke
+        run: npx playwright test --grep @compat --project=firefox --project=webkit
+      - name: Refresh approved main visual baseline
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          LC_VISUAL_COMPARE: "true"
+        run: npx playwright test tests/e2e/visual.spec.js --project=chromium --update-snapshots
+      - name: Save approved visual baseline
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/cache/save@v4
+        with:
+          path: tests/e2e/**/*-snapshots
+          key: lc-visual-${{ runner.os }}-${{ github.sha }}
+      - name: Upload browser QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-quality-${{ github.run_id }}
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: ignore
+          retention-days: 14
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install Lighthouse CI
+        run: npm install --no-save --package-lock=false @lhci/cli@0.14.0
+      - name: Start local LC Worker
+        run: |
+          npx wrangler dev --port 8787 --ip 127.0.0.1 > /tmp/lc-wrangler.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:8787/api/health >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/lc-wrangler.log
+          exit 1
+      - name: Lighthouse budgets
+        run: npx lhci autorun --config=./lighthouserc.cjs
+      - name: Upload Lighthouse evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-${{ github.run_id }}
+          path: .lighthouseci
+          if-no-files-found: ignore
+          retention-days: 14
