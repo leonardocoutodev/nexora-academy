@@ -59,12 +59,12 @@ O comando `check` executa a auditoria de HTML, JavaScript e links locais, os tes
 
 Variáveis esperadas pelas funções de pagamento:
 
-> Compatibilidade: alguns identificadores técnicos ainda usam o codinome legado `nexora` (schema, rotas e nomes de Edge Functions). Eles são preservados nesta fase para não interromper sessões, integrações ou deploys.
+> Compatibilidade: alguns identificadores técnicos ainda usam o codinome legado `nexora` (schema e alguns aliases de compatibilidade). Eles permanecem somente onde a renomeação poderia interromper sessões, banco ou integrações já existentes.
 
 - `MERCADOPAGO_ACCESS_TOKEN`
 - `MERCADOPAGO_WEBHOOK_SECRET`
-- `NEXORA_APP_URL`
-- `NEXORA_ALLOWED_ORIGINS` (lista separada por vírgulas, opcional)
+- `LC_APP_URL` (preferencial; `NEXORA_APP_URL` é aceito apenas como fallback legado)
+- `LC_ALLOWED_ORIGINS` (preferencial; `NEXORA_ALLOWED_ORIGINS` permanece como fallback legado)
 
 ## Política de mudanças
 

@@ -50,3 +50,10 @@ Movimento informa estado antes de decorar.
 - Certificado LC — certificação
 
 Termos conhecidos como aula, módulo e certificado são preservados para reduzir carga cognitiva.
+
+
+## Status da migração de identidade
+
+A marca pública canônica é **LC**. Interface, PWA, certificados, materiais, laboratórios, pagamentos e metadados utilizam a identidade LC.
+
+Identificadores internos legados como o schema PostgreSQL `nexora`, aliases de sessão e slugs antigos de compatibilidade não são marca pública e só permanecem quando a troca poderia interromper dados ou integrações existentes. Novos endpoints e ativos devem usar nomes LC.

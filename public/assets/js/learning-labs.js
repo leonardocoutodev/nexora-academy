@@ -2,7 +2,7 @@
 (()=> {
   const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
   const state={complete:false};
-  const complete=(detail={})=>{state.complete=true;window.dispatchEvent(new CustomEvent('nexora:lab-complete',{detail}));};
+  const complete=(detail={})=>{state.complete=true;window.dispatchEvent(new CustomEvent('lc:lab-complete',{detail}));};
 
   function frame(title,kind,body){
     return '<section class="v3-lab"><div class="v3-lab-head"><div><span>LABORATÓRIO NA AULA</span><strong>'+esc(title)+'</strong></div><span>'+esc(kind.toUpperCase())+'</span></div><div class="v3-lab-body">'+body+'</div></section>';
@@ -177,9 +177,9 @@
       const code=kind==='typescript'?ed.value.replace(/type\s+\w+\s*=\s*\{[^}]*\};?/gs,'').replace(/:\s*\w+(\[\])?/g,''):ed.value;
       let finished=false;
       const cleanup=()=>{window.removeEventListener('message',listener);iframe.remove()};
-      const listener=e=>{if(e.source!==iframe.contentWindow||e.data?.type!=='nexora-lab-result'||e.data?.requestId!==requestId)return;finished=true;out.textContent=e.data.output;cleanup();if(e.data.ok)complete({type:kind})};
+      const listener=e=>{if(e.source!==iframe.contentWindow||e.data?.type!=='lc-lab-result'||e.data?.requestId!==requestId)return;finished=true;out.textContent=e.data.output;cleanup();if(e.data.ok)complete({type:kind})};
       window.addEventListener('message',listener);
-      iframe.addEventListener('load',()=>iframe.contentWindow.postMessage({type:'nexora-lab-run',requestId,code},'*'),{once:true});
+      iframe.addEventListener('load',()=>iframe.contentWindow.postMessage({type:'lc-lab-run',requestId,code},'*'),{once:true});
       setTimeout(()=>{if(!finished&&iframe.isConnected){out.textContent='Execução interrompida por limite de tempo.';cleanup()}},1800);
     };
     root.querySelector('[data-run]').onclick=run;
@@ -445,5 +445,5 @@
     else if(type==='project'||type==='boss'){complete({type:'boss-info'})}
     else wireMcq(el,module,ctx.lesson?.lab_config?.checkpoint);
   }
-  window.NexoraLabs={render,isComplete:()=>state.complete};
+  window.LCLabs={render,isComplete:()=>state.complete};
 })();
