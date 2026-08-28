@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   browser-quality:
     runs-on: ubuntu-latest
@@ -22,8 +26,8 @@ jobs:
       - run: npm ci
       - name: Install browser QA tooling
         run: npm install --no-save --package-lock=false @playwright/test@1.55.0 @axe-core/playwright@4.10.2
-      - name: Install browser engines
-        run: npx playwright install --with-deps chromium firefox webkit
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
       - name: Restore visual baseline
         id: visual
         uses: actions/cache/restore@v4
@@ -36,6 +40,8 @@ jobs:
         env:
           LC_VISUAL_COMPARE: ${{ steps.visual.outputs.cache-matched-key != '' }}
         run: npx playwright test --project=chromium
+      - name: Install compatibility browsers
+        run: npx playwright install --with-deps firefox webkit
       - name: Firefox and WebKit compatibility smoke
         run: npx playwright test --grep @compat --project=firefox --project=webkit
       - name: Refresh approved main visual baseline
