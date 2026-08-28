@@ -39,11 +39,11 @@ for(const file of files.filter(file=>/\.(?:html|js|css|sql|svg|txt)$/.test(file)
   if(source.includes('class="lc-brand-name">LC</span>'))failures.push(`${rel}: lockup redundante LC + LC Mark`);
 }
 const lessonHtml=fs.readFileSync(path.join(root,"pages/aula.html"),"utf8");
-for(const pattern of ['id="lessonFlow"','id="pratica"','id="resumo"','id="materialsDialog"','wireSectionProgress']){if(!lessonHtml.includes(pattern))failures.push(`aula.html: experiência contínua ausente (${pattern})`)}
+for(const pattern of ['id="lessonFlow"','id="pratica"','id="resumo"','id="materialsDialog"','wireSectionProgress','wireInlineChecks','PARE E PENSE','PRÁTICA GUIADA','VOCÊ JÁ CONSEGUE?']){if(!lessonHtml.includes(pattern))failures.push(`aula.html: experiência contínua ausente (${pattern})`)}
 if(lessonHtml.includes('id="bookPages"')||lessonHtml.includes("Deslize para avançar"))failures.push("aula.html: paginação horizontal antiga ainda presente");
 const labSource=fs.readFileSync(path.join(root,"assets/js/learning-labs.js"),"utf8");
 if(labSource.includes("new Function"))failures.push("learning-labs.js não pode executar código no contexto da aplicação");
-for(const required of ["supabase/migrations/20260828090000_nexora_security_hardening.sql","supabase/functions/lc-mercadopago-donation/index.ts","supabase/functions/lc-mercadopago-webhook/index.ts"]){if(!fs.existsSync(required))failures.push(`arquivo operacional ausente: ${required}`)}
+for(const required of ["supabase/migrations/20260828090000_nexora_security_hardening.sql","supabase/migrations/20260828144500_lc_editorial_pilot_logic_module_1.sql","supabase/functions/lc-mercadopago-donation/index.ts","supabase/functions/lc-mercadopago-webhook/index.ts"]){if(!fs.existsSync(required))failures.push(`arquivo operacional ausente: ${required}`)}
 const legacyPalette=["#8457ff","#754fff","#9b6fff","#7e59ff","#7c63ff","#8c72ff","#7564ff","#7664ff","#8b6dff","#6e5cff","rgba(124,99,255","rgba(140,114,255","rgba(142,111,255"];
 for(const rel of ["assets/css/styles.css","assets/css/academy-v3.css"]){const source=fs.readFileSync(path.join(root,rel),"utf8").toLowerCase();for(const legacy of legacyPalette){if(source.includes(legacy.toLowerCase()))failures.push(`${rel}: cor legada fora da paleta LC (${legacy})`)}}
 if(failures.length){console.error(failures.join("\n"));process.exit(1)}
