@@ -1,31 +1,49 @@
+const LC_ICON_PATHS={
+  dashboard:'<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M9.5 20v-5.5h5V20"/>',
+  courses:'<path d="M5 4.5h11.5A2.5 2.5 0 0 1 19 7v12.5H7.5A2.5 2.5 0 0 1 5 17z"/><path d="M5 17a2.5 2.5 0 0 1 2.5-2.5H19"/><path d="M8.5 8h6.5"/>',
+  start:'<circle cx="12" cy="12" r="8.5"/><path d="m14.7 9.3-1.8 4.1-4.1 1.8 1.8-4.1z"/>',
+  projects:'<path d="M8 4h8"/><path d="M9 4v3.2L5.5 18a1.5 1.5 0 0 0 1.4 2h10.2a1.5 1.5 0 0 0 1.4-2L15 7.2V4"/><path d="M8 14h8"/>',
+  library:'<path d="M5 4.5h6v15H5z"/><path d="M13 4.5h6v15h-6z"/><path d="M7.5 8h1"/><path d="M15.5 8h1"/>',
+  certs:'<circle cx="12" cy="10" r="5"/><path d="m9 14-1 6 4-2 4 2-1-6"/>',
+  profile:'<circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 20c.7-4 3-6 6.5-6s5.8 2 6.5 6"/>',
+  support:'<path d="M20 8.8c0 5.2-8 10.2-8 10.2S4 14 4 8.8A4.3 4.3 0 0 1 12 6a4.3 4.3 0 0 1 8 2.8Z"/>',
+  more:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+  logout:'<path d="M10 5H5v14h5"/><path d="M13 8l4 4-4 4"/><path d="M8 12h9"/>'
+};
+function lcIcon(name,label=''){const paths=LC_ICON_PATHS[name]||LC_ICON_PATHS.start;return '<svg class="lc-ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" '+(label?'role="img" aria-label="'+label+'"':'aria-hidden="true"')+'>'+paths+'</svg>'}
+function applyLCNavigationIcons(root=document){
+  const map={dashboard:'dashboard',courses:'courses',start:'start',projects:'projects',library:'library',certs:'certs',profile:'profile'};
+  root.querySelectorAll('[data-nav]').forEach(a=>{const slot=a.querySelector(':scope > span:first-child');if(slot&&map[a.dataset.nav])slot.innerHTML=lcIcon(map[a.dataset.nav])});
+  root.querySelectorAll('[data-more-nav]').forEach(a=>{const slot=a.querySelector(':scope > span:first-child');if(slot&&map[a.dataset.moreNav])slot.innerHTML=lcIcon(map[a.dataset.moreNav])});
+}
 function injectV3(){if(!document.querySelector('link[href*="academy-v3.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='../assets/css/academy-v3.css';l.dataset.v3='1';document.head.appendChild(l)}}
 function enhanceLCShell(active='dashboard'){
   injectV3();
   qsa('.brand').forEach(el=>{el.innerHTML='<img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span>'});
   const side=qs('.sidebar');if(!side)return;
   const nav=qs('nav',side);
-  if(nav&&!qs('[data-nav="start"]',nav)){const first=nav.querySelector('a');const a=document.createElement('a');a.href='comece-aqui.html';a.dataset.nav='start';a.innerHTML='<span>◎</span><span>Comece aqui</span>';if(first)first.after(a);else nav.appendChild(a)}
+  if(nav&&!qs('[data-nav="start"]',nav)){const first=nav.querySelector('a');const a=document.createElement('a');a.href='comece-aqui.html';a.dataset.nav='start';a.innerHTML='<span>'+lcIcon('start')+'</span><span>Comece aqui</span>';if(first)first.after(a);else nav.appendChild(a)}
   if(nav&&!qs('.sidebar-extra',side)){
     const extra=document.createElement('div');extra.className='sidebar-extra';
-    extra.innerHTML='<a href="apoie.html" style="display:flex;gap:11px;margin:8px;padding:10px 12px;border:1px solid #24527d;border-radius:11px;background:#0a1c31;color:#dcefff;font-weight:850;text-decoration:none"><span>♡</span><span>Apoie a LC</span></a>';
+    extra.innerHTML='<a href="apoie.html" class="lc-sidebar-support"><span>'+lcIcon('support')+'</span><span>Apoie a LC</span></a>';
     nav.after(extra);
   }
   let foot=qs('.side-footer',side);if(!foot){foot=document.createElement('div');foot.className='side-footer';side.appendChild(foot)}
   foot.innerHTML='<div id="sideGame" class="v3-gamification-mini"><div class="top"><span>NÍVEL <strong data-level>1</strong></span><span><strong data-xp>0</strong> XP</span></div><div class="v3-xpbar"><span data-xpbar style="width:0%"></span></div><div class="v3-streak">🔥 <span data-streak>0</span> dias de sequência</div></div><a href="https://wa.me/5573981250366?text=Ol%C3%A1%2C%20conheci%20a%20plataforma%20LC." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;margin:8px;padding:9px 10px;border:1px solid #183a58;border-radius:11px;background:#071522;text-decoration:none"><span class="lc-symbol" style="width:28px;height:28px;font-size:12px;border-radius:8px">LC</span><span><b style="display:block;font-size:10px;color:#55c8ff">IDEALIZADA E DESENVOLVIDA POR LEONARDO COUTO</b><small style="color:#8fa7bf">LC Soluções Digitais ↗</small></span></a><div class="side-user"><span class="side-avatar">LC</span><div><b data-user-name>Aluno</b><small data-user-role>Estudante</small></div></div>';
-  enhanceMobileNavigation(active);
+  applyLCNavigationIcons(side);enhanceMobileNavigation(active);
 }
 function enhanceMobileNavigation(active='dashboard'){
   const nav=qs('.bottom-nav');if(!nav)return;
   const viewport=document.querySelector('meta[name="viewport"]');
   if(viewport&&!viewport.content.includes('viewport-fit=cover'))viewport.content+=',viewport-fit=cover';
   nav.classList.add('nx-mobile-nav');nav.setAttribute('aria-label','Navegação principal');
-  nav.innerHTML='<a data-nav="dashboard" href="dashboard.html"><span aria-hidden="true">⌂</span><span>Início</span></a><a data-nav="courses" href="cursos.html"><span aria-hidden="true">▤</span><span>Cursos</span></a><a data-nav="start" href="comece-aqui.html"><span aria-hidden="true">◎</span><span>Comece</span></a><a data-nav="projects" href="projetos.html"><span aria-hidden="true">◇</span><span>Boss</span></a><button type="button" class="nx-mobile-more-toggle" aria-haspopup="dialog" aria-expanded="false"><span aria-hidden="true">•••</span><span>Mais</span></button>';
+  nav.innerHTML='<a data-nav="dashboard" href="dashboard.html"><span>'+lcIcon('dashboard')+'</span><span>Início</span></a><a data-nav="courses" href="cursos.html"><span>'+lcIcon('courses')+'</span><span>Cursos</span></a><a data-nav="start" href="comece-aqui.html"><span>'+lcIcon('start')+'</span><span>Comece</span></a><a data-nav="projects" href="projetos.html"><span>'+lcIcon('projects')+'</span><span>Boss</span></a><button type="button" class="nx-mobile-more-toggle" aria-haspopup="dialog" aria-expanded="false"><span>'+lcIcon('more')+'</span><span>Mais</span></button>';
   qsa('[data-nav]',nav).forEach(el=>{const on=el.dataset.nav===active;el.classList.toggle('active',on);if(on)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')});
   const moreButton=qs('.nx-mobile-more-toggle',nav),moreActive=['library','certs','profile'].includes(active);if(moreActive){moreButton.classList.add('active');moreButton.setAttribute('aria-current','page')}
   document.querySelector('.nx-mobile-more')?.remove();
   const panel=document.createElement('div');panel.className='nx-mobile-more';panel.hidden=true;panel.setAttribute('aria-hidden','true');
-  panel.innerHTML='<div class="nx-mobile-more-backdrop" data-mobile-more-close></div><section class="nx-mobile-more-sheet" role="dialog" aria-modal="true" aria-label="Mais opções"><div class="nx-mobile-more-handle" aria-hidden="true"></div><div class="nx-mobile-more-head"><div><div class="eyebrow">NAVEGAÇÃO</div><h2>Mais opções</h2></div><button class="nx-mobile-more-close" type="button" data-mobile-more-close aria-label="Fechar menu">×</button></div><div class="nx-mobile-more-grid"><a data-more-nav="library" href="biblioteca.html"><span aria-hidden="true">▥</span><span><b>Biblioteca</b><small>Apostilas e materiais</small></span></a><a data-more-nav="certs" href="certificados.html"><span aria-hidden="true">▣</span><span><b>Certificados</b><small>Emitir e verificar</small></span></a><a data-more-nav="profile" href="perfil.html"><span aria-hidden="true">⚙</span><span><b>Perfil</b><small>Progresso e conta</small></span></a><a href="apoie.html"><span aria-hidden="true">♡</span><span><b>Contribuir</b><small>Apoio voluntário</small></span></a></div><button class="nx-mobile-logout" type="button" data-mobile-logout>Sair da conta</button></section>';
-  document.body.appendChild(panel);panel.querySelector('[data-more-nav="'+active+'"]')?.classList.add('active');
+  panel.innerHTML='<div class="nx-mobile-more-backdrop" data-mobile-more-close></div><section class="nx-mobile-more-sheet" role="dialog" aria-modal="true" aria-label="Mais opções"><div class="nx-mobile-more-handle" aria-hidden="true"></div><div class="nx-mobile-more-head"><div><div class="eyebrow">NAVEGAÇÃO</div><h2>Mais opções</h2></div><button class="nx-mobile-more-close" type="button" data-mobile-more-close aria-label="Fechar menu">×</button></div><div class="nx-mobile-more-grid"><a data-more-nav="library" href="biblioteca.html"><span>'+lcIcon('library')+'</span><span><b>Biblioteca</b><small>Apostilas e materiais</small></span></a><a data-more-nav="certs" href="certificados.html"><span>'+lcIcon('certs')+'</span><span><b>Certificados</b><small>Emitir e verificar</small></span></a><a data-more-nav="profile" href="perfil.html"><span>'+lcIcon('profile')+'</span><span><b>Perfil</b><small>Progresso e conta</small></span></a><a href="apoie.html"><span>'+lcIcon('support')+'</span><span><b>Contribuir</b><small>Apoio voluntário</small></span></a></div><button class="nx-mobile-logout" type="button" data-mobile-logout>'+lcIcon('logout')+'<span>Sair da conta</span></button></section>';
+  document.body.appendChild(panel);applyLCNavigationIcons(panel);panel.querySelector('[data-more-nav="'+active+'"]')?.classList.add('active');
   let restoreFocus=null,closeTimer=null;
   const close=()=>{if(panel.hidden)return;panel.classList.remove('open');panel.setAttribute('aria-hidden','true');moreButton.setAttribute('aria-expanded','false');document.body.classList.remove('nx-mobile-menu-open');document.querySelector('.app-shell')?.removeAttribute('inert');clearTimeout(closeTimer);closeTimer=setTimeout(()=>{panel.hidden=true;restoreFocus?.focus()},180)};
   const open=()=>{restoreFocus=document.activeElement;panel.hidden=false;panel.setAttribute('aria-hidden','false');moreButton.setAttribute('aria-expanded','true');document.body.classList.add('nx-mobile-menu-open');document.querySelector('.app-shell')?.setAttribute('inert','');requestAnimationFrame(()=>panel.classList.add('open'));setTimeout(()=>panel.querySelector('.nx-mobile-more-close')?.focus(),30)};
@@ -141,4 +159,4 @@ async function lcBoot(active='dashboard'){
   const gamification=await loadGamification();
   return {u,profile,name,gamification};
 }
-window.lcBoot=lcBoot;window.loadGamification=loadGamification;window.decorateLCUI=decorateLCUI;window.LCVisuals={course:nxCourseVisual,module:nxModuleVisual};window.LCCelebrate=showLCCelebration;
+window.lcIcon=lcIcon;window.applyLCNavigationIcons=applyLCNavigationIcons;window.lcBoot=lcBoot;window.loadGamification=loadGamification;window.decorateLCUI=decorateLCUI;window.LCVisuals={course:nxCourseVisual,module:nxModuleVisual};window.LCCelebrate=showLCCelebration;
