@@ -406,7 +406,7 @@
     return frame('Data Model Lab','modelagem de dados',
       '<p class="v3-lab-instructions">'+esc(scenario)+'</p>'+
       '<div class="nx-data-model-grid" data-data-model>'+
-        rows.map((row,i)=>'<div class="v3-option nx-data-model-row"><div><b>'+esc(row.label||('Item '+(i+1)))+'</b>'+(row.value!=null?'<small><code>'+esc(String(row.value))+'</code></small>':'')+(row.hint?'<small>'+esc(row.hint)+'</small>':'')+'</div><select data-data-model-answer="'+i+'"><option value="">Classifique…</option>'+options.map((o,idx)=>'<option value="'+idx+'">'+esc(o)+'</option>').join('')+'</select></div>').join('')+
+        rows.map((row,i)=>'<div class="v3-option nx-data-model-row"><div><b>'+esc(row.label||('Item '+(i+1)))+'</b>'+(row.value!=null?'<small><code>'+esc(String(row.value))+'</code></small>':'')+(row.hint?'<small>'+esc(row.hint)+'</small>':'')+'</div><select aria-label="Classificar '+esc(row.label||('item '+(i+1)))+'" data-data-model-answer="'+i+'"><option value="">Classifique…</option>'+options.map((o,idx)=>'<option value="'+idx+'">'+esc(o)+'</option>').join('')+'</select></div>').join('')+
       '</div><div class="v3-toolbar"><button class="v3-btn" type="button" data-data-model-check>Validar modelo</button></div>'+
       '<div class="v3-feedback" data-feedback>Classifique todos os itens antes de validar.</div>'
     );
