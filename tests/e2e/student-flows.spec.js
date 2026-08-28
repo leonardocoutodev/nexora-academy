@@ -82,7 +82,7 @@ test('certificate can be issued after eligibility',async({page})=>{
 });
 
 test('authenticated learning pages have no serious accessibility violations',async({page})=>{
-  for(const path of ['/pages/curso.html?id='+IDS.course,'/pages/aula.html?id='+IDS.lesson,'/pages/quiz.html?id='+IDS.assessment]){
+  for(const path of ['/pages/curso.html?id='+IDS.course,'/pages/aula.html?id='+IDS.lesson,'/pages/aula.html?id='+IDS.lessonData,'/pages/aula.html?id='+IDS.lessonExpression,'/pages/quiz.html?id='+IDS.assessment]){
     await page.goto(path);await waitForStablePage(page);
     const results=await new AxeBuilder({page}).analyze();
     const severe=results.violations.filter(v=>['serious','critical'].includes(v.impact));
