@@ -1,0 +1,31 @@
+const LC_SUPABASE_URL = "https://kvwsqfnyebyjncfgvqnd.supabase.co";
+const LC_SUPABASE_KEY = "sb_publishable_CssKC6R2Nqtl3McbvR3f4A_jNJtz3hg";
+const TOKEN_KEY = "nexora.supabase.session";
+function loadSession(){try{return JSON.parse(localStorage.getItem(TOKEN_KEY)||"null")}catch{return null}}
+function saveSession(data){if(data?.access_token)localStorage.setItem(TOKEN_KEY,JSON.stringify(data))}
+function clearSession(){localStorage.removeItem(TOKEN_KEY)}
+async function sbRequest(path,options={}){const session=loadSession();const headers={apikey:LC_SUPABASE_KEY,"Content-Type":"application/json",...(session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{}),...(options.headers||{})};const res=await fetch(LC_SUPABASE_URL+path,{...options,headers});const data=await res.json().catch(()=>({}));if(!res.ok){const err=new Error(data.msg||data.message||data.error_description||data.error||`Erro HTTP ${res.status}`);err.status=res.status;throw err}return data}
+async function refreshSessionIfNeeded(){const s=loadSession();if(!s?.refresh_token)return null;const expiresAt=(s.expires_at||0)*1000;if(Date.now()<expiresAt-60000)return s;const data=await sbRequest("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:s.refresh_token})});saveSession(data);return data}
+async function authUser(){await refreshSessionIfNeeded().catch(()=>clearSession());const s=loadSession();if(!s?.access_token)return null;try{return await sbRequest("/auth/v1/user")}catch{clearSession();return null}}
+async function sbRest(schema,path,options={}){await refreshSessionIfNeeded().catch(()=>{});const s=loadSession();const headers={apikey:LC_SUPABASE_KEY,"Content-Type":"application/json","Accept-Profile":schema,"Content-Profile":schema,...(s?.access_token?{Authorization:`Bearer ${s.access_token}`}:{})};const res=await fetch(`${LC_SUPABASE_URL}/rest/v1/${path}`,{...options,headers:{...headers,...(options.headers||{})}});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.message||data.error||`Erro HTTP ${res.status}`);return data}
+window.LCSupabase={
+ url:LC_SUPABASE_URL,publishableKey:LC_SUPABASE_KEY,session:loadSession,
+ async signUp({name,email,password}){const data=await sbRequest("/auth/v1/signup",{method:"POST",body:JSON.stringify({email,password,data:{full_name:name,nexora:true}})});if(data.access_token)saveSession(data);return data},
+ async signIn({email,password}){const data=await sbRequest("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email,password})});saveSession(data);return data},
+ async signOut(){const s=loadSession();if(s?.access_token)await sbRequest("/auth/v1/logout",{method:"POST"}).catch(()=>{});clearSession()},
+ user:authUser,
+ async api(path,options={}){await refreshSessionIfNeeded();const s=loadSession();const headers={...(options.headers||{}),...(s?.access_token?{Authorization:`Bearer ${s.access_token}`}:{})};const res=await fetch(path,{...options,headers});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.error||`Erro HTTP ${res.status}`);return data},
+ rest:(path,options={})=>sbRest("nexora",path,options),
+ rpc:(name,args={})=>sbRest("nexora",`rpc/${name}`,{method:"POST",body:JSON.stringify(args)}),
+ profile:async()=>{const u=await authUser();if(!u)return null;const rows=await sbRest("nexora",`profiles?id=eq.${encodeURIComponent(u.id)}&select=id,full_name,role,status`);return rows[0]||null},
+ courses:()=>sbRest("nexora","courses?status=eq.published&select=id,slug,title,description,minimum_score,position,course_type,level_label,category_label,is_recommended_start,recommendation_note&order=position.asc"),
+ enrollments:async()=>{const u=await authUser();if(!u)return[];return sbRest("nexora",`enrollments?user_id=eq.${encodeURIComponent(u.id)}&select=id,course_id,status,enrolled_at`)},
+ progress:async()=>{const u=await authUser();if(!u)return[];return sbRest("nexora",`lesson_progress?user_id=eq.${encodeURIComponent(u.id)}&select=lesson_id,progress,completed_at,updated_at`)},
+ learningPaths:()=>sbRest("nexora","learning_paths?status=eq.published&select=id,slug,title,description,goal,position&order=position.asc"),
+ learningPathCourses:()=>sbRest("nexora","learning_path_courses?select=path_id,course_id,position,role&order=position.asc"),
+ learningPreference:async()=>{const u=await authUser();if(!u)return null;const r=await sbRest("nexora",`user_learning_preferences?user_id=eq.${encodeURIComponent(u.id)}&select=user_id,goal,experience_level,preferred_path_id,diagnostic_score,foundation_status,updated_at`);return r[0]||null},
+ learningCredits:async()=>{const u=await authUser();if(!u)return[];return sbRest("nexora",`learning_credits?user_id=eq.${encodeURIComponent(u.id)}&select=target_module_id,source_type,source_id,reason,created_at`)},
+ saveLearningPreference:async data=>{const u=await authUser();if(!u)throw new Error("Não autenticado");const body={user_id:u.id,...data,updated_at:new Date().toISOString()};const r=await sbRest("nexora","user_learning_preferences?on_conflict=user_id",{method:"POST",headers:{Prefer:"resolution=merge-duplicates,return=representation"},body:JSON.stringify(body)});return r[0]||r},
+ gamification:async()=>{const r=await sbRest("nexora","rpc/get_gamification_summary",{method:"POST",body:"{}"});return Array.isArray(r)?r[0]:r},
+ completeLesson:async lessonId=>{const r=await sbRest("nexora","rpc/complete_lesson_mission",{method:"POST",body:JSON.stringify({p_lesson_id:lessonId})});return Array.isArray(r)?r[0]:r}
+};
