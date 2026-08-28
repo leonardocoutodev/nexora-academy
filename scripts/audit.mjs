@@ -27,7 +27,7 @@ for(const [label,source,patterns] of [
   ["academy-v3.css",mobileCss,["LC MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more",'input[type="checkbox"]']],
   ["learning-release.css",lessonCss,["LC CONTINUOUS GUIDED LESSON","nx-lesson-flow","nx-section-nav","nx-sheet","nx-mobile-pdf-note"]],
   ["app-shell.js",appShellSource,["enhanceMobileNavigation","aria-current","nx-mobile-more","inert","lc-mark.svg"]],
-  ["lc-brand.css",brandCss,["--lc-ink:#07111F","--lc-blue:#2878FF","--lc-mint:#38E6B0","--lc-font:Inter"]]
+  ["lc-brand.css",brandCss,["fonts.googleapis.com/css2?family=Inter","--lc-ink:#07111F","--lc-blue:#2878FF","--lc-mint:#38E6B0","--lc-font:Inter"]]
 ])for(const pattern of patterns){if(!source.includes(pattern))failures.push(`${label}: proteção mobile ausente (${pattern})`)}
 for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/apoie.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!/viewport-fit=cover/.test(html))failures.push(`${rel}: viewport-fit=cover ausente`)}
 for(const requiredBrand of ["assets/brand/lc-mark.svg","assets/css/lc-brand.css","manifest.webmanifest"]){if(!fs.existsSync(path.join(root,requiredBrand)))failures.push(`ativo LC ausente: ${requiredBrand}`)}

@@ -19,7 +19,7 @@
 
 ## Tipografia
 
-Inter é a família preferencial. O produto mantém fallback nativo de sistema para preservar performance e disponibilidade.
+Inter é a família oficial da interface e é carregada como webfont nos pesos 400, 500, 600, 700 e 800. O produto mantém fallback nativo de sistema para disponibilidade e resiliência.
 
 - H1 mobile: 28px / 800
 - H2: 22px / 700
@@ -57,3 +57,14 @@ Termos conhecidos como aula, módulo e certificado são preservados para reduzir
 A marca pública canônica é **LC**. Interface, PWA, certificados, materiais, laboratórios, pagamentos e metadados utilizam a identidade LC.
 
 Identificadores internos legados como o schema PostgreSQL `nexora`, aliases de sessão e slugs antigos de compatibilidade não são marca pública e só permanecem quando a troca poderia interromper dados ou integrações existentes. Novos endpoints e ativos devem usar nomes LC.
+
+
+## Checklist de consistência visual
+
+- LC Mark canônico: `public/assets/brand/lc-mark.svg`
+- Tipografia: Inter 400–800
+- Fundo principal: LC Ink
+- Ação/navegação: LC Blue
+- Progresso/sucesso: LC Mint
+- Roxos da identidade anterior não fazem parte da paleta pública
+- Nenhuma superfície deve recriar o monograma com CSS, texto estilizado ou variações ad hoc
