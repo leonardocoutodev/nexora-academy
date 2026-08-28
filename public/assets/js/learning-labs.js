@@ -454,6 +454,38 @@
     };
   }
 
+
+  function decisionTableLab(ctx){
+    const cfg=ctx.lesson?.lab_config?.decision_table||{};
+    const outcomes=Array.isArray(cfg.outcomes)&&cfg.outcomes.length>=2?cfg.outcomes:['Aprovar','Recusar'];
+    const rows=Array.isArray(cfg.rows)?cfg.rows:[];
+    return frame(cfg.title||'Decision Table Lab','tabela de decisão',
+      '<p class="v3-lab-instructions">'+esc(cfg.scenario||'Escolha o resultado correto para cada caso. Uma regra robusta precisa produzir saídas consistentes em cenários diferentes.')+'</p>'+
+      '<div class="nx-data-model-grid" data-decision-table>'+
+        rows.map((row,i)=>'<div class="v3-option nx-data-model-row"><div><b>'+esc(row.case||('Caso '+(i+1)))+'</b>'+(row.hint?'<small>'+esc(row.hint)+'</small>':'')+'</div><select aria-label="Resultado para '+esc(row.case||('caso '+(i+1)))+'" data-decision-answer="'+i+'"><option value="">Escolha o resultado…</option>'+outcomes.map((o,idx)=>'<option value="'+idx+'">'+esc(o)+'</option>').join('')+'</select></div>').join('')+
+      '</div><div class="v3-toolbar"><button class="v3-btn" type="button" data-decision-check>Validar decisões</button></div>'+
+      '<div class="v3-feedback" data-feedback>Resolva todos os casos antes de validar a tabela.</div>'
+    );
+  }
+  function wireDecisionTable(root,ctx){
+    const cfg=ctx.lesson?.lab_config?.decision_table||{},rows=Array.isArray(cfg.rows)?cfg.rows:[],fb=root.querySelector('[data-feedback]'),btn=root.querySelector('[data-decision-check]');
+    btn.onclick=()=>{
+      const selects=[...root.querySelectorAll('[data-decision-answer]')];
+      if(selects.some(x=>x.value===''))return feedback(fb,false,'Resolva todos os casos antes de validar.');
+      let correct=0;
+      selects.forEach((sel,i)=>{
+        const ok=Number(sel.value)===Number(rows[i]?.answer);
+        const card=sel.closest('.nx-data-model-row');
+        card?.classList.toggle('correct',ok);
+        card?.classList.toggle('wrong',!ok);
+        if(ok)correct++;
+      });
+      const ok=rows.length>0&&correct===rows.length;
+      feedback(fb,ok,ok?(cfg.feedback||'Tabela consistente. Cada caso segue a regra definida.'):(cfg.feedback_incorrect||('Você acertou '+correct+' de '+rows.length+'. Localize o caso cuja condição ou ordem de decisão foi interpretada de forma diferente.')));
+      if(ok){btn.disabled=true;complete({type:'decision_table',score:correct,total:rows.length})}
+    };
+  }
+
   function render(el,ctx){
     if(!el)return;
     state.complete=false;
@@ -461,6 +493,7 @@
     const type=ctx.lesson?.lab_type||'checkpoint';
     let html='';
     if(type==='logic')html=logicLab();
+    else if(type==='decision_table')html=decisionTableLab(ctx);
     else if(type==='data_model')html=dataModelLab(ctx);
     else if(type==='expression')html=expressionLab(ctx);
     else if(type==='pseudocode')html=pseudocodeLab();
@@ -484,6 +517,7 @@
     else html=mcq(module,ctx.lesson?.lab_config?.checkpoint);
     el.innerHTML=html;
     if(type==='logic')wireLogic(el);
+    else if(type==='decision_table')wireDecisionTable(el,ctx);
     else if(type==='data_model')wireDataModel(el,ctx);
     else if(type==='expression')wireExpression(el,ctx);
     else if(type==='pseudocode')wirePseudocode(el);
