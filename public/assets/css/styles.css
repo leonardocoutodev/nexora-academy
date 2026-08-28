@@ -32,7 +32,7 @@ body{
 }
 .brand{gap:10px}
 .brand img{width:44px!important;height:44px!important;object-fit:contain;flex:0 0 auto}
-.brand .lc-brand-name{font-size:22px;font-weight:800;letter-spacing:-.045em;color:var(--lc-white);line-height:1}
+.brand .lc-brand-signature{font-size:15px;font-weight:700;letter-spacing:-.025em;color:var(--lc-white);line-height:1;white-space:nowrap}.brand .lc-brand-amp{color:var(--lc-mint);font-weight:800}
 .hero-title span{
   background:linear-gradient(90deg,var(--lc-blue),#4598ff 48%,var(--lc-mint));
   -webkit-background-clip:text;background-clip:text;color:transparent
@@ -44,5 +44,9 @@ body{
 input:focus,textarea:focus,select:focus{border-color:var(--lc-blue);box-shadow:0 0 0 3px rgba(40,120,255,.14)}
 @media(max-width:820px){
   .mobile-header .brand img{width:38px!important;height:38px!important}
-  .mobile-header .brand .lc-brand-name{font-size:20px}
+  .mobile-header .brand .lc-brand-signature{display:none}
+}
+
+@media(max-width:520px){
+  .public-nav .lc-brand-signature{display:none}
 }
