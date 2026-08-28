@@ -45,3 +45,6 @@ if(labSource.includes("new Function"))failures.push("learning-labs.js não pode 
 for(const required of ["supabase/migrations/20260828090000_nexora_security_hardening.sql","supabase/functions/lc-mercadopago-donation/index.ts","supabase/functions/lc-mercadopago-webhook/index.ts"]){if(!fs.existsSync(required))failures.push(`arquivo operacional ausente: ${required}`)}
 if(failures.length){console.error(failures.join("\n"));process.exit(1)}
 console.log(`Auditoria aprovada: ${files.length} arquivos públicos e ${files.filter(file=>file.endsWith(".html")).length} páginas HTML.`);
+
+const legacyPalette=["#8457ff","#754fff","#9b6fff","#7e59ff","#7c63ff","#8c72ff","#7564ff","#7664ff","#8b6dff","#6e5cff","rgba(124,99,255","rgba(140,114,255","rgba(142,111,255"];
+for(const rel of ["assets/css/styles.css","assets/css/academy-v3.css"]){const source=fs.readFileSync(path.join(root,rel),"utf8").toLowerCase();for(const legacy of legacyPalette){if(source.includes(legacy.toLowerCase()))failures.push(`${rel}: cor legada fora da paleta LC (${legacy})`)}}
