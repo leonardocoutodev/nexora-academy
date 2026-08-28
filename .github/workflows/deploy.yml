@@ -37,10 +37,12 @@ jobs:
         run: |
           set -e
           URL="https://academy.nexora-84f.workers.dev"
+          EXPECTED_BUILD="$(sed -n 's/^const BUILD_ID = "\([^"]*\)";/\1/p' src/index.js)"
+          test -n "$EXPECTED_BUILD"
           ok=0
           for i in $(seq 1 12); do
             HEALTH="$(curl -fsS --max-time 15 "$URL/api/health" || true)"
-            if echo "$HEALTH" | grep -q '"ok":true' && echo "$HEALTH" | grep -q '"build":"6.0.0-phase2-20260828"'; then
+            if echo "$HEALTH" | grep -q '"ok":true' && echo "$HEALTH" | grep -q "\"build\":\"$EXPECTED_BUILD\""; then
               curl -fsS --max-time 15 "$URL/" >/dev/null
               echo "LC production smoke test passed."
               ok=1
