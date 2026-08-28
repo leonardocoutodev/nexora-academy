@@ -23,10 +23,21 @@ const mobileCss=fs.readFileSync(path.join(root,"assets/css/academy-v3.css"),"utf
 const lessonCss=fs.readFileSync(path.join(root,"assets/css/learning-release.css"),"utf8");
 const appShellSource=fs.readFileSync(path.join(root,"assets/js/app-shell.js"),"utf8");
 const brandCss=fs.readFileSync(path.join(root,"assets/css/lc-brand.css"),"utf8");
+const globalCss=fs.readFileSync(path.join(root,"assets/css/styles.css"),"utf8");
+const headersSource=fs.readFileSync(path.join(root,"_headers"),"utf8");
+const countImportant=source=>(source.match(/!important/g)||[]).length;
+if(countImportant(mobileCss)>12)failures.push(`academy-v3.css: orçamento de !important excedido (${countImportant(mobileCss)} > 12)`);
+if(countImportant(lessonCss)>3)failures.push(`learning-release.css: orçamento de !important excedido (${countImportant(lessonCss)} > 3)`);
+if(countImportant(globalCss)>8)failures.push(`styles.css: orçamento de !important excedido (${countImportant(globalCss)} > 8)`);
+if(/nx-book(?:-|\b)/.test(lessonCss))failures.push("learning-release.css: CSS legado do livro horizontal ainda presente");
+for(const legacySection of ["LC VISUAL POLISH","LC MOBILE LESSON REPAIR","LC VISUAL IDENTITY OVERRIDES"]){if(mobileCss.includes(legacySection))failures.push(`academy-v3.css: camada legada ainda presente (${legacySection})`)}
+const maxWidths=[...new Set([...globalCss.matchAll(/max-width:(\d+)px/g),...mobileCss.matchAll(/max-width:(\d+)px/g),...lessonCss.matchAll(/max-width:(\d+)px/g)].map(m=>Number(m[1])))];
+for(const width of maxWidths){if(![1100,900,820,620,420].includes(width))failures.push(`CSS: breakpoint não canônico ${width}px`)}
+if(!headersSource.includes("fonts.googleapis.com")||!headersSource.includes("fonts.gstatic.com"))failures.push("CSP: fontes oficiais LC não estão liberadas");
 for(const [label,source,patterns] of [
-  ["academy-v3.css",mobileCss,["LC MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more",'input[type="checkbox"]']],
-  ["learning-release.css",lessonCss,["LC CONTINUOUS GUIDED LESSON","nx-lesson-flow","nx-section-nav","nx-sheet","nx-mobile-pdf-note"]],
-  ["app-shell.js",appShellSource,["enhanceMobileNavigation","aria-current","nx-mobile-more","inert","lc-mark.svg","lc-brand-signature","Learn <span class=\"lc-brand-amp\">&amp;</span> Create"]],
+  ["academy-v3.css",mobileCss,["LC UI FOUNDATION 1.0","LC MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more","lc-ui-icon",'input[type="checkbox"]']],
+  ["learning-release.css",lessonCss,["LC LESSON EXPERIENCE 1.0","nx-lesson-flow","nx-section-nav","nx-sheet","nx-mobile-pdf-note"]],
+  ["app-shell.js",appShellSource,["enhanceMobileNavigation","applyLCNavigationIcons","LC_ICON_PATHS","lc-ui-icon","aria-current","nx-mobile-more","inert","lc-mark.svg","lc-brand-signature","Learn <span class=\"lc-brand-amp\">&amp;</span> Create"]],
   ["lc-brand.css",brandCss,["fonts.googleapis.com/css2?family=Inter","--lc-ink:#07111F","--lc-blue:#2878FF","--lc-mint:#38E6B0","--lc-font:Inter"]]
 ])for(const pattern of patterns){if(!source.includes(pattern))failures.push(`${label}: proteção mobile ausente (${pattern})`)}
 for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/apoie.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!/viewport-fit=cover/.test(html))failures.push(`${rel}: viewport-fit=cover ausente`)}
