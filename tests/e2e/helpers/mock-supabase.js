@@ -15,6 +15,7 @@ export const IDS={
 const json=(route,data,status=200)=>route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
 
 export async function installMockSupabase(page,{role='student'}={}){
+  await page.route(/https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/,route=>route.abort());
   const state={certificateIssued:false,projectSubmitted:false};
   await page.addInitScript(()=>{
     localStorage.setItem('lc.supabase.session',JSON.stringify({
