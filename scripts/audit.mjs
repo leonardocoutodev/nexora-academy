@@ -26,7 +26,7 @@ const brandCss=fs.readFileSync(path.join(root,"assets/css/lc-brand.css"),"utf8")
 for(const [label,source,patterns] of [
   ["academy-v3.css",mobileCss,["LC MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more",'input[type="checkbox"]']],
   ["learning-release.css",lessonCss,["LC CONTINUOUS GUIDED LESSON","nx-lesson-flow","nx-section-nav","nx-sheet","nx-mobile-pdf-note"]],
-  ["app-shell.js",appShellSource,["enhanceMobileNavigation","aria-current","nx-mobile-more","inert","lc-mark.svg"]],
+  ["app-shell.js",appShellSource,["enhanceMobileNavigation","aria-current","nx-mobile-more","inert","lc-mark.svg","lc-brand-signature","Learn <span class=\"lc-brand-amp\">&amp;</span> Create"]],
   ["lc-brand.css",brandCss,["fonts.googleapis.com/css2?family=Inter","--lc-ink:#07111F","--lc-blue:#2878FF","--lc-mint:#38E6B0","--lc-font:Inter"]]
 ])for(const pattern of patterns){if(!source.includes(pattern))failures.push(`${label}: proteção mobile ausente (${pattern})`)}
 for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/apoie.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!/viewport-fit=cover/.test(html))failures.push(`${rel}: viewport-fit=cover ausente`)}
@@ -36,6 +36,7 @@ for(const file of files.filter(file=>/\.(?:html|js|css|sql|svg|txt)$/.test(file)
   const technicalAllowlist=new Set(["assets/js/supabase-lc.js"]);
   if(!technicalAllowlist.has(rel)&&/nexora/i.test(source))failures.push(`${rel}: resíduo público da marca anterior`);
   if(source.includes("nexora-logo.svg")||source.includes("supabase-nexora.js")||source.includes("NexoraSupabase")||source.includes("nexoraBoot"))failures.push(`${rel}: referência legada proibida`);
+  if(source.includes('class="lc-brand-name">LC</span>'))failures.push(`${rel}: lockup redundante LC + LC Mark`);
 }
 const lessonHtml=fs.readFileSync(path.join(root,"pages/aula.html"),"utf8");
 for(const pattern of ['id="lessonFlow"','id="pratica"','id="resumo"','id="materialsDialog"','wireSectionProgress']){if(!lessonHtml.includes(pattern))failures.push(`aula.html: experiência contínua ausente (${pattern})`)}

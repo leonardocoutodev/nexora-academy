@@ -68,3 +68,16 @@ Identificadores internos legados como o schema PostgreSQL `nexora`, aliases de s
 - Progresso/sucesso: LC Mint
 - Roxos da identidade anterior não fazem parte da paleta pública
 - Nenhuma superfície deve recriar o monograma com CSS, texto estilizado ou variações ad hoc
+
+
+## Sistema de lockups
+
+A LC usa o monograma de forma diferente conforme o espaço disponível:
+
+- **Compacto/mobile:** LC Mark sozinho. Não repetir “LC” ao lado do próprio símbolo.
+- **Horizontal/institucional:** LC Mark + **Learn & Create**.
+- **Nome em texto:** usar **LC** normalmente em títulos, certificados, metadados e linguagem editorial.
+- O caractere **&** pode usar LC Mint como detalhe de assinatura.
+- Em headers mobile e outros espaços estreitos, a assinatura textual deve desaparecer antes de reduzir excessivamente o símbolo.
+
+A regra evita redundância visual e mantém “Learn & Create” como explicação institucional da marca.
