@@ -8,6 +8,7 @@ const pages=[
   {name:'aula',path:'/pages/aula.html?id='+IDS.lesson,role:'student'},
   {name:'data-model-lab',path:'/pages/aula.html?id='+IDS.lessonData,role:'student'},
   {name:'expression-lab',path:'/pages/aula.html?id='+IDS.lessonExpression,role:'student'},
+  {name:'decision-table-lab',path:'/pages/aula.html?id='+IDS.lessonDecision,role:'student'},
   {name:'admin',path:'/pages/admin/#analytics',role:'admin'}
 ];
 
