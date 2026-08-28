@@ -37,6 +37,7 @@
 
         <div class="lc-admin-tabs" role="tablist" aria-label="Áreas administrativas">
           <button type="button" role="tab" data-admin-tab="overview">Visão geral</button>
+          <button type="button" role="tab" data-admin-tab="analytics">Analytics</button>
           <button type="button" role="tab" data-admin-tab="students">Alunos</button>
           <button type="button" role="tab" data-admin-tab="boss">Boss Fights</button>
           <button type="button" role="tab" data-admin-tab="certificates">Certificados</button>
@@ -66,6 +67,78 @@
               </div>
             </aside>
           </div>
+        </section>
+
+        <section data-admin-panel="analytics" hidden>
+          <div class="v3-section-head lc-analytics-head">
+            <div>
+              <div class="eyebrow">DADOS DE PRODUTO</div>
+              <h2>Analytics educacional</h2>
+              <p class="muted">Jornada, engajamento e aprendizagem observados a partir da instrumentação LC.</p>
+            </div>
+            <label class="lc-analytics-period">Período
+              <select id="analyticsDays">
+                <option value="7">7 dias</option>
+                <option value="30" selected>30 dias</option>
+                <option value="90">90 dias</option>
+              </select>
+            </label>
+          </div>
+          <div class="lc-analytics-note" id="analyticsSince">A instrumentação começa nesta versão; dados anteriores continuam disponíveis nas métricas acadêmicas tradicionais.</div>
+
+          <div class="v3-metrics lc-analytics-metrics">
+            <div class="v3-metric"><small>Usuários ativos</small><strong id="analyticsActive">0</strong></div>
+            <div class="v3-metric"><small>Sessões</small><strong id="analyticsSessions">0</strong></div>
+            <div class="v3-metric"><small>Aulas abertas</small><strong id="analyticsLessonOpens">0</strong></div>
+            <div class="v3-metric"><small>Aulas concluídas</small><strong id="analyticsLessonDone">0</strong></div>
+            <div class="v3-metric"><small>Engajamento médio</small><strong id="analyticsEngagement">0 min</strong></div>
+            <div class="v3-metric"><small>Aprovação em quiz</small><strong id="analyticsQuizPass">0%</strong></div>
+            <div class="v3-metric"><small>Mobile</small><strong id="analyticsMobile">0%</strong></div>
+            <div class="v3-metric"><small>Eventos</small><strong id="analyticsEvents">0</strong></div>
+          </div>
+
+          <div class="lc-analytics-grid">
+            <section class="card card-pad">
+              <div class="eyebrow">JORNADA</div>
+              <h3>Etapas observadas</h3>
+              <p class="muted">Pessoas ou sessões que alcançaram cada etapa no período. Usuários antigos podem entrar no fluxo sem passar pelo cadastro dentro da janela analisada.</p>
+              <div id="analyticsFunnel" class="lc-funnel"></div>
+            </section>
+            <section class="card card-pad">
+              <div class="eyebrow">ATIVIDADE</div>
+              <h3>Sessões por dia</h3>
+              <div id="analyticsDailyChart" class="lc-analytics-chart"></div>
+              <div id="analyticsDailyMeta" class="muted"></div>
+            </section>
+          </div>
+
+          <section class="card card-pad lc-analytics-section">
+            <div class="v3-section-head">
+              <div><div class="eyebrow">CURSOS</div><h3>Saúde das formações</h3></div>
+            </div>
+            <div id="analyticsCourses" class="lc-analytics-table"></div>
+          </section>
+
+          <div class="lc-analytics-grid">
+            <section class="card card-pad lc-analytics-section">
+              <div class="eyebrow">DISPOSITIVOS</div>
+              <h3>Como os alunos acessam</h3>
+              <div id="analyticsDevices" class="lc-analytics-bars"></div>
+            </section>
+            <section class="card card-pad lc-analytics-section">
+              <div class="eyebrow">OBJETIVOS</div>
+              <h3>Intenção e diagnóstico</h3>
+              <div id="analyticsGoals" class="lc-analytics-bars"></div>
+            </section>
+          </div>
+
+          <section class="card card-pad lc-analytics-section">
+            <div class="v3-section-head">
+              <div><div class="eyebrow">DIAGNÓSTICO DE AULAS</div><h3>Onde a experiência precisa melhorar</h3><p class="muted">Aberturas, conclusão, tempo ativo, profundidade de scroll, checagens e Labs.</p></div>
+              <select id="analyticsLessonCourse"><option value="">Selecione um curso</option></select>
+            </div>
+            <div id="analyticsLessons" class="lc-analytics-table"><div class="lc-admin-empty">Selecione um curso para analisar as aulas.</div></div>
+          </section>
         </section>
 
         <section data-admin-panel="students" hidden>
@@ -119,10 +192,10 @@
 
     <nav class="bottom-nav nx-admin-mobile-nav">
       <button type="button" data-admin-tab="overview"><span>⌂</span><span>Resumo</span></button>
+      <button type="button" data-admin-tab="analytics"><span>⌁</span><span>Dados</span></button>
       <button type="button" data-admin-tab="students"><span>◎</span><span>Alunos</span></button>
       <button type="button" data-admin-tab="boss"><span>◇</span><span>Boss</span></button>
       <button type="button" data-admin-tab="certificates"><span>▣</span><span>Cert.</span></button>
-      <button type="button" data-admin-tab="audit"><span>⋯</span><span>Auditoria</span></button>
     </nav>
   </main>
 </div>
