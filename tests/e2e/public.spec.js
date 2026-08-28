@@ -9,7 +9,7 @@ for(const entry of [
 ]){
   test('@compat public route '+entry.path,async({page})=>{
     await blockExternalFonts(page);
-    await page.goto(entry.path,{waitUntil:'domcontentloaded',timeout:30_000});
+    await page.goto(entry.path,{waitUntil:'commit',timeout:15_000});
     await expect(page).toHaveTitle(entry.title);
     await expect(page.locator('body')).toBeVisible();
     await expectNoHorizontalOverflow(page);
