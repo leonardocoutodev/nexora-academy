@@ -31,12 +31,12 @@ for(const [label,source,patterns] of [
 ])for(const pattern of patterns){if(!source.includes(pattern))failures.push(`${label}: proteção mobile ausente (${pattern})`)}
 for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/apoie.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!/viewport-fit=cover/.test(html))failures.push(`${rel}: viewport-fit=cover ausente`)}
 for(const requiredBrand of ["assets/brand/lc-mark.svg","assets/css/lc-brand.css","manifest.webmanifest"]){if(!fs.existsSync(path.join(root,requiredBrand)))failures.push(`ativo LC ausente: ${requiredBrand}`)}
-for(const file of files.filter(file=>/\.(?:html|js|css)$/.test(file))){const source=fs.readFileSync(file,"utf8");if(source.includes("nexora-logo.svg")||source.includes("Nexora Academy"))failures.push(`${path.relative(root,file)}: resíduo público da marca anterior`)}
+for(const file of files.filter(file=>/\.(?:html|js|css|sql)$/.test(file))){const source=fs.readFileSync(file,"utf8");if(source.includes("nexora-logo.svg")||source.includes("Nexora Academy")||source.includes("NEXORA ACADEMY")||source.includes("supabase-nexora.js")||source.includes("NexoraSupabase")||source.includes("nexoraBoot"))failures.push(`${path.relative(root,file)}: resíduo público da marca anterior`)}
 const lessonHtml=fs.readFileSync(path.join(root,"pages/aula.html"),"utf8");
 for(const pattern of ['id="lessonFlow"','id="pratica"','id="resumo"','id="materialsDialog"','wireSectionProgress']){if(!lessonHtml.includes(pattern))failures.push(`aula.html: experiência contínua ausente (${pattern})`)}
 if(lessonHtml.includes('id="bookPages"')||lessonHtml.includes("Deslize para avançar"))failures.push("aula.html: paginação horizontal antiga ainda presente");
 const labSource=fs.readFileSync(path.join(root,"assets/js/learning-labs.js"),"utf8");
 if(labSource.includes("new Function"))failures.push("learning-labs.js não pode executar código no contexto da aplicação");
-for(const required of ["supabase/migrations/20260828090000_nexora_security_hardening.sql","supabase/functions/nexora-mercadopago-donation/index.ts","supabase/functions/nexora-mercadopago-webhook/index.ts"]){if(!fs.existsSync(required))failures.push(`arquivo operacional ausente: ${required}`)}
+for(const required of ["supabase/migrations/20260828090000_nexora_security_hardening.sql","supabase/functions/lc-mercadopago-donation/index.ts","supabase/functions/lc-mercadopago-webhook/index.ts"]){if(!fs.existsSync(required))failures.push(`arquivo operacional ausente: ${required}`)}
 if(failures.length){console.error(failures.join("\n"));process.exit(1)}
 console.log(`Auditoria aprovada: ${files.length} arquivos públicos e ${files.filter(file=>file.endsWith(".html")).length} páginas HTML.`);
