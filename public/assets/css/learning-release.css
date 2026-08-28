@@ -41,3 +41,78 @@ html,body{max-width:100%;overflow-x:hidden}.nx-visual-guide{overflow:hidden;min-
   .nx-book-section p{font-size:16.5px!important}
   .nx-book-controls>#bookPrev,.nx-book-controls>#bookNext{font-size:13px!important}
 }
+
+
+/* ==========================================================
+   LC CONTINUOUS GUIDED LESSON — mobile-first 2026-08-28
+   Conteúdo substancial, leitura contínua e poucas interrupções.
+   ========================================================== */
+.nx-lesson-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.nx-lesson-tools button{min-height:44px}
+.nx-reading-progress{height:4px;margin-top:14px;border-radius:999px;background:rgba(157,172,193,.14);overflow:hidden}
+.nx-reading-progress span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--lc-blue),var(--lc-mint));transition:width .16s linear}
+.nx-section-nav{position:sticky;top:10px;z-index:22;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:12px 0 0;padding:5px;border:1px solid rgba(157,172,193,.15);border-radius:14px;background:rgba(7,17,31,.86);backdrop-filter:blur(16px);box-shadow:0 10px 30px rgba(0,0,0,.16)}
+.nx-section-nav a{min-height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;color:var(--lc-text-secondary);font-size:12px;font-weight:750}
+.nx-section-nav a.active{color:var(--lc-white);background:rgba(40,120,255,.14);box-shadow:inset 0 0 0 1px rgba(40,120,255,.25)}
+.nx-lesson-flow{max-width:900px;margin:0 auto}
+.nx-flow-group{padding:34px 8px 30px;border-bottom:1px solid rgba(157,172,193,.13)}
+.nx-flow-group:first-child{padding-top:28px}
+.nx-section-kicker{margin-bottom:7px;color:var(--lc-mint);font-size:11px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+.nx-flow-group>h2,.nx-practice-section>h2,.nx-summary-section>h2{margin:0 0 18px;font-size:clamp(22px,3vw,28px);line-height:1.2;letter-spacing:-.025em}
+.nx-flow-block{max-width:76ch}
+.nx-flow-block+.nx-flow-block{margin-top:24px}
+.nx-flow-block h3{margin:0 0 10px;font-size:18px;line-height:1.35}
+.nx-flow-block p{margin:0 0 15px;color:#d0d9e5;font-size:17px;line-height:1.78}
+.nx-flow-block p:last-child{margin-bottom:0}
+.nx-flow-block .nx-teaching-list{margin-top:14px;color:#d0d9e5}
+.nx-flow-block .nx-teaching-code{margin:16px 0 0}
+.nx-flow-erro{border-left:3px solid rgba(255,176,32,.62);padding-left:22px}
+.nx-flow-teste{border-left:3px solid rgba(40,120,255,.62);padding-left:22px}
+.nx-flow-contexto{border-left:3px solid rgba(56,230,176,.48);padding-left:22px}
+.nx-practice-section,.nx-summary-section{max-width:900px;margin:0 auto;padding:34px 8px;border-bottom:1px solid rgba(157,172,193,.13)}
+.nx-practice-section>p{max-width:72ch;line-height:1.7}
+.nx-practice-section #labHost{margin-top:20px!important}
+.nx-summary-section{padding-bottom:26px}
+.nx-summary-section .nx-flow-group{padding:0;border:0}
+.nx-summary-section .nx-flow-group>h2,.nx-summary-section .nx-flow-group>.nx-section-kicker{display:none}
+.nx-summary-fallback{max-width:72ch;color:#d0d9e5;font-size:16px;line-height:1.72}
+.nx-completion-actions{max-width:900px;margin:20px auto 0!important;padding:0 8px}
+.nx-sheet{width:min(720px,calc(100% - 24px));max-height:82dvh;padding:0;border:1px solid rgba(157,172,193,.20);border-radius:22px;background:var(--lc-navy);color:var(--lc-white);box-shadow:0 30px 100px rgba(0,0,0,.55);overflow:hidden}
+.nx-sheet::backdrop{background:rgba(2,8,15,.68);backdrop-filter:blur(4px)}
+.nx-sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 18px 14px;border-bottom:1px solid rgba(157,172,193,.14);background:rgba(7,17,31,.92)}
+.nx-sheet-head h2{margin:4px 0 0;font-size:22px}
+.nx-sheet-scroll,.nx-sheet-list{max-height:calc(82dvh - 78px);overflow:auto;overscroll-behavior:contain;padding:16px}
+.nx-sheet-list{display:grid;gap:7px}
+.nx-materials-sheet .v3-section-head{margin-top:0}
+.nx-reference-disclosure{margin-top:18px;border-top:1px solid rgba(157,172,193,.15);padding-top:14px}
+.nx-reference-disclosure summary{min-height:48px;display:flex;align-items:center;cursor:pointer;font-weight:750;color:var(--lc-text-secondary)}
+.nx-reference-disclosure[open] summary{color:var(--lc-white);margin-bottom:12px}
+@media(max-width:760px){
+  .nx-lesson-page .main-inner{padding:8px 12px calc(118px + env(safe-area-inset-bottom))!important}
+  .nx-lesson-page .v3-mission-head{padding:15px!important;border-radius:15px!important}
+  .nx-lesson-page .v3-mission-head h1{font-size:clamp(25px,7.5vw,31px)!important;margin-bottom:8px}
+  .nx-lesson-page .v3-mission-head #objective{font-size:14.5px;line-height:1.55;margin-bottom:10px}
+  .nx-lesson-tools{display:grid;grid-template-columns:1fr 1fr}
+  .nx-lesson-tools button{width:100%;min-width:0;min-height:46px}
+  .nx-section-nav{top:calc(68px + env(safe-area-inset-top));margin-left:-2px;margin-right:-2px}
+  .nx-section-nav a{min-height:42px;font-size:12px}
+  .nx-flow-group{padding:26px 4px 25px}
+  .nx-flow-group:first-child{padding-top:24px}
+  .nx-flow-group>h2,.nx-practice-section>h2,.nx-summary-section>h2{font-size:22px;margin-bottom:15px}
+  .nx-flow-block h3{font-size:17px}
+  .nx-flow-block p{font-size:16.5px;line-height:1.72;margin-bottom:14px}
+  .nx-flow-block+.nx-flow-block{margin-top:20px}
+  .nx-flow-erro,.nx-flow-teste,.nx-flow-contexto{padding-left:15px}
+  .nx-practice-section,.nx-summary-section{padding:28px 4px}
+  .nx-practice-section #labHost{margin-top:16px!important}
+  .nx-completion-actions{padding:0 4px}
+  .nx-sheet{width:100%;max-width:none;max-height:88dvh;margin:auto 0 0;border-radius:24px 24px 0 0;border-left:0;border-right:0;border-bottom:0}
+  .nx-sheet-head{padding:16px 14px 12px}
+  .nx-sheet-scroll,.nx-sheet-list{max-height:calc(88dvh - 74px);padding:14px 12px calc(18px + env(safe-area-inset-bottom))}
+}
+@media(max-width:390px){
+  .nx-lesson-tools{gap:6px}
+  .nx-section-nav{padding:4px}
+  .nx-section-nav a{font-size:11px}
+  .nx-flow-block p{font-size:16px}
+}
