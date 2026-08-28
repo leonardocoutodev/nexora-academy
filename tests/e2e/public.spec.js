@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import {expectNoHorizontalOverflow,waitForStablePage} from './helpers/quality.js';
+import {blockExternalFonts,expectNoHorizontalOverflow,waitForStablePage} from './helpers/quality.js';
 
 for(const entry of [
   {path:'/',title:/LC/},
@@ -8,6 +8,7 @@ for(const entry of [
   {path:'/pages/cadastro.html',title:/Criar conta — LC/}
 ]){
   test('@compat public route '+entry.path,async({page})=>{
+    await blockExternalFonts(page);
     await page.goto(entry.path,{waitUntil:'domcontentloaded',timeout:30_000});
     await expect(page).toHaveTitle(entry.title);
     await expect(page.locator('body')).toBeVisible();
@@ -16,6 +17,7 @@ for(const entry of [
 }
 
 test('public pages have no serious or critical accessibility violations',async({page})=>{
+  await blockExternalFonts(page);
   for(const path of ['/','/pages/login.html','/pages/cadastro.html']){
     await page.goto(path);await waitForStablePage(page);
     const results=await new AxeBuilder({page}).analyze();
@@ -25,6 +27,7 @@ test('public pages have no serious or critical accessibility violations',async({
 });
 
 test('signup form exposes clear native validation',async({page})=>{
+  await blockExternalFonts(page);
   await page.goto('/pages/cadastro.html');
   await page.getByRole('button',{name:/Criar conta gratuita/}).click();
   const invalid=await page.locator('#name').evaluate(el=>!el.checkValidity());
