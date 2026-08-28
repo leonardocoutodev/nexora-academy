@@ -86,6 +86,15 @@ body{background:radial-gradient(circle at 75% -10%,rgba(57,152,255,.08),transpar
 .v3-feedback.ok{border-color:#1b704d;background:#09291e;color:#74edaa}.v3-feedback.bad{border-color:#754343;background:#2a1518;color:#ffaaa8}
 .v3-mcq{display:grid;gap:8px}.v3-option{color:#e7f0f9;display:flex;gap:10px;align-items:flex-start;padding:13px;border:1px solid #1b3c5a;border-radius:12px;background:#081a2b;cursor:pointer}.v3-option:hover{border-color:#337fbd}.v3-option.selected{border-color:#5b9ee5;background:#0e2946}.v3-option.correct{border-color:#1e8158;background:#0c3225}.v3-option.wrong{border-color:#884a4a;background:#2c171b}
 .v3-option input{width:auto;margin-top:3px}
+.nx-data-model-grid{display:grid;gap:10px}
+.nx-data-model-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,260px);align-items:center;gap:14px;cursor:default}
+.nx-data-model-row>div{min-width:0}.nx-data-model-row small{display:block;color:#8fa9c2;margin-top:4px;line-height:1.45}
+.nx-data-model-row code{overflow-wrap:anywhere}.nx-data-model-row select{width:100%;min-width:0;margin:0}
+.nx-expression-cases{display:grid;gap:8px;margin:14px 0;padding:14px;border:1px solid #1b3c5a;border-radius:12px;background:#081a2b}
+.nx-expression-case{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(143,169,194,.14)}
+.nx-expression-case:last-child{border-bottom:0}.nx-expression-case span{color:#b5c7d9;overflow-wrap:anywhere}.nx-expression-case strong{color:#e7f0f9;text-align:right}
+@media(max-width:620px){.nx-data-model-row,.nx-expression-case{grid-template-columns:1fr}.nx-expression-case strong{text-align:left}}
+
 .v3-sheet-wrap{overflow:auto;border:1px solid #1c405f;border-radius:12px}.v3-sheet{border-collapse:collapse;min-width:720px;width:100%;background:#071522}.v3-sheet th,.v3-sheet td{border:1px solid #17364f;padding:9px 10px;text-align:left}.v3-sheet th{background:#0d2844;color:#beddff;font-size:12px}.v3-sheet input{width:100%;min-width:90px;background:#04101b;border:0;border-radius:6px;padding:7px;color:#e9f5ff}
 .v3-sheet .cell-ok{background:#0c3425}.v3-sheet .cell-bad{background:#32191c}
 .v3-code-tabs{display:flex;gap:6px;margin-bottom:8px}.v3-code-tabs button{padding:7px 10px;border:1px solid #204562;border-radius:8px;background:#071724;color:#9fb7cd}.v3-code-tabs button.active{background:#14365e;color:white;border-color:#3c82c2}
