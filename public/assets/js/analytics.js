@@ -2,6 +2,7 @@
   const SESSION_KEY='lc.analytics.session';
   const SESSION_TIMEOUT=30*60*1000;
   const MAX_PROPERTY_KEYS=24;
+  const FORBIDDEN_PROPERTY_KEYS=new Set(['email','name','full_name','phone','telephone','whatsapp','cpf','rg','password','senha','token','access_token','refresh_token','authorization','address','endereco']);
   const now=()=>Date.now();
   const uuid=()=>globalThis.crypto?.randomUUID?globalThis.crypto.randomUUID().replaceAll('-',''):(Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2));
   function loadSession(){
@@ -33,7 +34,7 @@
     const out={};let count=0;
     for(const [k,v] of Object.entries(input)){
       if(count>=MAX_PROPERTY_KEYS)break;
-      if(!/^[a-zA-Z0-9_]{1,48}$/.test(k))continue;
+      if(!/^[a-zA-Z0-9_]{1,48}$/.test(k)||FORBIDDEN_PROPERTY_KEYS.has(k.toLowerCase()))continue;
       if(v===null||typeof v==='boolean'||typeof v==='number')out[k]=v;
       else if(typeof v==='string')out[k]=v.slice(0,240);
       count++;
