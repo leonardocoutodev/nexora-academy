@@ -1,0 +1,47 @@
+name: Production Browser QA
+
+on:
+  workflow_run:
+    workflows: ["Deploy Production"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  production-smoke:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install production browser QA
+        run: npm install --no-save --package-lock=false @playwright/test@1.55.0 @axe-core/playwright@4.10.2
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Verify deployed build
+        run: |
+          EXPECTED_BUILD="$(sed -n 's/^const BUILD_ID = "\([^"]*\)";/\1/p' src/index.js)"
+          HEALTH="$(curl -fsS https://academy.nexora-84f.workers.dev/api/health)"
+          echo "$HEALTH" | grep -q "\"build\":\"$EXPECTED_BUILD\""
+      - name: Browser smoke against production
+        env:
+          LC_E2E_BASE_URL: https://academy.nexora-84f.workers.dev
+        run: npx playwright test --grep @compat --project=chromium
+      - name: Upload production QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-browser-qa-${{ github.run_id }}
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: ignore
+          retention-days: 14
