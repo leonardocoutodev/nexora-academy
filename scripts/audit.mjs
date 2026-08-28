@@ -23,11 +23,11 @@ const mobileCss=fs.readFileSync(path.join(root,"assets/css/academy-v3.css"),"utf
 const lessonCss=fs.readFileSync(path.join(root,"assets/css/learning-release.css"),"utf8");
 const appShellSource=fs.readFileSync(path.join(root,"assets/js/app-shell.js"),"utf8");
 for(const [label,source,patterns] of [
-  ["academy-v3.css",mobileCss,["NEXORA MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more","input[type=\\\"checkbox\\\"]"]],
+  ["academy-v3.css",mobileCss,["NEXORA MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more",'input[type="checkbox"]']],
   ["learning-release.css",lessonCss,["nx-mobile-lesson-picker","nx-book-dots button","nx-mobile-pdf-note"]],
   ["app-shell.js",appShellSource,["enhanceMobileNavigation","aria-current","nx-mobile-more","inert"]]
-])for(const pattern of patterns){if(!source.includes(pattern))failures.push(\`${label}: proteção mobile ausente (${pattern})\`)}
-for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/apoie.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!/viewport-fit=cover/.test(html))failures.push(\`${rel}: viewport-fit=cover ausente\`)}
+])for(const pattern of patterns){if(!source.includes(pattern))failures.push(`${label}: proteção mobile ausente (${pattern})`)}
+for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/apoie.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!/viewport-fit=cover/.test(html))failures.push(`${rel}: viewport-fit=cover ausente`)}
 const labSource=fs.readFileSync(path.join(root,"assets/js/learning-labs.js"),"utf8");
 if(labSource.includes("new Function"))failures.push("learning-labs.js não pode executar código no contexto da aplicação");
 for(const required of ["supabase/migrations/20260828090000_nexora_security_hardening.sql","supabase/functions/nexora-mercadopago-donation/index.ts","supabase/functions/nexora-mercadopago-webhook/index.ts"]){if(!fs.existsSync(required))failures.push(`arquivo operacional ausente: ${required}`)}
