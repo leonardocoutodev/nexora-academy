@@ -6,6 +6,7 @@ export const IDS={
   lesson2:'bd010871-3109-4507-bb41-03ab62fcda83',
   lessonData:'c1111111-1111-4111-8111-111111111111',
   lessonExpression:'c2222222-2222-4222-8222-222222222222',
+  lessonDecision:'c3333333-3333-4333-8333-333333333333',
   assessment:'22222222-2222-4222-8222-222222222222',
   question:'33333333-3333-4333-8333-333333333333',
   project:'44444444-4444-4444-8444-444444444444',
@@ -44,6 +45,7 @@ export async function installMockSupabase(page,{role='student'}={}){
       if(url.searchParams.get('id')||url.search.includes('id=eq.')){
         if(url.search.includes(IDS.lessonData))return json(route,[{id:IDS.lessonData,module_id:IDS.module,title:'Variáveis e constantes',objective:'Classificar o papel de cada dado.',estimated_minutes:24,position:2,lab_type:'data_model',lab_config:{data_model:{scenario:'Classifique os elementos do pedido.',options:['Dado mutável','Constante da regra','Texto a validar','Booleano'],rows:[{label:'valorPedido',value:'349.90',answer:0},{label:'LIMITE_FRETE',value:'300',answer:1},{label:'idadeDigitada',value:'"18"',answer:2},{label:'clienteAtivo',value:'true',answer:3}],feedback:'Modelo correto.'}},xp_reward:100,difficulty:1,content:[{type:'concept',body:'Dados diferentes exercem papéis diferentes.'},{type:'recap',body:'Classifique antes de combinar.'}]}]);
         if(url.search.includes(IDS.lessonExpression))return json(route,[{id:IDS.lessonExpression,module_id:IDS.module,title:'Expressões e fronteiras',objective:'Validar uma expressão contra casos de teste.',estimated_minutes:26,position:3,lab_type:'expression',lab_config:{expression:{title:'Expression Lab',scenario:'Frete grátis a partir de R$ 300.',options:['valor > 300','valor >= 300','valor == 300'],answer:1,cases:[{input:'299',expected:'falso'},{input:'300',expected:'verdadeiro'},{input:'301',expected:'verdadeiro'}],feedback:'A expressão preserva a fronteira.'}},xp_reward:100,difficulty:2,content:[{type:'concept',body:'Fronteiras precisam ser testadas.'},{type:'recap',body:'Teste antes, no limite e depois.'}]}]);
+        if(url.search.includes(IDS.lessonDecision))return json(route,[{id:IDS.lessonDecision,module_id:IDS.module,title:'Tabela de decisão aplicada',objective:'Classificar casos de acesso por uma regra booleana.',estimated_minutes:28,position:4,lab_type:'decision_table',lab_config:{decision_table:{title:'Decision Table — acesso',scenario:'Acesso exige conta ativa E e-mail verificado.',outcomes:['Liberar','Bloquear'],rows:[{case:'ativa=true, verificado=true',answer:0},{case:'ativa=true, verificado=false',answer:1},{case:'ativa=false, verificado=true',answer:1}],feedback:'Tabela consistente.',feedback_incorrect:'Revise a condição E.'}},xp_reward:100,difficulty:2,content:[{type:'concept',body:'Uma tabela de decisão cobre combinações relevantes.'},{type:'recap',body:'Cubra casos válidos e bloqueados.'}]}]);
         return json(route,[{id:IDS.lesson,module_id:IDS.module,title:'O que é programar',objective:'Diferenciar programação de linguagem e reconhecer um programa como uma sequência precisa.',estimated_minutes:22,position:1,lab_type:'logic',lab_config:{checkpoint:{question:'Qual descrição representa melhor um programa?',options:['Uma sequência precisa que recebe dados, aplica regras e produz resultado.','Apenas uma linguagem de programação.'],answer:0,feedback:'Correto.'}},xp_reward:100,difficulty:1,content:[
           {type:'story',body:'Um programa resolve um problema por meio de instruções precisas e verificáveis.'},
           {type:'concept',body:'Programar é transformar uma intenção em uma sequência de passos que uma máquina consegue executar.',question:'Qual opção descreve melhor programar?',options:['Definir instruções verificáveis para resolver um problema.','Escolher cores para uma interface.'],answer:0,feedback:'Isso. O foco é transformar regras em instruções.',feedback_incorrect:'Retome a definição acima.'},
@@ -53,7 +55,10 @@ export async function installMockSupabase(page,{role='student'}={}){
       }
       return json(route,[
         {id:IDS.lesson,module_id:IDS.module,title:'O que é programar',estimated_minutes:22,position:1,xp_reward:100,lab_type:'logic'},
-        {id:IDS.lesson2,module_id:IDS.module,title:'Problema, entrada, processamento e saída',estimated_minutes:22,position:2,xp_reward:100,lab_type:'logic'}
+        {id:IDS.lesson2,module_id:IDS.module,title:'Problema, entrada, processamento e saída',estimated_minutes:22,position:2,xp_reward:100,lab_type:'logic'},
+        {id:IDS.lessonData,module_id:IDS.module,title:'Variáveis e constantes',estimated_minutes:24,position:3,xp_reward:100,lab_type:'data_model'},
+        {id:IDS.lessonExpression,module_id:IDS.module,title:'Expressões e fronteiras',estimated_minutes:26,position:4,xp_reward:100,lab_type:'expression'},
+        {id:IDS.lessonDecision,module_id:IDS.module,title:'Tabela de decisão aplicada',estimated_minutes:28,position:5,xp_reward:100,lab_type:'decision_table'}
       ]);
     }
     if(path==='/rest/v1/lesson_progress')return json(route,[]);
