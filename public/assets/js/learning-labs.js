@@ -163,7 +163,7 @@
       ? 'type Produto = { nome: string; preco: number };\nconst produtos: Produto[] = [{nome:"Mouse",preco:120},{nome:"Monitor",preco:800}];\nconst caros = produtos.filter(p => p.preco > 500);\nconsole.log(caros);'
       : 'const produtos = [{nome:"Mouse",preco:120},{nome:"Monitor",preco:800}];\nconst caros = produtos.filter(p => p.preco > 500);\nconsole.log(caros);';
     return frame(kind==='typescript'?'TypeScript Lab':'Console JavaScript',kind,
-      '<p class="v3-lab-instructions">'+(kind==='typescript'?'Edite o exemplo e use o verificador de tipos conceitual. A execução usa JavaScript equivalente no navegador.':'Edite e execute o código sem sair da Nexora. O console aparece logo abaixo.')+'</p>'+
+      '<p class="v3-lab-instructions">'+(kind==='typescript'?'Edite o exemplo e use o verificador de tipos conceitual. A execução usa JavaScript equivalente no navegador.':'Edite e execute o código sem sair da LC. O console aparece logo abaixo.')+'</p>'+
       '<textarea class="v3-editor" data-code>'+esc(starter)+'</textarea>'+
       '<div class="v3-toolbar"><button class="v3-btn" type="button" data-run>▶ Executar</button>'+(kind==='typescript'?'<button class="v3-btn secondary" type="button" data-typecheck>Verificar tipos</button>':'')+'</div>'+
       '<pre class="v3-console" data-console>Pronto para executar.</pre>'
@@ -188,7 +188,7 @@
 
   function pythonLab(ctx={}){
     const t=(ctx.lesson?.title||'').toLowerCase();
-    let starter="nome = 'Nexora'\nprint(nome)";
+    let starter="nome = 'LC'\nprint(nome)";
     if(t.includes('número')||t.includes('operador'))starter='preco = 120\nquantidade = 2\ntotal = preco * quantidade\nprint(total)';
     else if(t.includes('compar')||t==='if'||t.includes('else')||t.includes('elif'))starter="nota = 7\nif nota >= 7:\n    print('Aprovado')\nelse:\n    print('Recuperação')";
     else if(t.includes('for'))starter='for i in range(1, 6):\n    print(i)';
@@ -196,7 +196,7 @@
     else if(t.includes('lista')||t.includes('percorrendo'))starter='notas = [8, 7, 9]\nprint(sum(notas))\nprint(len(notas))';
     else if(t.includes('funç')||t.includes('return'))starter='def dobro(n):\n    return n * 2\nprint(dobro(5))';
     else if(t.includes('vendas')||t.includes('projeto'))starter='vendas = [120, 850, 300]\ntotal = sum(vendas)\nmedia = total / len(vendas)\nprint(total)\nprint(media)';
-    return frame('Python Lab — fundamentos','python','<p class="v3-lab-instructions">Edite o código e execute no simulador introdutório da Nexora. Ele cobre variáveis, operações, listas, len, sum, if/else e range suficientes para as primeiras práticas, sem sair da aula.</p><textarea class="v3-editor" data-python>'+esc(starter)+'</textarea><div class="v3-toolbar"><button class="v3-btn" type="button" data-python-run>▶ Executar</button><button class="v3-btn secondary" type="button" data-python-reset>Restaurar</button></div><pre class="v3-console" data-python-out>Python Lab pronto.</pre>');
+    return frame('Python Lab — fundamentos','python','<p class="v3-lab-instructions">Edite o código e execute no simulador introdutório da LC. Ele cobre variáveis, operações, listas, len, sum, if/else e range suficientes para as primeiras práticas, sem sair da aula.</p><textarea class="v3-editor" data-python>'+esc(starter)+'</textarea><div class="v3-toolbar"><button class="v3-btn" type="button" data-python-run>▶ Executar</button><button class="v3-btn secondary" type="button" data-python-reset>Restaurar</button></div><pre class="v3-console" data-python-out>Python Lab pronto.</pre>');
   }
   function pythonExpr(s,env){
     let x=String(s).trim();
@@ -280,7 +280,7 @@
     const low=module.toLowerCase(),cloud=low.includes('cloudflare'),basic=low.includes('terminal sem medo');
     const steps=cloud?['npx wrangler --version','npx wrangler dev','npx wrangler deploy']:basic?['pwd','ls','mkdir projeto','cd projeto']:['git status','git add .','git commit -m "feat: minha alteração"','git push'];
     return frame(cloud?'Terminal Cloudflare':basic?'Terminal Básico':'Terminal Git','terminal',
-      '<p class="v3-lab-instructions">Digite os comandos no terminal simulado. Nada é executado no seu computador; o objetivo é aprender sequência, sintaxe e interpretação da saída.</p><pre class="v3-console" data-term-out>$ ambiente Nexora pronto</pre><div class="v3-api-row" style="margin-top:10px"><input data-term placeholder="'+esc(steps[0])+'"><button class="v3-btn" type="button" data-term-send>Executar</button></div><small class="muted" data-term-help style="display:block;margin-top:10px">Próximo objetivo: '+esc(steps[0])+'</small>'
+      '<p class="v3-lab-instructions">Digite os comandos no terminal simulado. Nada é executado no seu computador; o objetivo é aprender sequência, sintaxe e interpretação da saída.</p><pre class="v3-console" data-term-out>$ ambiente LC pronto</pre><div class="v3-api-row" style="margin-top:10px"><input data-term placeholder="'+esc(steps[0])+'"><button class="v3-btn" type="button" data-term-send>Executar</button></div><small class="muted" data-term-help style="display:block;margin-top:10px">Próximo objetivo: '+esc(steps[0])+'</small>'
     );
   }
   function wireTerminal(root,module){
@@ -291,7 +291,7 @@
 
   function apiLab(){
     return frame('API Playground','http',
-      '<p class="v3-lab-instructions">Envie requisições para uma API simulada da Nexora. Assim você pratica método, rota, status e JSON sem Postman.</p><div class="v3-api-row"><select data-method><option>GET</option><option>POST</option></select><input data-path value="/api/produtos"><button class="v3-btn" type="button" data-send>Enviar</button></div><textarea class="v3-editor small" data-body style="margin-top:10px" placeholder=\'{"nome":"Teclado","preco":250}\'></textarea><pre class="v3-console" data-api-out>HTTP aguardando requisição...</pre>'
+      '<p class="v3-lab-instructions">Envie requisições para uma API simulada da LC. Assim você pratica método, rota, status e JSON sem Postman.</p><div class="v3-api-row"><select data-method><option>GET</option><option>POST</option></select><input data-path value="/api/produtos"><button class="v3-btn" type="button" data-send>Enviar</button></div><textarea class="v3-editor small" data-body style="margin-top:10px" placeholder=\'{"nome":"Teclado","preco":250}\'></textarea><pre class="v3-console" data-api-out>HTTP aguardando requisição...</pre>'
     );
   }
   function wireApi(root){

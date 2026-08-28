@@ -22,9 +22,9 @@ async function staticAsset(req,env){
     headers.set('cache-control','no-store, max-age=0, must-revalidate');
     headers.set('pragma','no-cache');
     headers.set('expires','0');
-    headers.set('x-nexora-build','5.1.0-security-20260828');
+    headers.set('x-lc-build','6.0.0-brand-20260828'); headers.set('x-nexora-build','5.1.0-security-20260828');
   }
   return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
 }
-async function router(req,env){ const url=new URL(req.url); if(url.pathname==="/api/health")return json({ok:true,service:"nexora-academy-supabase",database:"supabase",time:new Date().toISOString()}); if(url.pathname==="/api/nexora/profile"&&req.method==="POST")return createProfile(req); if(url.pathname==="/api/nexora/me")return me(req); if(url.pathname==="/api/nexora/courses")return courses(req); if(url.pathname==="/api/nexora/progress"&&req.method==="POST")return progress(req); return staticAsset(req,env); }
+async function router(req,env){ const url=new URL(req.url); if(url.pathname==="/api/health")return json({ok:true,service:"lc-learn-supabase",database:"supabase",time:new Date().toISOString()}); if(url.pathname==="/api/nexora/profile"&&req.method==="POST")return createProfile(req); if(url.pathname==="/api/nexora/me")return me(req); if(url.pathname==="/api/nexora/courses")return courses(req); if(url.pathname==="/api/nexora/progress"&&req.method==="POST")return progress(req); return staticAsset(req,env); }
 export default {async fetch(req,env,ctx){try{return await router(req,env)}catch(e){return json({error:e.message||"Erro interno"},e.status||500)}}};
