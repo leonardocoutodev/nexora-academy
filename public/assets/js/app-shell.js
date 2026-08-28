@@ -1,5 +1,5 @@
 function injectV3(){if(!document.querySelector('link[href*="academy-v3.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='../assets/css/academy-v3.css';l.dataset.v3='1';document.head.appendChild(l)}}
-function enhanceNexoraShell(){
+function enhanceNexoraShell(active='dashboard'){
   injectV3();
   qsa('.brand').forEach(el=>{el.innerHTML='<img src="../assets/brand/nexora-logo.svg" alt="Nexora Academy">'});
   const side=qs('.sidebar');if(!side)return;
@@ -12,7 +12,28 @@ function enhanceNexoraShell(){
   }
   let foot=qs('.side-footer',side);if(!foot){foot=document.createElement('div');foot.className='side-footer';side.appendChild(foot)}
   foot.innerHTML='<div id="sideGame" class="v3-gamification-mini"><div class="top"><span>NÍVEL <strong data-level>1</strong></span><span><strong data-xp>0</strong> XP</span></div><div class="v3-xpbar"><span data-xpbar style="width:0%"></span></div><div class="v3-streak">🔥 <span data-streak>0</span> dias de sequência</div></div><a href="https://wa.me/5573981250366?text=Ol%C3%A1%2C%20conheci%20a%20LC%20pela%20Nexora%20Academy." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;margin:8px;padding:9px 10px;border:1px solid #183a58;border-radius:11px;background:#071522;text-decoration:none"><span class="lc-symbol" style="width:28px;height:28px;font-size:12px;border-radius:8px">LC</span><span><b style="display:block;font-size:10px;color:#55c8ff">IDEALIZADA E DESENVOLVIDA POR LEONARDO COUTO</b><small style="color:#8fa7bf">LC Soluções Digitais ↗</small></span></a><div class="side-user"><span class="side-avatar">N</span><div><b data-user-name>Aluno</b><small data-user-role>Estudante</small></div></div>';
+  enhanceMobileNavigation(active);
 }
+function enhanceMobileNavigation(active='dashboard'){
+  const nav=qs('.bottom-nav');if(!nav)return;
+  const viewport=document.querySelector('meta[name="viewport"]');
+  if(viewport&&!viewport.content.includes('viewport-fit=cover'))viewport.content+=',viewport-fit=cover';
+  nav.classList.add('nx-mobile-nav');nav.setAttribute('aria-label','Navegação principal');
+  nav.innerHTML='<a data-nav="dashboard" href="dashboard.html"><span aria-hidden="true">⌂</span><span>Início</span></a><a data-nav="courses" href="cursos.html"><span aria-hidden="true">▤</span><span>Cursos</span></a><a data-nav="start" href="comece-aqui.html"><span aria-hidden="true">◎</span><span>Comece</span></a><a data-nav="projects" href="projetos.html"><span aria-hidden="true">◇</span><span>Boss</span></a><button type="button" class="nx-mobile-more-toggle" aria-haspopup="dialog" aria-expanded="false"><span aria-hidden="true">•••</span><span>Mais</span></button>';
+  qsa('[data-nav]',nav).forEach(el=>el.classList.toggle('active',el.dataset.nav===active));
+  const moreButton=qs('.nx-mobile-more-toggle',nav),moreActive=['library','certs','profile'].includes(active);if(moreActive)moreButton.classList.add('active');
+  document.querySelector('.nx-mobile-more')?.remove();
+  const panel=document.createElement('div');panel.className='nx-mobile-more';panel.hidden=true;panel.setAttribute('aria-hidden','true');
+  panel.innerHTML='<div class="nx-mobile-more-backdrop" data-mobile-more-close></div><section class="nx-mobile-more-sheet" role="dialog" aria-modal="true" aria-label="Mais opções"><div class="nx-mobile-more-handle" aria-hidden="true"></div><div class="nx-mobile-more-head"><div><div class="eyebrow">NAVEGAÇÃO</div><h2>Mais opções</h2></div><button class="nx-mobile-more-close" type="button" data-mobile-more-close aria-label="Fechar menu">×</button></div><div class="nx-mobile-more-grid"><a data-more-nav="library" href="biblioteca.html"><span aria-hidden="true">▥</span><span><b>Biblioteca</b><small>Apostilas e materiais</small></span></a><a data-more-nav="certs" href="certificados.html"><span aria-hidden="true">▣</span><span><b>Certificados</b><small>Emitir e verificar</small></span></a><a data-more-nav="profile" href="perfil.html"><span aria-hidden="true">⚙</span><span><b>Perfil</b><small>Progresso e conta</small></span></a><a href="apoie.html"><span aria-hidden="true">♡</span><span><b>Contribuir</b><small>Apoio voluntário</small></span></a></div><button class="nx-mobile-logout" type="button" data-mobile-logout>Sair da conta</button></section>';
+  document.body.appendChild(panel);panel.querySelector('[data-more-nav="'+active+'"]')?.classList.add('active');
+  let restoreFocus=null,closeTimer=null;
+  const close=()=>{if(panel.hidden)return;panel.classList.remove('open');panel.setAttribute('aria-hidden','true');moreButton.setAttribute('aria-expanded','false');document.body.classList.remove('nx-mobile-menu-open');clearTimeout(closeTimer);closeTimer=setTimeout(()=>{panel.hidden=true;restoreFocus?.focus()},180)};
+  const open=()=>{restoreFocus=document.activeElement;panel.hidden=false;panel.setAttribute('aria-hidden','false');moreButton.setAttribute('aria-expanded','true');document.body.classList.add('nx-mobile-menu-open');requestAnimationFrame(()=>panel.classList.add('open'));setTimeout(()=>panel.querySelector('.nx-mobile-more-close')?.focus(),30)};
+  moreButton.onclick=()=>panel.hidden?open():close();qsa('[data-mobile-more-close]',panel).forEach(el=>el.onclick=close);
+  panel.querySelector('[data-mobile-logout]').onclick=async()=>{await NexoraSupabase.signOut();location.replace('login.html')};
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)close()});
+}
+
 function nxCourseVisual(title){
   const t=(title||'').toLowerCase();
   if(t.includes('ia generativa'))return '../assets/visuals/course-ai.svg';
@@ -36,7 +57,8 @@ function showNexoraCelebration({xp=0,level=1,previousLevel=1,title='Missão conc
   document.querySelector('.nx-celebration')?.remove();
   const levelUp=Number(level)>Number(previousLevel||level);
   const defaults={mission:2800,quiz:3200,boss:3400,module:4300,streak:4000,certificate:4700,xp:2800};
-  const hold=Number(duration||0)||(levelUp?4600:(defaults[kind]||3000));
+  const baseHold=Number(duration||0)||(levelUp?4600:(defaults[kind]||3000));
+  const hold=matchMedia('(max-width:820px)').matches?Math.min(baseHold,levelUp?3000:2400):baseHold;
   const labels={mission:'MISSÃO CONCLUÍDA',quiz:'CHECKPOINT APROVADO',boss:'BOSS FIGHT REGISTRADO',module:'MÓDULO CONCLUÍDO',streak:'SEQUÊNCIA ATIVA',certificate:'CERTIFICADO DESBLOQUEADO',xp:'PROGRESSO SALVO'};
   const icons={boss:'⚔',module:'✓',streak:'🔥',certificate:'▣'};
   const copy=levelUp
@@ -106,7 +128,7 @@ function watchNexoraDecorations(){
 }
 async function loadGamification(){try{const g=await NexoraSupabase.gamification();if(!g)return;const within=((Number(g.xp_total)||0)%500)/5;qsa('[data-level]').forEach(x=>x.textContent=g.level||1);qsa('[data-xp]').forEach(x=>x.textContent=g.xp_total||0);qsa('[data-streak]').forEach(x=>x.textContent=g.current_streak||0);qsa('[data-xpbar]').forEach(x=>x.style.width=Math.max(0,Math.min(100,within))+'%');window.NexoraGamification=g;return g}catch{return null}}
 async function nexoraBoot(active='dashboard'){
-  enhanceNexoraShell();
+  enhanceNexoraShell(active);
   watchNexoraDecorations();
   const u=await NexoraSupabase.user();
   if(!u){location.replace('login.html');return null}
