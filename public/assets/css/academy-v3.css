@@ -568,6 +568,27 @@ input[type="checkbox"],input[type="radio"]{min-height:0;width:auto;accent-color:
 
 
 
+
+.lc-ui-icon{width:20px;height:20px;display:block;flex:0 0 auto}
+.sidebar nav a>span:first-child{display:grid;place-items:center;color:#a8bfd6}
+.sidebar nav a.active>span:first-child{color:#fff}
+.lc-sidebar-support{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:8px;
+  padding:10px 12px;
+  border:1px solid rgba(40,120,255,.28);
+  border-radius:11px;
+  background:rgba(40,120,255,.07);
+  color:#dcefff;
+  font-weight:800;
+}
+.lc-sidebar-support:hover{border-color:rgba(40,120,255,.46);background:rgba(40,120,255,.11)}
+.nx-mobile-logout{display:flex;align-items:center;justify-content:center;gap:8px}
+.nx-mobile-more-grid .lc-ui-icon{width:18px;height:18px}
+.bottom-nav .lc-ui-icon{width:19px;height:19px}
+
 /* ==========================================================
    LC UI FOUNDATION 1.0 — canonical surface language
    ========================================================== */
