@@ -1,0 +1,17 @@
+{
+  "name": "LC — Learn & Create",
+  "short_name": "LC",
+  "description": "Aprenda. Pratique. Crie. Conhecimento que vira habilidade.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07111F",
+  "theme_color": "#07111F",
+  "icons": [
+    {
+      "src": "assets/brand/lc-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
