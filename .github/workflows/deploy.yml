@@ -39,13 +39,12 @@ jobs:
           URL="https://academy.nexora-84f.workers.dev"
           ok=0
           for i in $(seq 1 12); do
-            if curl -fsS --max-time 15 "$URL/api/health" | grep -q '"ok":true'; then
-              curl -fsS --max-time 15 -D /tmp/lc-headers -o /tmp/lc-index "$URL/"
-              if grep -qi '^x-lc-build: 6.0.0-phase2-20260828' /tmp/lc-headers; then
-                echo "LC production smoke test passed."
-                ok=1
-                break
-              fi
+            HEALTH="$(curl -fsS --max-time 15 "$URL/api/health" || true)"
+            if echo "$HEALTH" | grep -q '"ok":true' && echo "$HEALTH" | grep -q '"build":"6.0.0-phase2-20260828"'; then
+              curl -fsS --max-time 15 "$URL/" >/dev/null
+              echo "LC production smoke test passed."
+              ok=1
+              break
             fi
             echo "Waiting for production propagation ($i/12)..."
             sleep 5
