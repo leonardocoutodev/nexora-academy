@@ -429,6 +429,36 @@
     };
   }
 
+  function decisionTableLab(ctx){
+    const cfg=ctx.lesson?.lab_config?.decision_table||{};
+    const outcomes=Array.isArray(cfg.outcomes)?cfg.outcomes:[];
+    const rows=Array.isArray(cfg.rows)?cfg.rows:[];
+    return frame(cfg.title||'Decision Table Lab','tabela de decisão',
+      '<p class="v3-lab-instructions">'+esc(cfg.scenario||'Classifique cada caso usando o resultado correto da regra.')+'</p>'+
+      '<div class="nx-data-model-grid" data-decision-table>'+
+        rows.map((row,i)=>'<div class="v3-option nx-data-model-row"><div><b>'+esc(row.case||('Caso '+(i+1)))+'</b>'+(row.hint?'<small>'+esc(row.hint)+'</small>':'')+'</div><select aria-label="Resultado para '+esc(row.case||('caso '+(i+1)))+'" data-decision-answer="'+i+'"><option value="">Escolha…</option>'+outcomes.map((o,idx)=>'<option value="'+idx+'">'+esc(o)+'</option>').join('')+'</select></div>').join('')+
+      '</div><div class="v3-toolbar"><button class="v3-btn" type="button" data-decision-check>Validar tabela</button></div><div class="v3-feedback" data-feedback>Classifique todos os casos antes de validar.</div>'
+    );
+  }
+  function wireDecisionTable(root,ctx){
+    const cfg=ctx.lesson?.lab_config?.decision_table||{},rows=Array.isArray(cfg.rows)?cfg.rows:[],fb=root.querySelector('[data-feedback]'),btn=root.querySelector('[data-decision-check]');
+    if(!btn)return;
+    btn.onclick=()=>{
+      const selects=[...root.querySelectorAll('[data-decision-answer]')];
+      if(!rows.length||selects.some(x=>x.value===''))return feedback(fb,false,'Classifique todos os casos antes de validar.');
+      let correct=0;
+      selects.forEach((sel,i)=>{
+        const ok=Number(sel.value)===Number(rows[i]?.answer);
+        sel.closest('.nx-data-model-row')?.classList.toggle('correct',ok);
+        sel.closest('.nx-data-model-row')?.classList.toggle('wrong',!ok);
+        if(ok)correct++;
+      });
+      const ok=correct===rows.length;
+      feedback(fb,ok,ok?(cfg.feedback||'Tabela consistente. Você aplicou a regra a todos os casos.'):(cfg.feedback_incorrect||('Você acertou '+correct+' de '+rows.length+'. Revise as condições e as fronteiras da regra.')));
+      if(ok){btn.disabled=true;complete({type:'decision_table',score:correct,total:rows.length})}
+    };
+  }
+
   function expressionLab(ctx){
     const cfg=ctx.lesson?.lab_config?.expression||{};
     const options=Array.isArray(cfg.options)?cfg.options:[],cases=Array.isArray(cfg.cases)?cfg.cases:[];
@@ -462,6 +492,7 @@
     let html='';
     if(type==='logic')html=logicLab();
     else if(type==='data_model')html=dataModelLab(ctx);
+    else if(type==='decision_table')html=decisionTableLab(ctx);
     else if(type==='expression')html=expressionLab(ctx);
     else if(type==='pseudocode')html=pseudocodeLab();
     else if(type==='prompt')html=promptLab(module);
@@ -485,6 +516,7 @@
     el.innerHTML=html;
     if(type==='logic')wireLogic(el);
     else if(type==='data_model')wireDataModel(el,ctx);
+    else if(type==='decision_table')wireDecisionTable(el,ctx);
     else if(type==='expression')wireExpression(el,ctx);
     else if(type==='pseudocode')wirePseudocode(el);
     else if(type==='prompt')wirePrompt(el,module);
