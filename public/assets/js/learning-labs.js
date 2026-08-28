@@ -397,6 +397,63 @@
   }
   function wireAuth(root){const fb=root.querySelector('[data-feedback]');root.querySelector('[data-auth]').onclick=()=>{const x=root.querySelector('input[name=auth]:checked');const ok=x&&Number(x.value)===1;feedback(fb,ok,ok?'Correto. A autorização precisa ser aplicada também na camada de dados.':'Esconder a interface não impede uma requisição direta ao backend.');if(ok)complete({type:'auth'})};}
 
+
+  function dataModelLab(ctx){
+    const cfg=ctx.lesson?.lab_config?.data_model||{};
+    const options=Array.isArray(cfg.options)&&cfg.options.length>=2?cfg.options:['Dado mutável','Constante da regra','Texto a validar','Booleano'];
+    const rows=Array.isArray(cfg.rows)?cfg.rows:[];
+    const scenario=cfg.scenario||'Classifique cada elemento de acordo com o papel que ele exerce na solução.';
+    return frame('Data Model Lab','modelagem de dados',
+      '<p class="v3-lab-instructions">'+esc(scenario)+'</p>'+
+      '<div class="nx-data-model-grid" data-data-model>'+
+        rows.map((row,i)=>'<div class="v3-option nx-data-model-row"><div><b>'+esc(row.label||('Item '+(i+1)))+'</b>'+(row.value!=null?'<small><code>'+esc(String(row.value))+'</code></small>':'')+(row.hint?'<small>'+esc(row.hint)+'</small>':'')+'</div><select aria-label="Classificar '+esc(row.label||('item '+(i+1)))+'" data-data-model-answer="'+i+'"><option value="">Classifique…</option>'+options.map((o,idx)=>'<option value="'+idx+'">'+esc(o)+'</option>').join('')+'</select></div>').join('')+
+      '</div><div class="v3-toolbar"><button class="v3-btn" type="button" data-data-model-check>Validar modelo</button></div>'+
+      '<div class="v3-feedback" data-feedback>Classifique todos os itens antes de validar.</div>'
+    );
+  }
+  function wireDataModel(root,ctx){
+    const cfg=ctx.lesson?.lab_config?.data_model||{},rows=Array.isArray(cfg.rows)?cfg.rows:[],fb=root.querySelector('[data-feedback]'),btn=root.querySelector('[data-data-model-check]');
+    btn.onclick=()=>{
+      const selects=[...root.querySelectorAll('[data-data-model-answer]')];
+      if(selects.some(x=>x.value===''))return feedback(fb,false,'Classifique todos os itens antes de validar.');
+      let correct=0;
+      selects.forEach((sel,i)=>{
+        const ok=Number(sel.value)===Number(rows[i]?.answer);
+        sel.closest('.nx-data-model-row')?.classList.toggle('correct',ok);
+        sel.closest('.nx-data-model-row')?.classList.toggle('wrong',!ok);
+        if(ok)correct++;
+      });
+      const ok=correct===rows.length&&rows.length>0;
+      feedback(fb,ok,ok?(cfg.feedback||'Modelo correto. Você distinguiu o papel dos dados antes de construir a expressão.'):(cfg.feedback_incorrect||('Você acertou '+correct+' de '+rows.length+'. Revise significado, estabilidade e tipo de cada dado.')));
+      if(ok){btn.disabled=true;complete({type:'data_model',score:correct,total:rows.length})}
+    };
+  }
+
+  function expressionLab(ctx){
+    const cfg=ctx.lesson?.lab_config?.expression||{};
+    const options=Array.isArray(cfg.options)?cfg.options:[],cases=Array.isArray(cfg.cases)?cfg.cases:[];
+    return frame(cfg.title||'Expression Lab','expressões',
+      '<p class="v3-lab-instructions">'+esc(cfg.scenario||'Escolha a expressão que representa a regra e valide-a contra os casos de teste.')+'</p>'+
+      (cfg.instruction?'<div class="v3-feedback">'+esc(cfg.instruction)+'</div>':'')+
+      '<div class="v3-mcq" data-expression-options>'+options.map((o,i)=>'<button type="button" class="v3-option" data-expression-option="'+i+'"><span><b>'+String.fromCharCode(65+i)+'.</b> <code>'+esc(o)+'</code></span></button>').join('')+'</div>'+
+      (cases.length?'<div class="nx-expression-cases"><div class="eyebrow">CASOS DE TESTE</div>'+cases.map(x=>'<div class="nx-expression-case"><span>'+esc(x.input||'Caso')+'</span><strong>'+esc(x.expected||'')+'</strong></div>').join('')+'</div>':'')+
+      '<div class="v3-toolbar"><button class="v3-btn" type="button" data-expression-check>Executar cenários</button></div>'+
+      '<div class="v3-feedback" data-feedback>Escolha uma expressão e confronte-a com todos os casos, especialmente os limites.</div>'
+    );
+  }
+  function wireExpression(root,ctx){
+    const cfg=ctx.lesson?.lab_config?.expression||{},answer=Number(cfg.answer||0),btn=root.querySelector('[data-expression-check]'),fb=root.querySelector('[data-feedback]');
+    const optionRoot=root.querySelector('[data-expression-options]');
+    optionRoot.querySelectorAll('[data-expression-option]').forEach(x=>x.onclick=()=>{optionRoot.querySelectorAll('[data-expression-option]').forEach(y=>y.classList.remove('selected'));x.classList.add('selected');optionRoot.dataset.selected=x.dataset.expressionOption});
+    btn.onclick=()=>{
+      if(optionRoot.dataset.selected==null)return feedback(fb,false,'Escolha uma expressão antes de executar os cenários.');
+      const chosen=Number(optionRoot.dataset.selected),ok=chosen===answer;
+      optionRoot.querySelectorAll('[data-expression-option]').forEach((o,i)=>{o.classList.toggle('correct',i===answer);o.classList.toggle('wrong',i===chosen&&!ok)});
+      feedback(fb,ok,ok?(cfg.feedback||'A expressão representa a regra e permanece correta nos casos de teste.'):(cfg.feedback_incorrect||'Essa expressão falha em pelo menos um cenário. Releia a regra e teste novamente os limites.'));
+      if(ok){btn.disabled=true;complete({type:'expression',answer:chosen})}
+    };
+  }
+
   function render(el,ctx){
     if(!el)return;
     state.complete=false;
@@ -404,6 +461,8 @@
     const type=ctx.lesson?.lab_type||'checkpoint';
     let html='';
     if(type==='logic')html=logicLab();
+    else if(type==='data_model')html=dataModelLab(ctx);
+    else if(type==='expression')html=expressionLab(ctx);
     else if(type==='pseudocode')html=pseudocodeLab();
     else if(type==='prompt')html=promptLab(module);
     else if(type==='spreadsheet')html=spreadsheetLab();
@@ -425,6 +484,8 @@
     else html=mcq(module,ctx.lesson?.lab_config?.checkpoint);
     el.innerHTML=html;
     if(type==='logic')wireLogic(el);
+    else if(type==='data_model')wireDataModel(el,ctx);
+    else if(type==='expression')wireExpression(el,ctx);
     else if(type==='pseudocode')wirePseudocode(el);
     else if(type==='prompt')wirePrompt(el,module);
     else if(type==='spreadsheet')wireSheet(el);

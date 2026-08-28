@@ -1,4 +1,4 @@
-const BUILD_ID = "6.4.0-phase6-20260828";
+const BUILD_ID = "6.4.1-phase6-20260828";
 const SUPABASE_URL = "https://kvwsqfnyebyjncfgvqnd.supabase.co";
 const SUPABASE_KEY = "sb_publishable_CssKC6R2Nqtl3McbvR3f4A_jNJtz3hg";
 const SECURITY_HEADERS={"x-content-type-options":"nosniff","referrer-policy":"strict-origin-when-cross-origin","permissions-policy":"camera=(), microphone=(), geolocation=()","x-frame-options":"SAMEORIGIN"};
