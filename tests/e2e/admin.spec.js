@@ -47,3 +47,15 @@ test('admin has no serious accessibility violations',async({page})=>{
   const severe=results.violations.filter(v=>['serious','critical'].includes(v.impact));
   expect(severe.map(v=>({id:v.id,impact:v.impact,help:v.help,nodes:v.nodes.map(n=>n.target)}))).toEqual([]);
 });
+
+
+test('admin can reconcile a confirmed direct Pix contribution',async({page})=>{
+  await page.goto('/pages/admin/#donations');
+  await expect(page.getByRole('heading',{name:'Apoios e conciliação'})).toBeVisible();
+  await expect(page.getByText('Apoiador QA')).toBeVisible();
+  await page.locator('#manualDonationName').fill('Apoiador Manual');
+  await page.locator('#manualDonationEmail').fill('manual@lc.invalid');
+  await page.locator('#manualDonationAmount').fill('20');
+  await page.locator('#manualDonationSave').click();
+  await expect(page.locator('#adminToast')).toContainText('Pix direto registrado e conciliado');
+});
