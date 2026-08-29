@@ -89,3 +89,21 @@ Mudanças de acesso passam exclusivamente pelas RPCs administrativas.
 ## Política operacional
 
 Ações destrutivas devem ser raras. A interface usa estados como `inactive`, `blocked`, `paused` e `cancelled` para manter histórico e rastreabilidade.
+
+
+### Apoios e conciliação
+
+A Central Operacional possui uma área de apoios para:
+
+- consultar contribuições por status;
+- distinguir Mercado Pago de Pix direto;
+- registrar manualmente um Pix direto somente depois de o crédito aparecer na conta;
+- atualizar totais do apoiador;
+- registrar a conciliação no `admin_audit_log`.
+
+RPCs:
+
+- `admin_donation_roster(status,limit)`
+- `admin_register_manual_donation(name,email,amount,message,public_listing,approved_at)`
+
+As duas funções exigem autenticação e validação interna de `nexora_private.is_admin()`. O registro manual não cria qualquer benefício acadêmico.
