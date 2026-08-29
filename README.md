@@ -33,6 +33,10 @@ Todos os cursos, aulas, laboratórios, avaliações e certificados seguem as mes
 - Supabase PostgreSQL (`nexora`)
 - Supabase Storage
 
+## Produção
+
+URL oficial: `https://academy.learnandcreate.workers.dev/`
+
 ## Deploy
 
 ```bash
@@ -54,6 +58,9 @@ O comando `check` executa a auditoria de HTML, JavaScript e links locais, os tes
 
 - Os laboratórios JavaScript e TypeScript são executados em um `iframe` isolado. A página principal não usa avaliação dinâmica de código.
 - O Worker e os arquivos estáticos enviam cabeçalhos de segurança e políticas de cache.
+- Cada deploy publica `LC_BUILD_ID` com o SHA do commit para rastrear Worker e assets da mesma release.
+- Analytics público possui allowlist, proteção de propriedades sensíveis e rate limiting por sessão.
+- O webhook de contribuição LC valida assinatura do Mercado Pago antes de consultar e atualizar pagamentos.
 - Alterações de banco ficam versionadas em `supabase/migrations`.
 - As Edge Functions versionadas em `supabase/functions` exigem segredos configurados no Supabase; nunca adicione chaves ao repositório.
 
@@ -65,7 +72,13 @@ Variáveis esperadas pelas funções de pagamento:
 - `MERCADOPAGO_WEBHOOK_SECRET`
 - `LC_APP_URL` (preferencial; `NEXORA_APP_URL` é aceito apenas como fallback legado)
 - `LC_ALLOWED_ORIGINS` (preferencial; `NEXORA_ALLOWED_ORIGINS` permanece como fallback legado)
+- `MERCADOPAGO_WEBHOOK_SECRET` (obrigatório para validar a assinatura das notificações LC)
 
 ## Política de mudanças
 
 Mudanças relacionadas à mesma evolução de produto devem ser agrupadas em releases coerentes sempre que possível. A documentação descreve o estado atual da plataforma; não é usada como diário de microalterações. Isso mantém o histórico técnico legível sem ocultar a rastreabilidade do Git.
+
+
+## Limitação conhecida do plano Supabase
+
+O projeto está atualmente no plano Free. A proteção nativa contra senhas vazadas do Supabase (Have I Been Pwned) exige plano Pro ou superior. Enquanto isso, o cadastro LC exige no mínimo 10 caracteres com maiúscula, minúscula, número e símbolo. A ativação da proteção nativa deve ser feita junto com eventual upgrade do projeto.
