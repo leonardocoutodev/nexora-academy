@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#07111F">
 <link rel="icon" type="image/svg+xml" href="../assets/brand/lc-mark.svg">
 <link rel="manifest" href="../manifest.webmanifest">
-<meta name="description" content="Conheça como a LC — Learn & Create foi construída, o que já entrega gratuitamente e como contribuições voluntárias podem melhorar infraestrutura, conteúdo e novas funcionalidades.">
+<meta name="description" content="Conheça como a LC — Learn & Create foi construída, o que já entrega gratuitamente e como contribuições voluntárias podem melhorar infraestrutura, conteúdo e novas funcionalidades."><link rel="canonical" href="https://academy.learnandcreate.workers.dev/pages/apoie.html"><meta property="og:type" content="website"><meta property="og:site_name" content="LC — Learn & Create"><meta property="og:title" content="Transparência e Apoio — LC"><meta property="og:description" content="Veja o que já foi construído gratuitamente e como o apoio pode melhorar infraestrutura, vídeos, Labs e conteúdo."><meta property="og:url" content="https://academy.learnandcreate.workers.dev/pages/apoie.html"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Transparência e Apoio — LC"><meta name="twitter:description" content="A LC continua gratuita. O apoio ajuda a ampliar infraestrutura e conteúdo."><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Transparência e Apoio — LC","url":"https://academy.learnandcreate.workers.dev/pages/apoie.html","isPartOf":{"@type":"WebSite","name":"LC — Learn & Create","url":"https://academy.learnandcreate.workers.dev/"}}</script>
 <title>Transparência e Apoio — LC</title>
 <link rel="stylesheet" href="../assets/css/styles.css">
 <link rel="stylesheet" href="../assets/css/academy-v3.css">
@@ -271,16 +271,21 @@
 </main>
 
 <footer class="container support-shell support-footer">
-  LC — Learn &amp; Create · Educação gratuita em tecnologia
+  LC — Learn &amp; Create · Educação gratuita em tecnologia · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a> · <a href="certificacao.html">Certificação</a>
 </footer>
 
 <script src="../assets/js/ui.js"></script>
+<script src="../assets/js/supabase-lc.js"></script>
+<script src="../assets/js/analytics.js"></script>
 <script>
 const FN='https://kvwsqfnyebyjncfgvqnd.supabase.co/functions/v1/lc-mercadopago-donation',
 amount=document.getElementById('amount'),
 form=document.getElementById('donationForm'),
 btn=document.getElementById('payBtn'),
 status=document.getElementById('formStatus');
+
+LCAnalytics.once('support-page-view',()=>LCAnalytics.track('support_page_viewed'));
+document.querySelectorAll('a[href="#contribuir"]').forEach(link=>link.addEventListener('click',()=>LCAnalytics.track('support_cta_clicked',{}, {method:'anchor'})));
 
 document.querySelectorAll('.amount-btn').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.amount-btn').forEach(x=>x.classList.remove('active'));
@@ -290,6 +295,7 @@ document.querySelectorAll('.amount-btn').forEach(b=>b.onclick=()=>{
 
 const qp=new URLSearchParams(location.search),ps=qp.get('payment');
 if(ps){
+  LCAnalytics.track('donation_returned',{}, {status:String(ps).slice(0,32)});
   const el=document.getElementById('returnStatus');
   el.style.display='block';
   el.className='v3-feedback '+(ps==='success'?'ok':ps==='failure'?'bad':'');
@@ -314,6 +320,7 @@ form.onsubmit=async e=>{
       public_listing:document.getElementById('publicListing').checked,
       website:document.getElementById('website').value
     };
+    await LCAnalytics.track('donation_started',{}, {method:'mercadopago',amount:Number(payload.amount||0)});
     const r=await fetch(FN,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -321,6 +328,7 @@ form.onsubmit=async e=>{
     });
     const data=await r.json().catch(()=>({}));
     if(!r.ok) throw new Error(data.message||data.error||'Não foi possível iniciar a contribuição.');
+    await LCAnalytics.track('donation_checkout_opened',{}, {method:'mercadopago',amount:Number(payload.amount||0)});
     location.href=data.init_point;
   }catch(err){
     setState(status,'error',err.message);
@@ -329,6 +337,7 @@ form.onsubmit=async e=>{
 };
 
 document.getElementById('copyKey').onclick=async()=>{
+  LCAnalytics.track('support_cta_clicked',{}, {method:'pix_copy'});
   const key=document.getElementById('pixKey').textContent;
   try{await navigator.clipboard.writeText(key)}catch{}
   document.getElementById('copyKey').textContent='Chave copiada ✓';
