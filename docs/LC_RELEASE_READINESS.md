@@ -23,6 +23,10 @@ Essas versões foram marcadas como aplicadas porque o estado correspondente já 
 
 A migration `20260829115811_lc_audit360_security_performance_hardening.sql` adiciona hardening de snapshots privados, índices, otimizações RLS e rate limiting de analytics.
 
+A migration `20260829120403_lc_public_endpoint_rate_limit_bridge.sql` expõe o limitador somente ao `service_role` para uso pelas Edge Functions.
+
+A migration `20260829120803_lc_admin_manual_pix_reconciliation.sql` adiciona consulta administrativa de contribuições e conciliação manual de Pix direto com auditoria.
+
 ## Segurança
 
 - snapshots em `nexora_private` com RLS e privilégios públicos revogados;
