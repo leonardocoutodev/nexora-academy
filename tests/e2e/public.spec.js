@@ -13,6 +13,7 @@ for(const entry of [
 ]){
   test('@compat public route '+entry.path,async({page})=>{
     await blockExternalFonts(page);
+    await page.route('https://kvwsqfnyebyjncfgvqnd.supabase.co/**',route=>route.abort());
     await page.goto(entry.path,{waitUntil:'commit',timeout:15_000});
     await expect(page).toHaveTitle(entry.title);
     await expect(page.locator('body')).toBeVisible();
@@ -22,6 +23,7 @@ for(const entry of [
 
 test('public pages have no serious or critical accessibility violations',async({page})=>{
   await blockExternalFonts(page);
+  await page.route('https://kvwsqfnyebyjncfgvqnd.supabase.co/**',route=>route.abort());
   for(const path of ['/','/pages/login.html','/pages/cadastro.html','/pages/apoie.html','/pages/privacidade.html','/pages/termos.html','/pages/certificacao.html']){
     await page.goto(path);await waitForStablePage(page);
     const results=await new AxeBuilder({page}).analyze();
