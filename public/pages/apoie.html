@@ -1,1 +1,338 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07111F"><link rel="icon" type="image/svg+xml" href="../assets/brand/lc-mark.svg"><link rel="manifest" href="../manifest.webmanifest"><title>Contribua — LC</title><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/academy-v3.css"><style>.support-shell{max-width:1100px}.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0 14px}.amount-btn{min-height:44px;border:1px solid #21415e;border-radius:11px;background:#081827;color:#eaf5ff;font-weight:850}.amount-btn.active{border-color:#4098ff;background:#12356b}.pix-key{font-family:ui-monospace,Consolas,monospace;word-break:break-all;padding:10px;border:1px solid #1b3c58;border-radius:10px;background:#06121f}.hp{position:absolute;left:-9999px}.author-note{margin-top:18px;padding:16px;border:1px solid #3b5675;border-radius:14px;background:#091624}@media(max-width:780px){.support-grid{grid-template-columns:1fr}.amounts{grid-template-columns:1fr 1fr}}</style></head><body><main class="container page support-shell"><a class="v3-btn secondary" href="../index.html">← Voltar</a><section class="v3-hero" style="margin-top:20px"><div class="eyebrow">CONTRIBUIÇÃO VOLUNTÁRIA</div><h1>Ajude a manter a LC gratuita.</h1><p>Qualquer contribuição faz diferença. Você pode contribuir com <b>qualquer valor a partir de R$ 1</b>. A contribuição é totalmente voluntária e não altera acesso, notas, XP, projetos ou certificados.</p></section><div id="returnStatus" class="v3-feedback" style="display:none;margin-top:14px"></div><div class="support-grid"><section class="card card-pad"><div class="eyebrow">MERCADO PAGO</div><h2>Escolha quanto deseja contribuir.</h2><form id="donationForm"><input class="hp" id="website" tabindex="-1"><label for="name">Nome</label><input id="name" required minlength="2"><label for="email">E-mail</label><input id="email" type="email" required><label>Valores sugeridos</label><div class="amounts"><button type="button" class="amount-btn" data-value="1">R$ 1</button><button type="button" class="amount-btn" data-value="5">R$ 5</button><button type="button" class="amount-btn" data-value="10">R$ 10</button><button type="button" class="amount-btn" data-value="20">R$ 20</button></div><label for="amount">Outro valor, a partir de R$ 1</label><input id="amount" type="number" min="1" max="100000" step="0.01" required placeholder="R$ 1,00 ou mais"><label for="message">Mensagem opcional</label><textarea id="message" rows="3" maxlength="500"></textarea><label style="display:flex;gap:9px;align-items:flex-start"><input id="publicListing" type="checkbox" style="width:auto;margin-top:3px"><span>Autorizo exibir meu nome futuramente como contribuinte da LC.</span></label><button id="payBtn" class="v3-btn" style="width:100%;margin-top:16px" type="submit">Contribuir pelo Mercado Pago</button><div id="formStatus" style="margin-top:12px"></div></form></section><aside class="card card-pad"><div class="eyebrow">PIX DIRETO • VALOR LIVRE</div><h2>Contribua a partir de R$ 1.</h2><p class="muted">Use a chave Pix abaixo e informe no seu banco o valor que desejar.</p><label>Chave Pix aleatória</label><div class="pix-key" id="pixKey">54214f32-1e0c-4e8c-8d1f-6708ee9f0b58</div><div class="v3-toolbar"><button class="v3-btn secondary" type="button" id="copyKey">Copiar chave Pix</button></div><section class="author-note"><div class="eyebrow">TRANSPARÊNCIA</div><h3>Gratuita para todos.</h3><p class="muted">A LC — Learn & Create foi idealizada e desenvolvida por <b>Leonardo Couto</b>. Contribuir ajuda a manter infraestrutura, desenvolvimento, revisão e novos conteúdos, mas nunca compra vantagem acadêmica.</p></section></aside></div></main><script src="../assets/js/ui.js"></script><script>const FN='https://kvwsqfnyebyjncfgvqnd.supabase.co/functions/v1/lc-mercadopago-donation',amount=document.getElementById('amount'),form=document.getElementById('donationForm'),btn=document.getElementById('payBtn'),status=document.getElementById('formStatus');document.querySelectorAll('.amount-btn').forEach(b=>b.onclick=()=>{document.querySelectorAll('.amount-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');amount.value=b.dataset.value});const qp=new URLSearchParams(location.search),ps=qp.get('payment');if(ps){const el=document.getElementById('returnStatus');el.style.display='block';el.className='v3-feedback '+(ps==='success'?'ok':ps==='failure'?'bad':'');el.textContent=ps==='success'?'Obrigado pela contribuição. Ela ajuda a manter a LC gratuita.':ps==='pending'?'Sua contribuição está pendente. Você pode continuar estudando normalmente.':'A contribuição não foi concluída. Seu acesso não foi afetado.'}form.onsubmit=async e=>{e.preventDefault();btn.disabled=true;setState(status,'loading','Abrindo Mercado Pago...');try{const payload={name:document.getElementById('name').value.trim(),email:document.getElementById('email').value.trim(),amount:Number(amount.value),message:document.getElementById('message').value.trim(),public_listing:document.getElementById('publicListing').checked,website:document.getElementById('website').value};const r=await fetch(FN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}),data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.message||data.error||'Não foi possível iniciar a contribuição.');location.href=data.init_point}catch(err){setState(status,'error',err.message);btn.disabled=false}};document.getElementById('copyKey').onclick=async()=>{const key=document.getElementById('pixKey').textContent;try{await navigator.clipboard.writeText(key)}catch{}document.getElementById('copyKey').textContent='Chave copiada ✓'};</script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111F">
+<link rel="icon" type="image/svg+xml" href="../assets/brand/lc-mark.svg">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="description" content="Conheça como a LC — Learn & Create foi construída, o que já entrega gratuitamente e como contribuições voluntárias podem melhorar infraestrutura, conteúdo e novas funcionalidades.">
+<title>Transparência e Apoio — LC</title>
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/academy-v3.css">
+<style>
+.support-shell{max-width:1180px}
+.support-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0}
+.support-nav-actions{display:flex;gap:8px;flex-wrap:wrap}
+.support-nav .brand{min-width:0}
+.support-hero{margin-top:14px;min-height:440px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(310px,.85fr);gap:24px;align-items:center}
+.support-hero-copy{position:relative;z-index:2}
+.support-hero h1{font-size:clamp(44px,6vw,72px);line-height:.98;letter-spacing:-.055em;max-width:820px;margin:10px 0 18px}
+.support-hero h1 span{background:linear-gradient(90deg,var(--lc-blue),#4598ff 48%,var(--lc-mint));-webkit-background-clip:text;background-clip:text;color:transparent}
+.support-hero p{font-size:18px;line-height:1.75;color:#acc0d5;max-width:760px}
+.support-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.support-note{margin-top:14px;color:#8097ae;font-size:12px;font-weight:700;line-height:1.55}
+.support-proof{position:relative;z-index:2;border:1px solid #1f4d7c;border-radius:20px;padding:20px;background:linear-gradient(145deg,rgba(11,29,49,.96),rgba(6,18,31,.98));box-shadow:0 24px 70px rgba(0,0,0,.22)}
+.support-proof-top{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.support-dot{width:8px;height:8px;border-radius:99px;background:#26435f}
+.support-progress-card{padding:18px;border:1px solid #204b75;border-radius:16px;background:radial-gradient(circle at 100% 0,rgba(56,230,176,.08),transparent 38%),#081827}
+.support-progress-card h3{margin:0 0 7px;font-size:18px}
+.support-progress-card p{margin:0;color:#94aac0;font-size:13px;line-height:1.55}
+.support-progress{height:8px;border-radius:99px;background:#04101b;overflow:hidden;margin:16px 0 8px}
+.support-progress span{display:block;width:76%;height:100%;background:linear-gradient(90deg,var(--lc-blue),var(--lc-mint));border-radius:inherit}
+.support-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.support-mini{padding:15px;border:1px solid #173653;border-radius:14px;background:#081523}
+.support-mini strong{display:block;font-size:25px;letter-spacing:-.04em}
+.support-mini small{color:#8fa8c1;font-weight:700}
+.support-section{padding:54px 0}
+.support-section-head{max-width:820px;margin-bottom:24px}
+.support-section-head h2{font-size:clamp(30px,4vw,48px);line-height:1.05;margin:8px 0 13px}
+.support-section-head p{color:#9eb4ca;line-height:1.7;font-size:17px}
+.support-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.support-stat{padding:20px;border:1px solid #173653;border-radius:15px;background:#081523}
+.support-stat strong{display:block;font-size:32px;letter-spacing:-.04em}
+.support-stat span{color:#8fa8c1;font-size:12px;font-weight:800}
+.support-story{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.support-story-card{padding:26px;border:1px solid #193c5d;border-radius:18px;background:linear-gradient(135deg,#0b1d31,#081421)}
+.support-story-card.featured{border-color:#1f5a78;background:radial-gradient(circle at 100% 0,rgba(56,230,176,.09),transparent 35%),linear-gradient(135deg,#0a1d37,#081524)}
+.support-story-card h3{font-size:25px;margin:8px 0 12px}
+.support-story-card p{color:#9fb5ca;line-height:1.7;margin:0}
+.support-impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.support-impact{padding:22px;border:1px solid #183a59;border-radius:16px;background:#081827;min-height:210px}
+.support-impact-icon{width:42px;height:42px;border:1px solid rgba(56,230,176,.26);border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(40,120,255,.15),rgba(56,230,176,.09));color:#9eeed4;font-weight:1000;font-size:12px;margin-bottom:17px}
+.support-impact h3{margin:0 0 9px;font-size:19px}
+.support-impact p{margin:0;color:#8fa7be;line-height:1.6}
+.support-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.support-compare-card{padding:26px;border:1px solid #173754;border-radius:18px;background:#081625}
+.support-compare-card.next{border-color:#24527f;background:radial-gradient(circle at 100% 0,rgba(40,120,255,.13),transparent 36%),linear-gradient(135deg,#0d2750,#0c1d35)}
+.support-list{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:11px}
+.support-list li{display:flex;gap:10px;align-items:flex-start;color:#9fb5ca;line-height:1.5}
+.support-list li:before{content:"✓";color:var(--lc-mint);font-weight:1000}
+.support-transparency{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;padding:30px;border:1px solid #1f4d7c;border-radius:22px;background:radial-gradient(circle at 90% 10%,rgba(56,230,176,.08),transparent 35%),linear-gradient(135deg,#0a1d37,#081524 58%,#0b1730)}
+.support-transparency p{color:#9fb5ca;line-height:1.7}
+.support-checks{display:grid;gap:9px}
+.support-check{padding:14px 16px;border:1px solid #1b4168;border-radius:12px;background:#0a1928;color:#c1d0df;font-weight:750}
+.support-donation-intro{text-align:center;max-width:800px;margin:0 auto 28px}
+.support-donation-intro h2{font-size:clamp(31px,4vw,48px);margin:8px 0 12px}
+.support-donation-intro p{color:#9fb5ca;font-size:17px;line-height:1.7}
+.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0 14px}
+.amount-btn{min-height:44px;border:1px solid #21415e;border-radius:11px;background:#081827;color:#eaf5ff;font-weight:850}
+.amount-btn:hover{border-color:#347fc2;background:#0a2036}
+.amount-btn.active{border-color:#4098ff;background:#12356b;box-shadow:0 0 0 2px rgba(40,120,255,.12)}
+.pix-key{font-family:ui-monospace,Consolas,monospace;word-break:break-all;padding:12px;border:1px solid #1b3c58;border-radius:10px;background:#06121f}
+.hp{position:absolute;left:-9999px}
+.author-note{margin-top:18px;padding:16px;border:1px solid #284766;border-radius:14px;background:#091624}
+.support-policy{margin-top:16px;padding:15px;border:1px solid rgba(56,230,176,.24);border-radius:13px;background:rgba(56,230,176,.055);color:#a9cdbf;line-height:1.55;font-size:13px}
+.support-footer{padding:24px 0 50px;color:#7890a8;font-size:12px;text-align:center}
+@media(max-width:900px){.support-hero{grid-template-columns:1fr}.support-proof{max-width:680px}.support-impact-grid{grid-template-columns:1fr 1fr}.support-stats{grid-template-columns:1fr 1fr}}
+@media(max-width:780px){.support-grid,.support-story,.support-compare,.support-transparency{grid-template-columns:1fr}.amounts{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.support-shell{width:min(100% - 24px,1180px)}.support-nav{align-items:flex-start}.support-nav-actions .secondary{display:none}.support-hero{min-height:0;padding:23px}.support-hero h1{font-size:44px}.support-hero p{font-size:16px}.support-stats,.support-impact-grid{grid-template-columns:1fr}.support-mini-grid{grid-template-columns:1fr 1fr}.support-section{padding:38px 0}.support-transparency{padding:22px}}
+</style>
+</head>
+<body>
+<header class="container support-shell support-nav">
+  <a class="brand" href="../index.html" aria-label="LC — Learn & Create">
+    <img src="../assets/brand/lc-mark.svg" alt="LC">
+    <span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span>
+  </a>
+  <div class="support-nav-actions">
+    <a class="v3-btn secondary" href="#transparencia">Transparência</a>
+    <a class="v3-btn" href="#contribuir">Contribuir</a>
+  </div>
+</header>
+
+<main class="container page support-shell">
+  <section class="v3-hero support-hero">
+    <div class="support-hero-copy">
+      <div class="eyebrow">EDUCAÇÃO GRATUITA • PROJETO JÁ EM FUNCIONAMENTO</div>
+      <h1>Primeiro nós <span>construímos.</span><br>Agora queremos ir além.</h1>
+      <p>A LC — Learn &amp; Create nasceu para oferecer formação prática em tecnologia sem mensalidade e sem conteúdo bloqueado. O que você vê hoje foi construído majoritariamente com ferramentas gratuitas, tecnologias open source e camadas gratuitas de infraestrutura.</p>
+      <div class="support-actions">
+        <a class="v3-btn" href="#impacto">Ver o que já construímos →</a>
+        <a class="v3-btn secondary" href="#contribuir">Quero apoiar o projeto</a>
+      </div>
+      <div class="support-note">Apoiar não libera conteúdo premium. A contribuição ajuda a manter e melhorar o acesso gratuito para todos.</div>
+    </div>
+    <aside class="support-proof" aria-label="Resumo do que a LC já entrega">
+      <div class="support-proof-top"><span class="support-dot"></span><span class="support-dot"></span><span class="support-dot"></span></div>
+      <div class="support-progress-card">
+        <h3>Aprendizado construído na prática</h3>
+        <p>Aulas, Labs, avaliações aplicadas, projetos e certificação em uma única jornada.</p>
+        <div class="support-progress" aria-hidden="true"><span></span></div>
+        <small class="muted">Exemplo de progresso em uma trilha</small>
+      </div>
+      <div class="support-mini-grid">
+        <div class="support-mini"><strong>368</strong><small>aulas publicadas</small></div>
+        <div class="support-mini"><strong>411</strong><small>questões aplicadas</small></div>
+        <div class="support-mini"><strong>35</strong><small>projetos práticos</small></div>
+        <div class="support-mini"><strong>44</strong><small>módulos estruturados</small></div>
+      </div>
+    </aside>
+  </section>
+
+  <section id="impacto" class="support-section">
+    <div class="support-section-head">
+      <div class="eyebrow">O PROJETO JÁ EXISTE</div>
+      <h2>Não estamos pedindo apoio para uma ideia no papel.</h2>
+      <p>Estamos mostrando uma plataforma funcionando e convidando pessoas e empresas a ajudar a ampliar o que já foi construído.</p>
+    </div>
+    <div class="support-stats">
+      <article class="support-stat"><strong>9</strong><span>cursos publicados</span></article>
+      <article class="support-stat"><strong>368</strong><span>aulas estruturadas</span></article>
+      <article class="support-stat"><strong>411</strong><span>questões</span></article>
+      <article class="support-stat"><strong>35</strong><span>projetos / Boss Fights</span></article>
+    </div>
+  </section>
+
+  <section class="support-section">
+    <div class="support-story">
+      <article class="support-story-card featured">
+        <div class="eyebrow">COMO CHEGAMOS ATÉ AQUI</div>
+        <h3>Mais criatividade e execução. Menos orçamento.</h3>
+        <p>A LC foi desenvolvida aproveitando tecnologias open source, serviços com planos gratuitos e trabalho próprio de produto, conteúdo e engenharia. Isso permitiu construir e validar a plataforma antes de pedir recursos.</p>
+      </article>
+      <article class="support-story-card">
+        <div class="eyebrow">O PRINCÍPIO</div>
+        <h3>O aluno não precisa pagar para aprender.</h3>
+        <p>A contribuição não cria uma versão premium da LC. Ela financia melhorias que permanecem disponíveis para a comunidade: melhor infraestrutura, conteúdo mais rico, novas experiências e capacidade para atender mais alunos.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="support-section">
+    <div class="support-section-head">
+      <div class="eyebrow">O QUE O APOIO TORNA POSSÍVEL</div>
+      <h2>Melhorar a experiência sem colocar o conteúdo atrás de uma cobrança.</h2>
+      <p>Os recursos podem ser direcionados para frentes concretas de produto, conteúdo e infraestrutura, sempre preservando a gratuidade acadêmica da LC.</p>
+    </div>
+    <div class="support-impact-grid">
+      <article class="support-impact"><div class="support-impact-icon">01</div><h3>Infraestrutura</h3><p>Mais capacidade, armazenamento, backups, observabilidade, segurança e desempenho para crescer com estabilidade.</p></article>
+      <article class="support-impact"><div class="support-impact-icon">02</div><h3>Vídeos e multimídia</h3><p>Gravação e edição de aulas, demonstrações práticas, legendas, transcrições e conteúdo audiovisual complementar.</p></article>
+      <article class="support-impact"><div class="support-impact-icon">03</div><h3>Novos Labs</h3><p>Ambientes mais interativos para programação, dados, IA, APIs, banco de dados, automação e projetos integrados.</p></article>
+      <article class="support-impact"><div class="support-impact-icon">04</div><h3>Mais conteúdo</h3><p>Novas trilhas, aprofundamento dos módulos, exercícios, materiais de apoio e revisão técnica e pedagógica.</p></article>
+      <article class="support-impact"><div class="support-impact-icon">05</div><h3>Acessibilidade</h3><p>Recursos melhores para diferentes dispositivos, necessidades de aprendizagem e formas de consumir o conteúdo.</p></article>
+      <article class="support-impact"><div class="support-impact-icon">06</div><h3>Escala</h3><p>Capacidade para receber mais estudantes sem sacrificar estabilidade, qualidade, métricas e evolução contínua.</p></article>
+    </div>
+  </section>
+
+  <section class="support-section">
+    <div class="support-compare">
+      <article class="support-compare-card">
+        <div class="eyebrow">HOJE</div>
+        <h2>A LC já entrega uma jornada completa.</h2>
+        <ul class="support-list">
+          <li>Aulas estruturadas por competência</li>
+          <li>Labs e atividades práticas</li>
+          <li>Avaliações aplicadas</li>
+          <li>Projetos e Boss Fights</li>
+          <li>Progresso e certificação</li>
+          <li>Acesso gratuito ao conteúdo publicado</li>
+        </ul>
+      </article>
+      <article class="support-compare-card next">
+        <div class="eyebrow">COM MAIS RECURSOS</div>
+        <h2>Podemos enriquecer a experiência sem cobrar do aluno.</h2>
+        <ul class="support-list">
+          <li>Vídeos e demonstrações práticas</li>
+          <li>Labs mais sofisticados</li>
+          <li>Maior capacidade de infraestrutura</li>
+          <li>Novos cursos e materiais</li>
+          <li>Mais recursos de acessibilidade e suporte</li>
+          <li>Mais dados para melhorar o aprendizado</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="transparencia" class="support-section">
+    <div class="support-transparency">
+      <div>
+        <div class="eyebrow">TRANSPARÊNCIA</div>
+        <h2>Quem apoia precisa saber para onde o projeto está indo.</h2>
+        <p>A proposta é manter uma prestação de contas simples e pública, mostrando prioridades, melhorias realizadas e indicadores de impacto conforme o projeto evolui.</p>
+      </div>
+      <div class="support-checks">
+        <div class="support-check">Apoio recebido e custos prioritários</div>
+        <div class="support-check">Melhorias e funcionalidades entregues</div>
+        <div class="support-check">Alunos alcançados e atividade na plataforma</div>
+        <div class="support-check">Próximos objetivos do projeto</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contribuir" class="support-section">
+    <div class="support-donation-intro">
+      <div class="eyebrow">CONTRIBUIÇÃO VOLUNTÁRIA</div>
+      <h2>O conteúdo continua gratuito. Seu apoio ajuda a torná-lo melhor.</h2>
+      <p>Se você acredita que educação em tecnologia de qualidade deve ser acessível, pode contribuir com qualquer valor a partir de R$ 1. A contribuição nunca altera acesso, nota, XP, prioridade, projetos ou certificado.</p>
+    </div>
+
+    <div id="returnStatus" class="v3-feedback" style="display:none;margin-bottom:14px"></div>
+
+    <div class="support-grid">
+      <section class="card card-pad">
+        <div class="eyebrow">MERCADO PAGO</div>
+        <h2>Escolha quanto deseja contribuir.</h2>
+        <form id="donationForm">
+          <input class="hp" id="website" tabindex="-1" autocomplete="off">
+          <label for="name">Nome</label>
+          <input id="name" required minlength="2" autocomplete="name">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" required autocomplete="email">
+          <label>Valores sugeridos</label>
+          <div class="amounts">
+            <button type="button" class="amount-btn" data-value="1">R$ 1</button>
+            <button type="button" class="amount-btn" data-value="5">R$ 5</button>
+            <button type="button" class="amount-btn" data-value="10">R$ 10</button>
+            <button type="button" class="amount-btn" data-value="20">R$ 20</button>
+          </div>
+          <label for="amount">Outro valor, a partir de R$ 1</label>
+          <input id="amount" type="number" min="1" max="100000" step="0.01" required placeholder="R$ 1,00 ou mais" inputmode="decimal">
+          <label for="message">Mensagem opcional</label>
+          <textarea id="message" rows="3" maxlength="500"></textarea>
+          <label style="display:flex;gap:9px;align-items:flex-start">
+            <input id="publicListing" type="checkbox" style="width:auto;margin-top:3px">
+            <span>Autorizo exibir meu nome futuramente como contribuinte da LC.</span>
+          </label>
+          <button id="payBtn" class="v3-btn" style="width:100%;margin-top:16px" type="submit">Contribuir pelo Mercado Pago</button>
+          <div id="formStatus" style="margin-top:12px"></div>
+        </form>
+      </section>
+
+      <aside class="card card-pad">
+        <div class="eyebrow">PIX DIRETO • VALOR LIVRE</div>
+        <h2>Contribua a partir de R$ 1.</h2>
+        <p class="muted">Use a chave Pix abaixo e informe no seu banco o valor que desejar.</p>
+        <label>Chave Pix aleatória</label>
+        <div class="pix-key" id="pixKey">54214f32-1e0c-4e8c-8d1f-6708ee9f0b58</div>
+        <div class="v3-toolbar">
+          <button class="v3-btn secondary" type="button" id="copyKey">Copiar chave Pix</button>
+        </div>
+        <div class="support-policy"><strong>Gratuidade preservada.</strong><br>A contribuição é voluntária e não cria conteúdo premium, vantagem acadêmica ou prioridade para quem contribui.</div>
+        <section class="author-note">
+          <div class="eyebrow">AUTORIA E DESENVOLVIMENTO</div>
+          <h3>Idealizada e desenvolvida por Leonardo Couto.</h3>
+          <p class="muted">A LC nasceu como uma iniciativa de educação gratuita e também demonstra, na prática, trabalho aplicado em plataformas, sistemas, automações, dados e soluções digitais.</p>
+        </section>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="container support-shell support-footer">
+  LC — Learn &amp; Create · Educação gratuita em tecnologia
+</footer>
+
+<script src="../assets/js/ui.js"></script>
+<script>
+const FN='https://kvwsqfnyebyjncfgvqnd.supabase.co/functions/v1/lc-mercadopago-donation',
+amount=document.getElementById('amount'),
+form=document.getElementById('donationForm'),
+btn=document.getElementById('payBtn'),
+status=document.getElementById('formStatus');
+
+document.querySelectorAll('.amount-btn').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.amount-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  amount.value=b.dataset.value;
+});
+
+const qp=new URLSearchParams(location.search),ps=qp.get('payment');
+if(ps){
+  const el=document.getElementById('returnStatus');
+  el.style.display='block';
+  el.className='v3-feedback '+(ps==='success'?'ok':ps==='failure'?'bad':'');
+  el.textContent=ps==='success'
+    ?'Obrigado pela contribuição. Ela ajuda a manter e melhorar a LC gratuita.'
+    :ps==='pending'
+      ?'Sua contribuição está pendente. Você pode continuar estudando normalmente.'
+      :'A contribuição não foi concluída. Seu acesso não foi afetado.';
+  if(location.hash!=='#contribuir') location.hash='contribuir';
+}
+
+form.onsubmit=async e=>{
+  e.preventDefault();
+  btn.disabled=true;
+  setState(status,'loading','Abrindo Mercado Pago...');
+  try{
+    const payload={
+      name:document.getElementById('name').value.trim(),
+      email:document.getElementById('email').value.trim(),
+      amount:Number(amount.value),
+      message:document.getElementById('message').value.trim(),
+      public_listing:document.getElementById('publicListing').checked,
+      website:document.getElementById('website').value
+    };
+    const r=await fetch(FN,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(data.message||data.error||'Não foi possível iniciar a contribuição.');
+    location.href=data.init_point;
+  }catch(err){
+    setState(status,'error',err.message);
+    btn.disabled=false;
+  }
+};
+
+document.getElementById('copyKey').onclick=async()=>{
+  const key=document.getElementById('pixKey').textContent;
+  try{await navigator.clipboard.writeText(key)}catch{}
+  document.getElementById('copyKey').textContent='Chave copiada ✓';
+};
+</script>
+</body>
+</html>
