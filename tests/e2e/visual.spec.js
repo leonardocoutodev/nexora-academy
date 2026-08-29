@@ -5,6 +5,8 @@ import {waitForStablePage} from './helpers/quality.js';
 test.skip(process.env.LC_VISUAL_COMPARE!=='true','Visual baseline cache is not available yet.');
 
 const cases=[
+  {name:'home-desktop',path:'/',viewport:{width:1440,height:900}},
+  {name:'support-mobile',path:'/pages/apoie.html',viewport:{width:390,height:844}},
   {name:'login-desktop',path:'/pages/login.html',viewport:{width:1440,height:900}},
   {name:'course-mobile',path:'/pages/curso.html?id='+IDS.course,viewport:{width:390,height:844},mock:'student'},
   {name:'lesson-mobile',path:'/pages/aula.html?id='+IDS.lesson,viewport:{width:390,height:844},mock:'student'},
