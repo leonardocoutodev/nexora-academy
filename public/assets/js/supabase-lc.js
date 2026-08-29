@@ -5,13 +5,19 @@ const LEGACY_TOKEN_KEY = "nexora.supabase.session";
 function loadSession(){try{const current=localStorage.getItem(TOKEN_KEY);if(current)return JSON.parse(current);const legacy=localStorage.getItem(LEGACY_TOKEN_KEY);if(!legacy)return null;localStorage.setItem(TOKEN_KEY,legacy);localStorage.removeItem(LEGACY_TOKEN_KEY);return JSON.parse(legacy)}catch{return null}}
 function saveSession(data){if(data?.access_token)localStorage.setItem(TOKEN_KEY,JSON.stringify(data))}
 function clearSession(){localStorage.removeItem(TOKEN_KEY);localStorage.removeItem(LEGACY_TOKEN_KEY)}
+function passwordStrengthError(password){
+  const value=String(password||'');
+  if(value.length<10)return 'Use uma senha com pelo menos 10 caracteres.';
+  if(!/[a-z]/.test(value)||!/[A-Z]/.test(value)||!/[0-9]/.test(value)||!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(value))return 'Inclua letra maiúscula, minúscula, número e símbolo na senha.';
+  return '';
+}
 async function sbRequest(path,options={}){const session=loadSession();const headers={apikey:LC_SUPABASE_KEY,"Content-Type":"application/json",...(session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{}),...(options.headers||{})};const res=await fetch(LC_SUPABASE_URL+path,{...options,headers});const data=await res.json().catch(()=>({}));if(!res.ok){const err=new Error(data.msg||data.message||data.error_description||data.error||`Erro HTTP ${res.status}`);err.status=res.status;throw err}return data}
 async function refreshSessionIfNeeded(){const s=loadSession();if(!s?.refresh_token)return null;const expiresAt=(s.expires_at||0)*1000;if(Date.now()<expiresAt-60000)return s;const data=await sbRequest("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:s.refresh_token})});saveSession(data);return data}
 async function authUser(){await refreshSessionIfNeeded().catch(()=>clearSession());const s=loadSession();if(!s?.access_token)return null;try{return await sbRequest("/auth/v1/user")}catch{clearSession();return null}}
 async function sbRest(schema,path,options={}){await refreshSessionIfNeeded().catch(()=>{});const s=loadSession();const headers={apikey:LC_SUPABASE_KEY,"Content-Type":"application/json","Accept-Profile":schema,"Content-Profile":schema,...(s?.access_token?{Authorization:`Bearer ${s.access_token}`}:{})};const res=await fetch(`${LC_SUPABASE_URL}/rest/v1/${path}`,{...options,headers:{...headers,...(options.headers||{})}});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.message||data.error||`Erro HTTP ${res.status}`);return data}
 window.LCSupabase={
- url:LC_SUPABASE_URL,publishableKey:LC_SUPABASE_KEY,session:loadSession,
- async signUp({name,email,password}){const data=await sbRequest("/auth/v1/signup",{method:"POST",body:JSON.stringify({email,password,data:{full_name:name,lc:true}})});if(data.access_token)saveSession(data);return data},
+ url:LC_SUPABASE_URL,publishableKey:LC_SUPABASE_KEY,session:loadSession,passwordStrengthError,
+ async signUp({name,email,password}){const passwordError=passwordStrengthError(password);if(passwordError)throw new Error(passwordError);const data=await sbRequest("/auth/v1/signup",{method:"POST",body:JSON.stringify({email,password,data:{full_name:name,lc:true}})});if(data.access_token)saveSession(data);return data},
  async signIn({email,password}){const data=await sbRequest("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email,password})});saveSession(data);return data},
  async signOut(){const s=loadSession();if(s?.access_token)await sbRequest("/auth/v1/logout",{method:"POST"}).catch(()=>{});clearSession()},
  user:authUser,
