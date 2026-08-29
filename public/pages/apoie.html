@@ -26,7 +26,7 @@
 .support-proof-top{display:flex;align-items:center;gap:8px;margin-bottom:16px}
 .support-dot{width:8px;height:8px;border-radius:99px;background:#26435f}
 .support-progress-card{padding:18px;border:1px solid #204b75;border-radius:16px;background:radial-gradient(circle at 100% 0,rgba(56,230,176,.08),transparent 38%),#081827}
-.support-progress-card h3{margin:0 0 7px;font-size:18px}
+.support-progress-card h2{margin:0 0 7px;font-size:18px;letter-spacing:-.02em}
 .support-progress-card p{margin:0;color:#94aac0;font-size:13px;line-height:1.55}
 .support-progress{height:8px;border-radius:99px;background:#04101b;overflow:hidden;margin:16px 0 8px}
 .support-progress span{display:block;width:76%;height:100%;background:linear-gradient(90deg,var(--lc-blue),var(--lc-mint));border-radius:inherit}
@@ -107,7 +107,7 @@
     <aside class="support-proof" aria-label="Resumo do que a LC já entrega">
       <div class="support-proof-top"><span class="support-dot"></span><span class="support-dot"></span><span class="support-dot"></span></div>
       <div class="support-progress-card">
-        <h3>Aprendizado construído na prática</h3>
+        <h2>Aprendizado construído na prática</h2>
         <p>Aulas, Labs, avaliações aplicadas, projetos e certificação em uma única jornada.</p>
         <div class="support-progress" aria-hidden="true"><span></span></div>
         <small class="muted">Exemplo de progresso em uma trilha</small>
@@ -225,7 +225,7 @@
         <div class="eyebrow">MERCADO PAGO</div>
         <h2>Escolha quanto deseja contribuir.</h2>
         <form id="donationForm">
-          <input class="hp" id="website" tabindex="-1" autocomplete="off">
+          <input class="hp" id="website" tabindex="-1" autocomplete="off" aria-label="Campo de verificação, não preencher">
           <label for="name">Nome</label>
           <input id="name" required minlength="2" autocomplete="name">
           <label for="email">E-mail</label>
