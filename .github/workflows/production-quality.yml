@@ -28,12 +28,12 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Verify deployed build
         run: |
-          EXPECTED_BUILD="$(sed -n 's/^const BUILD_ID = "\([^"]*\)";/\1/p' src/index.js)"
-          HEALTH="$(curl -fsS https://academy.nexora-84f.workers.dev/api/health)"
+          EXPECTED_BUILD="${{ github.event.workflow_run.head_sha }}"
+          HEALTH="$(curl -fsS https://academy.learnandcreate.workers.dev/api/health)"
           echo "$HEALTH" | grep -q "\"build\":\"$EXPECTED_BUILD\""
       - name: Browser smoke against production
         env:
-          LC_E2E_BASE_URL: https://academy.nexora-84f.workers.dev
+          LC_E2E_BASE_URL: https://academy.learnandcreate.workers.dev
         run: npx playwright test --grep @compat --project=chromium
       - name: Upload production QA evidence
         if: always()
