@@ -3,7 +3,6 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const SUPABASE_URL=Deno.env.get("SUPABASE_URL")!;
 const SERVICE=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const MP=Deno.env.get("MERCADOPAGO_ACCESS_TOKEN")||"";
-const LEGACY_HOST="academy.nexora-84f.workers.dev";
 const OFFICIAL_APP="https://academy.learnandcreate.workers.dev";
 const configuredApp=(Deno.env.get("LC_APP_URL")||Deno.env.get("NEXORA_APP_URL")||"").trim();
 const configuredIsLegacy=(()=>{try{return /\.nexora-[a-z0-9-]+\.workers\.dev$/i.test(new URL(configuredApp).host)}catch{return false}})();
