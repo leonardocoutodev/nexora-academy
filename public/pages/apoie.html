@@ -72,6 +72,13 @@
 .amount-btn.active{border-color:#4098ff;background:#12356b;box-shadow:0 0 0 2px rgba(40,120,255,.12)}
 .pix-key{font-family:ui-monospace,Consolas,monospace;word-break:break-all;padding:12px;border:1px solid #1b3c58;border-radius:10px;background:#06121f}
 .hp{position:absolute;left:-9999px}
+.support-consent{position:relative;display:flex;align-items:flex-start;min-height:44px;padding-left:31px;cursor:pointer;line-height:1.45}
+.support-consent input{position:absolute;inset:0;width:100%!important;height:100%;min-height:44px;margin:0;opacity:0;cursor:pointer}
+.support-consent span{position:relative;pointer-events:none}
+.support-consent span:before{content:"";position:absolute;left:-31px;top:1px;width:20px;height:20px;border:1px solid #315979;border-radius:6px;background:#071421;box-shadow:inset 0 0 0 2px rgba(7,20,33,.85)}
+.support-consent input:checked+span:before{border-color:var(--lc-blue);background:var(--lc-blue)}
+.support-consent input:checked+span:after{content:"✓";position:absolute;left:-27px;top:-1px;color:white;font-size:14px;font-weight:1000}
+.support-consent input:focus-visible+span:before{outline:3px solid rgba(40,120,255,.34);outline-offset:2px}
 .author-note{margin-top:18px;padding:16px;border:1px solid #284766;border-radius:14px;background:#091624}
 .support-policy{margin-top:16px;padding:15px;border:1px solid rgba(56,230,176,.24);border-radius:13px;background:rgba(56,230,176,.055);color:#a9cdbf;line-height:1.55;font-size:13px}
 .support-footer{padding:24px 0 50px;color:#7890a8;font-size:12px;text-align:center}
@@ -241,8 +248,8 @@
           <input id="amount" type="number" min="1" max="100000" step="0.01" required placeholder="R$ 1,00 ou mais" inputmode="decimal">
           <label for="message">Mensagem opcional</label>
           <textarea id="message" rows="3" maxlength="500"></textarea>
-          <label style="display:flex;gap:9px;align-items:flex-start">
-            <input id="publicListing" type="checkbox" style="width:auto;margin-top:3px">
+          <label class="support-consent">
+            <input id="publicListing" type="checkbox">
             <span>Autorizo exibir meu nome futuramente como contribuinte da LC.</span>
           </label>
           <button id="payBtn" class="v3-btn" style="width:100%;margin-top:16px" type="submit">Contribuir pelo Mercado Pago</button>
