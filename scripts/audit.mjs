@@ -11,7 +11,10 @@ for(const file of files.filter(file=>file.endsWith(".js"))){try{new vm.Script(fs
 for(const file of files.filter(file=>file.endsWith(".html"))){
   const html=fs.readFileSync(file,"utf8");
   let index=0;
-  for(const match of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)){try{new vm.Script(match[1],{filename:`${file}#inline-${++index}`})}catch(error){failures.push(`${path.relative(root,file)}: ${error.message}`)}}
+  for(const match of html.matchAll(/<script(?![^>]*\bsrc=)([^>]*)>([\s\S]*?)<\/script>/gi)){
+    if(/type=["']application\/ld\+json["']/i.test(match[1]))continue;
+    try{new vm.Script(match[2],{filename:`${file}#inline-${++index}`})}catch(error){failures.push(`${path.relative(root,file)}: ${error.message}`)}
+  }
   for(const match of html.matchAll(/(?:href|src)=["']([^"']+)["']/gi)){
     const ref=match[1];
     if(!ref||/^(?:#|https?:|mailto:|tel:|data:|javascript:)/.test(ref)||ref.includes("${"))continue;
