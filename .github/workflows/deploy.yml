@@ -32,13 +32,12 @@ jobs:
             echo "::error::Cloudflare API token is not configured in GitHub Actions secrets."
             exit 1
           fi
-          npm run deploy
+          npx wrangler deploy --var "LC_BUILD_ID:${GITHUB_SHA}"
       - name: Smoke test production
         run: |
           set -e
-          URL="https://academy.nexora-84f.workers.dev"
-          EXPECTED_BUILD="$(sed -n 's/^const BUILD_ID = "\([^"]*\)";/\1/p' src/index.js)"
-          test -n "$EXPECTED_BUILD"
+          URL="https://academy.learnandcreate.workers.dev"
+          EXPECTED_BUILD="$GITHUB_SHA"
           ok=0
           for i in $(seq 1 12); do
             HEALTH="$(curl -fsS --max-time 15 "$URL/api/health" || true)"
