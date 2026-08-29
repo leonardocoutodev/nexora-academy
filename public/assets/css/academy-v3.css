@@ -561,7 +561,7 @@ input[type="checkbox"],input[type="radio"]{min-height:0;width:auto;accent-color:
   .login-card{width:100%;max-width:520px;padding:20px;border-radius:18px;box-shadow:0 16px 46px rgba(0,0,0,.22)}
   .login-card h2{font-size:26px}
   .login-card label{margin-top:12px}
-  .nx-password-toggle{min-height:36px}
+  .nx-password-toggle{top:2px;right:4px;min-height:44px}
   .v3-course-card>.v3-toolbar{display:grid;grid-template-columns:1fr;width:100%}
   .v3-course-card>.v3-toolbar>.v3-btn{width:100%}
 }
