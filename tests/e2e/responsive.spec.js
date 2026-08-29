@@ -20,6 +20,7 @@ for(const width of widths){
     test('mobile '+width+'px · '+entry.name,async({page},testInfo)=>{
       await page.setViewportSize({width,height:844});
       if(entry.role)await installMockSupabase(page,{role:entry.role});
+      else await page.route('https://kvwsqfnyebyjncfgvqnd.supabase.co/**',route=>route.abort());
       await page.goto(entry.path);await waitForStablePage(page);
       await expectNoHorizontalOverflow(page);
       await expectPrimaryTargets(page,44);
