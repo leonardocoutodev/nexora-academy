@@ -3,12 +3,13 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const SUPABASE_URL=Deno.env.get("SUPABASE_URL")!;
 const SERVICE=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const MP=Deno.env.get("MERCADOPAGO_ACCESS_TOKEN")||"";
-const LEGACY_APP="https://academy.nexora-84f.workers.dev";
+const LEGACY_HOST="academy.nexora-84f.workers.dev";
 const OFFICIAL_APP="https://academy.learnandcreate.workers.dev";
 const configuredApp=(Deno.env.get("LC_APP_URL")||Deno.env.get("NEXORA_APP_URL")||"").trim();
-const APP=configuredApp&&configuredApp!==LEGACY_APP?configuredApp:OFFICIAL_APP;
+const configuredIsLegacy=(()=>{try{return new URL(configuredApp).host===LEGACY_HOST}catch{return false}})();
+const APP=configuredApp&&!configuredIsLegacy?configuredApp:OFFICIAL_APP;
 const WEBHOOK=`${SUPABASE_URL}/functions/v1/lc-mercadopago-webhook`;
-const configuredOrigins=(Deno.env.get("LC_ALLOWED_ORIGINS")||Deno.env.get("NEXORA_ALLOWED_ORIGINS")||"").split(",").map(x=>x.trim()).filter(Boolean).filter(x=>x!==LEGACY_APP);
+const configuredOrigins=(Deno.env.get("LC_ALLOWED_ORIGINS")||Deno.env.get("NEXORA_ALLOWED_ORIGINS")||"").split(",").map(x=>x.trim()).filter(Boolean).filter(x=>{try{return new URL(x).host!==LEGACY_HOST}catch{return true}});
 const allowed=new Set([...configuredOrigins,APP,OFFICIAL_APP]);
 
 function cors(req:Request){
