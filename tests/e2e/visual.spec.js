@@ -17,6 +17,7 @@ for(const item of cases){
   test('visual '+item.name,async({page})=>{
     await page.setViewportSize(item.viewport);
     if(item.mock)await installMockSupabase(page,{role:item.mock});
+    else await page.route('https://kvwsqfnyebyjncfgvqnd.supabase.co/**',route=>route.abort());
     await page.goto(item.path);await waitForStablePage(page);
     await expect(page).toHaveScreenshot(item.name+'.png',{fullPage:true,animations:'disabled'});
   });
