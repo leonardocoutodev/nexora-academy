@@ -3,8 +3,6 @@ module.exports={
     collect:{
       url:[
         'http://127.0.0.1:8787/',
-        'http://127.0.0.1:8787/pages/login.html',
-        'http://127.0.0.1:8787/pages/cadastro.html',
         'http://127.0.0.1:8787/pages/apoie.html'
       ],
       numberOfRuns:1,
