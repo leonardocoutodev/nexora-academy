@@ -3,9 +3,13 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const SUPABASE_URL=Deno.env.get("SUPABASE_URL")!;
 const SERVICE=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const MP=Deno.env.get("MERCADOPAGO_ACCESS_TOKEN")||"";
-const APP=Deno.env.get("LC_APP_URL")||Deno.env.get("NEXORA_APP_URL")||"https://academy.nexora-84f.workers.dev";
+const LEGACY_APP="https://academy.nexora-84f.workers.dev";
+const OFFICIAL_APP="https://academy.learnandcreate.workers.dev";
+const configuredApp=(Deno.env.get("LC_APP_URL")||Deno.env.get("NEXORA_APP_URL")||"").trim();
+const APP=configuredApp&&configuredApp!==LEGACY_APP?configuredApp:OFFICIAL_APP;
 const WEBHOOK=`${SUPABASE_URL}/functions/v1/lc-mercadopago-webhook`;
-const allowed=new Set((Deno.env.get("LC_ALLOWED_ORIGINS")||Deno.env.get("NEXORA_ALLOWED_ORIGINS")||APP).split(",").map(x=>x.trim()).filter(Boolean));
+const configuredOrigins=(Deno.env.get("LC_ALLOWED_ORIGINS")||Deno.env.get("NEXORA_ALLOWED_ORIGINS")||"").split(",").map(x=>x.trim()).filter(Boolean).filter(x=>x!==LEGACY_APP);
+const allowed=new Set([...configuredOrigins,APP,OFFICIAL_APP]);
 
 function cors(req:Request){
   const origin=req.headers.get("origin")||"";
@@ -18,7 +22,7 @@ function cors(req:Request){
     "Access-Control-Max-Age":"86400"
   };
 }
-const json=(req:Request,b:any,s=200)=>new Response(JSON.stringify(b),{status:s,headers:{"Content-Type":"application/json",...cors(req)}});
+const json=(req:Request,b:any,s=200,extra:Record<string,string>={})=>new Response(JSON.stringify(b),{status:s,headers:{"Content-Type":"application/json",...cors(req),...extra}});
 
 async function rest(path:string,init:RequestInit={}){
   const r=await fetch(`${SUPABASE_URL}/rest/v1/${path}`,{...init,headers:{
@@ -34,6 +38,22 @@ async function userFrom(req:Request){
   if(!auth.startsWith("Bearer "))return null;
   const r=await fetch(`${SUPABASE_URL}/auth/v1/user`,{headers:{apikey:SERVICE,Authorization:auth}});
   return r.ok?await r.json():null;
+}
+async function sha256(value:string){
+  const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(digest)).map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+async function allowRequest(req:Request,email:string,userId:string|null){
+  const forwarded=(req.headers.get("x-forwarded-for")||req.headers.get("cf-connecting-ip")||"unknown").split(",")[0].trim();
+  const rateKey=await sha256(`${SERVICE}|lc-donation|${userId||"anon"}|${email}|${forwarded}`);
+  for(const cfg of [
+    {p_action:"donation_short",p_rate_key:rateKey,p_limit:5,p_window_seconds:600},
+    {p_action:"donation_hour",p_rate_key:rateKey,p_limit:20,p_window_seconds:3600}
+  ]){
+    const ok=await rest("rpc/consume_public_rate_limit",{method:"POST",body:JSON.stringify(cfg)});
+    if(ok!==true)return false;
+  }
+  return true;
 }
 
 Deno.serve(async req=>{
@@ -53,6 +73,8 @@ Deno.serve(async req=>{
     if(!Number.isFinite(amount)||amount<1||amount>100000)return json(req,{error:"invalid_amount",message:"Você pode contribuir com qualquer valor a partir de R$ 1."},422);
 
     const user=await userFrom(req);
+    if(!(await allowRequest(req,email,user?.id||null)))return json(req,{error:"rate_limited",message:"Muitas tentativas de contribuição em pouco tempo. Tente novamente mais tarde."},429,{"Retry-After":"600"});
+
     let supporter=(await rest(`supporters?email=eq.${encodeURIComponent(email)}&select=*&limit=1`))?.[0];
     if(!supporter){
       supporter=(await rest("supporters",{method:"POST",headers:{Prefer:"return=representation"},body:JSON.stringify({user_id:user?.id||null,name,email,message,public_listing:publicListing})}))?.[0];
@@ -79,7 +101,7 @@ Deno.serve(async req=>{
     const data=await mp.json().catch(()=>({}));
     if(!mp.ok){
       await rest(`donations?id=eq.${donation.id}`,{method:"PATCH",body:JSON.stringify({status:"rejected",updated_at:new Date().toISOString()})});
-      return json(req,{error:"mercadopago_error",message:data?.message||data?.error||"Não foi possível abrir o Mercado Pago.",details:data},502);
+      return json(req,{error:"mercadopago_error",message:data?.message||data?.error||"Não foi possível abrir o Mercado Pago."},502);
     }
     await rest(`donations?id=eq.${donation.id}`,{method:"PATCH",body:JSON.stringify({provider_preference_id:String(data.id),updated_at:new Date().toISOString()})});
     return json(req,{ok:true,donation_id:donation.id,preference_id:data.id,init_point:data.init_point,sandbox_init_point:data.sandbox_init_point||null});
