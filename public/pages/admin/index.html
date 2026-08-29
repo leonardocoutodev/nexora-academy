@@ -41,6 +41,7 @@
           <button type="button" role="tab" data-admin-tab="students">Alunos</button>
           <button type="button" role="tab" data-admin-tab="boss">Boss Fights</button>
           <button type="button" role="tab" data-admin-tab="certificates">Certificados</button>
+          <button type="button" role="tab" data-admin-tab="donations">Apoios</button>
           <button type="button" role="tab" data-admin-tab="audit">Auditoria</button>
         </div>
 
@@ -179,6 +180,35 @@
             <button id="certificateApply" class="v3-btn secondary" type="button">Filtrar</button>
           </div>
           <div id="certificateList" class="lc-admin-stack"></div>
+        </section>
+
+        <section data-admin-panel="donations" hidden>
+          <div class="v3-section-head">
+            <div><div class="eyebrow">APOIOS</div><h2>Apoios e conciliação</h2><p class="muted">Acompanhe contribuições processadas e registre Pix direto somente depois de confirmar o crédito no banco.</p></div>
+            <span class="v3-pill" id="donationCount">0 contribuições</span>
+          </div>
+          <div class="lc-admin-filterbar">
+            <select id="donationStatus"><option value="">Todos os status</option><option value="approved">Aprovadas</option><option value="pending">Pendentes</option><option value="rejected">Rejeitadas</option><option value="refunded">Reembolsadas</option><option value="cancelled">Canceladas</option></select>
+            <button id="donationApply" class="v3-btn secondary" type="button">Atualizar</button>
+          </div>
+          <div class="lc-admin-detail-grid">
+            <section class="card card-pad">
+              <div class="eyebrow">CONTRIBUIÇÕES</div>
+              <h3>Histórico recente</h3>
+              <div id="donationList" class="lc-admin-stack"></div>
+            </section>
+            <section class="card card-pad">
+              <div class="eyebrow">PIX DIRETO</div>
+              <h3>Conciliar contribuição recebida</h3>
+              <p class="muted">Use apenas quando o valor já estiver visível na conta. O registro cria uma contribuição aprovada e entra na auditoria administrativa.</p>
+              <label for="manualDonationName">Nome</label><input id="manualDonationName" autocomplete="name">
+              <label for="manualDonationEmail">E-mail</label><input id="manualDonationEmail" type="email" autocomplete="email">
+              <label for="manualDonationAmount">Valor recebido</label><input id="manualDonationAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" placeholder="R$ 1,00 ou mais">
+              <label for="manualDonationMessage">Observação opcional</label><textarea id="manualDonationMessage" rows="3" maxlength="500"></textarea>
+              <label style="display:flex;gap:9px;align-items:flex-start"><input id="manualDonationPublic" type="checkbox" style="width:auto;margin-top:3px"><span>O contribuinte autorizou exibir o nome publicamente.</span></label>
+              <button id="manualDonationSave" class="v3-btn" type="button" style="width:100%;margin-top:16px">Registrar Pix confirmado</button>
+            </section>
+          </div>
         </section>
 
         <section data-admin-panel="audit" hidden>

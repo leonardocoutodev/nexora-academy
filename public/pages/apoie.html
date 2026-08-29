@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#07111F">
 <link rel="icon" type="image/svg+xml" href="../assets/brand/lc-mark.svg">
 <link rel="manifest" href="../manifest.webmanifest">
-<meta name="description" content="Conheça como a LC — Learn & Create foi construída, o que já entrega gratuitamente e como contribuições voluntárias podem melhorar infraestrutura, conteúdo e novas funcionalidades.">
+<meta name="description" content="Conheça como a LC — Learn & Create foi construída, o que já entrega gratuitamente e como contribuições voluntárias podem melhorar infraestrutura, conteúdo e novas funcionalidades."><link rel="canonical" href="https://academy.learnandcreate.workers.dev/pages/apoie.html"><meta property="og:type" content="website"><meta property="og:site_name" content="LC — Learn & Create"><meta property="og:title" content="Transparência e Apoio — LC"><meta property="og:description" content="Veja o que já foi construído gratuitamente e como o apoio pode melhorar infraestrutura, vídeos, Labs e conteúdo."><meta property="og:url" content="https://academy.learnandcreate.workers.dev/pages/apoie.html"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Transparência e Apoio — LC"><meta name="twitter:description" content="A LC continua gratuita. O apoio ajuda a ampliar infraestrutura e conteúdo."><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Transparência e Apoio — LC","url":"https://academy.learnandcreate.workers.dev/pages/apoie.html","isPartOf":{"@type":"WebSite","name":"LC — Learn & Create","url":"https://academy.learnandcreate.workers.dev/"}}</script>
 <title>Transparência e Apoio — LC</title>
 <link rel="stylesheet" href="../assets/css/styles.css">
 <link rel="stylesheet" href="../assets/css/academy-v3.css">
@@ -26,7 +26,7 @@
 .support-proof-top{display:flex;align-items:center;gap:8px;margin-bottom:16px}
 .support-dot{width:8px;height:8px;border-radius:99px;background:#26435f}
 .support-progress-card{padding:18px;border:1px solid #204b75;border-radius:16px;background:radial-gradient(circle at 100% 0,rgba(56,230,176,.08),transparent 38%),#081827}
-.support-progress-card h3{margin:0 0 7px;font-size:18px}
+.support-progress-card h2{margin:0 0 7px;font-size:18px;letter-spacing:-.02em}
 .support-progress-card p{margin:0;color:#94aac0;font-size:13px;line-height:1.55}
 .support-progress{height:8px;border-radius:99px;background:#04101b;overflow:hidden;margin:16px 0 8px}
 .support-progress span{display:block;width:76%;height:100%;background:linear-gradient(90deg,var(--lc-blue),var(--lc-mint));border-radius:inherit}
@@ -72,12 +72,19 @@
 .amount-btn.active{border-color:#4098ff;background:#12356b;box-shadow:0 0 0 2px rgba(40,120,255,.12)}
 .pix-key{font-family:ui-monospace,Consolas,monospace;word-break:break-all;padding:12px;border:1px solid #1b3c58;border-radius:10px;background:#06121f}
 .hp{position:absolute;left:-9999px}
+.support-consent{position:relative;display:flex;align-items:flex-start;min-height:44px;padding-left:31px;cursor:pointer;line-height:1.45}
+.support-consent input{position:absolute;inset:0;width:100%!important;height:100%;min-height:44px;margin:0;opacity:0;cursor:pointer}
+.support-consent span{position:relative;pointer-events:none}
+.support-consent span:before{content:"";position:absolute;left:-31px;top:1px;width:20px;height:20px;border:1px solid #315979;border-radius:6px;background:#071421;box-shadow:inset 0 0 0 2px rgba(7,20,33,.85)}
+.support-consent input:checked+span:before{border-color:var(--lc-blue);background:var(--lc-blue)}
+.support-consent input:checked+span:after{content:"✓";position:absolute;left:-27px;top:-1px;color:white;font-size:14px;font-weight:1000}
+.support-consent input:focus-visible+span:before{outline:3px solid rgba(40,120,255,.34);outline-offset:2px}
 .author-note{margin-top:18px;padding:16px;border:1px solid #284766;border-radius:14px;background:#091624}
 .support-policy{margin-top:16px;padding:15px;border:1px solid rgba(56,230,176,.24);border-radius:13px;background:rgba(56,230,176,.055);color:#a9cdbf;line-height:1.55;font-size:13px}
 .support-footer{padding:24px 0 50px;color:#7890a8;font-size:12px;text-align:center}
 @media(max-width:900px){.support-hero{grid-template-columns:1fr}.support-proof{max-width:680px}.support-impact-grid{grid-template-columns:1fr 1fr}.support-stats{grid-template-columns:1fr 1fr}}
-@media(max-width:780px){.support-grid,.support-story,.support-compare,.support-transparency{grid-template-columns:1fr}.amounts{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.support-shell{width:min(100% - 24px,1180px)}.support-nav{align-items:flex-start}.support-nav-actions .secondary{display:none}.support-hero{min-height:0;padding:23px}.support-hero h1{font-size:44px}.support-hero p{font-size:16px}.support-stats,.support-impact-grid{grid-template-columns:1fr}.support-mini-grid{grid-template-columns:1fr 1fr}.support-section{padding:38px 0}.support-transparency{padding:22px}}
+@media(max-width:820px){.support-grid,.support-story,.support-compare,.support-transparency{grid-template-columns:1fr}.amounts{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.support-shell{width:min(100% - 24px,1180px)}.support-nav{align-items:flex-start}.support-nav-actions .secondary{display:none}.support-hero{min-height:0;padding:23px}.support-hero h1{font-size:44px}.support-hero p{font-size:16px}.support-stats,.support-impact-grid{grid-template-columns:1fr}.support-mini-grid{grid-template-columns:1fr 1fr}.support-section{padding:38px 0}.support-transparency{padding:22px}}
 </style>
 </head>
 <body>
@@ -107,7 +114,7 @@
     <aside class="support-proof" aria-label="Resumo do que a LC já entrega">
       <div class="support-proof-top"><span class="support-dot"></span><span class="support-dot"></span><span class="support-dot"></span></div>
       <div class="support-progress-card">
-        <h3>Aprendizado construído na prática</h3>
+        <h2>Aprendizado construído na prática</h2>
         <p>Aulas, Labs, avaliações aplicadas, projetos e certificação em uma única jornada.</p>
         <div class="support-progress" aria-hidden="true"><span></span></div>
         <small class="muted">Exemplo de progresso em uma trilha</small>
@@ -225,7 +232,7 @@
         <div class="eyebrow">MERCADO PAGO</div>
         <h2>Escolha quanto deseja contribuir.</h2>
         <form id="donationForm">
-          <input class="hp" id="website" tabindex="-1" autocomplete="off">
+          <input class="hp" id="website" tabindex="-1" autocomplete="off" aria-label="Campo de verificação, não preencher">
           <label for="name">Nome</label>
           <input id="name" required minlength="2" autocomplete="name">
           <label for="email">E-mail</label>
@@ -241,8 +248,8 @@
           <input id="amount" type="number" min="1" max="100000" step="0.01" required placeholder="R$ 1,00 ou mais" inputmode="decimal">
           <label for="message">Mensagem opcional</label>
           <textarea id="message" rows="3" maxlength="500"></textarea>
-          <label style="display:flex;gap:9px;align-items:flex-start">
-            <input id="publicListing" type="checkbox" style="width:auto;margin-top:3px">
+          <label class="support-consent">
+            <input id="publicListing" type="checkbox">
             <span>Autorizo exibir meu nome futuramente como contribuinte da LC.</span>
           </label>
           <button id="payBtn" class="v3-btn" style="width:100%;margin-top:16px" type="submit">Contribuir pelo Mercado Pago</button>
@@ -271,16 +278,21 @@
 </main>
 
 <footer class="container support-shell support-footer">
-  LC — Learn &amp; Create · Educação gratuita em tecnologia
+  LC — Learn &amp; Create · Educação gratuita em tecnologia · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a> · <a href="certificacao.html">Certificação</a>
 </footer>
 
 <script src="../assets/js/ui.js"></script>
+<script src="../assets/js/supabase-lc.js"></script>
+<script src="../assets/js/analytics.js"></script>
 <script>
 const FN='https://kvwsqfnyebyjncfgvqnd.supabase.co/functions/v1/lc-mercadopago-donation',
 amount=document.getElementById('amount'),
 form=document.getElementById('donationForm'),
 btn=document.getElementById('payBtn'),
 status=document.getElementById('formStatus');
+
+LCAnalytics.once('support-page-view',()=>LCAnalytics.track('support_page_viewed'));
+document.querySelectorAll('a[href="#contribuir"]').forEach(link=>link.addEventListener('click',()=>LCAnalytics.track('support_cta_clicked',{}, {method:'anchor'})));
 
 document.querySelectorAll('.amount-btn').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.amount-btn').forEach(x=>x.classList.remove('active'));
@@ -290,6 +302,7 @@ document.querySelectorAll('.amount-btn').forEach(b=>b.onclick=()=>{
 
 const qp=new URLSearchParams(location.search),ps=qp.get('payment');
 if(ps){
+  LCAnalytics.track('donation_returned',{}, {status:String(ps).slice(0,32)});
   const el=document.getElementById('returnStatus');
   el.style.display='block';
   el.className='v3-feedback '+(ps==='success'?'ok':ps==='failure'?'bad':'');
@@ -314,6 +327,7 @@ form.onsubmit=async e=>{
       public_listing:document.getElementById('publicListing').checked,
       website:document.getElementById('website').value
     };
+    await LCAnalytics.track('donation_started',{}, {method:'mercadopago',amount:Number(payload.amount||0)});
     const r=await fetch(FN,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -321,6 +335,7 @@ form.onsubmit=async e=>{
     });
     const data=await r.json().catch(()=>({}));
     if(!r.ok) throw new Error(data.message||data.error||'Não foi possível iniciar a contribuição.');
+    await LCAnalytics.track('donation_checkout_opened',{}, {method:'mercadopago',amount:Number(payload.amount||0)});
     location.href=data.init_point;
   }catch(err){
     setState(status,'error',err.message);
@@ -329,6 +344,7 @@ form.onsubmit=async e=>{
 };
 
 document.getElementById('copyKey').onclick=async()=>{
+  LCAnalytics.track('support_cta_clicked',{}, {method:'pix_copy'});
   const key=document.getElementById('pixKey').textContent;
   try{await navigator.clipboard.writeText(key)}catch{}
   document.getElementById('copyKey').textContent='Chave copiada ✓';

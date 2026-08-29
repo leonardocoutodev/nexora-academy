@@ -1,9 +1,11 @@
 const AdminOps=(()=>{
-  const state={courses:[],activeTab:'overview',studentRows:[],bossRows:[],certificateRows:[]};
+  const state={courses:[],activeTab:'overview',studentRows:[],bossRows:[],certificateRows:[],donationRows:[]};
   const one=x=>Array.isArray(x)?x[0]:x;
   const fmtDate=v=>v?new Date(v).toLocaleString('pt-BR'):'—';
   const pct=v=>Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
   const num=v=>Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:1});
+  const money=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const donationStatusLabel=v=>({approved:'Aprovada',pending:'Pendente',rejected:'Rejeitada',refunded:'Reembolsada',cancelled:'Cancelada',in_process:'Em processamento',unknown:'Desconhecida'}[v]||v||'—');
   const goalLabel=v=>({primeiro_emprego:'Primeiro emprego',web:'Sites e sistemas',automacao:'Python e automação',dados:'Dados',ia:'IA no trabalho',fundamentos:'Fundamentos','não informado':'Não informado'}[v]||v||'Não informado');
   const statusLabel=v=>({active:'Ativo',blocked:'Bloqueado',inactive:'Inativo',completed:'Concluída',paused:'Pausada',cancelled:'Cancelada',submitted:'Em avaliação',revision_requested:'Ajustes solicitados',approved:'Aprovado',reviewed:'Avaliado'}[v]||v||'—');
   const statusClass=v=>['active','completed','approved','reviewed'].includes(v)?'ok':['blocked','cancelled'].includes(v)?'bad':['submitted','revision_requested','paused'].includes(v)?'warn':'';
@@ -130,6 +132,30 @@ const AdminOps=(()=>{
     }catch(e){toast('Analytics: '+e.message,'bad')}
   }
 
+  async function loadDonations(){
+    const status=qs('#donationStatus')?.value||'';
+    const rows=await LCSupabase.rpc('admin_donation_roster',{p_status:status||null,p_limit:100});
+    state.donationRows=Array.isArray(rows)?rows:[];
+    const count=qs('#donationCount');if(count)count.textContent=state.donationRows.length+' contribuiç'+(state.donationRows.length===1?'ão':'ões');
+    const host=qs('#donationList');if(!host)return;
+    host.innerHTML=state.donationRows.length?state.donationRows.map(r=>'<article class="lc-admin-history"><span><b>'+esc(r.donor_name)+'</b><small>'+esc(r.payer_email)+' • '+esc(r.provider||'—')+(r.payment_method?' • '+esc(r.payment_method):'')+'</small></span><strong>'+money(r.amount)+'</strong><span class="lc-status '+statusClass(r.status)+'">'+esc(donationStatusLabel(r.status))+'</span><small>'+esc(fmtDate(r.approved_at||r.created_at))+'</small></article>').join(''):'<div class="lc-admin-empty">Nenhuma contribuição encontrada com este filtro.</div>';
+  }
+  async function saveManualDonation(){
+    const name=qs('#manualDonationName')?.value.trim()||'',email=qs('#manualDonationEmail')?.value.trim()||'',amount=Number(qs('#manualDonationAmount')?.value||0),message=qs('#manualDonationMessage')?.value.trim()||'',publicListing=!!qs('#manualDonationPublic')?.checked;
+    if(name.length<2)return toast('Informe o nome do contribuinte.','bad');
+    if(!/^\S+@\S+\.\S+$/.test(email))return toast('Informe um e-mail válido.','bad');
+    if(!Number.isFinite(amount)||amount<1)return toast('Informe um valor recebido a partir de R$ 1.','bad');
+    const btn=qs('#manualDonationSave');if(btn)btn.disabled=true;
+    try{
+      await LCSupabase.rpc('admin_register_manual_donation',{p_name:name,p_email:email,p_amount:amount,p_message:message||null,p_public_listing:publicListing,p_approved_at:new Date().toISOString()});
+      ['manualDonationName','manualDonationEmail','manualDonationAmount','manualDonationMessage'].forEach(id=>{const el=qs('#'+id);if(el)el.value=''});
+      if(qs('#manualDonationPublic'))qs('#manualDonationPublic').checked=false;
+      toast('Pix direto registrado e conciliado.');
+      await Promise.all([loadDonations(),loadAudit(),loadSummary()]);
+    }catch(e){toast(e.message,'bad')}
+    finally{if(btn)btn.disabled=false}
+  }
+
   async function loadAudit(){
     const rows=await LCSupabase.rpc('admin_audit_feed',{p_limit:50});
     qs('#auditList').innerHTML=(Array.isArray(rows)?rows:[]).length?rows.map(r=>'<article class="lc-admin-audit"><span><b>'+esc(r.actor_name)+'</b><small>'+esc(r.action)+' • '+esc(r.target_type)+'</small></span><small>'+esc(fmtDate(r.created_at))+'</small></article>').join(''):'<div class="lc-admin-empty">Nenhuma ação administrativa registrada ainda.</div>';
@@ -153,11 +179,12 @@ const AdminOps=(()=>{
       qs('#studentDialogClose').onclick=()=>qs('#studentDialog').close();
       qs('#studentDialog').addEventListener('click',e=>{if(e.target===qs('#studentDialog'))qs('#studentDialog').close()});
       wireFilters();qs('#analyticsDays').onchange=()=>loadAnalytics();qs('#analyticsLessonCourse').onchange=()=>loadLessonAnalytics();
-      await Promise.all([loadSummary(),loadStudents(),loadBoss(),loadCertificates(),loadAudit(),loadAnalytics()]);
+      qs('#donationApply').onclick=()=>loadDonations();qs('#donationStatus').onchange=()=>loadDonations();qs('#manualDonationSave').onclick=()=>saveManualDonation();
+      await Promise.all([loadSummary(),loadStudents(),loadBoss(),loadCertificates(),loadDonations(),loadAudit(),loadAnalytics()]);
       qs('#state').classList.add('hidden');qs('#content').classList.remove('hidden');
-      const initial=location.hash.replace('#','');setTab(['overview','analytics','students','boss','certificates','audit'].includes(initial)?initial:'overview');
+      const initial=location.hash.replace('#','');setTab(['overview','analytics','students','boss','certificates','donations','audit'].includes(initial)?initial:'overview');
     }catch(e){setState(qs('#state'),'error',e.message)}
   }
-  return{init,setTab,loadStudents,loadBoss,loadCertificates,loadAudit,loadAnalytics,loadLessonAnalytics}
+  return{init,setTab,loadStudents,loadBoss,loadCertificates,loadDonations,loadAudit,loadAnalytics,loadLessonAnalytics}
 })();
 AdminOps.init();

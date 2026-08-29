@@ -36,6 +36,11 @@ jobs:
           key: lc-visual-${{ runner.os }}-${{ github.sha }}
           restore-keys: |
             lc-visual-${{ runner.os }}-
+      - name: Seed only missing visual baselines
+        if: steps.visual.outputs.cache-matched-key != ''
+        env:
+          LC_VISUAL_COMPARE: "true"
+        run: npx playwright test tests/e2e/visual.spec.js --project=chromium --update-snapshots=missing || true
       - name: Chromium E2E, accessibility and responsive matrix
         env:
           LC_VISUAL_COMPARE: ${{ steps.visual.outputs.cache-matched-key != '' }}

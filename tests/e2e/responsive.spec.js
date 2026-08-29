@@ -4,6 +4,10 @@ import {expectNoHorizontalOverflow,expectPrimaryTargets,waitForStablePage} from 
 
 const widths=[320,360,375,390,412,430];
 const pages=[
+  {name:'home',path:'/',role:null},
+  {name:'login',path:'/pages/login.html',role:null},
+  {name:'cadastro',path:'/pages/cadastro.html',role:null},
+  {name:'apoie',path:'/pages/apoie.html',role:null},
   {name:'curso',path:'/pages/curso.html?id='+IDS.course,role:'student'},
   {name:'aula',path:'/pages/aula.html?id='+IDS.lesson,role:'student'},
   {name:'data-model-lab',path:'/pages/aula.html?id='+IDS.lessonData,role:'student'},
@@ -15,7 +19,8 @@ for(const width of widths){
   for(const entry of pages){
     test('mobile '+width+'px · '+entry.name,async({page},testInfo)=>{
       await page.setViewportSize({width,height:844});
-      await installMockSupabase(page,{role:entry.role});
+      if(entry.role)await installMockSupabase(page,{role:entry.role});
+      else await page.route('https://kvwsqfnyebyjncfgvqnd.supabase.co/**',route=>route.abort());
       await page.goto(entry.path);await waitForStablePage(page);
       await expectNoHorizontalOverflow(page);
       await expectPrimaryTargets(page,44);

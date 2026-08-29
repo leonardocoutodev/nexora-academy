@@ -75,6 +75,11 @@ Eventos aceitos pelo backend:
 - `boss_resubmitted`
 - `certificate_page_viewed`
 - `certificate_issued`
+- `support_page_viewed`
+- `support_cta_clicked`
+- `donation_started`
+- `donation_checkout_opened`
+- `donation_returned`
 
 O backend rejeita nomes fora da allowlist e limita propriedades a 4 KB.
 
@@ -179,3 +184,16 @@ Exemplos:
 - muitos erros inline numa aula → explicação anterior pode estar insuficiente;
 - bom quiz + baixo Lab → conhecimento reconhecido sem aplicação prática;
 - alto abandono concentrado no mobile → investigar UX/responsividade antes de conteúdo.
+
+
+## Funil de apoio
+
+A jornada pública de contribuição é observada sem registrar nome, e-mail ou outros dados pessoais nas propriedades de analytics:
+
+1. `support_page_viewed`;
+2. `support_cta_clicked`;
+3. `donation_started`;
+4. `donation_checkout_opened`;
+5. `donation_returned`.
+
+O status de retorno pode indicar `success`, `pending` ou `failure`. Confirmação financeira definitiva continua sendo responsabilidade do webhook e das tabelas de doações, não do evento de frontend.

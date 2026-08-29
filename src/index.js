@@ -1,6 +1,6 @@
-const BUILD_ID = "6.4.1-phase6-20260828";
 const SUPABASE_URL = "https://kvwsqfnyebyjncfgvqnd.supabase.co";
 const SUPABASE_KEY = "sb_publishable_CssKC6R2Nqtl3McbvR3f4A_jNJtz3hg";
+const buildId=env=>String(env?.LC_BUILD_ID||env?.CF_VERSION_METADATA?.id||"local");
 const SECURITY_HEADERS={"x-content-type-options":"nosniff","referrer-policy":"strict-origin-when-cross-origin","permissions-policy":"camera=(), microphone=(), geolocation=()","x-frame-options":"SAMEORIGIN"};
 function json(data,status=200,headers={}) { return new Response(JSON.stringify(data),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store",...SECURITY_HEADERS,...headers}}); }
 async function body(req){ try{return await req.json()}catch{return {}} }
@@ -27,9 +27,9 @@ async function staticAsset(req,env){
     headers.set('cache-control','no-store, max-age=0, must-revalidate');
     headers.set('pragma','no-cache');
     headers.set('expires','0');
-    headers.set('x-lc-build',BUILD_ID);
+    headers.set('x-lc-build',buildId(env));
   }
   return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
 }
-async function router(req,env){ const url=new URL(req.url); if(url.pathname==="/api/health")return json({ok:true,service:"lc-learn-supabase",database:"supabase",build:BUILD_ID,time:new Date().toISOString()}); const apiPath=url.pathname.replace(/^\/api\/nexora\//,"/api/lc/"); if(apiPath==="/api/lc/profile"&&req.method==="POST")return createProfile(req); if(apiPath==="/api/lc/me")return me(req); if(apiPath==="/api/lc/courses")return courses(req); if(apiPath==="/api/lc/progress"&&req.method==="POST")return progress(req); return staticAsset(req,env); }
+async function router(req,env){ const url=new URL(req.url); if(url.pathname==="/api/health")return json({ok:true,service:"lc-learn-supabase",database:"supabase",build:buildId(env),time:new Date().toISOString()}); const apiPath=url.pathname.replace(/^\/api\/nexora\//,"/api/lc/"); if(apiPath==="/api/lc/profile"&&req.method==="POST")return createProfile(req); if(apiPath==="/api/lc/me")return me(req); if(apiPath==="/api/lc/courses")return courses(req); if(apiPath==="/api/lc/progress"&&req.method==="POST")return progress(req); return staticAsset(req,env); }
 export default {async fetch(req,env,ctx){try{return await router(req,env)}catch(e){return json({error:e.message||"Erro interno"},e.status||500)}}};
