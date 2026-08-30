@@ -1,0 +1,1538 @@
+{
+  "course": {
+    "id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "slug": "programador-master",
+    "title": "Programador Master",
+    "course_type": "formation",
+    "description": "Formação prática em programação do zero ao projeto publicado, cobrindo lógica, Git, HTML e CSS, JavaScript, PHP e MySQL, WordPress, Python, Java, APIs e integração full stack.",
+    "level_label": "Profissional"
+  },
+  "module": {
+    "id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+    "title": "HTML5 e CSS3",
+    "position": 3,
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "description": "Construa interfaces web com HTML semântico e CSS moderno, cobrindo acessibilidade, layout, responsividade e publicação de uma landing page profissional.",
+    "prerequisite_module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c"
+  },
+  "lessons": [
+    {
+      "id": "a7ec451c-c0ca-40c2-8a82-c5076761acb7",
+      "title": "Introdução ao HTML e estrutura básica",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma página abre no navegador, mas título, metadados e conteúdo estão misturados. Antes de estilizar, é preciso organizar a estrutura do documento.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "HTML descreve a estrutura e o significado do conteúdo. O navegador interpreta uma árvore de elementos, não uma sequência visual de linhas. A declaração doctype ativa o modo moderno; html envolve o documento; head reúne metadados e recursos; body contém o que faz parte da interface. Essa base influencia acessibilidade, SEO, manutenção e a forma como CSS e JavaScript encontram elementos.",
+          "type": "concept",
+          "title": "Introdução ao HTML e estrutura básica"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use uma estrutura completa desde o primeiro arquivo.",
+            "Mantenha metadados no head e conteúdo no body.",
+            "Defina idioma no elemento html.",
+            "Indente para tornar relações pai-filho visíveis."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "<!doctype html>\\n<html lang=\"pt-BR\">\\n<head>\\n  <meta charset=\"utf-8\">\\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\\n  <title>Projeto LC</title>\\n</head>\\n<body>\\n  <main><h1>Olá, Web</h1></main>\\n</body>\\n</html>",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "html"
+        },
+        {
+          "body": "Começar usando divs e estilos sem definir a estrutura do documento. Isso mascara problemas de semântica e responsividade que reaparecem depois.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "body",
+            "head",
+            "meta"
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual elemento deve conter o conteúdo principal visível da página?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir um documento HTML válido e explicar o papel de doctype, html, head e body na estrutura de uma página.",
+            "Use uma estrutura completa desde o primeiro arquivo.",
+            "Mantenha metadados no head e conteúdo no body.",
+            "Defina idioma no elemento html."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 1,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Construir um documento HTML válido e explicar o papel de doctype, html, head e body na estrutura de uma página.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 30
+    },
+    {
+      "id": "06fb946f-9312-4054-aac9-eefc5bfcd19e",
+      "title": "Tags e elementos HTML fundamentais",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um layout usa div para títulos, textos, botões e listas. Visualmente pode funcionar, mas a estrutura não comunica o papel de cada conteúdo.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Elementos HTML carregam significado além da aparência. Títulos h1–h6 criam hierarquia; p representa parágrafos; strong sinaliza importância; em adiciona ênfase; button representa ação. Div e span são contêineres genéricos úteis quando não existe elemento semântico apropriado. Escolher a tag pelo papel do conteúdo melhora navegação por leitores de tela, manutenção e previsibilidade do CSS.",
+          "type": "concept",
+          "title": "Tags e elementos HTML fundamentais"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Escolha a tag pelo significado, não pelo estilo padrão.",
+            "Mantenha hierarquia de títulos coerente.",
+            "Use button para ações e a para navegação.",
+            "Reserve div/span para agrupamentos realmente genéricos."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "<article>\\n  <h2>Curso de JavaScript</h2>\\n  <p>Aprenda a criar interfaces interativas.</p>\\n  <button type=\"button\">Começar</button>\\n</article>",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "html"
+        },
+        {
+          "body": "Usar uma tag porque 'fica grande' ou 'fica em negrito'. Aparência pertence ao CSS; HTML deve expressar função.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "button",
+            "div",
+            "h2"
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual elemento representa melhor uma ação que acontece na própria página?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Escolher elementos HTML adequados para títulos, parágrafos, ênfase, agrupamento e conteúdo genérico, evitando marcação sem significado.",
+            "Escolha a tag pelo significado, não pelo estilo padrão.",
+            "Mantenha hierarquia de títulos coerente.",
+            "Use button para ações e a para navegação."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 2,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Escolher elementos HTML adequados para títulos, parágrafos, ênfase, agrupamento e conteúdo genérico, evitando marcação sem significado.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 32
+    },
+    {
+      "id": "36720a07-6f8b-42f7-ad03-5464d2290e1e",
+      "title": "Links, imagens, listas e conteúdo semântico",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um card de produto possui imagem sem alt, um clique feito por div e características separadas por quebras de linha. O conteúdo existe, mas não é robusto.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Links conectam recursos e devem ter destino e texto compreensíveis fora de contexto. Imagens precisam de alt quando transmitem informação; imagens decorativas podem usar alt vazio. Listas ul/ol expressam coleções e sequência. Esses elementos dão ao navegador e às tecnologias assistivas pistas que um conjunto de divs não oferece.",
+          "type": "concept",
+          "title": "Links, imagens, listas e conteúdo semântico"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Escreva textos de link que indiquem destino ou ação.",
+            "Use alt descritivo para informação visual relevante.",
+            "Use ul para coleções e ol para ordem significativa.",
+            "Evite usar imagem como única forma de comunicar informação essencial."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "<a href=\"/cursos\">Ver catálogo de cursos</a>\\n<img src=\"curso.webp\" alt=\"Tela do projeto final do curso\">\\n<ul>\\n  <li>HTML semântico</li>\\n  <li>CSS responsivo</li>\\n</ul>",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "html"
+        },
+        {
+          "body": "Preencher alt com 'imagem' ou repetir exatamente o texto ao lado. O texto alternativo deve cumprir a função informativa da imagem.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Usar alt=\"\".",
+            "Omitir sempre o atributo alt.",
+            "Descrever todas as cores da imagem."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Quando uma imagem é puramente decorativa, qual prática é adequada?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Criar navegação, imagens acessíveis e listas estruturadas usando atributos adequados e texto alternativo útil.",
+            "Escreva textos de link que indiquem destino ou ação.",
+            "Use alt descritivo para informação visual relevante.",
+            "Use ul para coleções e ol para ordem significativa."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 3,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Criar navegação, imagens acessíveis e listas estruturadas usando atributos adequados e texto alternativo útil.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 34
+    },
+    {
+      "id": "a77b9b44-9962-4114-8d90-155d59cfe9d9",
+      "title": "Formulários e elementos interativos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um formulário mostra placeholders, mas os campos não têm labels e o botão envia acidentalmente sempre que é clicado.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Formulários transformam entrada humana em dados. Cada controle precisa de nome, tipo e rótulo apropriados. label associado a input melhora clique e leitura assistiva. Tipos como email, number e date ajudam o navegador a oferecer teclado e validações básicas. O atributo name define a chave enviada. Botões devem declarar type para deixar clara a intenção.",
+          "type": "concept",
+          "title": "Formulários e elementos interativos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Associe label e input por for/id ou envolvendo o controle.",
+            "Escolha tipos coerentes com o dado.",
+            "Defina name para campos que serão enviados.",
+            "Use button type=\"submit\" para envio e type=\"button\" para ações locais."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "<form>\\n  <label for=\"email\">E-mail</label>\\n  <input id=\"email\" name=\"email\" type=\"email\" required>\\n  <button type=\"submit\">Enviar</button>\\n</form>",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "html"
+        },
+        {
+          "body": "Usar placeholder como substituto de label. Ele desaparece durante a digitação e não oferece contexto persistente.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "name",
+            "class",
+            "placeholder"
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual atributo define a chave do campo enviada com o formulário?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir formulários com labels, tipos de campo, agrupamento e botões corretos, preparando dados claros para validação e envio.",
+            "Associe label e input por for/id ou envolvendo o controle.",
+            "Escolha tipos coerentes com o dado.",
+            "Defina name para campos que serão enviados."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 4,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Construir formulários com labels, tipos de campo, agrupamento e botões corretos, preparando dados claros para validação e envio.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 38
+    },
+    {
+      "id": "2b6ceb84-f496-422c-a75b-c5d02c208076",
+      "title": "HTML semântico e acessibilidade",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A página está bonita com o mouse, mas um usuário de teclado não consegue identificar regiões nem acionar alguns controles.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Acessibilidade começa na estrutura. Elementos como header, nav, main, section, article, aside e footer criam landmarks compreensíveis. Controles nativos já trazem foco, semântica e interação de teclado. ARIA complementa HTML quando necessário, mas não deve substituir um elemento nativo adequado. Uma página semanticamente correta tende a ser mais fácil de testar, manter e indexar.",
+          "type": "concept",
+          "title": "HTML semântico e acessibilidade"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Tenha um main principal por página.",
+            "Prefira elementos nativos a componentes simulados com div.",
+            "Preserve foco visível.",
+            "Use ARIA apenas quando o HTML sozinho não expressa a relação necessária."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "<header>...</header>\\n<nav aria-label=\"Principal\">...</nav>\\n<main>\\n  <section aria-labelledby=\"titulo-cursos\">\\n    <h2 id=\"titulo-cursos\">Cursos</h2>\\n  </section>\\n</main>",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "html"
+        },
+        {
+          "body": "Adicionar role=\"button\" a uma div e imaginar que ela virou um botão completo. Ainda faltam foco, teclado e estados.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Usar <button>.",
+            "Usar <div onclick>.",
+            "Usar <span> com cor diferente."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual escolha oferece melhor base de acessibilidade para uma ação clicável?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Estruturar páginas com landmarks e controles nativos que funcionem por teclado e comuniquem propósito a tecnologias assistivas.",
+            "Tenha um main principal por página.",
+            "Prefira elementos nativos a componentes simulados com div.",
+            "Preserve foco visível."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 5,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Estruturar páginas com landmarks e controles nativos que funcionem por teclado e comuniquem propósito a tecnologias assistivas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 40
+    },
+    {
+      "id": "1288b5bc-d217-46ac-aa81-385e0f6d2aee",
+      "title": "Introdução ao CSS: seletores e cascata",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Você altera uma cor no CSS, mas nada muda. Outra regra mais específica está vencendo e o problema não é o navegador.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "CSS descreve como elementos são apresentados. Seletores escolhem alvos; declarações definem propriedades e valores. Quando múltiplas regras competem, a cascata decide o resultado considerando importância, origem, especificidade e ordem. Entender esse mecanismo é melhor do que aumentar seletor ou usar !important até 'funcionar'.",
+          "type": "concept",
+          "title": "Introdução ao CSS: seletores e cascata"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Comece com seletores simples e previsíveis.",
+            "Use classes como unidade principal de estilização.",
+            "Inspecione estilos computados ao investigar conflitos.",
+            "Evite !important como solução padrão."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "p{color:#cbd5e1}\\n.card p{color:#fff}\\n/* Em um p dentro de .card, a segunda regra é mais específica. */",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Responder a todo conflito aumentando a especificidade. Em pouco tempo o CSS vira uma disputa difícil de sobrescrever.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "A que aparece depois.",
+            "A primeira sempre.",
+            "A que tem menos propriedades."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Se duas regras válidas têm a mesma especificidade, qual tende a vencer?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Aplicar estilos por seletores e prever qual regra vence considerando origem, especificidade e ordem na cascata.",
+            "Comece com seletores simples e previsíveis.",
+            "Use classes como unidade principal de estilização.",
+            "Inspecione estilos computados ao investigar conflitos."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 6,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Aplicar estilos por seletores e prever qual regra vence considerando origem, especificidade e ordem na cascata.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 38
+    },
+    {
+      "id": "1b34c4cc-9d70-4bf6-a8f7-7f218a052e5a",
+      "title": "Box model e fluxo de layout",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um card definido com width:300px ocupa mais espaço do que esperado porque padding e borda foram somados à largura.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "No box model, cada elemento possui conteúdo, padding, border e margin. Com box-sizing: content-box, width descreve apenas o conteúdo; com border-box, padding e borda entram no tamanho declarado. Além disso, elementos participam do fluxo normal conforme display e contexto. Entender caixa e fluxo resolve muitos 'bugs de alinhamento' sem recorrer a posicionamento absoluto.",
+          "type": "concept",
+          "title": "Box model e fluxo de layout"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use border-box como padrão de projeto.",
+            "Diferencie espaço interno (padding) de externo (margin).",
+            "Entenda display block/inline antes de usar flex ou grid.",
+            "Inspecione a caixa real no DevTools."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "*,*::before,*::after{box-sizing:border-box}\\n.card{width:300px;padding:24px;border:1px solid #334155}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Compensar larguras erradas com valores negativos ou ajustes aleatórios sem verificar o box model.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Sim.",
+            "Não.",
+            "Apenas em imagens."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Com box-sizing:border-box, o padding faz parte da largura declarada?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Calcular e controlar dimensões usando content, padding, border e margin e explicar como elementos participam do fluxo normal.",
+            "Use border-box como padrão de projeto.",
+            "Diferencie espaço interno (padding) de externo (margin).",
+            "Entenda display block/inline antes de usar flex ou grid."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 7,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Calcular e controlar dimensões usando content, padding, border e margin e explicar como elementos participam do fluxo normal.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 40
+    },
+    {
+      "id": "73b5cfe5-2f9d-441c-8583-0bc2cb19e541",
+      "title": "Cores, tipografia e espaçamento",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A interface possui dez tamanhos de fonte e espaçamentos aleatórios. Nada está tecnicamente quebrado, mas a leitura parece desorganizada.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Design visual em CSS funciona melhor como sistema. Uma escala pequena de tamanhos, pesos e line-heights cria hierarquia; tokens de espaçamento evitam números arbitrários; cores precisam de contraste suficiente e papéis definidos. Consistência reduz carga cognitiva e também simplifica manutenção, porque decisões se repetem por regra e não por improviso.",
+          "type": "concept",
+          "title": "Cores, tipografia e espaçamento"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina uma escala curta de tamanhos e pesos.",
+            "Use line-height confortável para texto corrido.",
+            "Crie tokens para espaçamento e cores recorrentes.",
+            "Teste contraste e não comunique estado apenas por cor."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": ":root{--space-1:.5rem;--space-2:1rem;--text:#e5edf6;--muted:#9fb0c2}\\nbody{font-size:1rem;line-height:1.65;color:var(--text)}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Escolher cor pela estética isolada e descobrir depois que texto, estados de erro ou foco não têm contraste suficiente.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Usar uma escala/tokens recorrentes.",
+            "Escolher um valor novo para cada bloco.",
+            "Usar apenas margin-left."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual prática reduz inconsistência de espaçamento em uma interface?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir hierarquia visual legível usando contraste, escala tipográfica e sistema de espaçamento consistente.",
+            "Defina uma escala curta de tamanhos e pesos.",
+            "Use line-height confortável para texto corrido.",
+            "Crie tokens para espaçamento e cores recorrentes."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 8,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Construir hierarquia visual legível usando contraste, escala tipográfica e sistema de espaçamento consistente.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 38
+    },
+    {
+      "id": "9d6784db-c3c8-4fcc-9b65-56154d828bd5",
+      "title": "Flexbox",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma barra de ações precisa alinhar texto à esquerda e botões à direita, adaptando-se quando a largura diminui.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Flexbox organiza itens em uma dimensão principal por vez. display:flex cria um flex container; flex-direction define o eixo; justify-content distribui ao longo do eixo principal; align-items atua no eixo cruzado. flex-grow, shrink e basis controlam espaço. wrap permite quebra. Ele é ideal para barras, grupos de botões, cards em linha e alinhamentos onde a relação principal é linear.",
+          "type": "concept",
+          "title": "Flexbox"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Escolha o eixo antes de escolher propriedades de alinhamento.",
+            "Use gap para espaçamento entre itens.",
+            "Permita wrap quando o conteúdo pode não caber.",
+            "Evite larguras fixas desnecessárias em itens flexíveis."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": ".toolbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Trocar justify-content e align-items por tentativa e erro sem entender qual é o eixo principal atual.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Horizontal/principal.",
+            "Vertical/cruzado.",
+            "Profundidade z."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Em flex-direction:row, justify-content atua principalmente em qual eixo?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Usar Flexbox para distribuir e alinhar itens em um eixo principal, controlando crescimento, quebra e alinhamento.",
+            "Escolha o eixo antes de escolher propriedades de alinhamento.",
+            "Use gap para espaçamento entre itens.",
+            "Permita wrap quando o conteúdo pode não caber."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 9,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Usar Flexbox para distribuir e alinhar itens em um eixo principal, controlando crescimento, quebra e alinhamento.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "2bcae0b8-7d9a-4c4a-a281-fc521828f75b",
+      "title": "CSS Grid",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma grade de cards deve usar tantas colunas quanto couberem e cair para uma coluna em telas menores sem dezenas de breakpoints.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "CSS Grid modela linhas e colunas simultaneamente. grid-template-columns define trilhas; fr distribui espaço; minmax combina limites; repeat e auto-fit/auto-fill permitem grades adaptativas. Grid é especialmente útil quando itens precisam compartilhar alinhamento em duas dimensões, como dashboards, galerias e áreas principais com sidebar.",
+          "type": "concept",
+          "title": "CSS Grid"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Modele colunas pela necessidade do conteúdo.",
+            "Use minmax para permitir crescimento controlado.",
+            "Use gap em vez de margens entre células.",
+            "Não force número fixo de colunas quando a largura disponível varia muito."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": ".cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Usar Grid para cada alinhamento simples. Para relações lineares, Flexbox pode ser mais direto.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "repeat(auto-fit,minmax(...))",
+            "position:absolute em todos os cards",
+            "width:250px fixo"
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual combinação cria uma grade responsiva sem breakpoint explícito?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Criar layouts bidimensionais com linhas, colunas, repeat, minmax e auto-fit sem depender de larguras rígidas.",
+            "Modele colunas pela necessidade do conteúdo.",
+            "Use minmax para permitir crescimento controlado.",
+            "Use gap em vez de margens entre células."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 10,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Criar layouts bidimensionais com linhas, colunas, repeat, minmax e auto-fit sem depender de larguras rígidas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 44
+    },
+    {
+      "id": "b405534c-4d44-451f-9ecb-65d10efb92d9",
+      "title": "Posicionamento e camadas",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um menu sticky desaparece atrás de um card e alguém tenta resolver com z-index:999999. A origem real está no contexto de empilhamento.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Position muda como um elemento participa do fluxo e a referência usada por propriedades top/right/bottom/left. Absolute sai do fluxo e se posiciona em relação ao ancestral posicionado; fixed usa a viewport; sticky alterna entre fluxo e fixação conforme o scroll. z-index atua dentro de contextos de empilhamento, que podem ser criados por várias propriedades. Números gigantes não atravessam necessariamente esses contextos.",
+          "type": "concept",
+          "title": "Posicionamento e camadas"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use posicionamento apenas quando o fluxo normal não resolve.",
+            "Dê position:relative ao contêiner de elementos absolute.",
+            "Reserve fixed/sticky para comportamentos que justificam persistência.",
+            "Investigue stacking context antes de elevar z-index."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": ".card{position:relative}.badge{position:absolute;top:.75rem;right:.75rem}.tabs{position:sticky;top:0;z-index:10}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Usar position:absolute para montar todo o layout. O conteúdo deixa de empurrar outros elementos e quebra facilmente em telas menores.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "O ancestral posicionado mais próximo.",
+            "Sempre o body.",
+            "Sempre o elemento anterior."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Um elemento absolute costuma usar como referência qual ancestral?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Escolher entre static, relative, absolute, fixed e sticky e controlar empilhamento sem criar conflitos arbitrários de z-index.",
+            "Use posicionamento apenas quando o fluxo normal não resolve.",
+            "Dê position:relative ao contêiner de elementos absolute.",
+            "Reserve fixed/sticky para comportamentos que justificam persistência."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 11,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Escolher entre static, relative, absolute, fixed e sticky e controlar empilhamento sem criar conflitos arbitrários de z-index.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 40
+    },
+    {
+      "id": "db489103-9587-4ece-bf21-67e62689758c",
+      "title": "Responsividade e media queries",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O desktop funciona, mas no celular há overflow horizontal, texto minúsculo e botões comprimidos. Reduzir tudo proporcionalmente não resolve.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Responsividade é adaptação de layout, tipografia e interação à largura e ao contexto, não apenas redução. Uma abordagem mobile-first começa com a estrutura essencial e adiciona complexidade quando existe espaço. Media queries devem responder a pontos em que o conteúdo deixa de funcionar. Unidades flexíveis, max-width, minmax e wrap resolvem grande parte da adaptação sem muitos breakpoints.",
+          "type": "concept",
+          "title": "Responsividade e media queries"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Comece pela menor largura suportada.",
+            "Procure overflow e alvos de toque antes de estética.",
+            "Prefira limites baseados no conteúdo.",
+            "Teste várias larguras, não apenas um celular e um desktop."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": ".layout{display:grid;gap:1rem}\\n@media(min-width:820px){.layout{grid-template-columns:2fr 1fr}}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Criar um CSS desktop rígido e depois tentar consertar tudo com dezenas de media queries max-width.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "O ponto em que o conteúdo/composição deixa de funcionar bem.",
+            "O modelo de celular mais popular.",
+            "Um número aleatório repetido."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "O que deve definir um breakpoint útil?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir interfaces mobile-first que se adaptem ao conteúdo e usar media queries somente quando a composição realmente precisa mudar.",
+            "Comece pela menor largura suportada.",
+            "Procure overflow e alvos de toque antes de estética.",
+            "Prefira limites baseados no conteúdo."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 12,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Construir interfaces mobile-first que se adaptem ao conteúdo e usar media queries somente quando a composição realmente precisa mudar.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 44
+    },
+    {
+      "id": "f6499b87-eeef-4319-b68e-0ee7918cf74c",
+      "title": "Transições e animações com propósito",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Todos os cards pulam, giram e deslizam ao mesmo tempo. A interface parece ativa, mas o movimento compete com a tarefa do usuário.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "Movimento deve comunicar mudança, relação ou feedback. Transition suaviza alteração entre estados; animation executa keyframes. Propriedades como transform e opacity costumam ter melhor desempenho do que animar layout. Duração curta e easing coerente ajudam a percepção sem atrasar. A preferência prefers-reduced-motion deve ser respeitada para usuários sensíveis a movimento.",
+          "type": "concept",
+          "title": "Transições e animações com propósito"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Anime mudança de estado, não decoração constante.",
+            "Prefira transform e opacity.",
+            "Mantenha durações curtas para interações frequentes.",
+            "Ofereça comportamento reduzido com prefers-reduced-motion."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": ".button{transition:transform .16s ease}.button:hover{transform:translateY(-1px)}\\n@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Usar animação para compensar falta de hierarquia visual. Movimento não substitui clareza.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "transform",
+            "width em loop contínuo",
+            "top em centenas de elementos"
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual propriedade é geralmente mais adequada para animação performática?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Aplicar transições e animações como feedback de estado, respeitando desempenho e preferências de movimento reduzido.",
+            "Anime mudança de estado, não decoração constante.",
+            "Prefira transform e opacity.",
+            "Mantenha durações curtas para interações frequentes."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 13,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Aplicar transições e animações como feedback de estado, respeitando desempenho e preferências de movimento reduzido.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 38
+    },
+    {
+      "id": "204855c8-382f-4d51-9f0f-9e098f648161",
+      "title": "Organização de CSS e componentes",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma alteração na classe .title quebra três páginas porque cada uma esperava uma variação diferente do mesmo seletor global.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "CSS escalável precisa de fronteiras. Tokens concentram decisões globais; componentes agrupam estrutura visual reutilizável; variantes e estados tornam diferenças explícitas. Seletores dependentes de uma árvore profunda criam acoplamento e dificultam mover componentes. Uma boa organização permite localizar onde uma regra vive e prever seu alcance.",
+          "type": "concept",
+          "title": "Organização de CSS e componentes"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Separe tokens globais de componentes.",
+            "Prefira classes de componente a seletores estruturais longos.",
+            "Modele estados com classes ou atributos claros.",
+            "Remova regras mortas ao evoluir o componente."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": ":root{--radius-card:16px}.card{border-radius:var(--radius-card)}.card__title{font-size:1.25rem}.card[data-state=\"selected\"]{outline:2px solid #2878ff}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "css"
+        },
+        {
+          "body": "Criar nomes genéricos globais como .title, .box e .blue usados com significados diferentes em dezenas de lugares.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Classes de componente com responsabilidade clara.",
+            "Seletores de cinco níveis dependentes da árvore.",
+            "!important global."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual abordagem reduz acoplamento de CSS?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Organizar estilos por componentes, estados e tokens, reduzindo acoplamento entre páginas e evitando seletores frágeis.",
+            "Separe tokens globais de componentes.",
+            "Prefira classes de componente a seletores estruturais longos.",
+            "Modele estados com classes ou atributos claros."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 14,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Organizar estilos por componentes, estados e tokens, reduzindo acoplamento entre páginas e evitando seletores frágeis.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "075c6079-aa38-45b0-9299-cba19faf9373",
+      "title": "Projeto: landing page responsiva",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O briefing pede uma landing page que funcione em mobile e desktop, tenha CTA claro, formulário acessível e não dependa de frameworks.",
+          "type": "story",
+          "title": "Contexto"
+        },
+        {
+          "body": "O projeto fecha o módulo porque exige transformar decisões isoladas em uma composição coerente. A entrega deve ter estrutura semântica, hierarquia visual, layout adaptativo, controles acessíveis e CSS organizado. O critério não é apenas 'parecer bonita': a página precisa sobreviver a diferentes larguras, teclado, conteúdo real e inspeção do código.",
+          "type": "concept",
+          "title": "Projeto: landing page responsiva"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Planeje a estrutura semântica antes do CSS.",
+            "Construa mobile-first e teste overflow continuamente.",
+            "Garanta foco, labels e contraste.",
+            "Revise arquivos, nomes e organização antes de publicar."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Entrega esperada: repositório + URL publicada + README curto com objetivo, estrutura e como testar responsividade/acessibilidade.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Ajustar apenas a resolução usada durante o desenvolvimento. O projeto precisa funcionar entre os extremos, não só em dois screenshots.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com a estrutura ensinada.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Testes em uma faixa de larguras sem overflow e com composição funcional.",
+            "Um screenshot desktop.",
+            "Usar muitas media queries."
+          ],
+          "feedback": "Correto. Você aplicou a decisão estrutural da aula.",
+          "question": "Qual evidência melhor demonstra que a landing é responsiva?",
+          "feedback_incorrect": "Revise a explicação e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Integrar HTML semântico, CSS responsivo, acessibilidade e organização de componentes em uma landing page publicável e verificável.",
+            "Planeje a estrutura semântica antes do CSS.",
+            "Construa mobile-first e teste overflow continuamente.",
+            "Garanta foco, labels e contraste."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 15,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "objective": "Integrar HTML semântico, CSS responsivo, acessibilidade e organização de componentes em uma landing page publicável e verificável.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 60
+    }
+  ],
+  "project": {
+    "id": "852cf65b-a268-4022-9c7d-3f735c2714a8",
+    "title": "LC Programador Master — M3 • Boss Fight: Landing responsiva",
+    "rubric": {
+      "criteria": [
+        {
+          "name": "Semântica e acessibilidade",
+          "weight": 25
+        },
+        {
+          "name": "Responsividade",
+          "weight": 30
+        },
+        {
+          "name": "Qualidade visual",
+          "weight": 20
+        },
+        {
+          "name": "Organização do CSS",
+          "weight": 15
+        },
+        {
+          "name": "Publicação e README",
+          "weight": 10
+        }
+      ]
+    },
+    "status": "draft",
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+    "xp_reward": 450,
+    "description": "Construir e publicar uma landing page sem framework, com HTML semântico, CSS organizado, formulário acessível e adaptação consistente entre mobile e desktop.",
+    "project_kind": "boss_fight"
+  },
+  "resources": [
+    {
+      "id": "d91baecd-9cb4-4bbc-a5f1-d22ec0ad2ba8",
+      "title": "LC Programador Master — M3 • Guia HTML semântico",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Estrutura do documento e landmarks",
+              "Textos, links, imagens e listas",
+              "Formulários, labels e controles",
+              "Semântica, teclado e acessibilidade"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Mapa de elementos, atributos e decisões de estrutura para páginas robustas.",
+      "language": "pt-BR",
+      "position": 1,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "abaac377-74ed-4d12-9a0e-dc5ecb3196a7",
+      "title": "LC Programador Master — M3 • Guia CSS moderno",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Cascata e especificidade",
+              "Box model e fluxo",
+              "Flexbox x Grid",
+              "Responsividade mobile-first",
+              "Movimento e reduced motion"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Referência prática de cascata, box model, Flexbox, Grid e responsividade.",
+      "language": "pt-BR",
+      "position": 2,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "6bd82b91-aa73-40b4-894c-6ead58b17b7e",
+      "title": "LC Programador Master — M3 • Checklist de QA responsivo",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Sem overflow horizontal",
+              "Foco visível e navegação por teclado",
+              "Labels e semântica",
+              "Contraste legível",
+              "Teste entre 320px e desktop",
+              "CSS sem seletores frágeis"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Checklist antes de publicar uma interface.",
+      "language": "pt-BR",
+      "position": 3,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "checklist"
+    },
+    {
+      "id": "60749912-7309-4143-9fbf-11f3cb0ae4fe",
+      "title": "LC Programador Master — M3 • Exercícios HTML/CSS",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Reestruturar HTML de divs para semântica",
+              "Criar formulário acessível",
+              "Reproduzir layout com Flexbox e Grid",
+              "Tornar um card grid responsivo",
+              "Auditar uma landing antes da publicação"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Práticas progressivas para consolidar o módulo.",
+      "language": "pt-BR",
+      "position": 4,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "exercise"
+    }
+  ],
+  "assessment": {
+    "row": {
+      "id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+      "title": "LC Programador Master — M3 • Checkpoint HTML e CSS",
+      "status": "draft",
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "module_id": "3835f21b-3eec-4563-a799-6842dabd49a9",
+      "pass_score": 70,
+      "max_attempts": 3,
+      "randomize_questions": true
+    },
+    "questions": [
+      {
+        "id": "2ed794fe-a2ed-4d0c-994b-e37b04136437",
+        "prompt": "Qual elemento deve conter o conteúdo principal visível da página?",
+        "options": [
+          {
+            "id": "a",
+            "label": "body"
+          },
+          {
+            "id": "b",
+            "label": "head"
+          },
+          {
+            "id": "c",
+            "label": "meta"
+          }
+        ],
+        "position": 1,
+        "difficulty": 1,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "73757bdd-3de9-455c-9edc-80cd991de0fc",
+        "prompt": "Qual elemento representa melhor uma ação que acontece na própria página?",
+        "options": [
+          {
+            "id": "a",
+            "label": "button"
+          },
+          {
+            "id": "b",
+            "label": "div"
+          },
+          {
+            "id": "c",
+            "label": "h2"
+          }
+        ],
+        "position": 2,
+        "difficulty": 1,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "e0abae65-a2a2-4134-aeba-21d12abd6222",
+        "prompt": "Quando uma imagem é puramente decorativa, qual prática é adequada?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Usar alt=\"\"."
+          },
+          {
+            "id": "b",
+            "label": "Omitir sempre o atributo alt."
+          },
+          {
+            "id": "c",
+            "label": "Descrever todas as cores da imagem."
+          }
+        ],
+        "position": 3,
+        "difficulty": 1,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "48e19a77-1bc2-4b9b-8f5d-c3cdb32714f1",
+        "prompt": "Qual atributo define a chave do campo enviada com o formulário?",
+        "options": [
+          {
+            "id": "a",
+            "label": "name"
+          },
+          {
+            "id": "b",
+            "label": "class"
+          },
+          {
+            "id": "c",
+            "label": "placeholder"
+          }
+        ],
+        "position": 4,
+        "difficulty": 1,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "a46dde56-80a8-4376-a729-fd201a26394f",
+        "prompt": "Qual escolha oferece melhor base de acessibilidade para uma ação clicável?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Usar <button>."
+          },
+          {
+            "id": "b",
+            "label": "Usar <div onclick>."
+          },
+          {
+            "id": "c",
+            "label": "Usar <span> com cor diferente."
+          }
+        ],
+        "position": 5,
+        "difficulty": 1,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "d8815835-abf8-430a-831c-29b833c08351",
+        "prompt": "Se duas regras válidas têm a mesma especificidade, qual tende a vencer?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A que aparece depois."
+          },
+          {
+            "id": "b",
+            "label": "A primeira sempre."
+          },
+          {
+            "id": "c",
+            "label": "A que tem menos propriedades."
+          }
+        ],
+        "position": 6,
+        "difficulty": 2,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "0ff94056-5be3-40e6-9799-d3b2dd1e77a6",
+        "prompt": "Com box-sizing:border-box, o padding faz parte da largura declarada?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Sim."
+          },
+          {
+            "id": "b",
+            "label": "Não."
+          },
+          {
+            "id": "c",
+            "label": "Apenas em imagens."
+          }
+        ],
+        "position": 7,
+        "difficulty": 2,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "98e0da3f-3e96-4931-a850-f25cf8892835",
+        "prompt": "Qual prática reduz inconsistência de espaçamento em uma interface?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Usar uma escala/tokens recorrentes."
+          },
+          {
+            "id": "b",
+            "label": "Escolher um valor novo para cada bloco."
+          },
+          {
+            "id": "c",
+            "label": "Usar apenas margin-left."
+          }
+        ],
+        "position": 8,
+        "difficulty": 2,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "8dcc5f47-58c7-4ef2-b6a0-b6fda3b35f65",
+        "prompt": "Em flex-direction:row, justify-content atua principalmente em qual eixo?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Horizontal/principal."
+          },
+          {
+            "id": "b",
+            "label": "Vertical/cruzado."
+          },
+          {
+            "id": "c",
+            "label": "Profundidade z."
+          }
+        ],
+        "position": 9,
+        "difficulty": 2,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "440e1c1a-e0b0-4525-ae5f-aee9be1b419b",
+        "prompt": "Qual combinação cria uma grade responsiva sem breakpoint explícito?",
+        "options": [
+          {
+            "id": "a",
+            "label": "repeat(auto-fit,minmax(...))"
+          },
+          {
+            "id": "b",
+            "label": "position:absolute em todos os cards"
+          },
+          {
+            "id": "c",
+            "label": "width:250px fixo"
+          }
+        ],
+        "position": 10,
+        "difficulty": 2,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "f0f107e0-76f7-45dc-9a7a-bf5c73b94cb8",
+        "prompt": "Um elemento absolute costuma usar como referência qual ancestral?",
+        "options": [
+          {
+            "id": "a",
+            "label": "O ancestral posicionado mais próximo."
+          },
+          {
+            "id": "b",
+            "label": "Sempre o body."
+          },
+          {
+            "id": "c",
+            "label": "Sempre o elemento anterior."
+          }
+        ],
+        "position": 11,
+        "difficulty": 2,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      },
+      {
+        "id": "e787901b-dab7-44e0-8766-4d8ef4751a69",
+        "prompt": "O que deve definir um breakpoint útil?",
+        "options": [
+          {
+            "id": "a",
+            "label": "O ponto em que o conteúdo/composição deixa de funcionar bem."
+          },
+          {
+            "id": "b",
+            "label": "O modelo de celular mais popular."
+          },
+          {
+            "id": "c",
+            "label": "Um número aleatório repetido."
+          }
+        ],
+        "position": 12,
+        "difficulty": 2,
+        "assessment_id": "6f13e0f4-3a63-4459-a4a5-3ad16f777883",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula relacionada e tente novamente."
+      }
+    ]
+  },
+  "references": []
+}
