@@ -1,0 +1,1538 @@
+{
+  "course": {
+    "id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "slug": "programador-master",
+    "title": "Programador Master",
+    "course_type": "formation",
+    "description": "Formação prática em programação do zero ao projeto publicado, cobrindo lógica, Git, HTML e CSS, JavaScript, PHP e MySQL, WordPress, Python, Java, APIs e integração full stack.",
+    "level_label": "Profissional"
+  },
+  "module": {
+    "id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+    "title": "Python",
+    "position": 7,
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "description": "Programe em Python com foco em fundamentos, estruturas de dados, arquivos, tratamento de erros, ambientes, automação e consumo de APIs.",
+    "prerequisite_module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6"
+  },
+  "lessons": [
+    {
+      "id": "ae51728d-4c97-431a-b6c3-d27861cce3a3",
+      "title": "Python e o interpretador",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um arquivo .py existe, mas ninguém sabe qual comando executá-lo nem qual versão está ativa.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Python é uma linguagem interpretada: o runtime lê e executa o código. O arquivo .py é texto; a execução depende de um interpretador disponível no ambiente. Saber verificar versão, caminho e ambiente evita erros em que o código está correto, mas a máquina executa outro Python ou não encontra dependências. O ciclo básico é editar, executar, observar a saída e corrigir.",
+          "type": "concept",
+          "title": "Python e o interpretador"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Confirme a versão ativa.",
+            "Execute scripts a partir do diretório correto.",
+            "Leia traceback de baixo para cima.",
+            "Separe problema de ambiente de problema de código."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "python --version\\npython app.py",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Instalar várias versões e pacotes globalmente sem saber qual interpretador o projeto usa.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "O interpretador Python.",
+            "O CSS.",
+            "O navegador por padrão."
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "O que executa um arquivo .py?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Explicar como o interpretador Python executa um script e preparar um fluxo simples de edição, execução e leitura de erros.",
+            "Confirme a versão ativa.",
+            "Execute scripts a partir do diretório correto.",
+            "Leia traceback de baixo para cima."
+          ]
+        }
+      ],
+      "lab_type": "python",
+      "position": 1,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Explicar como o interpretador Python executa um script e preparar um fluxo simples de edição, execução e leitura de erros.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 30
+    },
+    {
+      "id": "a1119116-027f-4788-9c0d-3d53aed493e6",
+      "title": "Variáveis, tipos e entrada de dados",
+      "status": "draft",
+      "content": [
+        {
+          "body": "input() retorna '18', e o programa precisa comparar idade numericamente.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Python associa nomes a valores e possui tipos como int, float, str e bool. input() retorna texto, então conversão explícita é parte da modelagem. Operações entre tipos incompatíveis geram erros em vez de coerções silenciosas comuns em outras linguagens. Isso ajuda, desde que o programador trate entrada inválida.",
+          "type": "concept",
+          "title": "Variáveis, tipos e entrada de dados"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use nomes descritivos.",
+            "Converta entrada antes de operar.",
+            "Valide antes de assumir formato.",
+            "Use type apenas como diagnóstico, não como arquitetura."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "idade = int(input('Idade: '))\\nmaior = idade >= 18",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Fazer int(input()) sem tratar o caso em que o usuário digita texto inválido em um fluxo que precisa ser robusto.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "str",
+            "int sempre",
+            "bool"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual tipo input() retorna inicialmente?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Declarar variáveis, trabalhar com tipos básicos e converter entrada textual antes de cálculos e comparações.",
+            "Use nomes descritivos.",
+            "Converta entrada antes de operar.",
+            "Valide antes de assumir formato."
+          ]
+        }
+      ],
+      "lab_type": "python",
+      "position": 2,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Declarar variáveis, trabalhar com tipos básicos e converter entrada textual antes de cálculos e comparações.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 36
+    },
+    {
+      "id": "ee5d2d40-7160-47cf-ba9d-afb956d8543e",
+      "title": "Condições em Python",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma nota precisa ser classificada em aprovado, recuperação ou reprovado sem sobreposição.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Condições em Python usam blocos definidos por indentação. if testa o primeiro ramo; elif permite alternativas adicionais; else cobre o restante. A ordem importa: condições mais específicas ou fronteiras devem ser planejadas para que um caso não seja capturado cedo demais. Expressões booleanas podem ser nomeadas para melhorar leitura.",
+          "type": "concept",
+          "title": "Condições em Python"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Planeje faixas antes do código.",
+            "Teste fronteiras.",
+            "Mantenha indentação consistente.",
+            "Extraia condições complexas para nomes claros."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "if nota >= 7:\\n    status='Aprovado'\\nelif nota >= 5:\\n    status='Recuperação'\\nelse:\\n    status='Reprovado'",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Escrever vários if independentes para faixas mutuamente exclusivas e acabar sobrescrevendo o resultado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "if/elif/else",
+            "Vários prints soltos",
+            "import"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Quando os ramos são mutuamente exclusivos, qual estrutura é adequada?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Implementar decisões com if/elif/else e operadores lógicos mantendo ramos legíveis e regras de fronteira corretas.",
+            "Planeje faixas antes do código.",
+            "Teste fronteiras.",
+            "Mantenha indentação consistente."
+          ]
+        }
+      ],
+      "lab_type": "python",
+      "position": 3,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Implementar decisões com if/elif/else e operadores lógicos mantendo ramos legíveis e regras de fronteira corretas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 38
+    },
+    {
+      "id": "f3e6f2d9-02a7-43f9-8415-63781a4949ec",
+      "title": "Laços for e while",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma lista precisa ser percorrida inteira; em outro caso, o programa repete até a entrada ser válida.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "for percorre iteráveis e é ideal quando existe uma coleção ou faixa. while repete enquanto uma condição permanece verdadeira, útil quando o número de repetições não é conhecido. Todo while precisa de uma mudança que aproxime o estado da condição de saída. break e continue existem, mas não devem esconder fluxo confuso.",
+          "type": "concept",
+          "title": "Laços for e while"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use for para coleções e range.",
+            "Use while para repetição condicionada.",
+            "Garanta progresso em direção à parada.",
+            "Evite alterar coleção de forma imprevisível durante iteração."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "for nome in nomes:\\n    print(nome)\\n\\ntentativas=0\\nwhile tentativas<3:\\n    tentativas+=1",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Criar while True e depender de vários breaks espalhados sem justificar o fluxo.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "for",
+            "while obrigatório",
+            "try"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual laço combina melhor com percorrer uma lista?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Escolher entre for e while e construir laços com condição de parada clara, contadores e acumuladores.",
+            "Use for para coleções e range.",
+            "Use while para repetição condicionada.",
+            "Garanta progresso em direção à parada."
+          ]
+        }
+      ],
+      "lab_type": "python",
+      "position": 4,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Escolher entre for e while e construir laços com condição de parada clara, contadores e acumuladores.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 40
+    },
+    {
+      "id": "a7c27108-933d-4b47-88c6-f9ad0e764c33",
+      "title": "Funções e retorno",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A mesma validação de preço aparece em três partes do script.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Funções em Python são definidas com def. Parâmetros representam entradas e return devolve uma saída. Funções pequenas e focadas podem ser testadas com diferentes casos sem depender de input() ou print(). Isso separa lógica da interface de terminal e prepara o código para módulos e testes.",
+          "type": "concept",
+          "title": "Funções e retorno"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Uma função deve ter responsabilidade clara.",
+            "Receba dados por parâmetros.",
+            "Retorne resultado em vez de imprimir quando a saída será reutilizada.",
+            "Documente casos não óbvios."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "def calcular_total(preco, quantidade):\\n    return preco * quantidade",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Misturar input(), cálculo, arquivo e print em uma função enorme.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Recebe parâmetros e retorna valor.",
+            "Lê tudo de globais.",
+            "Sempre encerra o programa."
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual função é mais reutilizável?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Criar funções com parâmetros e retorno que concentrem regras e reduzam duplicação, evitando efeitos colaterais desnecessários.",
+            "Uma função deve ter responsabilidade clara.",
+            "Receba dados por parâmetros.",
+            "Retorne resultado em vez de imprimir quando a saída será reutilizada."
+          ]
+        }
+      ],
+      "lab_type": "python",
+      "position": 5,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Criar funções com parâmetros e retorno que concentrem regras e reduzam duplicação, evitando efeitos colaterais desnecessários.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "c8438961-ac92-4337-a460-3770b39f4994",
+      "title": "Listas e tuplas",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Notas podem ser adicionadas durante o programa; uma coordenada fixa não deveria ser alterada.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Listas são sequências mutáveis: permitem append, remoção e alteração. Tuplas são sequências imutáveis e expressam melhor conjuntos de valores que não devem mudar depois de criados. Ambas suportam iteração, indexação e slicing. A escolha comunica intenção e influencia como o código pode manipular o dado.",
+          "type": "concept",
+          "title": "Listas e tuplas"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use lista para coleção que evolui.",
+            "Use tupla para agrupamento estável.",
+            "Evite depender de índices sem contexto.",
+            "Percorra diretamente quando não precisa do índice."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "notas=[8,7,9]\\nnotas.append(10)\\nposicao=(12.3,-38.9)",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Usar índice mágico como registro complexo; para dados nomeados, dicionário ou dataclass pode ser melhor.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "list",
+            "tuple",
+            "str"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual estrutura é mutável?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Usar listas para coleções mutáveis e tuplas para agrupamentos imutáveis simples, escolhendo operações adequadas.",
+            "Use lista para coleção que evolui.",
+            "Use tupla para agrupamento estável.",
+            "Evite depender de índices sem contexto."
+          ]
+        }
+      ],
+      "lab_type": "python",
+      "position": 6,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Usar listas para coleções mutáveis e tuplas para agrupamentos imutáveis simples, escolhendo operações adequadas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "b2da869c-c78b-45ac-9af0-5e474ce58d22",
+      "title": "Dicionários e conjuntos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um usuário possui campos nomeados; uma lista de tags precisa eliminar duplicatas.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Dicionários mapeiam chaves a valores e são úteis para registros e índices. Sets armazenam valores únicos sem garantir ordem de apresentação como uma lista. Verificação de pertencimento em set costuma ser eficiente, e operações como união/interseção expressam relações entre coleções. Estruturas devem refletir a pergunta feita pelo programa.",
+          "type": "concept",
+          "title": "Dicionários e conjuntos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use dict quando nomes de campos importam.",
+            "Use set para unicidade e pertencimento.",
+            "Trate chave ausente com get quando apropriado.",
+            "Não dependa de set para ordem de interface."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "usuario={'nome':'Ana','ativo':True}\\ntags=set(['python','api','python'])",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Usar dict como lista ordenada de apresentação e depois depender de posições implícitas.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "set",
+            "list sempre",
+            "float"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual estrutura remove duplicatas naturalmente?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Modelar registros com dicionários e usar conjuntos para unicidade e operações de pertencimento eficientes.",
+            "Use dict quando nomes de campos importam.",
+            "Use set para unicidade e pertencimento.",
+            "Trate chave ausente com get quando apropriado."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 7,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Modelar registros com dicionários e usar conjuntos para unicidade e operações de pertencimento eficientes.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "set",
+            "list sempre",
+            "float"
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual estrutura remove duplicatas naturalmente?"
+        }
+      },
+      "estimated_minutes": 44
+    },
+    {
+      "id": "7d59a755-ec12-4161-af62-6d8a8972dacb",
+      "title": "Strings e manipulação de texto",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Nomes chegam com espaços extras e e-mails com variação de maiúsculas, mas mensagens de saída precisam preservar formato legível.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Strings são sequências imutáveis. Métodos como strip, lower, split, replace e join ajudam a normalizar e transformar texto. f-strings criam saída legível. Normalização deve ser proporcional ao domínio: converter e-mail para comparação pode fazer sentido; alterar nome próprio agressivamente pode perder informação.",
+          "type": "concept",
+          "title": "Strings e manipulação de texto"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use strip para espaços externos.",
+            "Normalize apenas quando a regra justifica.",
+            "Use split/join para estruturas simples de texto.",
+            "Prefira f-strings para interpolação legível."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "email = email.strip().lower()\\nmensagem = f'Olá, {nome}!'",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Aplicar lower/replace em todo texto sem considerar se capitalização ou símbolos têm significado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "strip",
+            "append",
+            "keys"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual método remove espaços nas extremidades?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Normalizar, dividir, combinar e formatar strings sem destruir informação necessária ou criar regras frágeis.",
+            "Use strip para espaços externos.",
+            "Normalize apenas quando a regra justifica.",
+            "Use split/join para estruturas simples de texto."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 8,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Normalizar, dividir, combinar e formatar strings sem destruir informação necessária ou criar regras frágeis.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "strip",
+            "append",
+            "keys"
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual método remove espaços nas extremidades?"
+        }
+      },
+      "estimated_minutes": 40
+    },
+    {
+      "id": "5fd87f76-f485-4877-8fe8-db17153de70b",
+      "title": "Arquivos e caminhos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O script funciona apenas quando executado de uma pasta específica porque usa caminhos relativos frágeis.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Arquivos introduzem estado fora da memória. open com with garante fechamento mesmo em caso de erro. pathlib oferece objetos Path para montar caminhos de forma mais clara e portátil. A codificação deve ser explícita quando texto é relevante. Antes de sobrescrever, decida se o fluxo precisa preservar ou versionar o arquivo existente.",
+          "type": "concept",
+          "title": "Arquivos e caminhos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use with ao abrir arquivos.",
+            "Prefira pathlib para caminhos.",
+            "Declare encoding em texto.",
+            "Valide existência e destino antes de escrita destrutiva."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "from pathlib import Path\\narq=Path('dados')/'clientes.txt'\\nwith arq.open('r',encoding='utf-8') as f:\\n    texto=f.read()",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Montar caminhos concatenando barras específicas do sistema operacional.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "pathlib.Path",
+            "print",
+            "range"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual recurso ajuda a construir caminhos portáveis?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Ler e escrever arquivos usando context manager e pathlib, tratando codificação e caminhos de forma portátil.",
+            "Use with ao abrir arquivos.",
+            "Prefira pathlib para caminhos.",
+            "Declare encoding em texto."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 9,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Ler e escrever arquivos usando context manager e pathlib, tratando codificação e caminhos de forma portátil.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "pathlib.Path",
+            "print",
+            "range"
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual recurso ajuda a construir caminhos portáveis?"
+        }
+      },
+      "estimated_minutes": 46
+    },
+    {
+      "id": "3f4d8452-6016-4cff-820c-77016320f913",
+      "title": "Tratamento de erros",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma conversão pode falhar, mas um except: vazio está engolindo também bugs de programação.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Exceções interrompem o fluxo normal e carregam informação sobre falha. try/except deve envolver apenas a operação esperadamente arriscada. Capture tipos específicos e decida se há recuperação, mensagem ao usuário ou repropagação. finally serve para limpeza quando necessária. Capturar Exception em toda parte costuma esconder causa.",
+          "type": "concept",
+          "title": "Tratamento de erros"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Capture exceções específicas.",
+            "Mantenha bloco try pequeno.",
+            "Não silencie erro sem registrar ou tratar.",
+            "Use mensagem adequada ao usuário sem expor stack interno."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "try:\\n    idade=int(texto)\\nexcept ValueError:\\n    print('Informe um número inteiro.')",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "except: pass. O programa continua em estado possivelmente inválido sem qualquer diagnóstico.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "ValueError",
+            "KeyError sempre",
+            "ImportError"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual exceção ocorre tipicamente em int('abc')?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Capturar exceções específicas quando existe estratégia de recuperação e evitar esconder falhas inesperadas.",
+            "Capture exceções específicas.",
+            "Mantenha bloco try pequeno.",
+            "Não silencie erro sem registrar ou tratar."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 10,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Capturar exceções específicas quando existe estratégia de recuperação e evitar esconder falhas inesperadas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "ValueError",
+            "KeyError sempre",
+            "ImportError"
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual exceção ocorre tipicamente em int('abc')?"
+        }
+      },
+      "estimated_minutes": 46
+    },
+    {
+      "id": "1d28c5d9-5cde-4332-a19f-e3b753992d9f",
+      "title": "Módulos, pacotes e ambiente virtual",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Dois projetos precisam de versões diferentes da mesma biblioteca e ambos usam instalação global.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Módulos são arquivos Python importáveis; pacotes agrupam módulos. Ambientes virtuais isolam dependências por projeto, evitando conflito com instalações globais. requirements ou pyproject documentam dependências. A organização deve nascer de responsabilidades reais, não de criar dezenas de arquivos minúsculos sem necessidade.",
+          "type": "concept",
+          "title": "Módulos, pacotes e ambiente virtual"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Crie venv por projeto.",
+            "Registre dependências.",
+            "Separe módulos por responsabilidade.",
+            "Evite import circular."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "python -m venv .venv\\n# ativar ambiente\\npip install requests",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Instalar tudo globalmente e descobrir depois que o projeto só funciona na máquina do autor.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Isolar dependências do projeto.",
+            "Aumentar resolução da tela.",
+            "Substituir Git."
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual é o objetivo principal de um ambiente virtual?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Organizar código em módulos, importar responsabilidades e isolar dependências do projeto em ambiente virtual.",
+            "Crie venv por projeto.",
+            "Registre dependências.",
+            "Separe módulos por responsabilidade."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 11,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Organizar código em módulos, importar responsabilidades e isolar dependências do projeto em ambiente virtual.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Isolar dependências do projeto.",
+            "Aumentar resolução da tela.",
+            "Substituir Git."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual é o objetivo principal de um ambiente virtual?"
+        }
+      },
+      "estimated_minutes": 50
+    },
+    {
+      "id": "5c51a630-6824-4621-998a-e101a1751e4a",
+      "title": "Automação de tarefas",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Todo dia alguém lê uma pasta de arquivos, renomeia e gera um resumo manualmente.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Automação útil transforma um processo repetível em sequência previsível. Primeiro modele entradas e saídas; depois trate erros e reexecução. Um script idempotente pode ser executado novamente sem duplicar ou corromper resultado, característica valiosa em tarefas operacionais. Logs simples ajudam a entender o que aconteceu.",
+          "type": "concept",
+          "title": "Automação de tarefas"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Automatize processo estável e compreendido.",
+            "Valide arquivos antes de alterar.",
+            "Planeje reexecução.",
+            "Produza relatório ou log do resultado."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "for arquivo in pasta.glob('*.csv'):\\n    processar(arquivo)\\nprint('Processamento concluído')",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Automatizar um processo mal definido e acelerar erros que antes eram manuais.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Pode ser repetida sem duplicar o efeito indevidamente.",
+            "Só roda uma vez.",
+            "Nunca registra logs."
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "O que significa uma automação idempotente?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Automatizar uma tarefa repetitiva com entradas, validação, processamento e relatório, mantendo operação idempotente quando possível.",
+            "Automatize processo estável e compreendido.",
+            "Valide arquivos antes de alterar.",
+            "Planeje reexecução."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 12,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Automatizar uma tarefa repetitiva com entradas, validação, processamento e relatório, mantendo operação idempotente quando possível.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Pode ser repetida sem duplicar o efeito indevidamente.",
+            "Só roda uma vez.",
+            "Nunca registra logs."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "O que significa uma automação idempotente?"
+        }
+      },
+      "estimated_minutes": 52
+    },
+    {
+      "id": "86c5886b-a5c7-48a9-a7fb-1dc1df86a937",
+      "title": "Consumo de APIs com Python",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um script depende de serviço externo e trava indefinidamente quando a rede está ruim.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Bibliotecas HTTP permitem enviar requisições, mas integração robusta precisa de timeout, verificação de status e validação do payload. Serviços externos falham e podem retornar formato inesperado. O código deve separar transporte, parsing e regra de negócio para que erros sejam diagnósticos.",
+          "type": "concept",
+          "title": "Consumo de APIs com Python"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina timeout.",
+            "Verifique status HTTP.",
+            "Valide campos essenciais do JSON.",
+            "Trate falha externa sem corromper dados locais."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "import requests\\nr=requests.get(url,timeout=10)\\nr.raise_for_status()\\ndata=r.json()",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "python"
+        },
+        {
+          "body": "Chamar API em loop sem timeout, retry controlado ou limite.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "timeout",
+            "print",
+            "len"
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual parâmetro evita esperar indefinidamente por uma resposta?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Consumir uma API HTTP em Python tratando timeout, status, JSON e falhas de rede antes de usar os dados.",
+            "Defina timeout.",
+            "Verifique status HTTP.",
+            "Valide campos essenciais do JSON."
+          ]
+        }
+      ],
+      "lab_type": "api",
+      "position": 13,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Consumir uma API HTTP em Python tratando timeout, status, JSON e falhas de rede antes de usar os dados.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 52
+    },
+    {
+      "id": "8311762e-f073-4e5e-8910-edd98df1ba6f",
+      "title": "Projeto: automação útil do mundo real",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A entrega deve economizar trabalho real e não apenas imprimir exemplos no terminal.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "O projeto fecha Python combinando estruturas, funções, arquivos, erros, módulos e integração. Escolha uma tarefa pequena e frequente: consolidar planilhas, organizar arquivos, consultar API e gerar relatório, validar dados. A automação precisa ter entradas claras, comportamento em erro, reexecução segura e documentação de ambiente.",
+          "type": "concept",
+          "title": "Projeto: automação útil do mundo real"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Escolha problema real e mensurável.",
+            "Separe configuração de código.",
+            "Trate erros previsíveis.",
+            "Documente instalação e execução."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Exemplo: ler CSVs de uma pasta, normalizar colunas, consolidar registros válidos e gerar relatório de inconsistências.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Criar automação que exige editar o código toda vez para trocar caminho, chave ou parâmetro.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que deixa o script mais previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Configuração e execução documentadas.",
+            "Dependência de caminhos pessoais fixos.",
+            "Ausência de tratamento de erro."
+          ],
+          "feedback": "Correto. A escolha preserva clareza e verificabilidade.",
+          "question": "Qual característica torna a automação útil para terceiros?",
+          "feedback_incorrect": "Revise o exemplo e a responsabilidade da estrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir uma automação Python que lide com arquivos ou API, registre resultado e possa ser executada por outra pessoa com instruções claras.",
+            "Escolha problema real e mensurável.",
+            "Separe configuração de código.",
+            "Trate erros previsíveis."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 14,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "objective": "Construir uma automação Python que lide com arquivos ou API, registre resultado e possa ser executada por outra pessoa com instruções claras.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 70
+    }
+  ],
+  "project": {
+    "id": "4288aeab-1531-4c05-a75f-a11f5b5f3e05",
+    "title": "LC Programador Master — M7 • Boss Fight: Automação Python",
+    "rubric": {
+      "criteria": [
+        {
+          "name": "Problema e fluxo",
+          "weight": 20
+        },
+        {
+          "name": "Qualidade do Python",
+          "weight": 25
+        },
+        {
+          "name": "Robustez e erros",
+          "weight": 25
+        },
+        {
+          "name": "Resultado mensurável",
+          "weight": 20
+        },
+        {
+          "name": "Documentação",
+          "weight": 10
+        }
+      ]
+    },
+    "status": "draft",
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+    "xp_reward": 500,
+    "description": "Criar uma automação útil com entradas configuráveis, funções, arquivos ou API, tratamento de erro, reexecução segura e documentação reproduzível.",
+    "project_kind": "boss_fight"
+  },
+  "resources": [
+    {
+      "id": "a49c6f3d-39e2-4e7c-8837-2c19a2c279c8",
+      "title": "LC Programador Master — M7 • Guia Python essencial",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Tipos e conversão",
+              "Condições e laços",
+              "Funções",
+              "Listas/dicts/sets",
+              "Arquivos e exceções"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Referência de sintaxe, estruturas e práticas do módulo.",
+      "language": "pt-BR",
+      "position": 1,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "c9516c4d-a2bb-4a87-bf45-292cda44c9eb",
+      "title": "LC Programador Master — M7 • Checklist de automação",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Entradas configuráveis",
+              "Validação",
+              "Reexecução segura",
+              "Tratamento de erro",
+              "Logs",
+              "Documentação"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Revisão antes de colocar um script em rotina.",
+      "language": "pt-BR",
+      "position": 2,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "checklist"
+    },
+    {
+      "id": "bbcc8d83-c2a2-466c-90e1-ffbc2740750e",
+      "title": "LC Programador Master — M7 • Exercícios Python",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Classificador de notas",
+              "Consolidador de listas",
+              "Leitura e validação de arquivo",
+              "Script modularizado",
+              "Consulta de API com tratamento de falha"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Problemas progressivos para prática.",
+      "language": "pt-BR",
+      "position": 3,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "exercise"
+    },
+    {
+      "id": "3b61fa1b-31a2-4839-b9c6-e53f1239b43b",
+      "title": "LC Programador Master — M7 • Template de projeto Python",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "README",
+              "requirements/pyproject",
+              "src",
+              "configuração externa",
+              "amostras de entrada",
+              "saída e logs"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Estrutura sugerida para entrega de automação.",
+      "language": "pt-BR",
+      "position": 4,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "template"
+    }
+  ],
+  "assessment": {
+    "row": {
+      "id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+      "title": "LC Programador Master — M7 • Checkpoint Python",
+      "status": "draft",
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "module_id": "b992f381-c45a-4daf-b10f-b21787e958f5",
+      "pass_score": 70,
+      "max_attempts": 3,
+      "randomize_questions": true
+    },
+    "questions": [
+      {
+        "id": "269a0434-9c85-448e-9e62-624ec8af049a",
+        "prompt": "O que executa um arquivo .py?",
+        "options": [
+          {
+            "id": "a",
+            "label": "O interpretador Python."
+          },
+          {
+            "id": "b",
+            "label": "O CSS."
+          },
+          {
+            "id": "c",
+            "label": "O navegador por padrão."
+          }
+        ],
+        "position": 1,
+        "difficulty": 1,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "07b57d3e-3a6d-4fa4-bb5d-d2faebb95b89",
+        "prompt": "Qual tipo input() retorna inicialmente?",
+        "options": [
+          {
+            "id": "a",
+            "label": "str"
+          },
+          {
+            "id": "b",
+            "label": "int sempre"
+          },
+          {
+            "id": "c",
+            "label": "bool"
+          }
+        ],
+        "position": 2,
+        "difficulty": 1,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "7965ba3f-99a0-467b-8b64-505033420965",
+        "prompt": "Quando os ramos são mutuamente exclusivos, qual estrutura é adequada?",
+        "options": [
+          {
+            "id": "a",
+            "label": "if/elif/else"
+          },
+          {
+            "id": "b",
+            "label": "Vários prints soltos"
+          },
+          {
+            "id": "c",
+            "label": "import"
+          }
+        ],
+        "position": 3,
+        "difficulty": 1,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "c71438a9-7a29-40ad-a0fb-8c82c51dcda9",
+        "prompt": "Qual laço combina melhor com percorrer uma lista?",
+        "options": [
+          {
+            "id": "a",
+            "label": "for"
+          },
+          {
+            "id": "b",
+            "label": "while obrigatório"
+          },
+          {
+            "id": "c",
+            "label": "try"
+          }
+        ],
+        "position": 4,
+        "difficulty": 1,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "c01c4769-c165-41aa-991a-63d0e93537e3",
+        "prompt": "Qual função é mais reutilizável?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Recebe parâmetros e retorna valor."
+          },
+          {
+            "id": "b",
+            "label": "Lê tudo de globais."
+          },
+          {
+            "id": "c",
+            "label": "Sempre encerra o programa."
+          }
+        ],
+        "position": 5,
+        "difficulty": 2,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "7e6337f4-72ad-46b0-b66f-92bf2349fa2e",
+        "prompt": "Qual estrutura é mutável?",
+        "options": [
+          {
+            "id": "a",
+            "label": "list"
+          },
+          {
+            "id": "b",
+            "label": "tuple"
+          },
+          {
+            "id": "c",
+            "label": "str"
+          }
+        ],
+        "position": 6,
+        "difficulty": 2,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "88311451-1262-4c86-9594-88fc3c1a3506",
+        "prompt": "Qual estrutura remove duplicatas naturalmente?",
+        "options": [
+          {
+            "id": "a",
+            "label": "set"
+          },
+          {
+            "id": "b",
+            "label": "list sempre"
+          },
+          {
+            "id": "c",
+            "label": "float"
+          }
+        ],
+        "position": 7,
+        "difficulty": 2,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "d77fdafa-faa0-4c7f-b701-7052c0e1e9fe",
+        "prompt": "Qual método remove espaços nas extremidades?",
+        "options": [
+          {
+            "id": "a",
+            "label": "strip"
+          },
+          {
+            "id": "b",
+            "label": "append"
+          },
+          {
+            "id": "c",
+            "label": "keys"
+          }
+        ],
+        "position": 8,
+        "difficulty": 2,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "e3aa33cf-fccd-40a6-9230-38f5c8c9dafb",
+        "prompt": "Qual recurso ajuda a construir caminhos portáveis?",
+        "options": [
+          {
+            "id": "a",
+            "label": "pathlib.Path"
+          },
+          {
+            "id": "b",
+            "label": "print"
+          },
+          {
+            "id": "c",
+            "label": "range"
+          }
+        ],
+        "position": 9,
+        "difficulty": 2,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "c9a3a3e5-f090-467f-ba80-69a1fb8a638a",
+        "prompt": "Qual exceção ocorre tipicamente em int('abc')?",
+        "options": [
+          {
+            "id": "a",
+            "label": "ValueError"
+          },
+          {
+            "id": "b",
+            "label": "KeyError sempre"
+          },
+          {
+            "id": "c",
+            "label": "ImportError"
+          }
+        ],
+        "position": 10,
+        "difficulty": 2,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "5d53c889-6693-43d3-9fd1-cbe8ea9a47d2",
+        "prompt": "Qual é o objetivo principal de um ambiente virtual?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Isolar dependências do projeto."
+          },
+          {
+            "id": "b",
+            "label": "Aumentar resolução da tela."
+          },
+          {
+            "id": "c",
+            "label": "Substituir Git."
+          }
+        ],
+        "position": 11,
+        "difficulty": 2,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "6994cd2a-c771-4c2f-9d3d-188cd3bd4290",
+        "prompt": "O que significa uma automação idempotente?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Pode ser repetida sem duplicar o efeito indevidamente."
+          },
+          {
+            "id": "b",
+            "label": "Só roda uma vez."
+          },
+          {
+            "id": "c",
+            "label": "Nunca registra logs."
+          }
+        ],
+        "position": 12,
+        "difficulty": 2,
+        "assessment_id": "1f2402cd-0861-48e2-9ecb-c1284ecb0a9d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      }
+    ]
+  },
+  "references": []
+}
