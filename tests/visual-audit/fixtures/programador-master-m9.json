@@ -1,0 +1,1321 @@
+{
+  "course": {
+    "id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "slug": "programador-master",
+    "title": "Programador Master",
+    "course_type": "formation",
+    "description": "Formação prática em programação do zero ao projeto publicado, cobrindo lógica, Git, HTML e CSS, JavaScript, PHP e MySQL, WordPress, Python, Java, APIs e integração full stack.",
+    "level_label": "Profissional"
+  },
+  "module": {
+    "id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+    "title": "APIs, Integrações e Projeto Final",
+    "position": 9,
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "description": "Integre cliente, servidor e APIs, proteja secrets, teste, publique e monitore a aplicação, concluindo com um projeto final demonstrável.",
+    "prerequisite_module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97"
+  },
+  "lessons": [
+    {
+      "id": "5a3c9ca1-a6f9-4e71-8e0c-81a36faf1f79",
+      "title": "Arquitetura cliente, servidor e API",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O frontend precisa listar pedidos, mas o banco não deve ficar acessível diretamente ao navegador sem política ou camada de serviço.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Em uma arquitetura web típica, o cliente apresenta interface e envia requisições; o servidor aplica regras, autorização e acesso a dados; a API define o contrato entre as partes. Essa separação permite evoluir interfaces sem duplicar regra de negócio e impede que credenciais de banco sejam incorporadas ao frontend. O limite exato varia por tecnologia, mas responsabilidades precisam estar explícitas.",
+          "type": "concept",
+          "title": "Arquitetura cliente, servidor e API"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Cliente não deve carregar segredos de servidor.",
+            "API expõe apenas operações autorizadas.",
+            "Servidor valida entrada e autorização.",
+            "Contrato deve ser claro para ambos os lados."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Browser → GET /api/pedidos → servidor valida usuário → consulta banco → retorna JSON autorizado → browser renderiza.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Acessar banco com credencial administrativa embutida no JavaScript enviado ao usuário.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "No ambiente seguro do servidor.",
+            "No HTML público.",
+            "No README."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Onde deve ficar uma chave secreta usada pelo backend?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Explicar responsabilidades de cliente, servidor e API e desenhar um fluxo de dados sem expor regras ou segredos indevidamente.",
+            "Cliente não deve carregar segredos de servidor.",
+            "API expõe apenas operações autorizadas.",
+            "Servidor valida entrada e autorização."
+          ]
+        }
+      ],
+      "lab_type": "api",
+      "position": 1,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Explicar responsabilidades de cliente, servidor e API e desenhar um fluxo de dados sem expor regras ou segredos indevidamente.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 36
+    },
+    {
+      "id": "252bffeb-a27b-4d00-89b0-156bd9250b8d",
+      "title": "HTTP, métodos, status e headers",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma API responde 200 mesmo quando falha validação, obrigando o cliente a adivinhar se a operação funcionou.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "HTTP transporta requisições e respostas. Métodos comunicam intenção: GET leitura, POST criação/ação, PUT/PATCH atualização e DELETE remoção, conforme contrato. Status 2xx indica sucesso; 4xx sinaliza problema na requisição/cliente; 5xx indica falha de servidor. Headers carregam metadados como tipo de conteúdo e autorização.",
+          "type": "concept",
+          "title": "HTTP, métodos, status e headers"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use status que represente o resultado real.",
+            "Não devolva 200 para todo cenário.",
+            "Valide Content-Type e Accept quando relevante.",
+            "Registre request ID quando ajuda diagnóstico."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "POST /api/produtos → 201 Created\\nGET /api/produtos/999 → 404 Not Found\\nPOST inválido → 422 Unprocessable Content",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Usar 500 para qualquer erro, inclusive payload inválido enviado pelo cliente.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "4xx",
+            "2xx",
+            "3xx sempre"
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Qual classe de status representa erro de validação do cliente?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Escolher métodos e status HTTP coerentes e interpretar headers e corpo para diagnosticar integrações.",
+            "Use status que represente o resultado real.",
+            "Não devolva 200 para todo cenário.",
+            "Valide Content-Type e Accept quando relevante."
+          ]
+        }
+      ],
+      "lab_type": "api",
+      "position": 2,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Escolher métodos e status HTTP coerentes e interpretar headers e corpo para diagnosticar integrações.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "fdf9734a-ee87-459c-9c71-02f48ac9b86b",
+      "title": "REST e desenho de endpoints",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A API possui /criarProduto, /listaProdutos, /deletarProduto e /produtoAtualizar, cada rota com convenção diferente.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "REST não é apenas usar JSON. Um desenho orientado a recursos usa URLs que representam entidades e métodos HTTP que representam operações. Consistência reduz carga cognitiva: /produtos para coleção, /produtos/{id} para item. Paginação, filtros e erros também devem seguir padrões estáveis. O objetivo é um contrato previsível, não purismo.",
+          "type": "concept",
+          "title": "REST e desenho de endpoints"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Nomeie recursos com substantivos consistentes.",
+            "Use método para expressar operação.",
+            "Padronize erros e envelopes quando usados.",
+            "Versione mudanças incompatíveis conscientemente."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "GET /api/produtos\\nPOST /api/produtos\\nGET /api/produtos/42\\nPATCH /api/produtos/42\\nDELETE /api/produtos/42",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Criar uma rota diferente para cada verbo e perder consistência sem necessidade.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "/api/produtos",
+            "/api/criarProdutoAgora",
+            "/api/getTodos"
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Qual endpoint representa melhor a coleção de produtos?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Desenhar endpoints centrados em recursos, com nomes consistentes, operações previsíveis e payloads coerentes.",
+            "Nomeie recursos com substantivos consistentes.",
+            "Use método para expressar operação.",
+            "Padronize erros e envelopes quando usados."
+          ]
+        }
+      ],
+      "lab_type": "api",
+      "position": 3,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Desenhar endpoints centrados em recursos, com nomes consistentes, operações previsíveis e payloads coerentes.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 46
+    },
+    {
+      "id": "9a228d96-51c6-4d3a-970a-07af9b91c163",
+      "title": "Autenticação e autorização em APIs",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um usuário autenticado altera o ID na URL e consegue ler o pedido de outro usuário.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Autenticação responde quem está fazendo a requisição; autorização responde se essa identidade pode executar a ação sobre aquele recurso. Verificar login não basta. Cada operação sensível precisa aplicar regra de acesso no servidor ou camada de dados. Tokens e sessões devem ser validados, expirados e tratados como credenciais.",
+          "type": "concept",
+          "title": "Autenticação e autorização em APIs"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Autentique antes de confiar em identidade.",
+            "Autorize por ação e recurso.",
+            "Nunca confie apenas em controle do frontend.",
+            "Evite expor tokens em logs ou URLs."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "GET /api/pedidos/42 → validar token → carregar pedido → confirmar pedido.user_id == usuário atual ou papel autorizado → retornar.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Esconder botão 'Excluir' para usuários comuns e deixar o endpoint sem verificação de permissão.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Verificar se pode executar a ação.",
+            "Assumir acesso total.",
+            "Enviar senha de volta."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "O que vem depois de identificar quem é o usuário?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Distinguir autenticação de autorização e proteger operações de API por identidade, papel e propriedade do recurso.",
+            "Autentique antes de confiar em identidade.",
+            "Autorize por ação e recurso.",
+            "Nunca confie apenas em controle do frontend."
+          ]
+        }
+      ],
+      "lab_type": "auth",
+      "position": 4,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Distinguir autenticação de autorização e proteger operações de API por identidade, papel e propriedade do recurso.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 50
+    },
+    {
+      "id": "3cdf5f1e-bdc2-4b77-a2a7-a39bcaaa2f85",
+      "title": "Consumindo APIs no frontend",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A tela fica em branco se a API falha e o usuário não sabe se está carregando ou se não existem dados.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Integração de frontend é uma máquina de estados. Antes da resposta há loading; sucesso pode conter dados ou coleção vazia; falha precisa de mensagem e opção de recuperação quando apropriado. O payload recebido deve ser validado antes de renderizar. Requisições obsoletas podem precisar ser canceladas em buscas ou navegação rápida.",
+          "type": "concept",
+          "title": "Consumindo APIs no frontend"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Modele loading/erro/vazio/sucesso.",
+            "Verifique response.ok.",
+            "Valide campos esperados.",
+            "Evite atualizar interface com resposta obsoleta."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "estado='loading' → fetch → status → JSON válido → estado='success'; catch → estado='error'.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Renderizar diretamente data.items.map sem confirmar se items existe e é array.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Loading, e muitas vezes vazio.",
+            "Somente hover.",
+            "Print."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Qual estado deve existir além de sucesso e erro?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Consumir uma API no frontend modelando loading, sucesso, vazio, erro e cancelamento quando necessário.",
+            "Modele loading/erro/vazio/sucesso.",
+            "Verifique response.ok.",
+            "Valide campos esperados."
+          ]
+        }
+      ],
+      "lab_type": "api",
+      "position": 5,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Consumir uma API no frontend modelando loading, sucesso, vazio, erro e cancelamento quando necessário.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 48
+    },
+    {
+      "id": "7f246278-3e09-422c-bfaa-37297f6a2754",
+      "title": "Integrando frontend e backend",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O frontend chama campo telefone, o backend espera whatsapp e o erro aparece apenas em produção.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Integração exige contrato compartilhado. Nomes de campos, tipos, obrigatoriedade, status e formato de erro precisam estar alinhados. Testar frontend e backend isoladamente reduz área de diagnóstico; depois, o teste integrado verifica serialização, CORS, autenticação e mensagens. A API continua sendo a fonte final de validação.",
+          "type": "concept",
+          "title": "Integrando frontend e backend"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Documente payload e resposta.",
+            "Teste endpoint isolado antes da tela.",
+            "Mapeie erros de API para feedback de usuário.",
+            "Evite duplicar regras divergentes entre camadas."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "POST /api/leads body {nome,contato} → 201 {id,...}; 422 {errors:{contato:'inválido'}} → frontend associa mensagem ao campo.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Tratar qualquer falha como 'Erro inesperado' e perder a informação útil retornada pela API.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Contrato explícito e testado.",
+            "Nomes de campo diferentes em cada camada.",
+            "Depurar tudo ao mesmo tempo."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Qual prática reduz conflitos de integração?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Conectar formulário e dados do frontend a endpoints reais, alinhando validação, contrato e mensagens de erro entre as camadas.",
+            "Documente payload e resposta.",
+            "Teste endpoint isolado antes da tela.",
+            "Mapeie erros de API para feedback de usuário."
+          ]
+        }
+      ],
+      "lab_type": "api",
+      "position": 6,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Conectar formulário e dados do frontend a endpoints reais, alinhando validação, contrato e mensagens de erro entre as camadas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 52
+    },
+    {
+      "id": "7de71df5-67d5-4e00-890c-40c92a68d087",
+      "title": "Variáveis de ambiente e secrets",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma API key foi commitada no GitHub e depois removida do arquivo. O segredo continua no histórico e deve ser rotacionado.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Variáveis de ambiente permitem configurar URLs, chaves e comportamento sem alterar código. Nem toda variável é secreta: URL pública pode ser exposta; chave administrativa não. Segredos precisam ficar no ambiente seguro de execução e nunca no bundle frontend. Se um segredo vaza, apagar do código não basta: ele deve ser revogado ou rotacionado.",
+          "type": "concept",
+          "title": "Variáveis de ambiente e secrets"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Classifique configuração pública x secreta.",
+            "Use arquivos .env locais fora do Git.",
+            "Configure secrets na plataforma de deploy.",
+            "Rotacione credenciais comprometidas."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Frontend: API_BASE_URL pode ser pública. Backend: DATABASE_URL e API_SECRET ficam em secret/environment seguro.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Prefixar uma variável como PUBLIC e colocar segredo nela. O nome não torna o valor seguro.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Rotacionar/revogar e remover do fluxo.",
+            "Apenas apagar a linha atual.",
+            "Renomear a variável."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "O que fazer se um segredo foi commitado publicamente?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Separar configuração pública de segredos e carregar credenciais por ambiente sem versioná-las no repositório.",
+            "Classifique configuração pública x secreta.",
+            "Use arquivos .env locais fora do Git.",
+            "Configure secrets na plataforma de deploy."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 7,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Separar configuração pública de segredos e carregar credenciais por ambiente sem versioná-las no repositório.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Rotacionar/revogar e remover do fluxo.",
+            "Apenas apagar a linha atual.",
+            "Renomear a variável."
+          ],
+          "feedback": "Correto.",
+          "question": "O que fazer se um segredo foi commitado publicamente?"
+        }
+      },
+      "estimated_minutes": 44
+    },
+    {
+      "id": "9bf0e165-9ce0-4e86-a620-f03029bce474",
+      "title": "Testes essenciais antes de publicar",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O fluxo feliz funciona, mas formulário vazio, rede lenta e mobile nunca foram testados.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "QA de publicação precisa cobrir comportamento normal, fronteiras e falhas. Teste o fluxo principal, entradas inválidas, autorização, telas vazias, mobile e navegadores relevantes. Automatize o que se repete, mas mantenha smoke test da experiência crítica. Um deploy não deve ser a primeira vez que integração completa é exercitada.",
+          "type": "concept",
+          "title": "Testes essenciais antes de publicar"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Teste caminho feliz e erro.",
+            "Inclua mobile e teclado.",
+            "Valide autenticação/autorização.",
+            "Faça smoke test pós-deploy."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Matriz mínima: login válido/inválido; criar/editar/excluir; sem dados; API 500; viewport pequeno; teclado; logout; recarga profunda.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Considerar 'compilou' como sinônimo de 'está pronto para produção'.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Limites e erros.",
+            "Somente cor do logo.",
+            "Nome do repositório."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Qual caso costuma revelar falhas ignoradas pelo caminho feliz?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Executar uma matriz mínima de testes funcionais, responsivos, acessíveis e de erro antes de promover uma versão.",
+            "Teste caminho feliz e erro.",
+            "Inclua mobile e teclado.",
+            "Valide autenticação/autorização."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 8,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Executar uma matriz mínima de testes funcionais, responsivos, acessíveis e de erro antes de promover uma versão.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Limites e erros.",
+            "Somente cor do logo.",
+            "Nome do repositório."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual caso costuma revelar falhas ignoradas pelo caminho feliz?"
+        }
+      },
+      "estimated_minutes": 50
+    },
+    {
+      "id": "7e4664f3-627e-4211-9e3c-b857c8178473",
+      "title": "Deploy de frontend e backend",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O deploy funciona apenas quando o autor lembra uma sequência não documentada de comandos e variáveis.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Deploy é um processo reproduzível de transformar código versionado em versão executável. Deve definir build, variáveis, migrações, artefatos e smoke test. Frontend estático e backend podem ter pipelines diferentes. Rollback ou promoção segura exige saber qual commit está em produção. Automatizar reduz variação humana, mas o pipeline precisa falhar claramente quando requisitos não são atendidos.",
+          "type": "concept",
+          "title": "Deploy de frontend e backend"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Associe deploy a commit identificável.",
+            "Valide secrets antes do build.",
+            "Aplique migrações de forma controlada.",
+            "Execute health/smoke test após publicar."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "push main → CI/testes → build → deploy backend → health check → deploy frontend → smoke do fluxo crítico.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Editar arquivo diretamente no servidor para corrigir produção e não registrar a mudança no repositório.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Commit/build ID.",
+            "Nome do navegador.",
+            "Cor do botão."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Qual informação ajuda a diagnosticar qual versão está em produção?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Planejar build, configuração, migrações, publicação e rollback de frontend/backend sem depender de passos manuais obscuros.",
+            "Associe deploy a commit identificável.",
+            "Valide secrets antes do build.",
+            "Aplique migrações de forma controlada."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 9,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Planejar build, configuração, migrações, publicação e rollback de frontend/backend sem depender de passos manuais obscuros.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Commit/build ID.",
+            "Nome do navegador.",
+            "Cor do botão."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual informação ajuda a diagnosticar qual versão está em produção?"
+        }
+      },
+      "estimated_minutes": 54
+    },
+    {
+      "id": "8358cdfb-e66f-44dd-80d4-a8f2d010df58",
+      "title": "Observabilidade e diagnóstico de erros",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Usuário relata 'deu erro', mas não há log, timestamp ou request ID. A equipe precisa adivinhar.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Observabilidade transforma comportamento interno em sinais. Logs estruturados registram eventos; métricas mostram tendências; health checks indicam disponibilidade; tracing/request IDs ajudam a seguir uma operação. O objetivo não é logar tudo: é registrar contexto suficiente sem senhas, tokens ou dados sensíveis desnecessários.",
+          "type": "concept",
+          "title": "Observabilidade e diagnóstico de erros"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Inclua timestamp, nível e contexto útil.",
+            "Use request/correlation ID quando houver múltiplas camadas.",
+            "Monitore erros e latência do fluxo crítico.",
+            "Não registre segredos."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "ERROR request_id=abc123 route=/api/pedidos status=500 code=DB_TIMEOUT duration_ms=2100",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Logar payload completo de autenticação para 'facilitar debug' e vazar credenciais.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Request/correlation ID.",
+            "Cor do terminal.",
+            "Número aleatório sem registro."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Qual dado ajuda a correlacionar a mesma operação entre serviços?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Usar logs, métricas, health checks e correlação de requisições para localizar falhas sem expor dados sensíveis.",
+            "Inclua timestamp, nível e contexto útil.",
+            "Use request/correlation ID quando houver múltiplas camadas.",
+            "Monitore erros e latência do fluxo crítico."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 10,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Usar logs, métricas, health checks e correlação de requisições para localizar falhas sem expor dados sensíveis.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Request/correlation ID.",
+            "Cor do terminal.",
+            "Número aleatório sem registro."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual dado ajuda a correlacionar a mesma operação entre serviços?"
+        }
+      },
+      "estimated_minutes": 50
+    },
+    {
+      "id": "9636a2f0-dcc8-4a66-9bfc-99f59cb91af7",
+      "title": "Projeto final: planejamento e critérios de sucesso",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Sem escopo, o projeto final começa com uma lista de tecnologias e cresce sem saber qual problema resolve.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Projeto de portfólio começa pelo problema e pelo fluxo, não pela stack. Defina usuário, necessidade, dados, operações e critérios de sucesso. Depois escolha tecnologias que sustentam esse fluxo. O escopo deve caber no tempo disponível e produzir uma entrega demonstrável. Critérios objetivos ajudam a decidir o que entra e o que fica para depois.",
+          "type": "concept",
+          "title": "Projeto final: planejamento e critérios de sucesso"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina problema e usuário.",
+            "Desenhe fluxo principal e dados.",
+            "Escolha stack pela necessidade.",
+            "Escreva critérios de aceite antes de implementar."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Problema: organizar atendimentos. Critério: usuário autenticado cria lead, move etapa, filtra pipeline e mantém dados após recarga; acesso de outro usuário é bloqueado.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Definir sucesso como 'usar Java, Python, PHP e JavaScript no mesmo projeto'. Tecnologia não é objetivo do usuário.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Problema, usuário e fluxo.",
+            "Quantidade de frameworks.",
+            "Nome do domínio."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "O que deve vir antes da escolha da stack?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Definir problema, usuário, fluxo principal, arquitetura, escopo e critérios verificáveis do projeto final antes de construir.",
+            "Defina problema e usuário.",
+            "Desenhe fluxo principal e dados.",
+            "Escolha stack pela necessidade."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 11,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Definir problema, usuário, fluxo principal, arquitetura, escopo e critérios verificáveis do projeto final antes de construir.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 60
+    },
+    {
+      "id": "aa6a0fcd-28e9-4fe8-9a00-62aa1e7c8e97",
+      "title": "Projeto final: construir, testar, publicar e apresentar",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O código está quase pronto, mas não há versão publicada, dados de demonstração ou roteiro para avaliar o projeto.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "A conclusão transforma implementação em produto avaliável. O projeto precisa de versão reproduzível, dados seguros de demonstração, testes do fluxo crítico, publicação, README e apresentação curta. Mostre problema, arquitetura, funcionalidades, como testar e o que ficou fora do escopo. Uma limitação conhecida documentada é melhor que uma promessa vaga.",
+          "type": "concept",
+          "title": "Projeto final: construir, testar, publicar e apresentar"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Congele escopo para concluir.",
+            "Faça QA e corrija defeitos críticos.",
+            "Publique e verifique build/health.",
+            "Prepare README e demonstração objetiva."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Entrega final: URL pública + repositório + README + conta/demo quando segura + checklist de testes + apresentação de 3–5 minutos do fluxo principal.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Apresentar apenas slides enquanto o fluxo real não está publicado ou não pode ser reproduzido.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que torna a integração verificável e segura.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Produto funcionando, publicado e testável.",
+            "Lista de tecnologias.",
+            "Mockup sem fluxo."
+          ],
+          "feedback": "Correto. Essa decisão melhora contrato, operação e diagnóstico.",
+          "question": "Qual evidência final é mais forte?",
+          "feedback_incorrect": "Revise o limite entre cliente, servidor e infraestrutura."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Entregar o projeto final funcional, testado, publicado e documentado com demonstração clara das decisões e limitações.",
+            "Congele escopo para concluir.",
+            "Faça QA e corrija defeitos críticos.",
+            "Publique e verifique build/health."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 12,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "objective": "Entregar o projeto final funcional, testado, publicado e documentado com demonstração clara das decisões e limitações.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 90
+    }
+  ],
+  "project": {
+    "id": "176e56ea-6fc9-4ed3-8c1d-5659e2e88f67",
+    "title": "LC Programador Master — M9 • Boss Fight Final: Produto publicado",
+    "rubric": {
+      "criteria": [
+        {
+          "name": "Problema e fluxo principal",
+          "weight": 20
+        },
+        {
+          "name": "Arquitetura e dados",
+          "weight": 20
+        },
+        {
+          "name": "Implementação funcional",
+          "weight": 25
+        },
+        {
+          "name": "Segurança e QA",
+          "weight": 20
+        },
+        {
+          "name": "Deploy e apresentação",
+          "weight": 15
+        }
+      ]
+    },
+    "status": "draft",
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+    "xp_reward": 800,
+    "description": "Planejar, construir, testar e publicar uma aplicação com frontend, backend/API, persistência, autenticação/autorização, configuração segura, observabilidade mínima e documentação de apresentação.",
+    "project_kind": "boss_fight"
+  },
+  "resources": [
+    {
+      "id": "2ce34043-1049-4619-98a0-8cd14d617295",
+      "title": "LC Programador Master — M9 • Guia de integração Web",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Responsabilidades por camada",
+              "Métodos/status HTTP",
+              "Contrato REST",
+              "Autenticação x autorização",
+              "Estados de integração no frontend"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Mapa de cliente, servidor, HTTP, REST e autenticação.",
+      "language": "pt-BR",
+      "position": 1,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "46d1ccca-631f-45f5-9d18-80b59dc3244c",
+      "title": "LC Programador Master — M9 • Checklist de produção",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Secrets configurados",
+              "Migrações controladas",
+              "QA funcional e responsivo",
+              "Health check",
+              "Logs sem dados sensíveis",
+              "Build ID conhecido",
+              "Rollback possível"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Revisão antes de promover uma versão.",
+      "language": "pt-BR",
+      "position": 2,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "checklist"
+    },
+    {
+      "id": "606592ee-3bfe-48e2-92ee-f67eb19e0241",
+      "title": "LC Programador Master — M9 • Template de projeto final",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Problema e usuário",
+              "Fluxo principal",
+              "Modelo de dados",
+              "Arquitetura",
+              "Critérios de aceite",
+              "Plano de testes",
+              "Deploy",
+              "Limitações"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Estrutura para planejamento e apresentação.",
+      "language": "pt-BR",
+      "position": 3,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "template"
+    },
+    {
+      "id": "7019b421-0b96-422c-874f-dca6c3a6b091",
+      "title": "LC Programador Master — M9 • Matriz de QA final",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Fluxo feliz",
+              "Entrada inválida",
+              "Não autorizado",
+              "Coleção vazia",
+              "Falha de API",
+              "Mobile/teclado",
+              "Reload/deep link",
+              "Smoke em produção"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Casos que devem ser executados antes da entrega.",
+      "language": "pt-BR",
+      "position": 4,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "exercise"
+    }
+  ],
+  "assessment": {
+    "row": {
+      "id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+      "title": "LC Programador Master — M9 • Checkpoint Integração e Produção",
+      "status": "draft",
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "module_id": "ce440ab6-8022-4195-ae07-63e00df0d176",
+      "pass_score": 70,
+      "max_attempts": 3,
+      "randomize_questions": true
+    },
+    "questions": [
+      {
+        "id": "3857c0c6-fdea-4583-bd2f-a365280ccbfd",
+        "prompt": "Onde deve ficar uma chave secreta usada pelo backend?",
+        "options": [
+          {
+            "id": "a",
+            "label": "No ambiente seguro do servidor."
+          },
+          {
+            "id": "b",
+            "label": "No HTML público."
+          },
+          {
+            "id": "c",
+            "label": "No README."
+          }
+        ],
+        "position": 1,
+        "difficulty": 1,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "e3cc114b-e93b-43b6-9fd7-24a07b21ebe0",
+        "prompt": "Qual classe de status representa erro de validação do cliente?",
+        "options": [
+          {
+            "id": "a",
+            "label": "4xx"
+          },
+          {
+            "id": "b",
+            "label": "2xx"
+          },
+          {
+            "id": "c",
+            "label": "3xx sempre"
+          }
+        ],
+        "position": 2,
+        "difficulty": 1,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "40025657-966e-4be6-a78f-9e74c7835e36",
+        "prompt": "Qual endpoint representa melhor a coleção de produtos?",
+        "options": [
+          {
+            "id": "a",
+            "label": "/api/produtos"
+          },
+          {
+            "id": "b",
+            "label": "/api/criarProdutoAgora"
+          },
+          {
+            "id": "c",
+            "label": "/api/getTodos"
+          }
+        ],
+        "position": 3,
+        "difficulty": 1,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "78a419d0-ceba-4b63-a555-84f56dc26474",
+        "prompt": "O que vem depois de identificar quem é o usuário?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Verificar se pode executar a ação."
+          },
+          {
+            "id": "b",
+            "label": "Assumir acesso total."
+          },
+          {
+            "id": "c",
+            "label": "Enviar senha de volta."
+          }
+        ],
+        "position": 4,
+        "difficulty": 2,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "944783bb-224d-4cd7-ba69-b08a9a89f0ba",
+        "prompt": "Qual estado deve existir além de sucesso e erro?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Loading, e muitas vezes vazio."
+          },
+          {
+            "id": "b",
+            "label": "Somente hover."
+          },
+          {
+            "id": "c",
+            "label": "Print."
+          }
+        ],
+        "position": 5,
+        "difficulty": 2,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "28023cba-6051-4590-bc29-1dd931be51c0",
+        "prompt": "Qual prática reduz conflitos de integração?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Contrato explícito e testado."
+          },
+          {
+            "id": "b",
+            "label": "Nomes de campo diferentes em cada camada."
+          },
+          {
+            "id": "c",
+            "label": "Depurar tudo ao mesmo tempo."
+          }
+        ],
+        "position": 6,
+        "difficulty": 2,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "270940de-8aba-4c32-9553-bd109ad3d88c",
+        "prompt": "O que fazer se um segredo foi commitado publicamente?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Rotacionar/revogar e remover do fluxo."
+          },
+          {
+            "id": "b",
+            "label": "Apenas apagar a linha atual."
+          },
+          {
+            "id": "c",
+            "label": "Renomear a variável."
+          }
+        ],
+        "position": 7,
+        "difficulty": 2,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "0fa36d4a-d784-4e9d-8eda-3d0575adb685",
+        "prompt": "Qual caso costuma revelar falhas ignoradas pelo caminho feliz?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Limites e erros."
+          },
+          {
+            "id": "b",
+            "label": "Somente cor do logo."
+          },
+          {
+            "id": "c",
+            "label": "Nome do repositório."
+          }
+        ],
+        "position": 8,
+        "difficulty": 2,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "38be2202-f74c-44f9-8091-5400c9936455",
+        "prompt": "Qual informação ajuda a diagnosticar qual versão está em produção?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Commit/build ID."
+          },
+          {
+            "id": "b",
+            "label": "Nome do navegador."
+          },
+          {
+            "id": "c",
+            "label": "Cor do botão."
+          }
+        ],
+        "position": 9,
+        "difficulty": 2,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "6380787a-cf18-4b2f-9270-15246e95e6ac",
+        "prompt": "Qual dado ajuda a correlacionar a mesma operação entre serviços?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Request/correlation ID."
+          },
+          {
+            "id": "b",
+            "label": "Cor do terminal."
+          },
+          {
+            "id": "c",
+            "label": "Número aleatório sem registro."
+          }
+        ],
+        "position": 10,
+        "difficulty": 2,
+        "assessment_id": "65324f76-ed31-41f5-8dd9-7be3e9838eeb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      }
+    ]
+  },
+  "references": []
+}
