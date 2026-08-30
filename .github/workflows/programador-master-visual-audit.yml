@@ -1,0 +1,44 @@
+name: Programador Master Visual Audit
+
+on:
+  push:
+    branches:
+      - qa/programador-master-visual-audit-20260830
+    paths:
+      - 'tests/visual-audit/**'
+      - '.github/workflows/programador-master-visual-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: programador-master-visual-audit
+  cancel-in-progress: true
+
+jobs:
+  exhaustive-visual-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install visual audit tooling
+        run: npm install --no-save --package-lock=false @playwright/test@1.55.0 @axe-core/playwright@4.10.2
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Audit every Programador Master surface
+        run: node tests/visual-audit/programador-master-audit.mjs
+      - name: Upload complete visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: programador-master-visual-audit-${{ github.run_id }}
+          path: visual-audit-output
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
