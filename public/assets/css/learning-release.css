@@ -706,7 +706,7 @@ html,body{max-width:100%;overflow-x:hidden}
   color:var(--lc-mint);
 }
 
-@media(max-width:720px){
+@media(max-width:820px){
   .nx-lesson-pattern-comparison .nx-flow-compare .nx-teaching-list,
   .nx-summary-numbered,
   .nx-summary-compact{grid-template-columns:1fr}
