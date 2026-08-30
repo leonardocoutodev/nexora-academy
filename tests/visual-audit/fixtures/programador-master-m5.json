@@ -1,0 +1,1770 @@
+{
+  "course": {
+    "id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "slug": "programador-master",
+    "title": "Programador Master",
+    "course_type": "formation",
+    "description": "Formação prática em programação do zero ao projeto publicado, cobrindo lógica, Git, HTML e CSS, JavaScript, PHP e MySQL, WordPress, Python, Java, APIs e integração full stack.",
+    "level_label": "Profissional"
+  },
+  "module": {
+    "id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+    "title": "PHP e MySQL",
+    "position": 5,
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "description": "Construa aplicações PHP conectadas a MySQL, cobrindo requisições, validação, SQL, PDO, CRUD, sessões, segurança e organização em camadas.",
+    "prerequisite_module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00"
+  },
+  "lessons": [
+    {
+      "id": "fa115c6b-97d2-4cad-9127-1354601958d3",
+      "title": "Como funciona uma aplicação PHP",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O navegador solicita /produtos.php. O usuário nunca recebe o código PHP: recebe apenas a resposta produzida pelo servidor.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "PHP normalmente executa no servidor a cada requisição. O servidor web recebe a URL, encaminha o arquivo ou rota ao runtime PHP, o código processa entrada, consulta dados quando necessário e gera uma resposta — frequentemente HTML ou JSON. Essa separação é fundamental: segredos e acesso a banco pertencem ao servidor; o navegador recebe somente o resultado autorizado.",
+          "type": "concept",
+          "title": "Como funciona uma aplicação PHP"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Diferencie código de servidor do HTML entregue.",
+            "Trate cada requisição como entrada potencialmente não confiável.",
+            "Mantenha credenciais fora do conteúdo público.",
+            "Observe status e resposta gerados pelo servidor."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "<?php\\n$nome = 'LC';\\necho '<h1>Olá, '.htmlspecialchars($nome).'</h1>';\\n?>",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Colocar senha de banco em JavaScript ou HTML imaginando que 'o PHP vai esconder'. Tudo enviado ao navegador pode ser inspecionado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "No servidor.",
+            "No CSS do navegador.",
+            "No banco de dados."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Onde o código PHP é normalmente executado?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Explicar o ciclo requisição-resposta de uma aplicação PHP e diferenciar execução no servidor de código enviado ao navegador.",
+            "Diferencie código de servidor do HTML entregue.",
+            "Trate cada requisição como entrada potencialmente não confiável.",
+            "Mantenha credenciais fora do conteúdo público."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 1,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Explicar o ciclo requisição-resposta de uma aplicação PHP e diferenciar execução no servidor de código enviado ao navegador.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "No servidor.",
+            "No CSS do navegador.",
+            "No banco de dados."
+          ],
+          "feedback": "Correto.",
+          "question": "Onde o código PHP é normalmente executado?"
+        }
+      },
+      "estimated_minutes": 32
+    },
+    {
+      "id": "26dd829d-8070-482c-82da-7b9bf4e8ce7b",
+      "title": "Sintaxe, variáveis e tipos em PHP",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um valor chega por formulário como texto e será usado em cálculo. Antes de confiar nele, o servidor precisa normalizar e validar.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Variáveis PHP começam com $. A linguagem é dinamicamente tipada, mas isso não elimina a necessidade de entender o tipo do valor em cada etapa. Dados de query string, formulário e headers chegam como entrada externa e frequentemente como texto. Conversões e validações devem ocorrer conscientemente antes de cálculo ou persistência.",
+          "type": "concept",
+          "title": "Sintaxe, variáveis e tipos em PHP"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Nomeie variáveis pelo significado do domínio.",
+            "Valide antes de converter ou persistir.",
+            "Use concatenação e interpolação com clareza.",
+            "Não confie no tipo aparente de entrada HTTP."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "<?php\\n$preco = 120.50;\\n$quantidade = 2;\\n$total = $preco * $quantidade;\\necho $total;\\n?>",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Assumir que $_POST['idade'] é inteiro porque o campo HTML era type=number. A requisição pode ser construída manualmente.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Entrada não confiável.",
+            "Valores garantidos pelo HTML.",
+            "Constantes do servidor."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Dados enviados por formulário devem ser tratados inicialmente como:",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Declarar variáveis, manipular strings, números e booleanos e reconhecer conversões necessárias ao receber dados externos.",
+            "Nomeie variáveis pelo significado do domínio.",
+            "Valide antes de converter ou persistir.",
+            "Use concatenação e interpolação com clareza."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 2,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Declarar variáveis, manipular strings, números e booleanos e reconhecer conversões necessárias ao receber dados externos.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Entrada não confiável.",
+            "Valores garantidos pelo HTML.",
+            "Constantes do servidor."
+          ],
+          "feedback": "Correto.",
+          "question": "Dados enviados por formulário devem ser tratados inicialmente como:"
+        }
+      },
+      "estimated_minutes": 36
+    },
+    {
+      "id": "df341209-2e8b-4120-bcfe-777a75e9a8db",
+      "title": "Operadores, condições e laços",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O servidor precisa classificar pedidos por valor e gerar uma linha para cada item aprovado.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Operadores aritméticos, relacionais e lógicos formam regras; if/elseif/else escolhem caminhos; foreach é especialmente útil para coleções; while exige atenção à condição de parada. A regra de negócio deve ser testável independentemente da renderização. Se a condição é complexa, extraia partes para variáveis ou funções nomeadas.",
+          "type": "concept",
+          "title": "Operadores, condições e laços"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Teste valores imediatamente abaixo, no limite e acima.",
+            "Use foreach para arrays quando a intenção é percorrer itens.",
+            "Evite aninhamento profundo.",
+            "Separe cálculo da geração de HTML quando possível."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "foreach ($pedidos as $pedido) {\\n  if ($pedido['total'] >= 100) {\\n    $aprovados++;\\n  }\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Misturar echo, consulta SQL e regra de negócio dentro de vários ifs aninhados. O fluxo fica difícil de testar e alterar.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "foreach",
+            "switch apenas",
+            "include"
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual estrutura PHP é direta para percorrer itens de um array?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Implementar regras de decisão e repetição em PHP testando condições de fronteira e garantindo término dos laços.",
+            "Teste valores imediatamente abaixo, no limite e acima.",
+            "Use foreach para arrays quando a intenção é percorrer itens.",
+            "Evite aninhamento profundo."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 3,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Implementar regras de decisão e repetição em PHP testando condições de fronteira e garantindo término dos laços.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "foreach",
+            "switch apenas",
+            "include"
+          ],
+          "feedback": "Correto.",
+          "question": "Qual estrutura PHP é direta para percorrer itens de um array?"
+        }
+      },
+      "estimated_minutes": 40
+    },
+    {
+      "id": "45738f0d-4e01-469a-87fa-e8b4bc12f45f",
+      "title": "Funções e organização de código",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A regra de calcular desconto aparece em cadastro, checkout e relatório. Uma correção precisa ser feita três vezes.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Funções permitem nomear comportamento e concentrar uma regra. Parâmetros deixam dependências explícitas; return produz resultado reutilizável. PHP moderno permite type hints e tipos de retorno, úteis para tornar contratos visíveis. Mesmo sem uma arquitetura complexa, separar funções puras de entrada/saída HTTP reduz acoplamento.",
+          "type": "concept",
+          "title": "Funções e organização de código"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Extraia regras repetidas.",
+            "Passe dependências como parâmetros.",
+            "Retorne dados em vez de imprimir dentro da função sem necessidade.",
+            "Use nomes que expressem intenção."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "function calcularDesconto(float $total, float $taxa): float {\\n  return $total * $taxa;\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Criar funções que acessam $_POST, banco e echo ao mesmo tempo. Elas ficam difíceis de reutilizar e testar.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Recebe parâmetros e retorna resultado.",
+            "Depende de várias globais.",
+            "Sempre escreve diretamente no HTML."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual função tende a ser mais fácil de testar?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Extrair regras em funções com parâmetros, tipos quando úteis e retorno previsível, reduzindo duplicação entre páginas.",
+            "Extraia regras repetidas.",
+            "Passe dependências como parâmetros.",
+            "Retorne dados em vez de imprimir dentro da função sem necessidade."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 4,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Extrair regras em funções com parâmetros, tipos quando úteis e retorno previsível, reduzindo duplicação entre páginas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Recebe parâmetros e retorna resultado.",
+            "Depende de várias globais.",
+            "Sempre escreve diretamente no HTML."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual função tende a ser mais fácil de testar?"
+        }
+      },
+      "estimated_minutes": 40
+    },
+    {
+      "id": "55e8bc68-76f7-4ee7-a116-a0bcde5b5bbe",
+      "title": "Arrays e manipulação de dados",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Produtos precisam de nome, preço e estoque. Um array associativo comunica melhor cada campo do que posições 0, 1 e 2.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "PHP oferece arrays que podem atuar como listas ou mapas associativos. Arrays indexados funcionam bem para coleções; associativos representam registros com chaves significativas. Funções como array_map, array_filter e array_reduce ajudam a expressar transformações. A estrutura deve ser consistente, especialmente antes de persistir em banco ou converter para JSON.",
+          "type": "concept",
+          "title": "Arrays e manipulação de dados"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use chaves significativas para registros.",
+            "Mantenha formato consistente entre itens.",
+            "Filtre e transforme em etapas legíveis.",
+            "Cheque existência de chaves antes de usá-las."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "$produto = ['nome'=>'Mouse','preco'=>120,'ativo'=>true];\\n$nome = $produto['nome'];",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Acessar chaves opcionais diretamente sem validar existência, gerando warnings e comportamento inesperado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Array associativo com chaves nomeadas.",
+            "Uma string única.",
+            "Um número isolado."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual estrutura representa melhor um registro de produto em PHP?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Representar listas e registros em arrays indexados e associativos e transformá-los sem depender de posições mágicas.",
+            "Use chaves significativas para registros.",
+            "Mantenha formato consistente entre itens.",
+            "Filtre e transforme em etapas legíveis."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 5,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Representar listas e registros em arrays indexados e associativos e transformá-los sem depender de posições mágicas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Array associativo com chaves nomeadas.",
+            "Uma string única.",
+            "Um número isolado."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual estrutura representa melhor um registro de produto em PHP?"
+        }
+      },
+      "estimated_minutes": 42
+    },
+    {
+      "id": "c76d644b-db4c-499a-a542-4d21c9ecb2e3",
+      "title": "Requisições GET e POST",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma busca deve ser compartilhável por URL, enquanto um cadastro cria um novo registro e não deve colocar todos os dados na query string.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "GET normalmente recupera recursos e seus parâmetros aparecem na URL; POST envia dados no corpo e costuma representar criação ou ação. O método não fornece segurança por si só: HTTPS protege transporte e o servidor ainda precisa validar e autorizar. A escolha deve refletir intenção e comportamento esperado, não apenas 'funcionou'.",
+          "type": "concept",
+          "title": "Requisições GET e POST"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use GET para leitura e filtros compartilháveis quando adequado.",
+            "Use POST para criação/ação que altera estado.",
+            "Valide ambos $_GET e $_POST.",
+            "Nunca confie no método como substituto de autorização."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "$busca = trim($_GET['q'] ?? '');\\n$nome = trim($_POST['nome'] ?? '');",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Usar GET para senha ou dado sensível porque é mais fácil testar. URLs podem aparecer em histórico e logs.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "POST",
+            "GET por padrão",
+            "HEAD"
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual método é mais adequado para criar um registro?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Distinguir parâmetros de URL e corpo de formulário e escolher GET ou POST conforme semântica, idempotência e exposição de dados.",
+            "Use GET para leitura e filtros compartilháveis quando adequado.",
+            "Use POST para criação/ação que altera estado.",
+            "Valide ambos $_GET e $_POST."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 6,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Distinguir parâmetros de URL e corpo de formulário e escolher GET ou POST conforme semântica, idempotência e exposição de dados.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "POST",
+            "GET por padrão",
+            "HEAD"
+          ],
+          "feedback": "Correto.",
+          "question": "Qual método é mais adequado para criar um registro?"
+        }
+      },
+      "estimated_minutes": 42
+    },
+    {
+      "id": "aceba247-8cf8-4126-a029-7f5e28d36162",
+      "title": "Formulários e validação no servidor",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O frontend exige e-mail, mas uma requisição direta envia campo vazio. O servidor precisa rejeitar independentemente da interface.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Validação do servidor é a garantia final sobre o dado aceito. Normalize espaços, converta tipos com cuidado, verifique obrigatoriedade, formato e regras de domínio. Erros devem ser específicos o suficiente para correção sem expor detalhes internos. A validação de segurança inclui também limitar tamanho e rejeitar formatos inesperados.",
+          "type": "concept",
+          "title": "Formulários e validação no servidor"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Normalize antes de validar.",
+            "Use filter_var quando apropriado.",
+            "Valide regras de domínio além de formato.",
+            "Retorne erros estruturados e não stack traces ao usuário."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "$email = trim($_POST['email'] ?? '');\\nif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {\\n  $erros['email']='E-mail inválido';\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Confiar em required do HTML. O servidor pode ser chamado sem a página.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "O servidor.",
+            "A folha CSS.",
+            "O README."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Quem deve repetir validações críticas mesmo que o frontend já valide?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Normalizar e validar payloads no servidor e devolver erros úteis sem depender das restrições do formulário HTML.",
+            "Normalize antes de validar.",
+            "Use filter_var quando apropriado.",
+            "Valide regras de domínio além de formato."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 7,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Normalizar e validar payloads no servidor e devolver erros úteis sem depender das restrições do formulário HTML.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "O servidor.",
+            "A folha CSS.",
+            "O README."
+          ],
+          "feedback": "Correto.",
+          "question": "Quem deve repetir validações críticas mesmo que o frontend já valide?"
+        }
+      },
+      "estimated_minutes": 46
+    },
+    {
+      "id": "334bfbcd-e625-481f-92dc-b2dde62f40c7",
+      "title": "Introdução a bancos de dados relacionais",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Clientes, pedidos e itens estão sendo salvos em arquivos separados. Consultar histórico e garantir vínculos começa a ficar frágil.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Bancos relacionais organizam dados em tabelas com esquema e relações explícitas. Uma chave primária identifica cada linha; chaves estrangeiras conectam entidades. O valor não é apenas armazenar: o banco aplica integridade e permite consultas declarativas. Modelar bem reduz duplicação e inconsistência antes mesmo de escrever SQL.",
+          "type": "concept",
+          "title": "Introdução a bancos de dados relacionais"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina entidades e atributos do domínio.",
+            "Escolha uma chave primária estável.",
+            "Use relações em vez de repetir dados.",
+            "Pense em restrições de integridade."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "clientes(id, nome, email)\\npedidos(id, cliente_id, total)\\nitens(id, pedido_id, produto, quantidade)",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "sql"
+        },
+        {
+          "body": "Criar uma tabela gigante com todas as informações repetidas de cliente em cada pedido.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "FOREIGN KEY",
+            "ORDER BY",
+            "LIMIT"
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual restrição conecta uma linha a outra tabela?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Explicar tabela, linha, coluna, chave primária e relacionamento e reconhecer quando um banco relacional é adequado ao domínio.",
+            "Defina entidades e atributos do domínio.",
+            "Escolha uma chave primária estável.",
+            "Use relações em vez de repetir dados."
+          ]
+        }
+      ],
+      "lab_type": "sql",
+      "position": 8,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Explicar tabela, linha, coluna, chave primária e relacionamento e reconhecer quando um banco relacional é adequado ao domínio.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "afce898d-70ba-4de3-aff6-54d250bbce96",
+      "title": "Modelagem de tabelas e relacionamentos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um pedido tem vários itens e cada item pertence a um pedido. Guardar uma lista de itens em uma coluna de texto dificulta consulta e validação.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Modelagem relacional separa entidades e relações. Um-para-muitos geralmente usa chave estrangeira no lado 'muitos'. Muitos-para-muitos exige tabela de associação. Tipos e nullability também expressam regras. Normalização não significa fragmentar tudo; significa evitar repetição e dependências inconsistentes.",
+          "type": "concept",
+          "title": "Modelagem de tabelas e relacionamentos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Identifique entidades antes das tabelas.",
+            "Defina cardinalidade de cada relação.",
+            "Use tabela de associação para muitos-para-muitos.",
+            "Expresse obrigatoriedade com NOT NULL quando fizer sentido."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "pedido_itens(\\n  id PK,\\n  pedido_id FK -> pedidos.id,\\n  produto_id FK -> produtos.id,\\n  quantidade INT NOT NULL\\n)",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "sql"
+        },
+        {
+          "body": "Salvar IDs separados por vírgula em uma coluna para representar relacionamento. Isso quebra integridade e consultas.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Tabela de associação.",
+            "Coluna com CSV de IDs.",
+            "Uma tabela por pedido."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Como modelar muitos produtos em muitos pedidos?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Transformar requisitos em tabelas normalizadas com cardinalidades, chaves e restrições que preservem integridade.",
+            "Identifique entidades antes das tabelas.",
+            "Defina cardinalidade de cada relação.",
+            "Use tabela de associação para muitos-para-muitos."
+          ]
+        }
+      ],
+      "lab_type": "data_model",
+      "position": 9,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Transformar requisitos em tabelas normalizadas com cardinalidades, chaves e restrições que preservem integridade.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "data_model": {
+          "rows": [
+            {
+              "label": "pedidos.id",
+              "value": "uuid",
+              "answer": 0
+            },
+            {
+              "label": "itens.pedido_id",
+              "value": "uuid",
+              "answer": 1
+            },
+            {
+              "label": "produtos.nome",
+              "value": "text",
+              "answer": 2
+            },
+            {
+              "label": "pedido_produtos",
+              "value": "tabela",
+              "answer": 3
+            }
+          ],
+          "options": [
+            "Chave primária",
+            "Chave estrangeira",
+            "Atributo",
+            "Tabela de associação"
+          ],
+          "feedback": "Modelo consistente: identidade, relação, atributo e associação estão separados.",
+          "scenario": "Classifique o papel de cada elemento do modelo de pedidos."
+        }
+      },
+      "estimated_minutes": 48
+    },
+    {
+      "id": "a6305d6e-7d2e-4d5b-bcfc-391da1a49266",
+      "title": "SQL: SELECT, INSERT, UPDATE e DELETE",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Você precisa consultar produtos caros, inserir um item, corrigir um preço e remover um registro específico.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "SELECT lê dados; INSERT cria linhas; UPDATE altera; DELETE remove. WHERE limita o conjunto afetado. Em operações de escrita, a ausência de filtro pode modificar a tabela inteira. Antes de UPDATE/DELETE, é uma boa prática executar um SELECT com o mesmo WHERE para confirmar o alvo.",
+          "type": "concept",
+          "title": "SQL: SELECT, INSERT, UPDATE e DELETE"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Liste colunas necessárias em consultas reais.",
+            "Valide o WHERE com SELECT antes de escrita.",
+            "Use parâmetros em código de aplicação.",
+            "Evite concatenar entrada de usuário em SQL."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "SELECT id,nome,preco FROM produtos WHERE preco > 500;\\nUPDATE produtos SET preco=799 WHERE id=42;",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "sql"
+        },
+        {
+          "body": "Executar UPDATE produtos SET ativo=false; imaginando que apenas um registro seria alterado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "WHERE",
+            "ORDER BY apenas",
+            "AS"
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual cláusula limita linhas em UPDATE e DELETE?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Executar operações CRUD básicas com SQL usando filtros explícitos e compreender o risco de alterações sem WHERE.",
+            "Liste colunas necessárias em consultas reais.",
+            "Valide o WHERE com SELECT antes de escrita.",
+            "Use parâmetros em código de aplicação."
+          ]
+        }
+      ],
+      "lab_type": "sql",
+      "position": 10,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Executar operações CRUD básicas com SQL usando filtros explícitos e compreender o risco de alterações sem WHERE.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 50
+    },
+    {
+      "id": "5b4a72d8-1e1c-4dbf-a448-d63497192b2c",
+      "title": "PHP com MySQL usando PDO",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma busca recebe texto do usuário. Concatenar o valor diretamente na query cria risco de SQL injection.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "PDO oferece uma interface consistente para banco e suporta prepared statements. A instrução SQL define estrutura e placeholders; os valores são enviados separadamente. Isso reduz risco de injeção e evita problemas de escaping manual. A conexão deve usar tratamento de erro adequado e credenciais vindas de configuração segura.",
+          "type": "concept",
+          "title": "PHP com MySQL usando PDO"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use prepared statements para entrada variável.",
+            "Mantenha DSN e credenciais fora do repositório público.",
+            "Trate exceções sem exibir segredos.",
+            "Retorne dados em formato previsível."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "$stmt=$pdo->prepare('SELECT id,nome FROM produtos WHERE nome LIKE :q');\\n$stmt->execute(['q'=>'%'.$busca.'%']);\\n$rows=$stmt->fetchAll(PDO::FETCH_ASSOC);",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Montar SQL com \"... WHERE nome='$busca'\". Escaping manual é frágil e mistura dados com código.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Prepared statements.",
+            "Concatenação de strings.",
+            "eval."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual mecanismo PDO deve ser usado para valores vindos do usuário?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Conectar PHP e MySQL com PDO, executar prepared statements e separar parâmetros de dados da estrutura SQL.",
+            "Use prepared statements para entrada variável.",
+            "Mantenha DSN e credenciais fora do repositório público.",
+            "Trate exceções sem exibir segredos."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 11,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Conectar PHP e MySQL com PDO, executar prepared statements e separar parâmetros de dados da estrutura SQL.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Prepared statements.",
+            "Concatenação de strings.",
+            "eval."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual mecanismo PDO deve ser usado para valores vindos do usuário?"
+        }
+      },
+      "estimated_minutes": 52
+    },
+    {
+      "id": "eba1af0c-ced3-493f-b48c-888ad9fd8e31",
+      "title": "CRUD completo",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma tela de produtos precisa listar, criar, editar e excluir. Cada ação deve validar entrada e tratar falhas do banco.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "CRUD é um ciclo, não quatro páginas isoladas. As mesmas regras de domínio devem valer em criação e edição. Exclusão precisa confirmar alvo e restrições. A camada de persistência deve retornar sucesso/erro; a interface transforma isso em feedback. IDs vindos da URL nunca devem ser considerados válidos sem consulta e autorização.",
+          "type": "concept",
+          "title": "CRUD completo"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Reutilize validações entre create e update.",
+            "Valide existência do registro antes de editar/excluir.",
+            "Use transações quando várias escritas formam uma única operação.",
+            "Diferencie erro de validação, não encontrado e falha interna."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Fluxo de update: ler id → carregar registro → validar autorização → normalizar payload → validar → executar UPDATE parametrizado → redirecionar/retornar sucesso.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Executar DELETE diretamente ao receber ?id= sem confirmar registro, permissão ou intenção.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Validação de domínio.",
+            "Apenas a cor do botão.",
+            "Somente o título da página."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual regra deve ser compartilhada por criação e edição?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Organizar um fluxo CRUD com validação, persistência e feedback, garantindo que criação, leitura, edição e exclusão tenham regras explícitas.",
+            "Reutilize validações entre create e update.",
+            "Valide existência do registro antes de editar/excluir.",
+            "Use transações quando várias escritas formam uma única operação."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 12,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Organizar um fluxo CRUD com validação, persistência e feedback, garantindo que criação, leitura, edição e exclusão tenham regras explícitas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Validação de domínio.",
+            "Apenas a cor do botão.",
+            "Somente o título da página."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual regra deve ser compartilhada por criação e edição?"
+        }
+      },
+      "estimated_minutes": 58
+    },
+    {
+      "id": "99612a32-8720-4505-897c-e6af86e83b73",
+      "title": "Sessões e autenticação",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Após login correto, o servidor precisa lembrar o usuário entre requisições e proteger páginas privadas.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Sessões armazenam estado no servidor associado a um identificador enviado ao cliente por cookie. Após validar credenciais, a aplicação guarda um identificador de usuário na sessão. Em cada rota protegida, verifica identidade e depois autorização. Senhas nunca devem ser armazenadas em texto puro; use password_hash e password_verify.",
+          "type": "concept",
+          "title": "Sessões e autenticação"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Regere o ID da sessão após login.",
+            "Armazene apenas o necessário na sessão.",
+            "Use password_hash/password_verify.",
+            "Faça logout invalidar o estado de sessão."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "if (password_verify($senha,$hash)) {\\n  session_regenerate_id(true);\\n  $_SESSION['user_id']=$usuario['id'];\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Guardar senha na sessão ou comparar hashes manualmente. Autenticação precisa usar funções apropriadas de senha.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "password_verify",
+            "md5 simples",
+            "base64_decode"
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual função PHP é adequada para verificar senha contra hash?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Implementar autenticação baseada em sessão distinguindo identidade, estado autenticado e autorização de acesso.",
+            "Regere o ID da sessão após login.",
+            "Armazene apenas o necessário na sessão.",
+            "Use password_hash/password_verify."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 13,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Implementar autenticação baseada em sessão distinguindo identidade, estado autenticado e autorização de acesso.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "password_verify",
+            "md5 simples",
+            "base64_decode"
+          ],
+          "feedback": "Correto.",
+          "question": "Qual função PHP é adequada para verificar senha contra hash?"
+        }
+      },
+      "estimated_minutes": 50
+    },
+    {
+      "id": "5a5c72e5-5105-4d9c-94c6-0f5f852939a5",
+      "title": "Segurança: validação, escaping e SQL injection",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um texto salvo no banco contém HTML malicioso; em outra rota, um parâmetro tenta alterar a query SQL. São riscos diferentes e exigem defesas diferentes.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Validação decide se um dado é aceitável. Prepared statements impedem que valores virem estrutura SQL. Escaping de saída transforma conteúdo para o contexto em que será exibido, como htmlspecialchars em HTML. Nenhuma dessas técnicas substitui a outra. Segurança também inclui autorização, CSRF conforme o tipo de ação e gestão de segredos.",
+          "type": "concept",
+          "title": "Segurança: validação, escaping e SQL injection"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Valide formato e regra de domínio na entrada.",
+            "Parametrize SQL.",
+            "Escape na saída de acordo com o contexto.",
+            "Nunca confie em dado só porque veio do banco."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "echo htmlspecialchars($comentario, ENT_QUOTES, 'UTF-8');\\n$stmt=$pdo->prepare('SELECT * FROM usuarios WHERE email=:email');",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "php"
+        },
+        {
+          "body": "Aplicar addslashes em tudo e considerar o sistema seguro. Contextos diferentes precisam de defesas específicas.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Prepared statements.",
+            "htmlspecialchars.",
+            "CSS escaping."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "O que protege melhor contra SQL injection em valores?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Distinguir validação, escaping de saída e parametrização SQL e aplicar cada defesa no ponto correto do fluxo.",
+            "Valide formato e regra de domínio na entrada.",
+            "Parametrize SQL.",
+            "Escape na saída de acordo com o contexto."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 14,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Distinguir validação, escaping de saída e parametrização SQL e aplicar cada defesa no ponto correto do fluxo.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Prepared statements.",
+            "htmlspecialchars.",
+            "CSS escaping."
+          ],
+          "feedback": "Correto.",
+          "question": "O que protege melhor contra SQL injection em valores?"
+        }
+      },
+      "estimated_minutes": 54
+    },
+    {
+      "id": "5cb6a880-c047-48bb-b6ad-f7b025500c66",
+      "title": "Organização em camadas e reutilização",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um arquivo PHP de 800 linhas contém HTML, SQL, validação, autenticação e regras de preço. Qualquer alteração arrisca quebrar tudo.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Camadas não exigem framework complexo. Mesmo em PHP puro, é possível separar controller/entrada, serviços ou funções de domínio, repositório/persistência e templates de apresentação. O objetivo é reduzir dependências circulares e permitir testar regras sem precisar montar uma requisição completa ou banco real em cada caso.",
+          "type": "concept",
+          "title": "Organização em camadas e reutilização"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Separe acesso a banco da renderização.",
+            "Concentre regras de domínio em funções/serviços.",
+            "Compartilhe validações sem copiar código.",
+            "Evite abstração antes de existir repetição real."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "public/index.php → controller → serviço de produto → repositório PDO → view. Cada parte conhece apenas o necessário.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Criar classes e pastas apenas para parecer arquitetado, sem definir responsabilidades. Camadas úteis reduzem acoplamento observável.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Regra de negócio independente de echo e SQL direto.",
+            "Tudo no mesmo arquivo.",
+            "Views executando DELETE."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual separação melhora testabilidade?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Separar entrada HTTP, regras de negócio, persistência e apresentação em camadas simples que possam evoluir sem duplicação.",
+            "Separe acesso a banco da renderização.",
+            "Concentre regras de domínio em funções/serviços.",
+            "Compartilhe validações sem copiar código."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 15,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Separar entrada HTTP, regras de negócio, persistência e apresentação em camadas simples que possam evoluir sem duplicação.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Regra de negócio independente de echo e SQL direto.",
+            "Tudo no mesmo arquivo.",
+            "Views executando DELETE."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual separação melhora testabilidade?"
+        }
+      },
+      "estimated_minutes": 50
+    },
+    {
+      "id": "445fac75-4b0a-4dd7-8221-a2b4023457a8",
+      "title": "Projeto: sistema web com banco de dados",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O projeto final precisa provar que frontend, servidor e banco formam um fluxo coerente e seguro.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Um sistema web de portfólio deve resolver um fluxo real: autenticar, criar e consultar dados, editar com validação e controlar acesso. O banco precisa de modelo coerente; o PHP deve usar prepared statements; a saída deve ser escapada; as responsabilidades não podem ficar todas em um único arquivo. A entrega deve incluir instruções reproduzíveis e dados de demonstração seguros.",
+          "type": "concept",
+          "title": "Projeto: sistema web com banco de dados"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina modelo e fluxo antes de construir telas.",
+            "Implemente autenticação e autorização mínimas.",
+            "Use validação servidor + prepared statements.",
+            "Teste CRUD, erro, acesso indevido e dados inválidos."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Escopo sugerido: cadastro/login + painel privado + CRUD de tarefas/clientes/produtos + filtros + sessão + banco relacional + README de instalação.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Publicar com usuário administrador, senha padrão ou arquivo .env dentro do repositório.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva integridade e segurança.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Fluxo CRUD autenticado e testado com dados persistidos.",
+            "Somente screenshots.",
+            "Muitas bibliotecas."
+          ],
+          "feedback": "Correto. A decisão está coerente com o fluxo servidor/banco.",
+          "question": "Qual evidência é indispensável no projeto?",
+          "feedback_incorrect": "Revise a separação entre entrada, regra, persistência e saída."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir um sistema PHP/MySQL com CRUD, autenticação, validação, prepared statements e organização suficiente para publicação e revisão.",
+            "Defina modelo e fluxo antes de construir telas.",
+            "Implemente autenticação e autorização mínimas.",
+            "Use validação servidor + prepared statements."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 16,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "objective": "Construir um sistema PHP/MySQL com CRUD, autenticação, validação, prepared statements e organização suficiente para publicação e revisão.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 75
+    }
+  ],
+  "project": {
+    "id": "cf8cdbd0-8d58-4bce-8c92-2ab79d3a7136",
+    "title": "LC Programador Master — M5 • Boss Fight: Sistema PHP/MySQL",
+    "rubric": {
+      "criteria": [
+        {
+          "name": "Modelo e persistência",
+          "weight": 25
+        },
+        {
+          "name": "CRUD e validação",
+          "weight": 25
+        },
+        {
+          "name": "Autenticação e segurança",
+          "weight": 25
+        },
+        {
+          "name": "Organização do código",
+          "weight": 15
+        },
+        {
+          "name": "Documentação e teste",
+          "weight": 10
+        }
+      ]
+    },
+    "status": "draft",
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+    "xp_reward": 550,
+    "description": "Construir um sistema web com autenticação por sessão, CRUD persistente, validação de servidor, PDO com prepared statements e organização mínima em camadas.",
+    "project_kind": "boss_fight"
+  },
+  "resources": [
+    {
+      "id": "4d23855b-01b0-48c8-a020-7f3c26b8aa59",
+      "title": "LC Programador Master — M5 • Guia PHP seguro",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Ciclo HTTP e PHP",
+              "GET/POST e validação",
+              "Funções e organização",
+              "Sessões e senhas",
+              "Escaping e erros"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Referência de requisições, validação, funções, sessões e saída segura.",
+      "language": "pt-BR",
+      "position": 1,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "2d7a1ec1-0e5c-457d-ac22-d78828f5748e",
+      "title": "LC Programador Master — M5 • Guia SQL e PDO",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Entidades e relacionamentos",
+              "SELECT/INSERT/UPDATE/DELETE",
+              "WHERE seguro",
+              "PDO e parâmetros",
+              "Transações quando necessário"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Mapa de modelagem, CRUD e prepared statements.",
+      "language": "pt-BR",
+      "position": 2,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "06a8f232-f16f-4ee0-80b4-6ca535d6e512",
+      "title": "LC Programador Master — M5 • Checklist de segurança",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Sem credenciais no repositório",
+              "Prepared statements",
+              "Saída HTML escapada",
+              "Validação no servidor",
+              "Sessão protegida",
+              "Autorização por recurso"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Revisão antes de publicar.",
+      "language": "pt-BR",
+      "position": 3,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "checklist"
+    },
+    {
+      "id": "2ee849aa-9773-45d1-b0b9-055259ce078b",
+      "title": "LC Programador Master — M5 • Exercícios CRUD",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Modelar clientes/pedidos",
+              "Criar CRUD de produtos",
+              "Adicionar busca parametrizada",
+              "Proteger rota com sessão",
+              "Testar entrada maliciosa"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Práticas de banco e servidor.",
+      "language": "pt-BR",
+      "position": 4,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "exercise"
+    }
+  ],
+  "assessment": {
+    "row": {
+      "id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+      "title": "LC Programador Master — M5 • Checkpoint PHP e MySQL",
+      "status": "draft",
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10",
+      "pass_score": 70,
+      "max_attempts": 3,
+      "randomize_questions": true
+    },
+    "questions": [
+      {
+        "id": "abbac2db-7ff2-4dc1-b191-ba1b31ff08a3",
+        "prompt": "Onde o código PHP é normalmente executado?",
+        "options": [
+          {
+            "id": "a",
+            "label": "No servidor."
+          },
+          {
+            "id": "b",
+            "label": "No CSS do navegador."
+          },
+          {
+            "id": "c",
+            "label": "No banco de dados."
+          }
+        ],
+        "position": 1,
+        "difficulty": 1,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "88317c19-0f84-46a9-a9a9-d8e6692d3e1b",
+        "prompt": "Dados enviados por formulário devem ser tratados inicialmente como:",
+        "options": [
+          {
+            "id": "a",
+            "label": "Entrada não confiável."
+          },
+          {
+            "id": "b",
+            "label": "Valores garantidos pelo HTML."
+          },
+          {
+            "id": "c",
+            "label": "Constantes do servidor."
+          }
+        ],
+        "position": 2,
+        "difficulty": 1,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "1167b006-7589-49d2-ad69-02c5d506cc7c",
+        "prompt": "Qual estrutura PHP é direta para percorrer itens de um array?",
+        "options": [
+          {
+            "id": "a",
+            "label": "foreach"
+          },
+          {
+            "id": "b",
+            "label": "switch apenas"
+          },
+          {
+            "id": "c",
+            "label": "include"
+          }
+        ],
+        "position": 3,
+        "difficulty": 1,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "b5d99bbb-9d43-4d6f-91a5-c7cd03fdc45b",
+        "prompt": "Qual função tende a ser mais fácil de testar?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Recebe parâmetros e retorna resultado."
+          },
+          {
+            "id": "b",
+            "label": "Depende de várias globais."
+          },
+          {
+            "id": "c",
+            "label": "Sempre escreve diretamente no HTML."
+          }
+        ],
+        "position": 4,
+        "difficulty": 1,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "761ebe15-fadd-44ea-abbf-16e1ca8b070b",
+        "prompt": "Qual estrutura representa melhor um registro de produto em PHP?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Array associativo com chaves nomeadas."
+          },
+          {
+            "id": "b",
+            "label": "Uma string única."
+          },
+          {
+            "id": "c",
+            "label": "Um número isolado."
+          }
+        ],
+        "position": 5,
+        "difficulty": 1,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "2ef8ec6a-60bd-43dc-b8f6-79b937fc6e62",
+        "prompt": "Qual método é mais adequado para criar um registro?",
+        "options": [
+          {
+            "id": "a",
+            "label": "POST"
+          },
+          {
+            "id": "b",
+            "label": "GET por padrão"
+          },
+          {
+            "id": "c",
+            "label": "HEAD"
+          }
+        ],
+        "position": 6,
+        "difficulty": 2,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "819b835d-7c7c-4bd6-a239-01617893e809",
+        "prompt": "Quem deve repetir validações críticas mesmo que o frontend já valide?",
+        "options": [
+          {
+            "id": "a",
+            "label": "O servidor."
+          },
+          {
+            "id": "b",
+            "label": "A folha CSS."
+          },
+          {
+            "id": "c",
+            "label": "O README."
+          }
+        ],
+        "position": 7,
+        "difficulty": 2,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "6a634186-6f58-4473-b5ac-1027a67e93fa",
+        "prompt": "Qual restrição conecta uma linha a outra tabela?",
+        "options": [
+          {
+            "id": "a",
+            "label": "FOREIGN KEY"
+          },
+          {
+            "id": "b",
+            "label": "ORDER BY"
+          },
+          {
+            "id": "c",
+            "label": "LIMIT"
+          }
+        ],
+        "position": 8,
+        "difficulty": 2,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "a66fd67d-4638-4ac3-ac0d-fa2a0bdf7fd3",
+        "prompt": "Como modelar muitos produtos em muitos pedidos?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Tabela de associação."
+          },
+          {
+            "id": "b",
+            "label": "Coluna com CSV de IDs."
+          },
+          {
+            "id": "c",
+            "label": "Uma tabela por pedido."
+          }
+        ],
+        "position": 9,
+        "difficulty": 2,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "a8cf995b-511a-4451-a703-f6a505e5a13a",
+        "prompt": "Qual cláusula limita linhas em UPDATE e DELETE?",
+        "options": [
+          {
+            "id": "a",
+            "label": "WHERE"
+          },
+          {
+            "id": "b",
+            "label": "ORDER BY apenas"
+          },
+          {
+            "id": "c",
+            "label": "AS"
+          }
+        ],
+        "position": 10,
+        "difficulty": 2,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "5fb69b8c-73b8-4614-9668-b73db814a703",
+        "prompt": "Qual mecanismo PDO deve ser usado para valores vindos do usuário?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Prepared statements."
+          },
+          {
+            "id": "b",
+            "label": "Concatenação de strings."
+          },
+          {
+            "id": "c",
+            "label": "eval."
+          }
+        ],
+        "position": 11,
+        "difficulty": 2,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "7596df9d-98be-4da4-978f-4b421d90aa85",
+        "prompt": "Qual regra deve ser compartilhada por criação e edição?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Validação de domínio."
+          },
+          {
+            "id": "b",
+            "label": "Apenas a cor do botão."
+          },
+          {
+            "id": "c",
+            "label": "Somente o título da página."
+          }
+        ],
+        "position": 12,
+        "difficulty": 2,
+        "assessment_id": "b907dc5c-1464-467f-9691-521e97f42a0d",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      }
+    ]
+  },
+  "references": []
+}
