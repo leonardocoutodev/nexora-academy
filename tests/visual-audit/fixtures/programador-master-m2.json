@@ -1,0 +1,955 @@
+{
+  "course": {
+    "id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "slug": "programador-master",
+    "title": "Programador Master",
+    "course_type": "formation",
+    "description": "Formação prática em programação do zero ao projeto publicado, cobrindo lógica, Git, HTML e CSS, JavaScript, PHP e MySQL, WordPress, Python, Java, APIs e integração full stack.",
+    "level_label": "Profissional"
+  },
+  "module": {
+    "id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+    "title": "Ambiente, Terminal, Git e GitHub",
+    "position": 2,
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "description": "Prepare o ambiente, domine o terminal e use Git/GitHub para trabalhar com projetos de forma rastreável, colaborativa e segura.",
+    "prerequisite_module_id": "6aad3d4a-5767-4def-9709-f20f54907c5d"
+  },
+  "lessons": [
+    {
+      "id": "10a66944-f1e9-4c78-a71f-13a0bcdd4548",
+      "title": "Como funciona um ambiente de desenvolvimento",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Você recebeu um projeto que abre no editor, mas não executa. Antes de alterar o código, é preciso descobrir qual ferramenta executa o projeto, quais dependências ele usa e como o repositório registra mudanças.",
+          "type": "story",
+          "title": "Situação de trabalho"
+        },
+        {
+          "body": "Um ambiente de desenvolvimento não é apenas o editor de código. Ele combina ferramentas que cumprem papéis diferentes: o editor organiza e modifica arquivos; o runtime ou compilador executa ou transforma o programa; o terminal fornece acesso direto a comandos; o gerenciador de dependências instala bibliotecas; e o Git registra a evolução do projeto. Quando essas responsabilidades ficam claras, erros deixam de parecer aleatórios e passam a ser investigados por camada.",
+          "type": "concept",
+          "title": "Como funciona um ambiente de desenvolvimento"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Identifique a linguagem e o runtime antes de tentar executar.",
+            "Leia arquivos de configuração e documentação do projeto.",
+            "Use o terminal para verificar versões e dependências.",
+            "Mantenha o repositório Git como registro das mudanças."
+          ],
+          "title": "Como trabalhar com isso"
+        },
+        {
+          "body": "Fluxo típico: abrir o repositório → conferir README e arquivos de configuração → verificar runtime → instalar dependências → executar localmente → alterar → testar → versionar.",
+          "type": "example",
+          "title": "Exemplo aplicado"
+        },
+        {
+          "body": "Confundir editor com ambiente completo. Ter VS Code instalado não garante que Node, Python, Java, PHP ou as dependências do projeto estejam disponíveis.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva o procedimento ensinado.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Confirmar runtime, dependências e instruções do projeto.",
+            "Alterar vários arquivos de uma vez.",
+            "Apagar o histórico Git."
+          ],
+          "feedback": "Correto. Essa decisão mantém o trabalho rastreável e verificável.",
+          "question": "Qual verificação deve acontecer antes de começar a corrigir um projeto que não executa?",
+          "feedback_incorrect": "Revise o conceito e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Reconhecer as partes de um ambiente de desenvolvimento e explicar como editor, runtime, terminal, dependências e controle de versão cooperam durante a construção de um projeto.",
+            "Identifique a linguagem e o runtime antes de tentar executar.",
+            "Leia arquivos de configuração e documentação do projeto.",
+            "Use o terminal para verificar versões e dependências."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 1,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "objective": "Reconhecer as partes de um ambiente de desenvolvimento e explicar como editor, runtime, terminal, dependências e controle de versão cooperam durante a construção de um projeto.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Confirmar runtime, dependências e instruções do projeto.",
+            "Alterar vários arquivos de uma vez.",
+            "Apagar o histórico Git."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual verificação deve acontecer antes de começar a corrigir um projeto que não executa?"
+        }
+      },
+      "estimated_minutes": 28
+    },
+    {
+      "id": "6daab933-6c04-4204-9d12-33eac6517194",
+      "title": "Terminal, pastas e caminhos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um comando falha dizendo que um arquivo não foi encontrado. O arquivo existe, mas o terminal está em outra pasta. O problema não é o arquivo: é o contexto de execução.",
+          "type": "story",
+          "title": "Situação de trabalho"
+        },
+        {
+          "body": "O terminal sempre executa comandos a partir de um diretório atual. Caminhos absolutos descrevem uma localização completa; caminhos relativos partem do diretório em que você está. Símbolos como ponto e dois pontos representam o diretório atual e o diretório pai. Entender esse modelo evita erros de arquivo inexistente, comandos rodando no projeto errado e configurações aplicadas no lugar incorreto.",
+          "type": "concept",
+          "title": "Terminal, pastas e caminhos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use pwd ou equivalente para confirmar o diretório atual.",
+            "Liste arquivos antes de assumir que está na pasta certa.",
+            "Use caminhos relativos curtos quando o contexto for conhecido.",
+            "Evite executar comandos destrutivos sem confirmar o caminho."
+          ],
+          "title": "Como trabalhar com isso"
+        },
+        {
+          "body": "Se o terminal está em projeto/src, ../README.md aponta para o README que está um nível acima. Já ./app.js aponta para app.js dentro da pasta atual.",
+          "type": "example",
+          "title": "Exemplo aplicado"
+        },
+        {
+          "body": "Copiar um comando correto e executá-lo na pasta errada. O comando pode funcionar, mas modificar outro projeto ou gerar arquivos em local inesperado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva o procedimento ensinado.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "O diretório pai.",
+            "A raiz do disco.",
+            "O arquivo atual."
+          ],
+          "feedback": "Correto. Essa decisão mantém o trabalho rastreável e verificável.",
+          "question": "O que ../ representa em um caminho relativo?",
+          "feedback_incorrect": "Revise o conceito e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Navegar por diretórios e interpretar caminhos absolutos e relativos sem depender exclusivamente da interface gráfica.",
+            "Use pwd ou equivalente para confirmar o diretório atual.",
+            "Liste arquivos antes de assumir que está na pasta certa.",
+            "Use caminhos relativos curtos quando o contexto for conhecido."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 2,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "objective": "Navegar por diretórios e interpretar caminhos absolutos e relativos sem depender exclusivamente da interface gráfica.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "O diretório pai.",
+            "A raiz do disco.",
+            "O arquivo atual."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "O que ../ representa em um caminho relativo?"
+        }
+      },
+      "estimated_minutes": 32
+    },
+    {
+      "id": "b17dfa89-047d-48bd-9a25-52757fb77f5f",
+      "title": "Comandos essenciais para trabalhar com projetos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Você precisa criar uma estrutura de projeto, mover um arquivo para a pasta correta e conferir o resultado sem usar o gerenciador gráfico.",
+          "type": "story",
+          "title": "Situação de trabalho"
+        },
+        {
+          "body": "Comandos de terminal são operações explícitas sobre arquivos, pastas e processos. O ganho não está em memorizar dezenas de comandos, mas em dominar uma sequência segura: inspecionar o contexto, executar uma ação pequena, verificar o resultado e só então seguir. Em desenvolvimento, essa disciplina reduz erros e torna tarefas reproduzíveis em qualquer máquina ou servidor.",
+          "type": "concept",
+          "title": "Comandos essenciais para trabalhar com projetos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Liste antes de mover ou remover.",
+            "Prefira criar a estrutura em etapas verificáveis.",
+            "Leia a saída do comando e o código de erro.",
+            "Use histórico do terminal para repetir operações conhecidas, não erros antigos."
+          ],
+          "title": "Como trabalhar com isso"
+        },
+        {
+          "body": "Sequência segura: confirmar pasta → criar diretório src → criar README → listar estrutura → mover arquivo para src → listar novamente.",
+          "type": "example",
+          "title": "Exemplo aplicado"
+        },
+        {
+          "body": "Usar remoção recursiva como primeira tentativa para 'limpar' um projeto. Comandos destrutivos exigem confirmação do caminho e entendimento do efeito.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva o procedimento ensinado.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Confirmar diretório atual e listar o conteúdo primeiro.",
+            "Executar a remoção e verificar depois.",
+            "Desativar o Git."
+          ],
+          "feedback": "Correto. Essa decisão mantém o trabalho rastreável e verificável.",
+          "question": "Qual sequência é mais segura antes de remover uma pasta?",
+          "feedback_incorrect": "Revise o conceito e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Executar com segurança operações essenciais de inspeção, criação, cópia, movimentação e remoção de arquivos e pastas.",
+            "Liste antes de mover ou remover.",
+            "Prefira criar a estrutura em etapas verificáveis.",
+            "Leia a saída do comando e o código de erro."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 3,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "objective": "Executar com segurança operações essenciais de inspeção, criação, cópia, movimentação e remoção de arquivos e pastas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Confirmar diretório atual e listar o conteúdo primeiro.",
+            "Executar a remoção e verificar depois.",
+            "Desativar o Git."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Qual sequência é mais segura antes de remover uma pasta?"
+        }
+      },
+      "estimated_minutes": 34
+    },
+    {
+      "id": "a42f261c-8a52-48e8-bd23-508f4e1ae059",
+      "title": "Git: repositório, status e histórico",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Depois de várias alterações, você não sabe quais arquivos mudaram nem qual foi a última versão estável. O Git deve responder essas duas perguntas antes de qualquer novo commit.",
+          "type": "story",
+          "title": "Situação de trabalho"
+        },
+        {
+          "body": "Git é um sistema de controle de versão distribuído. Ele registra snapshots do projeto e permite comparar o estado atual com estados anteriores. O comando status mostra arquivos modificados, novos e preparados; o histórico mostra commits já registrados. Essa visibilidade é a base para trabalhar com segurança: antes de adicionar ou reverter qualquer coisa, entenda exatamente em que estado o repositório está.",
+          "type": "concept",
+          "title": "Git: repositório, status e histórico"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use git status como primeiro diagnóstico.",
+            "Leia o histórico para entender contexto e intenção das mudanças.",
+            "Diferencie arquivo não rastreado de arquivo já versionado e modificado.",
+            "Não trate commit como backup automático: ele precisa ser criado conscientemente."
+          ],
+          "title": "Como trabalhar com isso"
+        },
+        {
+          "body": "git status revela que app.js foi alterado e notas.txt é novo. git log --oneline mostra os últimos commits e ajuda a decidir se as mudanças pertencem ao mesmo trabalho.",
+          "type": "example",
+          "title": "Exemplo aplicado"
+        },
+        {
+          "body": "Executar git add . e commit sem olhar o status. Isso pode incluir arquivos temporários, credenciais ou mudanças sem relação com a tarefa.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva o procedimento ensinado.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "git status",
+            "git push",
+            "git clone"
+          ],
+          "feedback": "Correto. Essa decisão mantém o trabalho rastreável e verificável.",
+          "question": "Qual comando deve ser usado para inspecionar o estado atual antes de preparar um commit?",
+          "feedback_incorrect": "Revise o conceito e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Explicar o modelo de snapshots do Git e usar status e histórico para entender o estado atual de um repositório.",
+            "Use git status como primeiro diagnóstico.",
+            "Leia o histórico para entender contexto e intenção das mudanças.",
+            "Diferencie arquivo não rastreado de arquivo já versionado e modificado."
+          ]
+        }
+      ],
+      "lab_type": "terminal",
+      "position": 4,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "objective": "Explicar o modelo de snapshots do Git e usar status e histórico para entender o estado atual de um repositório.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 38
+    },
+    {
+      "id": "0d1663f1-11e7-4319-a4af-b2e523f80a0c",
+      "title": "Staging, commits e mensagens úteis",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Você corrigiu uma validação e também alterou um texto de interface. As mudanças funcionam, mas não precisam obrigatoriamente estar no mesmo commit.",
+          "type": "story",
+          "title": "Situação de trabalho"
+        },
+        {
+          "body": "O staging area permite escolher exatamente o que fará parte do próximo snapshot. Um bom commit representa uma unidade lógica: ele deve poder ser compreendido e, se necessário, revertido sem arrastar mudanças sem relação. A mensagem deve registrar intenção e efeito, não apenas repetir 'alterações'. Essa disciplina transforma o histórico em documentação operacional do projeto.",
+          "type": "concept",
+          "title": "Staging, commits e mensagens úteis"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Revise o diff antes de adicionar.",
+            "Agrupe mudanças pela mesma finalidade.",
+            "Escreva mensagens específicas e no imperativo ou padrão do time.",
+            "Evite commits gigantes que misturam correção, refatoração e feature."
+          ],
+          "title": "Como trabalhar com isso"
+        },
+        {
+          "body": "Um commit \"fix: bloquear envio sem e-mail válido\" é mais útil que \"ajustes\". Se a alteração de texto for independente, ela pode ser outro commit.",
+          "type": "example",
+          "title": "Exemplo aplicado"
+        },
+        {
+          "body": "Usar staging como passo automático. Se tudo entra sempre com git add ., você perde a oportunidade de separar mudanças e revisar arquivos indevidos.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva o procedimento ensinado.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Uma unidade lógica com mensagem que explica a intenção.",
+            "O maior número possível de arquivos.",
+            "Uma mensagem genérica para economizar tempo."
+          ],
+          "feedback": "Correto. Essa decisão mantém o trabalho rastreável e verificável.",
+          "question": "Qual característica define melhor um bom commit?",
+          "feedback_incorrect": "Revise o conceito e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Preparar alterações coerentes no staging e criar commits pequenos, rastreáveis e descritos por mensagens que expliquem a intenção.",
+            "Revise o diff antes de adicionar.",
+            "Agrupe mudanças pela mesma finalidade.",
+            "Escreva mensagens específicas e no imperativo ou padrão do time."
+          ]
+        }
+      ],
+      "lab_type": "terminal",
+      "position": 5,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "objective": "Preparar alterações coerentes no staging e criar commits pequenos, rastreáveis e descritos por mensagens que expliquem a intenção.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 38
+    },
+    {
+      "id": "2402dbb0-9dcf-4297-bbad-3b907006d588",
+      "title": "Branches, merge e resolução de conflitos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Duas pessoas alteraram a mesma região de um arquivo em branches diferentes. O Git não consegue escolher sozinho qual versão representa o resultado correto.",
+          "type": "story",
+          "title": "Situação de trabalho"
+        },
+        {
+          "body": "Uma branch é um ponteiro para uma linha de evolução do repositório. Ela permite desenvolver uma mudança sem modificar imediatamente a linha principal. Ao integrar branches, o Git combina históricos; quando mudanças incompatíveis atingem a mesma região, surge um conflito. Resolver o conflito não significa escolher 'a versão mais nova', mas reconstruir conscientemente o resultado desejado e testá-lo antes de concluir o merge.",
+          "type": "concept",
+          "title": "Branches, merge e resolução de conflitos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Crie branches com objetivo claro.",
+            "Atualize-se sobre a base antes de integrar mudanças longas.",
+            "Leia os dois lados de um conflito e o contexto ao redor.",
+            "Depois de resolver, execute testes antes do commit de merge."
+          ],
+          "title": "Como trabalhar com isso"
+        },
+        {
+          "body": "Branch feature/login altera validação; branch main altera mensagens do mesmo formulário. O conflito precisa preservar a nova validação e, se fizer sentido, a nova mensagem.",
+          "type": "example",
+          "title": "Exemplo aplicado"
+        },
+        {
+          "body": "Apagar marcadores de conflito sem entender os dois lados. O arquivo pode ficar sintaticamente válido e funcionalmente errado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva o procedimento ensinado.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "A intenção correta do código e os testes.",
+            "Escolher sempre o bloco de cima.",
+            "Escolher sempre o commit mais recente."
+          ],
+          "feedback": "Correto. Essa decisão mantém o trabalho rastreável e verificável.",
+          "question": "O que deve orientar a resolução de um conflito Git?",
+          "feedback_incorrect": "Revise o conceito e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Criar branches para isolar trabalho, explicar o que ocorre em um merge e resolver conflitos preservando a intenção correta de cada alteração.",
+            "Crie branches com objetivo claro.",
+            "Atualize-se sobre a base antes de integrar mudanças longas.",
+            "Leia os dois lados de um conflito e o contexto ao redor."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 6,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "objective": "Criar branches para isolar trabalho, explicar o que ocorre em um merge e resolver conflitos preservando a intenção correta de cada alteração.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "A intenção correta do código e os testes.",
+            "Escolher sempre o bloco de cima.",
+            "Escolher sempre o commit mais recente."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "O que deve orientar a resolução de um conflito Git?"
+        }
+      },
+      "estimated_minutes": 44
+    },
+    {
+      "id": "bc6eb6c4-b153-40b5-ab5c-ad138e39112d",
+      "title": "GitHub, remoto, push e pull",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Seu commit existe no computador, mas não aparece no GitHub. Em outro momento, o GitHub tem mudanças que ainda não existem localmente.",
+          "type": "story",
+          "title": "Situação de trabalho"
+        },
+        {
+          "body": "Git e GitHub não são a mesma coisa. Git controla versões localmente; GitHub hospeda um repositório remoto e habilita colaboração. Push envia commits locais para o remoto. Fetch consulta referências remotas sem integrar automaticamente. Pull normalmente busca e integra mudanças. Compreender essa diferença evita sobrescrever trabalho, fazer push para a branch errada ou imaginar que um commit local já está publicado.",
+          "type": "concept",
+          "title": "GitHub, remoto, push e pull"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Confirme branch e remoto antes de push.",
+            "Use fetch quando quiser inspecionar mudanças remotas antes de integrá-las.",
+            "Faça pull com árvore de trabalho limpa quando possível.",
+            "Nunca versione tokens, senhas ou arquivos secretos."
+          ],
+          "title": "Como trabalhar com isso"
+        },
+        {
+          "body": "Você cria dois commits em feature/menu. Eles só ficam disponíveis no GitHub após git push do branch correspondente. Se um colega atualizou main, fetch permite enxergar a diferença antes de integrar.",
+          "type": "example",
+          "title": "Exemplo aplicado"
+        },
+        {
+          "body": "Tratar push como salvamento automático. Push publica commits; se o commit contém segredo ou arquivo indevido, o problema já foi enviado ao remoto.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva o procedimento ensinado.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "git fetch",
+            "git commit",
+            "git init"
+          ],
+          "feedback": "Correto. Essa decisão mantém o trabalho rastreável e verificável.",
+          "question": "Qual operação consulta mudanças remotas sem integrá-las automaticamente ao branch atual?",
+          "feedback_incorrect": "Revise o conceito e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Relacionar repositório local e remoto e usar push, pull e fetch entendendo o fluxo de sincronização e seus riscos.",
+            "Confirme branch e remoto antes de push.",
+            "Use fetch quando quiser inspecionar mudanças remotas antes de integrá-las.",
+            "Faça pull com árvore de trabalho limpa quando possível."
+          ]
+        }
+      ],
+      "lab_type": "terminal",
+      "position": 7,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "objective": "Relacionar repositório local e remoto e usar push, pull e fetch entendendo o fluxo de sincronização e seus riscos.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 40
+    },
+    {
+      "id": "1604f2eb-394e-4124-bba9-956b512cbde7",
+      "title": "README, versionamento e publicação de projeto",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O projeto funciona na sua máquina, mas outra pessoa abre o repositório e não sabe o que ele faz, como executar ou quais requisitos instalar.",
+          "type": "story",
+          "title": "Situação de trabalho"
+        },
+        {
+          "body": "Código publicado precisa de contexto. Um README eficaz explica o problema que o projeto resolve, requisitos, como instalar, como executar, estrutura relevante, principais decisões e estado atual. Ele não substitui código limpo, mas reduz a distância entre 'o repositório existe' e 'outra pessoa consegue usar e avaliar'. Versionamento profissional inclui também .gitignore adequado, ausência de segredos e histórico coerente.",
+          "type": "concept",
+          "title": "README, versionamento e publicação de projeto"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Comece pelo propósito e resultado do projeto.",
+            "Documente requisitos e passos de execução que foram realmente testados.",
+            "Inclua exemplos ou screenshots quando ajudam a avaliação.",
+            "Revise o repositório por segredos e arquivos gerados antes de publicar."
+          ],
+          "title": "Como trabalhar com isso"
+        },
+        {
+          "body": "Um README mínimo profissional contém: visão geral, requisitos, instalação, execução, funcionalidades, estrutura, limitações conhecidas e link da publicação quando existir.",
+          "type": "example",
+          "title": "Exemplo aplicado"
+        },
+        {
+          "body": "README genérico copiado de outro projeto. Instruções que não correspondem ao repositório geram mais desconfiança do que não ter documentação.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que preserva o procedimento ensinado.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Outra pessoa consegue entender e executar o projeto seguindo as instruções.",
+            "Ele possui muitas badges.",
+            "Ele repete todo o código-fonte."
+          ],
+          "feedback": "Correto. Essa decisão mantém o trabalho rastreável e verificável.",
+          "question": "Qual é o principal teste de qualidade de um README de projeto?",
+          "feedback_incorrect": "Revise o conceito e o exemplo antes de tentar novamente."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Preparar um repositório para ser compreendido por terceiros, com README útil, instruções reproduzíveis e histórico mínimo de publicação.",
+            "Comece pelo propósito e resultado do projeto.",
+            "Documente requisitos e passos de execução que foram realmente testados.",
+            "Inclua exemplos ou screenshots quando ajudam a avaliação."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 8,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "objective": "Preparar um repositório para ser compreendido por terceiros, com README útil, instruções reproduzíveis e histórico mínimo de publicação.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    }
+  ],
+  "project": {
+    "id": "b55a7c57-b504-426f-a7fc-22b08746bc76",
+    "title": "LC Programador Master — M2 • Boss Fight: Repositório profissional",
+    "rubric": {
+      "criteria": [
+        {
+          "name": "Histórico e commits",
+          "weight": 30
+        },
+        {
+          "name": "Uso correto de branch",
+          "weight": 20
+        },
+        {
+          "name": "README e reprodutibilidade",
+          "weight": 30
+        },
+        {
+          "name": "Higiene do repositório",
+          "weight": 20
+        }
+      ]
+    },
+    "status": "draft",
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+    "xp_reward": 350,
+    "description": "Criar um pequeno projeto versionado, com commits coerentes, branch de trabalho, README reproduzível, .gitignore adequado e publicação em repositório remoto.",
+    "project_kind": "boss_fight"
+  },
+  "resources": [
+    {
+      "id": "c55324c9-4e2f-4247-842d-cf5458842351",
+      "title": "LC Programador Master — M2 • Guia de Terminal e Git",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Ambiente: editor, runtime, terminal e dependências",
+              "Terminal: contexto, caminhos e comandos seguros",
+              "Git: status, staging, commit, branch e remoto",
+              "Publicação: README, .gitignore e revisão de segredos"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Referência rápida para diagnosticar ambiente, navegar por caminhos e versionar mudanças.",
+      "language": "pt-BR",
+      "position": 1,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "50b55006-e060-4844-b029-044d7e7425cb",
+      "title": "LC Programador Master — M2 • Checklist antes do commit",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Estou na branch correta",
+              "Revisei git status e diff",
+              "O commit contém uma única intenção",
+              "Não há segredos ou arquivos gerados",
+              "A mensagem explica a mudança"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Checklist operacional para reduzir commits acidentais e históricos difíceis de revisar.",
+      "language": "pt-BR",
+      "position": 2,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "checklist"
+    },
+    {
+      "id": "5b12e173-fdc2-46e6-890d-b94cc51cea4d",
+      "title": "LC Programador Master — M2 • Exercícios de versionamento",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Criar estrutura de projeto pelo terminal",
+              "Criar dois commits separados por intenção",
+              "Criar e integrar uma branch",
+              "Simular e resolver um conflito",
+              "Publicar repositório com README reproduzível"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Sequência de exercícios práticos para terminal, Git e GitHub.",
+      "language": "pt-BR",
+      "position": 3,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "exercise"
+    }
+  ],
+  "assessment": {
+    "row": {
+      "id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+      "title": "LC Programador Master — M2 • Checkpoint Git e Ambiente",
+      "status": "draft",
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "module_id": "c5422f9f-e603-4ae4-abdd-88f48190e54c",
+      "pass_score": 70,
+      "max_attempts": 3,
+      "randomize_questions": true
+    },
+    "questions": [
+      {
+        "id": "fd2ccddf-6f6e-4259-94b6-9cfdd4101e12",
+        "prompt": "Qual verificação deve acontecer antes de começar a corrigir um projeto que não executa?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Confirmar runtime, dependências e instruções do projeto."
+          },
+          {
+            "id": "b",
+            "label": "Alterar vários arquivos de uma vez."
+          },
+          {
+            "id": "c",
+            "label": "Apagar o histórico Git."
+          }
+        ],
+        "position": 1,
+        "difficulty": 1,
+        "assessment_id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto. A resposta preserva o procedimento ensinado.",
+        "feedback_incorrect": "Revise a aula correspondente e tente novamente."
+      },
+      {
+        "id": "984258da-2b30-44ee-80ba-3b58cea9d915",
+        "prompt": "O que ../ representa em um caminho relativo?",
+        "options": [
+          {
+            "id": "a",
+            "label": "O diretório pai."
+          },
+          {
+            "id": "b",
+            "label": "A raiz do disco."
+          },
+          {
+            "id": "c",
+            "label": "O arquivo atual."
+          }
+        ],
+        "position": 2,
+        "difficulty": 1,
+        "assessment_id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto. A resposta preserva o procedimento ensinado.",
+        "feedback_incorrect": "Revise a aula correspondente e tente novamente."
+      },
+      {
+        "id": "3506bc35-6a0f-4c48-8bff-533da9f855e5",
+        "prompt": "Qual sequência é mais segura antes de remover uma pasta?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Confirmar diretório atual e listar o conteúdo primeiro."
+          },
+          {
+            "id": "b",
+            "label": "Executar a remoção e verificar depois."
+          },
+          {
+            "id": "c",
+            "label": "Desativar o Git."
+          }
+        ],
+        "position": 3,
+        "difficulty": 1,
+        "assessment_id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto. A resposta preserva o procedimento ensinado.",
+        "feedback_incorrect": "Revise a aula correspondente e tente novamente."
+      },
+      {
+        "id": "b756e4ba-ce48-4363-b033-0a7eca4d0ed2",
+        "prompt": "Qual comando deve ser usado para inspecionar o estado atual antes de preparar um commit?",
+        "options": [
+          {
+            "id": "a",
+            "label": "git status"
+          },
+          {
+            "id": "b",
+            "label": "git push"
+          },
+          {
+            "id": "c",
+            "label": "git clone"
+          }
+        ],
+        "position": 4,
+        "difficulty": 2,
+        "assessment_id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto. A resposta preserva o procedimento ensinado.",
+        "feedback_incorrect": "Revise a aula correspondente e tente novamente."
+      },
+      {
+        "id": "0d91c1f7-093c-4ec1-9660-e763a726beb0",
+        "prompt": "Qual característica define melhor um bom commit?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Uma unidade lógica com mensagem que explica a intenção."
+          },
+          {
+            "id": "b",
+            "label": "O maior número possível de arquivos."
+          },
+          {
+            "id": "c",
+            "label": "Uma mensagem genérica para economizar tempo."
+          }
+        ],
+        "position": 5,
+        "difficulty": 2,
+        "assessment_id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto. A resposta preserva o procedimento ensinado.",
+        "feedback_incorrect": "Revise a aula correspondente e tente novamente."
+      },
+      {
+        "id": "ceb5d5b0-1287-4a72-bd88-284e9ae8619d",
+        "prompt": "O que deve orientar a resolução de um conflito Git?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A intenção correta do código e os testes."
+          },
+          {
+            "id": "b",
+            "label": "Escolher sempre o bloco de cima."
+          },
+          {
+            "id": "c",
+            "label": "Escolher sempre o commit mais recente."
+          }
+        ],
+        "position": 6,
+        "difficulty": 2,
+        "assessment_id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto. A resposta preserva o procedimento ensinado.",
+        "feedback_incorrect": "Revise a aula correspondente e tente novamente."
+      },
+      {
+        "id": "b1f19ab7-418f-408a-ada6-8f936222426e",
+        "prompt": "Qual operação consulta mudanças remotas sem integrá-las automaticamente ao branch atual?",
+        "options": [
+          {
+            "id": "a",
+            "label": "git fetch"
+          },
+          {
+            "id": "b",
+            "label": "git commit"
+          },
+          {
+            "id": "c",
+            "label": "git init"
+          }
+        ],
+        "position": 7,
+        "difficulty": 2,
+        "assessment_id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto. A resposta preserva o procedimento ensinado.",
+        "feedback_incorrect": "Revise a aula correspondente e tente novamente."
+      },
+      {
+        "id": "cc321716-7438-4f4e-bed8-99499d8d4aa0",
+        "prompt": "Qual é o principal teste de qualidade de um README de projeto?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Outra pessoa consegue entender e executar o projeto seguindo as instruções."
+          },
+          {
+            "id": "b",
+            "label": "Ele possui muitas badges."
+          },
+          {
+            "id": "c",
+            "label": "Ele repete todo o código-fonte."
+          }
+        ],
+        "position": 8,
+        "difficulty": 2,
+        "assessment_id": "6a9b9522-da8a-4671-90fb-9943847a1f4a",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto. A resposta preserva o procedimento ensinado.",
+        "feedback_incorrect": "Revise a aula correspondente e tente novamente."
+      }
+    ]
+  },
+  "references": []
+}
