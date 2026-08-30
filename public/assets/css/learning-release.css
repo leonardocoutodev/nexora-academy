@@ -505,3 +505,220 @@ html,body{max-width:100%;overflow-x:hidden}
   .nx-lesson-page .main-inner{padding-bottom:0}
   .nx-flow-group,.nx-practice-section,.nx-summary-section{break-inside:avoid}
 }
+
+
+/* ==========================================================
+   LC LESSON EXPERIENCE 1.1 — editorial variety system
+   Same pedagogy, different visual rhythm by competency.
+   ========================================================== */
+
+.nx-lesson-flow .nx-flow-group{position:relative}
+.nx-lesson-flow .nx-flow-group>.nx-section-kicker{margin-bottom:10px}
+.nx-lesson-flow .nx-flow-group:not(:has(>.nx-section-kicker)){padding-top:24px}
+.nx-lesson-flow .nx-flow-group:not(:has(>.nx-section-kicker))+.nx-flow-group:not(:has(>.nx-section-kicker)){padding-top:18px}
+
+/* Quieter explanatory flow: fewer boxes, less chrome. */
+.nx-lesson-pattern-editorial .nx-flow-entenda,
+.nx-lesson-pattern-editorial .nx-flow-porque,
+.nx-lesson-pattern-editorial .nx-flow-funciona,
+.nx-lesson-pattern-editorial .nx-flow-contexto-profissional{
+  padding-left:4px;
+  border-left:0;
+}
+.nx-lesson-pattern-editorial .nx-flow-contexto{
+  margin-top:18px;
+  padding:24px 26px;
+  border:0;
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(40,120,255,.09),rgba(13,27,46,.42));
+}
+.nx-lesson-pattern-editorial .nx-flow-exemplo{
+  padding:24px 0 30px;
+}
+.nx-lesson-pattern-editorial .nx-flow-exemplo .nx-flow-block{
+  padding:18px 20px;
+  border:1px solid rgba(157,172,193,.14);
+  border-radius:16px;
+  background:rgba(7,17,31,.46);
+}
+
+/* Technical lessons feel like a workbench rather than stacked reading cards. */
+.nx-lesson-pattern-technical .nx-flow-funciona,
+.nx-lesson-pattern-technical .nx-flow-exemplo,
+.nx-lesson-pattern-technical .nx-flow-prepare{
+  margin:18px 0;
+  padding:22px;
+  border:1px solid rgba(40,120,255,.2);
+  border-radius:17px;
+  background:
+    linear-gradient(180deg,rgba(40,120,255,.055),rgba(7,17,31,.62));
+}
+.nx-lesson-pattern-technical .nx-teaching-code{
+  border-color:rgba(56,230,176,.22);
+  background:#06111d;
+  box-shadow:inset 0 1px rgba(255,255,255,.025);
+}
+.nx-lesson-pattern-technical .nx-flow-erro{
+  margin:20px 0;
+  padding:18px 20px;
+  border:1px solid rgba(255,176,32,.24);
+  border-left:4px solid rgba(255,176,32,.62);
+  border-radius:14px;
+  background:rgba(255,176,32,.045);
+}
+
+/* Logic lessons emphasize rules, choices and validation. */
+.nx-lesson-pattern-logic .nx-flow-compare,
+.nx-lesson-pattern-logic .nx-flow-teste,
+.nx-lesson-pattern-logic .nx-flow-pratica-guiada,
+.nx-lesson-pattern-logic .nx-flow-dominio{
+  margin:18px 0;
+  padding:20px;
+  border:1px solid rgba(40,120,255,.18);
+  border-left:0;
+  border-radius:16px;
+  background:rgba(11,30,50,.58);
+}
+.nx-lesson-pattern-logic .nx-flow-exemplo{
+  padding-left:20px;
+  border-left:3px solid rgba(56,230,176,.42);
+}
+.nx-lesson-pattern-logic .nx-inline-check{
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(40,120,255,.08),rgba(7,17,31,.74));
+}
+
+/* Comparison lessons use horizontal contrast where space allows. */
+.nx-lesson-pattern-comparison .nx-flow-compare{
+  margin:20px 0;
+  padding:22px;
+  border:1px solid rgba(40,120,255,.22);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(40,120,255,.075),rgba(13,27,46,.5));
+}
+.nx-lesson-pattern-comparison .nx-flow-compare .nx-teaching-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px 22px;
+  padding:0;
+  list-style:none;
+}
+.nx-lesson-pattern-comparison .nx-flow-compare .nx-teaching-list li{
+  margin:0;
+  padding:12px 14px;
+  border:1px solid rgba(157,172,193,.13);
+  border-radius:12px;
+  background:rgba(7,17,31,.5);
+}
+.nx-lesson-pattern-comparison .nx-flow-erro{border-left-color:rgba(255,77,79,.5)}
+
+/* Project lessons read like a brief with visible milestones. */
+.nx-lesson-pattern-project #lessonFlow{counter-reset:lc-project-step}
+.nx-lesson-pattern-project .nx-flow-group{
+  counter-increment:lc-project-step;
+  margin:14px 0;
+  padding:22px 22px 22px 64px;
+  border:1px solid rgba(157,172,193,.14);
+  border-radius:17px;
+  background:rgba(8,22,37,.6);
+}
+.nx-lesson-pattern-project .nx-flow-group::before{
+  content:counter(lc-project-step,decimal-leading-zero);
+  position:absolute;
+  left:20px;
+  top:21px;
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:rgba(40,120,255,.14);
+  color:#94c3ff;
+  font-size:10px;
+  font-weight:900;
+}
+.nx-lesson-pattern-project .nx-flow-group>.nx-section-kicker{color:#9dbfff}
+.nx-lesson-pattern-project .nx-practice-section{
+  margin-top:22px;
+  padding:26px;
+  border:1px solid rgba(56,230,176,.2);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(56,230,176,.055),rgba(7,17,31,.52));
+}
+
+/* Practice area changes tone with lesson pattern. */
+.nx-lesson-pattern-technical .nx-practice-section{border-top:1px solid rgba(40,120,255,.2)}
+.nx-lesson-pattern-logic .nx-practice-section{border-top:1px solid rgba(56,230,176,.18)}
+.nx-lesson-pattern-comparison .nx-practice-section{border-top:1px solid rgba(157,172,193,.18)}
+
+/* Four summary rhythms rotate by lesson position. */
+.nx-summary-variant{display:grid;gap:9px;max-width:74ch}
+.nx-summary-point{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  align-items:start;
+  gap:10px;
+}
+.nx-summary-point>span{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:rgba(40,120,255,.11);
+  color:#9cc8ff;
+  font-size:11px;
+  font-weight:900;
+}
+.nx-summary-point p{
+  margin:3px 0 0;
+  color:#d8e1eb;
+  font-size:15.5px;
+  line-height:1.58;
+}
+.nx-summary-numbered{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.nx-summary-numbered .nx-summary-point{
+  padding:14px;
+  border:1px solid rgba(157,172,193,.12);
+  border-radius:13px;
+  background:rgba(7,17,31,.4);
+}
+.nx-summary-compact{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px 18px;
+}
+.nx-summary-compact .nx-summary-point>span{
+  width:24px;height:24px;border-radius:999px;
+  background:rgba(56,230,176,.1);color:var(--lc-mint);
+}
+.nx-summary-bridge .nx-summary-point:last-child{
+  margin-top:4px;
+  padding:14px 16px;
+  border:1px solid rgba(56,230,176,.18);
+  border-radius:13px;
+  background:rgba(56,230,176,.045);
+}
+.nx-summary-bridge .nx-summary-point:last-child>span{
+  background:rgba(56,230,176,.12);
+  color:var(--lc-mint);
+}
+
+@media(max-width:820px){
+  .nx-lesson-pattern-comparison .nx-flow-compare .nx-teaching-list,
+  .nx-summary-numbered,
+  .nx-summary-compact{grid-template-columns:1fr}
+  .nx-lesson-pattern-editorial .nx-flow-contexto,
+  .nx-lesson-pattern-technical .nx-flow-funciona,
+  .nx-lesson-pattern-technical .nx-flow-exemplo,
+  .nx-lesson-pattern-technical .nx-flow-prepare,
+  .nx-lesson-pattern-logic .nx-flow-compare,
+  .nx-lesson-pattern-logic .nx-flow-teste,
+  .nx-lesson-pattern-logic .nx-flow-pratica-guiada,
+  .nx-lesson-pattern-logic .nx-flow-dominio,
+  .nx-lesson-pattern-comparison .nx-flow-compare{padding:17px}
+  .nx-lesson-pattern-project .nx-flow-group{padding:18px 16px 18px 54px}
+  .nx-lesson-pattern-project .nx-flow-group::before{left:14px;top:17px}
+}
