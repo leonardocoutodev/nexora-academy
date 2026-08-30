@@ -1,0 +1,1646 @@
+{
+  "course": {
+    "id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "slug": "programador-master",
+    "title": "Programador Master",
+    "course_type": "formation",
+    "description": "Formação prática em programação do zero ao projeto publicado, cobrindo lógica, Git, HTML e CSS, JavaScript, PHP e MySQL, WordPress, Python, Java, APIs e integração full stack.",
+    "level_label": "Profissional"
+  },
+  "module": {
+    "id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+    "title": "Java",
+    "position": 8,
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "description": "Aprenda Java e orientação a objetos por meio de tipos, métodos, classes, encapsulamento, composição, interfaces, collections, exceções e um projeto completo.",
+    "prerequisite_module_id": "b992f381-c45a-4daf-b10f-b21787e958f5"
+  },
+  "lessons": [
+    {
+      "id": "a9ec7ee6-bc24-46d5-a9e6-8d914dbd2067",
+      "title": "Java e a JVM",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um arquivo .java foi escrito, mas executar diretamente sem compilação ou ambiente correto falha.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Java normalmente é compilado para bytecode, que a JVM executa. O JDK inclui ferramentas de desenvolvimento como compilador e runtime. Essa camada intermediária ajuda a portabilidade: o bytecode pode rodar em diferentes sistemas com JVM compatível. Entender compilação e execução evita confundir erro de sintaxe, erro de compilação e erro em runtime.",
+          "type": "concept",
+          "title": "Java e a JVM"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Diferencie JDK, JVM e bytecode.",
+            "Leia erros de compilação antes de executar.",
+            "Confirme versão do JDK do projeto.",
+            "Não misture dependências de versões sem necessidade."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "javac App.java\\njava App",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Interpretar qualquer falha como 'bug no código' quando o problema pode ser versão do JDK ou classpath.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Bytecode Java.",
+            "CSS.",
+            "SQL diretamente."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "O que a JVM executa normalmente?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Explicar a relação entre código Java, bytecode, JVM e JDK e reconhecer o papel da compilação no ciclo de desenvolvimento.",
+            "Diferencie JDK, JVM e bytecode.",
+            "Leia erros de compilação antes de executar.",
+            "Confirme versão do JDK do projeto."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 1,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Explicar a relação entre código Java, bytecode, JVM e JDK e reconhecer o papel da compilação no ciclo de desenvolvimento.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Bytecode Java.",
+            "CSS.",
+            "SQL diretamente."
+          ],
+          "feedback": "Correto.",
+          "question": "O que a JVM executa normalmente?"
+        }
+      },
+      "estimated_minutes": 32
+    },
+    {
+      "id": "6aa5330d-06e7-4d76-b011-fb4765631847",
+      "title": "Primeiro programa e estrutura de projeto",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O código compila em um arquivo solto, mas o projeto precisa crescer e ser entendido por outras pessoas.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "O ponto de entrada clássico de uma aplicação Java é o método public static void main. Classes vivem em arquivos e, em projetos maiores, pacotes organizam namespaces. A estrutura deve refletir responsabilidades, não apenas acumular classes na raiz. Ferramentas de build podem padronizar src, dependências e execução.",
+          "type": "concept",
+          "title": "Primeiro programa e estrutura de projeto"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Entenda assinatura do main.",
+            "Use nomes de classes em PascalCase.",
+            "Organize código fonte em diretórios coerentes.",
+            "Não crie pacote diferente para cada classe sem propósito."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "public class App {\\n  public static void main(String[] args) {\\n    System.out.println(\"Olá, Java\");\\n  }\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Criar toda a aplicação dentro do main. O método deve orquestrar, não concentrar todas as regras.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "public static void main",
+            "render",
+            "SELECT"
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Qual método é o ponto de entrada clássico de uma aplicação Java?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Criar uma classe Java com método main e organizar arquivos em estrutura de projeto previsível.",
+            "Entenda assinatura do main.",
+            "Use nomes de classes em PascalCase.",
+            "Organize código fonte em diretórios coerentes."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 2,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Criar uma classe Java com método main e organizar arquivos em estrutura de projeto previsível.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "public static void main",
+            "render",
+            "SELECT"
+          ],
+          "feedback": "Correto.",
+          "question": "Qual método é o ponto de entrada clássico de uma aplicação Java?"
+        }
+      },
+      "estimated_minutes": 36
+    },
+    {
+      "id": "7965975d-442e-4141-b103-b6088d74df8f",
+      "title": "Variáveis, tipos e operadores",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma divisão entre inteiros retorna resultado truncado e o programa esperava decimal.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Java possui tipagem estática. Tipos primitivos incluem int, long, double, boolean e char; objetos são referências. O compilador verifica compatibilidade antes da execução. Operações entre tipos seguem regras de promoção e divisão inteira precisa ser considerada. Tipos tornam contratos mais explícitos, mas ainda é preciso escolher representação adequada ao domínio.",
+          "type": "concept",
+          "title": "Variáveis, tipos e operadores"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Escolha tipo pelo intervalo e significado.",
+            "Entenda divisão inteira.",
+            "Evite conversões forçadas sem validar perda.",
+            "Use boolean para condições claras."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "int quantidade=3;\\ndouble preco=19.90;\\ndouble total=quantidade*preco;",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Usar double para todo valor monetário sem considerar precisão e requisitos do domínio.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "boolean",
+            "int",
+            "String apenas"
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Qual tipo representa verdadeiro/falso em Java?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Declarar variáveis com tipos primitivos e referências e construir expressões respeitando conversões e limites de tipo.",
+            "Escolha tipo pelo intervalo e significado.",
+            "Entenda divisão inteira.",
+            "Evite conversões forçadas sem validar perda."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 3,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Declarar variáveis com tipos primitivos e referências e construir expressões respeitando conversões e limites de tipo.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "boolean",
+            "int",
+            "String apenas"
+          ],
+          "feedback": "Correto.",
+          "question": "Qual tipo representa verdadeiro/falso em Java?"
+        }
+      },
+      "estimated_minutes": 38
+    },
+    {
+      "id": "f3dba079-36f1-4ae1-ae3b-06914b5d4c0e",
+      "title": "Condições e repetição",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma regra de frete já foi validada em lógica e agora precisa ser traduzida para Java.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "if/else, switch e laços for/while implementam o mesmo raciocínio lógico estudado antes. A diferença principal é a sintaxe e os tipos. O objetivo é preservar a regra, não reescrevê-la de forma mais complexa. Laços sobre coleções podem usar for-each quando o índice não é necessário.",
+          "type": "concept",
+          "title": "Condições e repetição"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Traduza a regra já testada.",
+            "Use else quando os ramos são exclusivos.",
+            "Escolha for-each para percorrer valores.",
+            "Teste limites e coleção vazia."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "if (total >= 200) {\\n  frete = 0;\\n} else {\\n  frete = 20;\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Alterar a regra ao traduzir para sintaxe nova — por exemplo trocar >= por > sem perceber.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            ">=",
+            ">",
+            "!="
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Qual operador preserva 'a partir de 200'?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Implementar decisões e laços em Java preservando as regras modeladas e garantindo condições de parada.",
+            "Traduza a regra já testada.",
+            "Use else quando os ramos são exclusivos.",
+            "Escolha for-each para percorrer valores."
+          ]
+        }
+      ],
+      "lab_type": "pseudocode",
+      "position": 4,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Implementar decisões e laços em Java preservando as regras modeladas e garantindo condições de parada.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 40
+    },
+    {
+      "id": "23f1d3a0-0660-4ffb-a9df-a58a468b8b0b",
+      "title": "Métodos e parâmetros",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A mesma regra de cálculo aparece em diferentes partes de uma classe.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Métodos agrupam comportamento. A assinatura comunica nome, parâmetros e tipo de retorno. Métodos pequenos ajudam a testar e reutilizar regras. static pertence à classe e pode ser útil para funções sem estado de instância; métodos de instância operam sobre objetos. A escolha deve refletir o modelo, não preferência aleatória.",
+          "type": "concept",
+          "title": "Métodos e parâmetros"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Nomeie método pela ação.",
+            "Passe dados necessários por parâmetros.",
+            "Retorne resultado em vez de alterar estado distante.",
+            "Use static somente quando não depende de instância."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "static double calcularTotal(double preco,int qtd){\\n  return preco*qtd;\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Criar métodos que recebem dezenas de parâmetros porque o modelo de dados não foi estruturado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Quando não depende do estado de uma instância.",
+            "Quando precisa acessar campos de cada objeto.",
+            "Sempre."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Quando um método pode ser static com naturalidade?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Extrair comportamento em métodos com parâmetros, retorno e visibilidade adequada, reduzindo duplicação.",
+            "Nomeie método pela ação.",
+            "Passe dados necessários por parâmetros.",
+            "Retorne resultado em vez de alterar estado distante."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 5,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Extrair comportamento em métodos com parâmetros, retorno e visibilidade adequada, reduzindo duplicação.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Quando não depende do estado de uma instância.",
+            "Quando precisa acessar campos de cada objeto.",
+            "Sempre."
+          ],
+          "feedback": "Correto.",
+          "question": "Quando um método pode ser static com naturalidade?"
+        }
+      },
+      "estimated_minutes": 42
+    },
+    {
+      "id": "f41e1d03-77cc-4c64-afff-99188bdd51f9",
+      "title": "Classes e objetos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Dados de produto estão espalhados em várias variáveis e funções sem um lugar que represente o conceito 'Produto'.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Classe define uma estrutura e comportamento; objeto é uma instância concreta. Campos representam estado e métodos operam sobre ele. Modelagem orientada a objetos é útil quando conceitos do domínio têm identidade, estado e comportamento relacionados. Nem toda função precisa virar classe, mas entidades centrais ganham clareza quando suas invariantes ficam próximas dos dados.",
+          "type": "concept",
+          "title": "Classes e objetos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Modele conceitos do domínio, não telas.",
+            "Agrupe estado que pertence à mesma entidade.",
+            "Coloque comportamento relacionado perto do estado.",
+            "Evite classes que são apenas sacos de dados sem necessidade."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "class Produto {\\n  String nome;\\n  double preco;\\n  boolean ativo;\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Criar uma classe para cada função e aumentar complexidade sem ganhar coesão.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Uma instância de uma classe.",
+            "Um arquivo CSS.",
+            "Uma query SQL."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "O que é um objeto?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Modelar entidades com classes que agrupem estado e comportamento e criar objetos com responsabilidades claras.",
+            "Modele conceitos do domínio, não telas.",
+            "Agrupe estado que pertence à mesma entidade.",
+            "Coloque comportamento relacionado perto do estado."
+          ]
+        }
+      ],
+      "lab_type": "data_model",
+      "position": 6,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Modelar entidades com classes que agrupem estado e comportamento e criar objetos com responsabilidades claras.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "data_model": {
+          "rows": [
+            {
+              "label": "Produto",
+              "value": "modelo",
+              "answer": 0
+            },
+            {
+              "label": "novo Produto(...)",
+              "value": "instância",
+              "answer": 1
+            },
+            {
+              "label": "preco",
+              "value": "estado",
+              "answer": 2
+            },
+            {
+              "label": "calcularDesconto()",
+              "value": "comportamento",
+              "answer": 3
+            }
+          ],
+          "options": [
+            "Classe",
+            "Objeto",
+            "Campo",
+            "Método"
+          ],
+          "feedback": "Boa modelagem: tipo, instância, estado e comportamento foram diferenciados.",
+          "scenario": "Classifique os elementos do modelo orientado a objetos."
+        }
+      },
+      "estimated_minutes": 46
+    },
+    {
+      "id": "f3cd2fbb-922e-4830-94b3-51fa8dcf3fe7",
+      "title": "Construtores e encapsulamento",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um Produto pode ser criado com preço negativo e só quebra muito depois.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Construtores estabelecem estado inicial. Encapsulamento controla como campos são lidos ou alterados, permitindo validar invariantes. Tornar tudo public reduz proteção do modelo. Getters/setters não devem ser gerados automaticamente sem pensar: algumas mudanças precisam de métodos com intenção, como aplicarDesconto ou ativar.",
+          "type": "concept",
+          "title": "Construtores e encapsulamento"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Valide invariantes na criação.",
+            "Restrinja acesso direto quando necessário.",
+            "Use métodos de domínio para mudanças significativas.",
+            "Não crie setters para tudo por reflexo."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "class Produto {\\n  private double preco;\\n  Produto(double preco){\\n    if(preco<0) throw new IllegalArgumentException();\\n    this.preco=preco;\\n  }\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Encapsulamento apenas nominal: campos private com setters públicos sem qualquer regra preservam o mesmo problema.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Proteger invariantes do objeto.",
+            "Eliminar todos os métodos.",
+            "Substituir banco de dados."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Qual é um benefício do encapsulamento?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Inicializar objetos em estado válido com construtores e proteger invariantes usando encapsulamento e métodos apropriados.",
+            "Valide invariantes na criação.",
+            "Restrinja acesso direto quando necessário.",
+            "Use métodos de domínio para mudanças significativas."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 7,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Inicializar objetos em estado válido com construtores e proteger invariantes usando encapsulamento e métodos apropriados.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Proteger invariantes do objeto.",
+            "Eliminar todos os métodos.",
+            "Substituir banco de dados."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual é um benefício do encapsulamento?"
+        }
+      },
+      "estimated_minutes": 46
+    },
+    {
+      "id": "9188fb7d-218f-4ac0-8cdf-58f55636d2f1",
+      "title": "Herança e composição",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma classe Relatorio precisa usar um ExportadorPDF. Isso é 'é um' ou 'tem um'?",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Herança representa relação é-um e permite especialização; composição representa tem-um e combina objetos. Herança pode reutilizar código, mas também acopla subclasses à hierarquia. Composição tende a ser flexível quando comportamentos podem variar ou ser trocados. A escolha deve começar pelo significado do domínio, não por economia de linhas.",
+          "type": "concept",
+          "title": "Herança e composição"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use herança quando a substituição semântica é verdadeira.",
+            "Prefira composição para capacidades intercambiáveis.",
+            "Evite hierarquias profundas.",
+            "Não herde apenas para acessar métodos utilitários."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "class Relatorio {\\n  private Exportador exportador;\\n  Relatorio(Exportador exportador){this.exportador=exportador;}\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Criar herança para reutilizar duas funções, mesmo quando as classes não têm relação 'é um'.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Composição.",
+            "Herança obrigatória.",
+            "Interface gráfica."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Relatorio que usa Exportador representa melhor:",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Comparar herança e composição e escolher a relação que representa melhor o domínio sem criar hierarquias rígidas.",
+            "Use herança quando a substituição semântica é verdadeira.",
+            "Prefira composição para capacidades intercambiáveis.",
+            "Evite hierarquias profundas."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 8,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Comparar herança e composição e escolher a relação que representa melhor o domínio sem criar hierarquias rígidas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Composição.",
+            "Herança obrigatória.",
+            "Interface gráfica."
+          ],
+          "feedback": "Correto.",
+          "question": "Relatorio que usa Exportador representa melhor:"
+        }
+      },
+      "estimated_minutes": 48
+    },
+    {
+      "id": "ade035d2-c454-4cc5-ad6e-5ae9707556cb",
+      "title": "Polimorfismo e interfaces",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O sistema precisa enviar notificações por e-mail hoje e WhatsApp amanhã sem reescrever a regra de pedido.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Uma interface define um contrato de comportamento. Diferentes classes podem implementá-lo e ser usadas por código que depende apenas do contrato. Polimorfismo permite tratar implementações diferentes de forma uniforme. Isso reduz acoplamento quando existe uma variação real e testável, mas interfaces vazias ou criadas antecipadamente podem só aumentar indirection.",
+          "type": "concept",
+          "title": "Polimorfismo e interfaces"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Crie interface em torno de uma capacidade real.",
+            "Dependa do contrato quando precisa trocar implementação.",
+            "Mantenha interface pequena e coesa.",
+            "Evite abstração sem mais de uma necessidade concreta."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "interface Notificador { void enviar(String msg); }\\nclass EmailNotificador implements Notificador { ... }",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Criar interface para cada classe apenas por padrão arquitetural, sem benefício de substituição.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Trocar implementações mantendo o mesmo contrato.",
+            "Eliminar tipos.",
+            "Impedir testes."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Qual benefício do polimorfismo?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Definir contratos com interfaces e usar polimorfismo para trocar implementações sem alterar o consumidor.",
+            "Crie interface em torno de uma capacidade real.",
+            "Dependa do contrato quando precisa trocar implementação.",
+            "Mantenha interface pequena e coesa."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 9,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Definir contratos com interfaces e usar polimorfismo para trocar implementações sem alterar o consumidor.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Trocar implementações mantendo o mesmo contrato.",
+            "Eliminar tipos.",
+            "Impedir testes."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual benefício do polimorfismo?"
+        }
+      },
+      "estimated_minutes": 50
+    },
+    {
+      "id": "3a3ed3a8-0d20-4229-91fb-2539f5d2ad54",
+      "title": "Collections: List, Set e Map",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Você precisa armazenar uma sequência de pedidos, um conjunto de e-mails únicos e um índice de produtos por ID.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "List preserva sequência e permite duplicatas; Set representa valores únicos; Map associa chave a valor. Generics como List<Produto> tornam o tipo dos elementos explícito e reduzem casts. A escolha correta simplifica algoritmos: não faz sentido simular busca por chave percorrendo lista se o domínio pede um mapa.",
+          "type": "concept",
+          "title": "Collections: List, Set e Map"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use List para sequência.",
+            "Use Set para unicidade.",
+            "Use Map para acesso por chave.",
+            "Declare generics específicos."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "List<Pedido> pedidos=new ArrayList<>();\\nSet<String> emails=new HashSet<>();\\nMap<Long,Produto> porId=new HashMap<>();",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Usar List para tudo e implementar manualmente unicidade e índices.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Set",
+            "List necessariamente",
+            "Map sem chave"
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Qual coleção é adequada para valores únicos?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Escolher List, Set ou Map conforme ordem, unicidade e acesso por chave e usar generics para manter tipos explícitos.",
+            "Use List para sequência.",
+            "Use Set para unicidade.",
+            "Use Map para acesso por chave."
+          ]
+        }
+      ],
+      "lab_type": "data_model",
+      "position": 10,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Escolher List, Set ou Map conforme ordem, unicidade e acesso por chave e usar generics para manter tipos explícitos.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "data_model": {
+          "rows": [
+            {
+              "label": "Pedidos em ordem",
+              "value": "coleção",
+              "answer": 0
+            },
+            {
+              "label": "E-mails únicos",
+              "value": "coleção",
+              "answer": 1
+            },
+            {
+              "label": "Produto por ID",
+              "value": "índice",
+              "answer": 2
+            },
+            {
+              "label": "Coordenadas com tamanho fixo",
+              "value": "estrutura",
+              "answer": 3
+            }
+          ],
+          "options": [
+            "List",
+            "Set",
+            "Map",
+            "Array fixo"
+          ],
+          "feedback": "A estrutura escolhida acompanha ordem, unicidade, chave e tamanho.",
+          "scenario": "Escolha a coleção que melhor representa cada necessidade."
+        }
+      },
+      "estimated_minutes": 48
+    },
+    {
+      "id": "44f9a384-36d7-4230-882e-0b55aafdea8e",
+      "title": "Exceções e tratamento de erros",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Leitura de arquivo pode falhar; em outro caso, preço negativo viola regra de domínio.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Exceções representam falhas que interrompem o fluxo normal. Checked e unchecked têm papéis diferentes no ecossistema Java, mas a decisão principal é: quem consegue tratar a falha com contexto suficiente? Capture onde existe recuperação ou tradução adequada. Não engula exceções; preserve causa e mensagem para diagnóstico.",
+          "type": "concept",
+          "title": "Exceções e tratamento de erros"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Lance exceção perto da violação.",
+            "Capture onde existe estratégia de tratamento.",
+            "Evite catch(Exception) indiscriminado.",
+            "Não exponha detalhes internos ao usuário final."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "try {\\n  carregarArquivo();\\n} catch(IOException e) {\\n  logger.error(\"Falha ao carregar\",e);\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "catch(Exception e){} para 'evitar que o programa pare'. Isso esconde falhas e pode manter estado inválido.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Onde existe estratégia real de tratamento.",
+            "Sempre imediatamente.",
+            "Nunca."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Onde uma exceção deve ser capturada?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Lançar e capturar exceções quando uma operação não pode cumprir seu contrato, preservando contexto e evitando captura genérica excessiva.",
+            "Lance exceção perto da violação.",
+            "Capture onde existe estratégia de tratamento.",
+            "Evite catch(Exception) indiscriminado."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 11,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Lançar e capturar exceções quando uma operação não pode cumprir seu contrato, preservando contexto e evitando captura genérica excessiva.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Onde existe estratégia real de tratamento.",
+            "Sempre imediatamente.",
+            "Nunca."
+          ],
+          "feedback": "Correto.",
+          "question": "Onde uma exceção deve ser capturada?"
+        }
+      },
+      "estimated_minutes": 46
+    },
+    {
+      "id": "ed583808-3545-42b1-b992-944113ec736f",
+      "title": "Entrada, saída e arquivos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um arquivo é aberto e não fechado quando ocorre exceção, causando vazamento de recurso.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Java oferece APIs como Files e Path para operações de arquivo. try-with-resources fecha recursos automaticamente. Texto deve declarar charset quando relevante. Caminhos devem ser construídos com APIs próprias, não concatenação manual de separadores. Entrada externa precisa de validação antes de definir destino de escrita.",
+          "type": "concept",
+          "title": "Entrada, saída e arquivos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use Path/Files.",
+            "Use try-with-resources quando abrir streams.",
+            "Declare charset.",
+            "Valide caminho antes de sobrescrever."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Path p=Path.of(\"dados\",\"clientes.txt\");\\nString texto=Files.readString(p,StandardCharsets.UTF_8);",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "java"
+        },
+        {
+          "body": "Concatenar \"dados/\" + nome vindo do usuário sem validar e permitir path traversal.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Path",
+            "System.out apenas",
+            "Math"
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Qual API moderna representa caminhos em Java?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Ler e escrever arquivos com APIs modernas e fechamento seguro de recursos, controlando encoding e falhas.",
+            "Use Path/Files.",
+            "Use try-with-resources quando abrir streams.",
+            "Declare charset."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 12,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Ler e escrever arquivos com APIs modernas e fechamento seguro de recursos, controlando encoding e falhas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Path",
+            "System.out apenas",
+            "Math"
+          ],
+          "feedback": "Correto.",
+          "question": "Qual API moderna representa caminhos em Java?"
+        }
+      },
+      "estimated_minutes": 48
+    },
+    {
+      "id": "e89e91e0-41f2-4c15-9f96-cf7bdb909117",
+      "title": "Organização em pacotes e boas práticas",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Todas as classes vivem em um pacote utils e ninguém sabe onde uma regra deveria ser alterada.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Pacotes criam namespaces e ajudam a organizar responsabilidades. Uma estrutura por domínio ou capacidade costuma comunicar melhor que pastas genéricas cheias de utilitários. Convenções de nomes, visibilidade mínima e dependências direcionadas tornam o projeto mais fácil de manter. Boas práticas são meios para reduzir custo de mudança, não regras decorativas.",
+          "type": "concept",
+          "title": "Organização em pacotes e boas práticas"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Agrupe por responsabilidade/domínio.",
+            "Evite pacote utils como destino de tudo.",
+            "Use visibilidade mínima necessária.",
+            "Mantenha dependências em direção clara."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "br.com.lc.pedidos\\n  Pedido.java\\n  PedidoService.java\\n  PedidoRepository.java",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "text"
+        },
+        {
+          "body": "Criar pacotes apenas por tipo técnico e espalhar uma feature em dezenas de locais sem necessidade.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "É fácil localizar a responsabilidade de uma mudança.",
+            "Tudo fica em utils.",
+            "Toda classe é public."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "Qual sinal indica boa organização?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Organizar classes em pacotes por responsabilidade e aplicar convenções que reduzam acoplamento e tornem o projeto navegável.",
+            "Agrupe por responsabilidade/domínio.",
+            "Evite pacote utils como destino de tudo.",
+            "Use visibilidade mínima necessária."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 13,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Organizar classes em pacotes por responsabilidade e aplicar convenções que reduzam acoplamento e tornem o projeto navegável.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "É fácil localizar a responsabilidade de uma mudança.",
+            "Tudo fica em utils.",
+            "Toda classe é public."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual sinal indica boa organização?"
+        }
+      },
+      "estimated_minutes": 48
+    },
+    {
+      "id": "b6bdecf1-2f55-4c24-9b1b-acea56dc66cf",
+      "title": "Projeto: aplicação Java orientada a objetos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A entrega precisa demonstrar OOP aplicada a um problema real, não apenas uma coleção de classes sem fluxo.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "O projeto deve começar pelo domínio: entidades, regras e casos de uso. Depois, modele classes e contratos, escolha coleções, trate erros e adicione entrada/saída. A aplicação pode ser de terminal, mas precisa ter fluxo completo e exemplos de uso. Testes ou cenários reproduzíveis devem provar regras importantes.",
+          "type": "concept",
+          "title": "Projeto: aplicação Java orientada a objetos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Modele regras antes da interface.",
+            "Use encapsulamento para invariantes.",
+            "Escolha composição/herança conscientemente.",
+            "Inclua tratamento de erro e documentação."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Exemplo: sistema de biblioteca, estoque ou pedidos com entidades, serviços, coleções, persistência em arquivo e menu de terminal.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Avaliar OOP pela quantidade de classes. Um modelo simples e coerente é melhor que dezenas de abstrações vazias.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa coerente com o modelo orientado a objetos.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Conceitos e regras do domínio.",
+            "Quantidade de arquivos desejada.",
+            "Cores da interface."
+          ],
+          "feedback": "Correto. A escolha mantém responsabilidades claras.",
+          "question": "O que deve orientar as classes do projeto?",
+          "feedback_incorrect": "Revise o contrato e o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir uma aplicação Java orientada a objetos com modelo de domínio, coleções, persistência simples e tratamento de erros, documentada e testável.",
+            "Modele regras antes da interface.",
+            "Use encapsulamento para invariantes.",
+            "Escolha composição/herança conscientemente."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 14,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "objective": "Construir uma aplicação Java orientada a objetos com modelo de domínio, coleções, persistência simples e tratamento de erros, documentada e testável.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 75
+    }
+  ],
+  "project": {
+    "id": "e6869280-9bae-476e-8466-4689a7a3adbd",
+    "title": "LC Programador Master — M8 • Boss Fight: Aplicação Java OOP",
+    "rubric": {
+      "criteria": [
+        {
+          "name": "Modelagem de domínio",
+          "weight": 30
+        },
+        {
+          "name": "Encapsulamento e contratos",
+          "weight": 25
+        },
+        {
+          "name": "Fluxo funcional",
+          "weight": 20
+        },
+        {
+          "name": "Erros e persistência",
+          "weight": 15
+        },
+        {
+          "name": "Documentação",
+          "weight": 10
+        }
+      ]
+    },
+    "status": "draft",
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+    "xp_reward": 550,
+    "description": "Construir uma aplicação Java com modelo de domínio coerente, encapsulamento, collections, tratamento de erros, persistência simples e documentação reproduzível.",
+    "project_kind": "boss_fight"
+  },
+  "resources": [
+    {
+      "id": "ac1c248b-e230-4e87-a301-71720c9e6f6e",
+      "title": "LC Programador Master — M8 • Guia Java essencial",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "JDK/JVM",
+              "Tipos e operadores",
+              "Fluxo",
+              "Métodos",
+              "Arquivos e exceções"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Referência de sintaxe e execução.",
+      "language": "pt-BR",
+      "position": 1,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "cfa78967-ea8f-445c-9970-06dc64f8bca7",
+      "title": "LC Programador Master — M8 • Mapa de OOP",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Classe x objeto",
+              "Encapsulamento",
+              "Composição x herança",
+              "Interfaces e polimorfismo",
+              "Collections"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Resumo das decisões de orientação a objetos.",
+      "language": "pt-BR",
+      "position": 2,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "c4445b0c-a15e-449c-a839-f369d112d571",
+      "title": "LC Programador Master — M8 • Checklist de modelagem",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Qual conceito do domínio representa?",
+              "Qual estado precisa proteger?",
+              "Qual comportamento pertence aqui?",
+              "Existe relação é-um ou tem-um?",
+              "A interface resolve variação real?"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Perguntas antes de criar uma nova abstração.",
+      "language": "pt-BR",
+      "position": 3,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "checklist"
+    },
+    {
+      "id": "856f190e-f28e-4cb0-9378-37d18e9320fb",
+      "title": "LC Programador Master — M8 • Exercícios OOP",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Modelar Produto",
+              "Adicionar invariantes",
+              "Trocar estratégia por interface",
+              "Escolher collections",
+              "Persistir e tratar falhas"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Práticas progressivas.",
+      "language": "pt-BR",
+      "position": 4,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "exercise"
+    }
+  ],
+  "assessment": {
+    "row": {
+      "id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+      "title": "LC Programador Master — M8 • Checkpoint Java e OOP",
+      "status": "draft",
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "module_id": "d8b1676c-dcac-4ac0-a947-010e5c9e7a97",
+      "pass_score": 70,
+      "max_attempts": 3,
+      "randomize_questions": true
+    },
+    "questions": [
+      {
+        "id": "9b7b96a5-d7ac-4585-aa09-4ac87366d13c",
+        "prompt": "O que a JVM executa normalmente?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Bytecode Java."
+          },
+          {
+            "id": "b",
+            "label": "CSS."
+          },
+          {
+            "id": "c",
+            "label": "SQL diretamente."
+          }
+        ],
+        "position": 1,
+        "difficulty": 1,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "4db3d0b3-901d-4911-a475-58d7e568ab0c",
+        "prompt": "Qual método é o ponto de entrada clássico de uma aplicação Java?",
+        "options": [
+          {
+            "id": "a",
+            "label": "public static void main"
+          },
+          {
+            "id": "b",
+            "label": "render"
+          },
+          {
+            "id": "c",
+            "label": "SELECT"
+          }
+        ],
+        "position": 2,
+        "difficulty": 1,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "2b3b3929-3eed-4d26-b3f9-b8c793b04cf1",
+        "prompt": "Qual tipo representa verdadeiro/falso em Java?",
+        "options": [
+          {
+            "id": "a",
+            "label": "boolean"
+          },
+          {
+            "id": "b",
+            "label": "int"
+          },
+          {
+            "id": "c",
+            "label": "String apenas"
+          }
+        ],
+        "position": 3,
+        "difficulty": 1,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "18956240-34f4-430d-a222-ce468beeb918",
+        "prompt": "Qual operador preserva 'a partir de 200'?",
+        "options": [
+          {
+            "id": "a",
+            "label": ">="
+          },
+          {
+            "id": "b",
+            "label": ">"
+          },
+          {
+            "id": "c",
+            "label": "!="
+          }
+        ],
+        "position": 4,
+        "difficulty": 1,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "904a15ef-1276-4d03-af81-bb8fc29f776d",
+        "prompt": "Quando um método pode ser static com naturalidade?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Quando não depende do estado de uma instância."
+          },
+          {
+            "id": "b",
+            "label": "Quando precisa acessar campos de cada objeto."
+          },
+          {
+            "id": "c",
+            "label": "Sempre."
+          }
+        ],
+        "position": 5,
+        "difficulty": 2,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "d4cde719-5e5d-47bf-a5d0-ba0a2ee1ff17",
+        "prompt": "O que é um objeto?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Uma instância de uma classe."
+          },
+          {
+            "id": "b",
+            "label": "Um arquivo CSS."
+          },
+          {
+            "id": "c",
+            "label": "Uma query SQL."
+          }
+        ],
+        "position": 6,
+        "difficulty": 2,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "32c9fbf3-c119-4c36-8a85-03cf25289c85",
+        "prompt": "Qual é um benefício do encapsulamento?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Proteger invariantes do objeto."
+          },
+          {
+            "id": "b",
+            "label": "Eliminar todos os métodos."
+          },
+          {
+            "id": "c",
+            "label": "Substituir banco de dados."
+          }
+        ],
+        "position": 7,
+        "difficulty": 2,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "57b85b4d-96c0-4603-b9ef-96ae1ec8e839",
+        "prompt": "Relatorio que usa Exportador representa melhor:",
+        "options": [
+          {
+            "id": "a",
+            "label": "Composição."
+          },
+          {
+            "id": "b",
+            "label": "Herança obrigatória."
+          },
+          {
+            "id": "c",
+            "label": "Interface gráfica."
+          }
+        ],
+        "position": 8,
+        "difficulty": 2,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "9f221c85-b487-4ee5-a27f-b2b2adcc6e9f",
+        "prompt": "Qual benefício do polimorfismo?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Trocar implementações mantendo o mesmo contrato."
+          },
+          {
+            "id": "b",
+            "label": "Eliminar tipos."
+          },
+          {
+            "id": "c",
+            "label": "Impedir testes."
+          }
+        ],
+        "position": 9,
+        "difficulty": 2,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "cf0a455b-0a92-4890-9f62-2ffb395c9ae8",
+        "prompt": "Qual coleção é adequada para valores únicos?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Set"
+          },
+          {
+            "id": "b",
+            "label": "List necessariamente"
+          },
+          {
+            "id": "c",
+            "label": "Map sem chave"
+          }
+        ],
+        "position": 10,
+        "difficulty": 2,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "d5ec149f-5196-4e0c-be6c-3e337157a345",
+        "prompt": "Onde uma exceção deve ser capturada?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Onde existe estratégia real de tratamento."
+          },
+          {
+            "id": "b",
+            "label": "Sempre imediatamente."
+          },
+          {
+            "id": "c",
+            "label": "Nunca."
+          }
+        ],
+        "position": 11,
+        "difficulty": 2,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "b6e0f0cb-85b2-45bb-bc04-c6684eac75a2",
+        "prompt": "Qual API moderna representa caminhos em Java?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Path"
+          },
+          {
+            "id": "b",
+            "label": "System.out apenas"
+          },
+          {
+            "id": "c",
+            "label": "Math"
+          }
+        ],
+        "position": 12,
+        "difficulty": 2,
+        "assessment_id": "a25b6ee4-b52d-4871-a41c-4633adabf8fb",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      }
+    ]
+  },
+  "references": []
+}
