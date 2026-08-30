@@ -31,10 +31,10 @@ with course as (
 ), module_data as (
   select *
   from jsonb_to_recordset('[{"pos":1,"title":"Lógica de Programação e Algoritmos","desc":"Base de raciocínio para transformar problemas em algoritmos verificáveis antes de escolher uma linguagem."},{"pos":2,"title":"Ambiente, Terminal, Git e GitHub","desc":"Fluxo profissional de desenvolvimento: arquivos, terminal, controle de versão, commits, branches e publicação de código."},{"pos":3,"title":"HTML5 e CSS3","desc":"Estrutura semântica, layout responsivo, acessibilidade e construção de interfaces web modernas."},{"pos":4,"title":"JavaScript para Web","desc":"Programação no navegador: dados, funções, DOM, eventos, formulários, armazenamento e consumo de APIs."},{"pos":5,"title":"PHP e MySQL","desc":"Backend web com PHP, persistência relacional, CRUD, validação, sessões e segurança básica."},{"pos":6,"title":"WordPress Profissional","desc":"Criação, configuração, personalização, desempenho, segurança e publicação de sites em WordPress."},{"pos":7,"title":"Python","desc":"Programação em Python com foco em fundamentos, estruturas de dados, funções, arquivos, automação e APIs."},{"pos":8,"title":"Java","desc":"Fundamentos de Java e orientação a objetos, coleções, exceções e construção de aplicações organizadas."},{"pos":9,"title":"APIs, Integrações e Projeto Final","desc":"Integração entre frontend, backend e serviços externos, testes, deploy e entrega de um projeto de portfólio."}]'::jsonb)
-    as x(pos integer,title text,desc text)
+    as x(pos integer,title text,description text)
 )
 insert into nexora.modules(course_id,title,description,position)
-select course.id,module_data.title,module_data.desc,module_data.pos
+select course.id,module_data.title,module_data.description,module_data.pos
 from course cross join module_data
 on conflict(course_id,position) do update set
   title=excluded.title,
