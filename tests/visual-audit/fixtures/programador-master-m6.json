@@ -1,0 +1,1420 @@
+{
+  "course": {
+    "id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "slug": "programador-master",
+    "title": "Programador Master",
+    "course_type": "formation",
+    "description": "Formação prática em programação do zero ao projeto publicado, cobrindo lógica, Git, HTML e CSS, JavaScript, PHP e MySQL, WordPress, Python, Java, APIs e integração full stack.",
+    "level_label": "Profissional"
+  },
+  "module": {
+    "id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+    "title": "WordPress Profissional",
+    "position": 6,
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "description": "Planeje, configure e publique sites WordPress com arquitetura editorial, plugins escolhidos por critério, SEO, desempenho, segurança e manutenção.",
+    "prerequisite_module_id": "b1fb06ca-20e4-45cc-8991-ffa1fe372e10"
+  },
+  "lessons": [
+    {
+      "id": "d3fd309d-18d4-441c-ad33-9755ba7d2e2f",
+      "title": "WordPress: arquitetura e casos de uso",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um cliente precisa publicar páginas, notícias e mídia com autonomia. O desafio é decidir se vale construir um painel próprio ou usar um CMS.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "WordPress é um CMS que combina núcleo, banco de dados, temas e plugins para administrar conteúdo e apresentação. Ele é forte quando usuários não técnicos precisam editar conteúdo, quando o problema se encaixa bem em páginas/posts e quando o ecossistema reduz tempo de implementação. Não é automaticamente a melhor escolha para qualquer sistema: regras de negócio muito específicas podem exigir outra arquitetura.",
+          "type": "concept",
+          "title": "WordPress: arquitetura e casos de uso"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Separe conteúdo, apresentação e extensões.",
+            "Avalie requisitos antes de instalar plugins.",
+            "Use WordPress quando o CMS reduz complexidade real.",
+            "Evite transformar o CMS em solução para um problema que é essencialmente uma aplicação customizada."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Site institucional com páginas, blog, equipe e formulário é um bom caso de uso. Um sistema transacional complexo com regras próprias pode exigir backend específico.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Escolher WordPress apenas porque é rápido de instalar, sem avaliar manutenção, segurança e fluxo editorial.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Site gerenciável com páginas, posts e mídia.",
+            "Algoritmo embarcado em dispositivo.",
+            "Banco sem interface."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual cenário combina melhor com WordPress?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Explicar a arquitetura básica do WordPress e avaliar quando um CMS atende melhor que uma aplicação desenvolvida do zero.",
+            "Separe conteúdo, apresentação e extensões.",
+            "Avalie requisitos antes de instalar plugins.",
+            "Use WordPress quando o CMS reduz complexidade real."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 1,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Explicar a arquitetura básica do WordPress e avaliar quando um CMS atende melhor que uma aplicação desenvolvida do zero.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Site gerenciável com páginas, posts e mídia.",
+            "Algoritmo embarcado em dispositivo.",
+            "Banco sem interface."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual cenário combina melhor com WordPress?"
+        }
+      },
+      "estimated_minutes": 32
+    },
+    {
+      "id": "16163e03-8fca-499e-a2bd-9e6610035517",
+      "title": "Instalação e configuração inicial",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O site foi instalado com usuário admin genérico, permalinks padrão e configurações de ambiente indefinidas.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "A configuração inicial estabelece a base operacional do site. URL, idioma, fuso, estrutura de links e usuários afetam conteúdo e manutenção. Em desenvolvimento, o ambiente local/staging deve ser separado de produção. Credenciais fortes e administração mínima reduzem superfície de ataque. Antes de personalizar, confirme que a instalação e os backups funcionam.",
+          "type": "concept",
+          "title": "Instalação e configuração inicial"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use conta administrativa individual e senha forte.",
+            "Configure permalinks legíveis.",
+            "Separe desenvolvimento/staging de produção.",
+            "Registre configurações críticas e procedimento de backup."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Checklist inicial: título/URL → idioma/fuso → permalinks → usuários → tema base → backup → atualizações.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Fazer customização diretamente em produção sem staging ou ponto de restauração.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Usar staging e backup.",
+            "Editar produção sem cópia.",
+            "Compartilhar uma única conta admin."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual prática reduz risco durante configuração e atualização?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Configurar uma instalação WordPress com URL, idioma, permalinks, usuário administrador e ambiente separados de forma segura.",
+            "Use conta administrativa individual e senha forte.",
+            "Configure permalinks legíveis.",
+            "Separe desenvolvimento/staging de produção."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 2,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Configurar uma instalação WordPress com URL, idioma, permalinks, usuário administrador e ambiente separados de forma segura.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Usar staging e backup.",
+            "Editar produção sem cópia.",
+            "Compartilhar uma única conta admin."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual prática reduz risco durante configuração e atualização?"
+        }
+      },
+      "estimated_minutes": 36
+    },
+    {
+      "id": "a85e6d4b-f296-4464-8c3b-9e3a7a005b12",
+      "title": "Painel, usuários e permissões",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Todo colaborador recebeu papel de administrador porque era mais simples. Agora qualquer pessoa pode instalar plugins e alterar configurações críticas.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Papéis e capacidades controlam o que cada usuário pode fazer. O princípio do menor privilégio diz que cada pessoa recebe apenas permissões necessárias. Autores e editores podem gerenciar conteúdo sem acesso a configurações do site. Administração deve ser restrita e contas inativas removidas. Isso reduz acidentes e impacto de credenciais comprometidas.",
+          "type": "concept",
+          "title": "Painel, usuários e permissões"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Atribua papel conforme responsabilidade.",
+            "Evite contas compartilhadas.",
+            "Revise usuários periodicamente.",
+            "Mantenha poucos administradores."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Redator publica próprios textos como Autor; equipe editorial revisa como Editor; manutenção técnica usa Administrador apenas quando necessário.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Dar Administrador para resolver rapidamente um problema de permissão. A exceção temporária vira risco permanente.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Menor privilégio.",
+            "Todos administradores.",
+            "Acesso por senha compartilhada."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual princípio deve orientar permissões?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Administrar usuários e papéis aplicando princípio do menor privilégio e distinguindo edição de conteúdo de administração técnica.",
+            "Atribua papel conforme responsabilidade.",
+            "Evite contas compartilhadas.",
+            "Revise usuários periodicamente."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 3,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Administrar usuários e papéis aplicando princípio do menor privilégio e distinguindo edição de conteúdo de administração técnica.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Menor privilégio.",
+            "Todos administradores.",
+            "Acesso por senha compartilhada."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual princípio deve orientar permissões?"
+        }
+      },
+      "estimated_minutes": 38
+    },
+    {
+      "id": "4cdb22ab-71f7-42f4-bc84-e93c1ab68c38",
+      "title": "Páginas, posts, categorias e mídia",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um site usa posts para páginas institucionais e dezenas de categorias quase vazias, tornando navegação e manutenção confusas.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Páginas atendem conteúdo relativamente estático e hierárquico; posts são conteúdos cronológicos e classificáveis. Categorias e tags ajudam descoberta quando representam uma taxonomia útil, não quando são criadas sem critério. A biblioteca de mídia deve ter nomes, tamanhos e textos alternativos adequados. Organização editorial impacta SEO e experiência de quem administra.",
+          "type": "concept",
+          "title": "Páginas, posts, categorias e mídia"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use páginas para conteúdo institucional estável.",
+            "Use posts para conteúdo editorial recorrente.",
+            "Crie categorias com propósito de navegação.",
+            "Otimize e descreva mídia antes do upload."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Sobre/Contato → páginas. Artigos/notícias → posts. Categoria 'Tutoriais' só existe se agrupa conteúdo suficiente e ajuda o usuário.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Criar categoria para cada post. Isso não organiza; apenas espalha conteúdo em arquivos vazios.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Post.",
+            "Página estática.",
+            "Plugin."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual tipo é mais adequado para uma notícia recorrente?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Escolher entre páginas e posts, organizar taxonomias e mídia para manter conteúdo encontrável e reutilizável.",
+            "Use páginas para conteúdo institucional estável.",
+            "Use posts para conteúdo editorial recorrente.",
+            "Crie categorias com propósito de navegação."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 4,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Escolher entre páginas e posts, organizar taxonomias e mídia para manter conteúdo encontrável e reutilizável.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Post.",
+            "Página estática.",
+            "Plugin."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual tipo é mais adequado para uma notícia recorrente?"
+        }
+      },
+      "estimated_minutes": 38
+    },
+    {
+      "id": "5176a733-c1fc-4c93-b955-214148085dca",
+      "title": "Temas e personalização",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um arquivo do tema foi editado diretamente. Após atualizar, a alteração desapareceu.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Temas controlam apresentação e templates. Customizações simples podem usar recursos do próprio tema e editor; alterações de código em tema de terceiros devem considerar child theme ou outra extensão adequada para não serem sobrescritas. Quanto mais um tema é customizado, maior a responsabilidade de testar atualizações e documentar dependências.",
+          "type": "concept",
+          "title": "Temas e personalização"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Prefira configurações suportadas antes de editar código.",
+            "Use child theme para customizações de código em tema pai quando apropriado.",
+            "Não misture regra de negócio complexa no tema.",
+            "Teste atualização em staging."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Ajustes de identidade podem viver no sistema de estilos; uma modificação persistente de template em tema de terceiros pede estratégia que sobreviva a update.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Alterar functions.php ou template do tema pai diretamente em produção.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Usar child theme/estratégia suportada.",
+            "Desativar atualizações para sempre.",
+            "Editar arquivos do core."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual prática protege customizações de código de um tema pai?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Personalizar apresentação por tema e child theme quando necessário, evitando alterações que sejam perdidas em atualizações.",
+            "Prefira configurações suportadas antes de editar código.",
+            "Use child theme para customizações de código em tema pai quando apropriado.",
+            "Não misture regra de negócio complexa no tema."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 5,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Personalizar apresentação por tema e child theme quando necessário, evitando alterações que sejam perdidas em atualizações.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Usar child theme/estratégia suportada.",
+            "Desativar atualizações para sempre.",
+            "Editar arquivos do core."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual prática protege customizações de código de um tema pai?"
+        }
+      },
+      "estimated_minutes": 42
+    },
+    {
+      "id": "4eb8735a-6291-4e35-853d-9069cb28de5f",
+      "title": "Menus, widgets e blocos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O mesmo CTA foi copiado em dez páginas; agora uma mudança exige editar todas individualmente.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "A experiência moderna do WordPress é fortemente baseada em blocos e padrões reutilizáveis. Navegação, áreas de conteúdo e componentes recorrentes devem ser modelados para edição consistente. O objetivo não é usar o maior número de blocos, mas transformar padrões repetidos em unidades controláveis.",
+          "type": "concept",
+          "title": "Menus, widgets e blocos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use navegação com rótulos curtos e hierarquia clara.",
+            "Reutilize padrões para seções repetidas.",
+            "Evite widgets/plugins para algo que blocos nativos resolvem.",
+            "Teste edição pelo usuário responsável pelo conteúdo."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Um padrão de CTA com título, texto e botão pode ser reutilizado mantendo estrutura e identidade, enquanto conteúdo autorizado continua editável.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Criar cada seção como composição única sem padrão; a consistência se perde na segunda rodada de edição.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Consistência e manutenção centralizada.",
+            "Mais plugins obrigatórios.",
+            "Desativar o editor."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual benefício principal de um padrão reutilizável?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir navegação e áreas de conteúdo usando blocos e estruturas reutilizáveis sem duplicar componentes manualmente.",
+            "Use navegação com rótulos curtos e hierarquia clara.",
+            "Reutilize padrões para seções repetidas.",
+            "Evite widgets/plugins para algo que blocos nativos resolvem."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 6,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Construir navegação e áreas de conteúdo usando blocos e estruturas reutilizáveis sem duplicar componentes manualmente.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Consistência e manutenção centralizada.",
+            "Mais plugins obrigatórios.",
+            "Desativar o editor."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual benefício principal de um padrão reutilizável?"
+        }
+      },
+      "estimated_minutes": 38
+    },
+    {
+      "id": "1c4bd611-fc96-4008-b805-a862b8b55457",
+      "title": "Plugins e critérios de escolha",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O site possui três plugins de cache, dois construtores e extensões abandonadas. Conflitos e desempenho pioraram.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Plugins ampliam o WordPress, mas cada extensão adiciona código, dependências e superfície de manutenção. A decisão deve começar pela necessidade: o core ou o tema já resolve? O plugin é mantido, compatível e bem documentado? Há sobreposição com outra extensão? Menos plugins não significa automaticamente melhor, mas redundância e abandono são sinais de risco.",
+          "type": "concept",
+          "title": "Plugins e critérios de escolha"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Instale por requisito, não por curiosidade.",
+            "Prefira plugins mantidos e com documentação clara.",
+            "Evite funções duplicadas entre extensões.",
+            "Remova plugins inativos desnecessários."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Antes de instalar um plugin de formulário, verifique requisitos de campos, anti-spam, armazenamento, integração e manutenção — não apenas número de downloads.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Instalar vários plugins para testar em produção e deixá-los desativados indefinidamente.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Existe uma necessidade real não atendida.",
+            "Ele tem um ícone bonito.",
+            "Ele adiciona muitos menus."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual deve ser o primeiro critério para instalar um plugin?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Avaliar plugins por necessidade, manutenção, segurança e sobreposição de funcionalidades antes de instalar.",
+            "Instale por requisito, não por curiosidade.",
+            "Prefira plugins mantidos e com documentação clara.",
+            "Evite funções duplicadas entre extensões."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 7,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Avaliar plugins por necessidade, manutenção, segurança e sobreposição de funcionalidades antes de instalar.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Existe uma necessidade real não atendida.",
+            "Ele tem um ícone bonito.",
+            "Ele adiciona muitos menus."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual deve ser o primeiro critério para instalar um plugin?"
+        }
+      },
+      "estimated_minutes": 44
+    },
+    {
+      "id": "eb009631-980d-4a0e-ab91-80912cc1bf17",
+      "title": "Formulários e captação de dados",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O formulário coleta dez campos, mas o processo comercial usa apenas quatro. A taxa de conclusão cai e ninguém sabe onde os dados ficam.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Formulários devem coletar o mínimo necessário para o objetivo. Cada campo precisa de propósito, validação e destino. Também é importante definir o que acontece após o envio: mensagem de sucesso, e-mail, CRM, armazenamento, proteção anti-spam e tratamento de erros. Captação não termina no botão enviar.",
+          "type": "concept",
+          "title": "Formulários e captação de dados"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Reduza campos ao necessário.",
+            "Associe labels e mensagens de erro.",
+            "Defina destino e responsável pelos dados.",
+            "Teste envio, spam, falha e confirmação."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Lead simples: nome, WhatsApp/e-mail e interesse. Depois do submit: validação → anti-spam → registro → confirmação → notificação da equipe.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Adicionar CPF, endereço ou outros dados sem necessidade operacional concreta.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Coletar somente dados necessários.",
+            "Adicionar todos os campos possíveis.",
+            "Ocultar o destino dos dados."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual princípio melhora conversão e privacidade?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Configurar formulários com campos mínimos, consentimento e fluxo de tratamento dos dados, testando entrega e falhas.",
+            "Reduza campos ao necessário.",
+            "Associe labels e mensagens de erro.",
+            "Defina destino e responsável pelos dados."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 8,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Configurar formulários com campos mínimos, consentimento e fluxo de tratamento dos dados, testando entrega e falhas.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Coletar somente dados necessários.",
+            "Adicionar todos os campos possíveis.",
+            "Ocultar o destino dos dados."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual princípio melhora conversão e privacidade?"
+        }
+      },
+      "estimated_minutes": 42
+    },
+    {
+      "id": "287c6455-8e70-4f55-a461-6d5a8b3b8d19",
+      "title": "SEO técnico básico",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O site instalou um plugin de SEO, mas possui títulos duplicados, headings incoerentes e páginas importantes sem links internos.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "SEO técnico básico começa com conteúdo acessível ao crawler, URLs estáveis, title e description úteis, hierarquia de headings, sitemap e links internos. Plugins ajudam a configurar, mas não corrigem arquitetura ruim ou conteúdo fraco. Também é necessário evitar indexar páginas que não deveriam aparecer e garantir canonical quando houver duplicidade relevante.",
+          "type": "concept",
+          "title": "SEO técnico básico"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use title único e descritivo.",
+            "Mantenha um h1 coerente por página.",
+            "Crie links internos que reflitam a arquitetura.",
+            "Confirme sitemap e indexação."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Página Curso JavaScript: URL legível, title específico, h1 alinhado ao tema, description útil e links para módulos relacionados.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Perseguir pontuação verde de plugin enquanto conteúdo e intenção de busca não são atendidos.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Não.",
+            "Sim, sempre.",
+            "Somente no mobile."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Um plugin de SEO substitui uma boa arquitetura de conteúdo?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Configurar fundamentos de indexação, títulos, headings, URLs, sitemap e metadados sem tratar plugin de SEO como substituto de conteúdo e arquitetura.",
+            "Use title único e descritivo.",
+            "Mantenha um h1 coerente por página.",
+            "Crie links internos que reflitam a arquitetura."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 9,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Configurar fundamentos de indexação, títulos, headings, URLs, sitemap e metadados sem tratar plugin de SEO como substituto de conteúdo e arquitetura.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Não.",
+            "Sim, sempre.",
+            "Somente no mobile."
+          ],
+          "feedback": "Correto.",
+          "question": "Um plugin de SEO substitui uma boa arquitetura de conteúdo?"
+        }
+      },
+      "estimated_minutes": 44
+    },
+    {
+      "id": "50421b37-2ff2-47ba-bf9b-93011328d0d7",
+      "title": "Desempenho, cache e imagens",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A home baixa imagens enormes e executa scripts de plugins que não são usados na página.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Desempenho depende do peso de imagens, quantidade e custo de scripts, consultas, hospedagem e cache. Otimização eficaz começa medindo. Imagens devem ser dimensionadas e comprimidas; formatos modernos ajudam. Cache reduz trabalho repetido, mas múltiplos plugins de cache podem conflitar. Desempenho é orçamento: cada plugin e recurso consome parte dele.",
+          "type": "concept",
+          "title": "Desempenho, cache e imagens"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Meça antes e depois.",
+            "Redimensione imagens para o uso real.",
+            "Evite scripts e plugins redundantes.",
+            "Use uma estratégia de cache coerente."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Uma hero de 4000px não deve ser enviada integralmente para um viewport pequeno se versões responsivas podem atender o mesmo resultado.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Ativar várias camadas de minificação/cache sem saber qual controla o quê; bugs ficam difíceis de reproduzir.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Medir e localizar gargalo.",
+            "Instalar três plugins de cache.",
+            "Converter todo texto em imagem."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Qual primeira ação é adequada ao otimizar desempenho?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Diagnosticar gargalos de carregamento e aplicar otimização de imagens, cache e quantidade de recursos sem duplicar mecanismos.",
+            "Meça antes e depois.",
+            "Redimensione imagens para o uso real.",
+            "Evite scripts e plugins redundantes."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 10,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Diagnosticar gargalos de carregamento e aplicar otimização de imagens, cache e quantidade de recursos sem duplicar mecanismos.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Medir e localizar gargalo.",
+            "Instalar três plugins de cache.",
+            "Converter todo texto em imagem."
+          ],
+          "feedback": "Correto.",
+          "question": "Qual primeira ação é adequada ao otimizar desempenho?"
+        }
+      },
+      "estimated_minutes": 46
+    },
+    {
+      "id": "ccc571f8-2c5b-4a31-beff-c5219c879fcd",
+      "title": "Segurança, backup e atualizações",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma atualização quebra o site e existe um backup, mas ninguém sabe restaurá-lo.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Segurança operacional combina atualizações, contas protegidas, extensões mantidas, backups e capacidade de restauração. Backup só é útil se contém o necessário e o procedimento de recuperação foi testado. Atualizações devem ser aplicadas com ponto de restauração e, em sites críticos, validadas em staging. Logs e monitoramento ajudam a perceber alterações inesperadas.",
+          "type": "concept",
+          "title": "Segurança, backup e atualizações"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Atualize core, temas e plugins mantidos.",
+            "Faça backup de arquivos e banco conforme a arquitetura.",
+            "Teste restauração periodicamente.",
+            "Remova contas e extensões desnecessárias."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Rotina: backup automático + cópia fora do servidor + teste de restore + staging para atualização relevante + smoke test pós-update.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Não atualizar por medo de quebrar. Adiar indefinidamente também acumula vulnerabilidades e incompatibilidades.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Quando a restauração foi testada.",
+            "Quando o arquivo existe.",
+            "Quando está no mesmo disco apenas."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "Quando um backup é realmente confiável?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Manter WordPress atualizado com backups testados, menor privilégio e procedimento de restauração, reduzindo risco operacional.",
+            "Atualize core, temas e plugins mantidos.",
+            "Faça backup de arquivos e banco conforme a arquitetura.",
+            "Teste restauração periodicamente."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 11,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Manter WordPress atualizado com backups testados, menor privilégio e procedimento de restauração, reduzindo risco operacional.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Quando a restauração foi testada.",
+            "Quando o arquivo existe.",
+            "Quando está no mesmo disco apenas."
+          ],
+          "feedback": "Correto.",
+          "question": "Quando um backup é realmente confiável?"
+        }
+      },
+      "estimated_minutes": 48
+    },
+    {
+      "id": "fa7312d5-a1c1-47c8-9e9b-8940a6f9c90e",
+      "title": "Projeto: site profissional publicado",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A entrega precisa ser utilizável por um cliente real, não apenas uma instalação com tema demo.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "O projeto deve demonstrar arquitetura editorial, identidade coerente, navegação, formulário funcional, SEO técnico básico, desempenho aceitável e plano de manutenção. O resultado precisa ser editável por um usuário com permissões adequadas. A publicação inclui domínio/HTTPS quando aplicável, backup e smoke test.",
+          "type": "concept",
+          "title": "Projeto: site profissional publicado"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina mapa de páginas e conteúdo antes de personalizar.",
+            "Escolha tema/plugins por requisito.",
+            "Configure usuários e formulário com segurança.",
+            "Teste publicação, mobile, desempenho e backup."
+          ],
+          "title": "Critérios práticos"
+        },
+        {
+          "body": "Entrega: site institucional publicado + usuário editor + formulário testado + sitemap + backup + documento curto de manutenção.",
+          "type": "example",
+          "title": "Aplicação"
+        },
+        {
+          "body": "Entregar apenas o acesso admin sem documentação, backup ou definição de quem pode editar o quê.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a opção que reduz risco de manutenção.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Conteúdo, fluxo, segurança e manutenção validados.",
+            "Quantidade de plugins.",
+            "Tema mais caro."
+          ],
+          "feedback": "Correto. A decisão trata WordPress como produto operável, não apenas editor visual.",
+          "question": "O que diferencia um site profissional de uma instalação demo?",
+          "feedback_incorrect": "Revise necessidade, segurança e manutenção."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Planejar, configurar, publicar e documentar um site WordPress profissional com conteúdo editável, desempenho e manutenção considerados.",
+            "Defina mapa de páginas e conteúdo antes de personalizar.",
+            "Escolha tema/plugins por requisito.",
+            "Configure usuários e formulário com segurança."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 12,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "objective": "Planejar, configurar, publicar e documentar um site WordPress profissional com conteúdo editável, desempenho e manutenção considerados.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 65
+    }
+  ],
+  "project": {
+    "id": "0619e1aa-ead6-42d6-8998-fe2f4d852e6c",
+    "title": "LC Programador Master — M6 • Boss Fight: Site WordPress profissional",
+    "rubric": {
+      "criteria": [
+        {
+          "name": "Arquitetura e conteúdo",
+          "weight": 25
+        },
+        {
+          "name": "UX e responsividade",
+          "weight": 20
+        },
+        {
+          "name": "Plugins e desempenho",
+          "weight": 20
+        },
+        {
+          "name": "Segurança e manutenção",
+          "weight": 25
+        },
+        {
+          "name": "Publicação e documentação",
+          "weight": 10
+        }
+      ]
+    },
+    "status": "draft",
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+    "xp_reward": 450,
+    "description": "Publicar um site WordPress com mapa editorial, tema/plugins justificados, permissões, formulário funcional, SEO técnico básico, otimização e plano de backup/manutenção.",
+    "project_kind": "boss_fight"
+  },
+  "resources": [
+    {
+      "id": "138a1258-553d-45c4-9876-c8745e3f7f70",
+      "title": "LC Programador Master — M6 • Checklist de implantação WordPress",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Usuários e menor privilégio",
+              "Tema/plugins revisados",
+              "Formulário testado",
+              "SEO técnico básico",
+              "Desempenho medido",
+              "Backup e restore",
+              "Smoke test pós-publicação"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Revisão completa antes e depois da publicação.",
+      "language": "pt-BR",
+      "position": 1,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "checklist"
+    },
+    {
+      "id": "5f6ee64f-c9b0-42f8-a5ff-df82ca82ccd9",
+      "title": "LC Programador Master — M6 • Guia de manutenção",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Atualizações em staging",
+              "Backups e retenção",
+              "Revisão de usuários",
+              "Revisão de plugins",
+              "Monitoramento de formulários e disponibilidade"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Rotina operacional para sites WordPress.",
+      "language": "pt-BR",
+      "position": 2,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "adf6e740-c216-41da-ba32-8f32b13b7752",
+      "title": "LC Programador Master — M6 • Matriz de escolha de plugins",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Necessidade que resolve",
+              "Alternativa nativa",
+              "Manutenção ativa",
+              "Compatibilidade",
+              "Impacto em desempenho",
+              "Plano de remoção"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Modelo para justificar cada extensão.",
+      "language": "pt-BR",
+      "position": 3,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "template"
+    },
+    {
+      "id": "25dc7fa7-2a61-468e-95fb-f4279d944006",
+      "title": "LC Programador Master — M6 • Exercícios de auditoria",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Auditar papéis e usuários",
+              "Reduzir plugins redundantes",
+              "Reorganizar taxonomia",
+              "Otimizar mídia",
+              "Desenhar plano de backup"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Práticas para avaliar um WordPress existente.",
+      "language": "pt-BR",
+      "position": 4,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "exercise"
+    }
+  ],
+  "assessment": {
+    "row": {
+      "id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+      "title": "LC Programador Master — M6 • Checkpoint WordPress",
+      "status": "draft",
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "module_id": "501dd455-206c-4e67-a7ee-59d5a98ce9c6",
+      "pass_score": 70,
+      "max_attempts": 3,
+      "randomize_questions": true
+    },
+    "questions": [
+      {
+        "id": "70393d78-7782-4857-b020-203551572fea",
+        "prompt": "Qual cenário combina melhor com WordPress?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Site gerenciável com páginas, posts e mídia."
+          },
+          {
+            "id": "b",
+            "label": "Algoritmo embarcado em dispositivo."
+          },
+          {
+            "id": "c",
+            "label": "Banco sem interface."
+          }
+        ],
+        "position": 1,
+        "difficulty": 1,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "85644a9d-a549-462b-bf76-37b55a8b7ad2",
+        "prompt": "Qual prática reduz risco durante configuração e atualização?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Usar staging e backup."
+          },
+          {
+            "id": "b",
+            "label": "Editar produção sem cópia."
+          },
+          {
+            "id": "c",
+            "label": "Compartilhar uma única conta admin."
+          }
+        ],
+        "position": 2,
+        "difficulty": 1,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "a91492d0-eecf-4261-b897-4ad59f81ed98",
+        "prompt": "Qual princípio deve orientar permissões?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Menor privilégio."
+          },
+          {
+            "id": "b",
+            "label": "Todos administradores."
+          },
+          {
+            "id": "c",
+            "label": "Acesso por senha compartilhada."
+          }
+        ],
+        "position": 3,
+        "difficulty": 1,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "e559edd2-5507-4de8-be8e-7736f905db6b",
+        "prompt": "Qual tipo é mais adequado para uma notícia recorrente?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Post."
+          },
+          {
+            "id": "b",
+            "label": "Página estática."
+          },
+          {
+            "id": "c",
+            "label": "Plugin."
+          }
+        ],
+        "position": 4,
+        "difficulty": 1,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "048670bf-a51e-4774-9915-18645f874956",
+        "prompt": "Qual prática protege customizações de código de um tema pai?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Usar child theme/estratégia suportada."
+          },
+          {
+            "id": "b",
+            "label": "Desativar atualizações para sempre."
+          },
+          {
+            "id": "c",
+            "label": "Editar arquivos do core."
+          }
+        ],
+        "position": 5,
+        "difficulty": 2,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "9e701549-c498-4733-82cd-4ab8c93b5b87",
+        "prompt": "Qual benefício principal de um padrão reutilizável?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Consistência e manutenção centralizada."
+          },
+          {
+            "id": "b",
+            "label": "Mais plugins obrigatórios."
+          },
+          {
+            "id": "c",
+            "label": "Desativar o editor."
+          }
+        ],
+        "position": 6,
+        "difficulty": 2,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "2e3e2caf-b725-4ba5-a225-02876f02bb4a",
+        "prompt": "Qual deve ser o primeiro critério para instalar um plugin?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Existe uma necessidade real não atendida."
+          },
+          {
+            "id": "b",
+            "label": "Ele tem um ícone bonito."
+          },
+          {
+            "id": "c",
+            "label": "Ele adiciona muitos menus."
+          }
+        ],
+        "position": 7,
+        "difficulty": 2,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "5c78753a-4202-40c0-ade2-86c59a5a39e2",
+        "prompt": "Qual princípio melhora conversão e privacidade?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Coletar somente dados necessários."
+          },
+          {
+            "id": "b",
+            "label": "Adicionar todos os campos possíveis."
+          },
+          {
+            "id": "c",
+            "label": "Ocultar o destino dos dados."
+          }
+        ],
+        "position": 8,
+        "difficulty": 2,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "b175d77c-c558-43dd-8a84-7f190411401b",
+        "prompt": "Um plugin de SEO substitui uma boa arquitetura de conteúdo?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Não."
+          },
+          {
+            "id": "b",
+            "label": "Sim, sempre."
+          },
+          {
+            "id": "c",
+            "label": "Somente no mobile."
+          }
+        ],
+        "position": 9,
+        "difficulty": 2,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "4a3c4bc7-3841-427d-a975-ad895c9bd0fc",
+        "prompt": "Qual primeira ação é adequada ao otimizar desempenho?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Medir e localizar gargalo."
+          },
+          {
+            "id": "b",
+            "label": "Instalar três plugins de cache."
+          },
+          {
+            "id": "c",
+            "label": "Converter todo texto em imagem."
+          }
+        ],
+        "position": 10,
+        "difficulty": 2,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "012aed1e-e0d0-4082-806b-35dd3d1cf671",
+        "prompt": "Quando um backup é realmente confiável?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Quando a restauração foi testada."
+          },
+          {
+            "id": "b",
+            "label": "Quando o arquivo existe."
+          },
+          {
+            "id": "c",
+            "label": "Quando está no mesmo disco apenas."
+          }
+        ],
+        "position": 11,
+        "difficulty": 2,
+        "assessment_id": "75e6721a-2858-4fce-8638-19a204eb99f1",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      }
+    ]
+  },
+  "references": []
+}
