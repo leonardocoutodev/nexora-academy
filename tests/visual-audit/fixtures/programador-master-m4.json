@@ -1,0 +1,1481 @@
+{
+  "course": {
+    "id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "slug": "programador-master",
+    "title": "Programador Master",
+    "course_type": "formation",
+    "description": "Formação prática em programação do zero ao projeto publicado, cobrindo lógica, Git, HTML e CSS, JavaScript, PHP e MySQL, WordPress, Python, Java, APIs e integração full stack.",
+    "level_label": "Profissional"
+  },
+  "module": {
+    "id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+    "title": "JavaScript para Web",
+    "position": 4,
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "description": "Use JavaScript para modelar estado, regras e interação no navegador, trabalhando com DOM, eventos, formulários, persistência e APIs.",
+    "prerequisite_module_id": "3835f21b-3eec-4563-a799-6842dabd49a9"
+  },
+  "lessons": [
+    {
+      "id": "5bb44b88-daa3-47ce-a4ec-075bd9164508",
+      "title": "JavaScript e o papel da linguagem na Web",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A página tem HTML e CSS corretos, mas nenhum botão reage e nenhum dado muda. É o momento em que JavaScript deixa de ser 'mais uma linguagem' e passa a controlar comportamento.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "JavaScript é a linguagem que normalmente adiciona comportamento dinâmico às páginas. Ele executa no navegador, manipula dados em memória, reage a eventos, acessa APIs da Web e altera o DOM. HTML define estrutura, CSS define apresentação e JavaScript coordena interação e lógica. Separar esses papéis ajuda a decidir onde cada regra deve viver e evita colocar lógica de negócio em atributos ou estilos.",
+          "type": "concept",
+          "title": "JavaScript e o papel da linguagem na Web"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use JavaScript para comportamento e transformação de dados.",
+            "Mantenha HTML como estrutura e CSS como apresentação.",
+            "Observe entradas, estado e saída ao depurar.",
+            "Evite misturar regras em handlers gigantes."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "const botao=document.querySelector('#acao');\\nbotao.addEventListener('click',()=>{\\n  console.log('Clique recebido');\\n});",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Tratar JavaScript como sequência de comandos soltos. Mesmo scripts pequenos precisam de estado, responsabilidade e fluxo claros.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Comportamento e lógica.",
+            "Apenas tipografia.",
+            "Apenas estrutura semântica."
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual papel JavaScript normalmente desempenha em uma página Web?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Explicar onde JavaScript executa no navegador e usar a linguagem para transformar estado, eventos e dados em comportamento observável.",
+            "Use JavaScript para comportamento e transformação de dados.",
+            "Mantenha HTML como estrutura e CSS como apresentação.",
+            "Observe entradas, estado e saída ao depurar."
+          ]
+        }
+      ],
+      "lab_type": "javascript",
+      "position": 1,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Explicar onde JavaScript executa no navegador e usar a linguagem para transformar estado, eventos e dados em comportamento observável.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 30
+    },
+    {
+      "id": "8f22f101-6aa2-4743-a3d4-92894164e282",
+      "title": "Variáveis, tipos e coerção",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Um preço vindo de input é string e a soma com outro número gera '10020' em vez de 120. O erro está no tipo, não na fórmula.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "JavaScript possui tipagem dinâmica: valores têm tipos, mas variáveis não ficam presas a um tipo declarado. Strings, numbers, booleans, null, undefined, bigint e symbol são primitivos. Coerção pode converter valores automaticamente, especialmente com + e comparações frouxas. Em código previsível, declare com const quando a referência não muda, let quando muda e converta entradas explicitamente antes de calcular.",
+          "type": "concept",
+          "title": "Variáveis, tipos e coerção"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Prefira const por padrão.",
+            "Converta input com Number ou parse apropriado.",
+            "Use === em vez de == na maioria dos casos.",
+            "Inspecione typeof ao investigar dados inesperados."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "const preco=Number('100');\\nconst frete=20;\\nconsole.log(preco+frete); // 120",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Assumir que todo valor digitado em input já é number. No DOM, valores de campos chegam como texto.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "===",
+            "==",
+            "="
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual comparação evita coerção implícita entre tipos?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Declarar valores com const e let, reconhecer tipos primitivos e evitar coerções implícitas que produzem resultados inesperados.",
+            "Prefira const por padrão.",
+            "Converta input com Number ou parse apropriado.",
+            "Use === em vez de == na maioria dos casos."
+          ]
+        }
+      ],
+      "lab_type": "javascript",
+      "position": 2,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Declarar valores com const e let, reconhecer tipos primitivos e evitar coerções implícitas que produzem resultados inesperados.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 36
+    },
+    {
+      "id": "f27cd512-382f-4f4c-8d5d-f9593ba1a3d8",
+      "title": "Operadores e expressões em JavaScript",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A regra diz 'frete grátis a partir de 300', mas o código usa > 300 e exclui exatamente 300.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Operadores formam expressões que produzem valores. Aritméticos calculam, relacionais comparam e lógicos combinam condições. A maior fonte de erro não é a sintaxe, mas a tradução imprecisa da regra. Fronteiras como maior que versus maior ou igual precisam ser testadas com casos imediatamente abaixo, no limite e acima.",
+          "type": "concept",
+          "title": "Operadores e expressões em JavaScript"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Escreva a regra em linguagem natural antes da expressão.",
+            "Teste limites explicitamente.",
+            "Use parênteses quando melhorarem leitura.",
+            "Evite expressões longas demais em uma única linha."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "const freteGratis = total >= 300 && clienteAtivo;\\nconsole.log(freteGratis);",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Confiar em precedência implícita quando a expressão mistura &&, || e comparações. Se a intenção não está evidente, extraia variáveis.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            ">=",
+            ">",
+            "=="
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Para 'a partir de 300', qual operador preserva a fronteira?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Construir expressões aritméticas, relacionais e lógicas e testar fronteiras para garantir que a regra represente o requisito.",
+            "Escreva a regra em linguagem natural antes da expressão.",
+            "Teste limites explicitamente.",
+            "Use parênteses quando melhorarem leitura."
+          ]
+        }
+      ],
+      "lab_type": "javascript",
+      "position": 3,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Construir expressões aritméticas, relacionais e lógicas e testar fronteiras para garantir que a regra represente o requisito.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 36
+    },
+    {
+      "id": "3f0d12f9-ffbf-45b4-8805-a5c3b67d2e77",
+      "title": "Condições e repetição",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Uma lista de pedidos precisa classificar cada total e somar apenas aprovados. Há decisão por item e repetição sobre a coleção.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Condições escolhem caminhos e laços repetem trabalho. if/else representa decisões; for, for...of e while atendem padrões diferentes de repetição. Um laço deve deixar clara a condição de parada. Quando decisão e repetição aparecem juntas, primeiro defina a regra por item; depois aplique a regra à coleção. Isso simplifica testes e evita blocos profundamente aninhados.",
+          "type": "concept",
+          "title": "Condições e repetição"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina condições mutuamente compreensíveis.",
+            "Escolha for...of para percorrer valores de coleção.",
+            "Use while quando a repetição depende de condição dinâmica.",
+            "Teste casos vazios e limites."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "let aprovados=0;\\nfor(const pedido of pedidos){\\n  if(pedido.total>=100) aprovados++;\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Alterar a variável de controle de um while em lugar que nem sempre executa, criando loop infinito em alguns ramos.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "for...of",
+            "switch",
+            "try"
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual laço é direto para percorrer valores de um array?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Controlar fluxo com if/else e laços escolhendo condições de entrada e parada que não produzam ramos inacessíveis ou loops infinitos.",
+            "Defina condições mutuamente compreensíveis.",
+            "Escolha for...of para percorrer valores de coleção.",
+            "Use while quando a repetição depende de condição dinâmica."
+          ]
+        }
+      ],
+      "lab_type": "javascript",
+      "position": 4,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Controlar fluxo com if/else e laços escolhendo condições de entrada e parada que não produzam ramos inacessíveis ou loops infinitos.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 40
+    },
+    {
+      "id": "a49f7663-aa19-4913-af85-737e3a683b0a",
+      "title": "Funções, escopo e retorno",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A mesma regra de desconto aparece em três handlers e cada versão já começou a divergir.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Funções encapsulam comportamento. Parâmetros tornam entradas explícitas; return produz uma saída; escopo determina onde nomes podem ser acessados. Funções pequenas e determinísticas são mais fáceis de testar e reutilizar. Quando uma função depende de variáveis globais ocultas, fica difícil prever seu resultado. Prefira receber o necessário e devolver o resultado.",
+          "type": "concept",
+          "title": "Funções, escopo e retorno"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Dê à função uma responsabilidade clara.",
+            "Receba dados por parâmetros.",
+            "Retorne resultados em vez de alterar estado global sem necessidade.",
+            "Evite funções longas que fazem validação, cálculo, DOM e rede juntas."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "function calcularDesconto(total,taxa){\\n  return total*taxa;\\n}\\nconsole.log(calcularDesconto(200,.1));",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Criar funções que só funcionam porque leem várias variáveis externas. Isso aumenta acoplamento e dificulta testes.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Entradas por parâmetros e saída por return.",
+            "Dependência de várias globais.",
+            "Alterar DOM e rede sempre."
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual prática torna uma função mais previsível?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Extrair responsabilidades em funções com parâmetros e retorno, explicando escopo e evitando dependência excessiva de variáveis globais.",
+            "Dê à função uma responsabilidade clara.",
+            "Receba dados por parâmetros.",
+            "Retorne resultados em vez de alterar estado global sem necessidade."
+          ]
+        }
+      ],
+      "lab_type": "javascript",
+      "position": 5,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Extrair responsabilidades em funções com parâmetros e retorno, explicando escopo e evitando dependência excessiva de variáveis globais.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "b636737a-88c2-4dfc-9b47-e5fc98a005f6",
+      "title": "Arrays e objetos",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Você precisa representar vários cursos, cada um com nome, preço e status. Uma sequência de variáveis separadas não escala.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Arrays representam coleções ordenadas; objetos agrupam propriedades relacionadas de uma entidade. Em aplicações, é comum ter arrays de objetos. Escolher estrutura adequada reduz variáveis desconectadas e permite operações de busca, filtro e transformação. A modelagem deve refletir o domínio: nomes de propriedades precisam ser claros e o formato deve ser consistente entre itens.",
+          "type": "concept",
+          "title": "Arrays e objetos"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use array para coleção de itens semelhantes.",
+            "Use objeto para propriedades relacionadas de um item.",
+            "Mantenha chaves consistentes entre registros.",
+            "Evite índices mágicos quando um objeto expressa melhor o significado."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "const cursos=[\\n {id:1,nome:'JavaScript',ativo:true},\\n {id:2,nome:'Python',ativo:false}\\n];",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Representar entidade como array posicional, por exemplo ['JS',120,true], quando ninguém sabe o que cada posição significa.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Array de objetos.",
+            "Uma string gigante.",
+            "Um booleano."
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual estrutura representa melhor uma coleção de cursos com várias propriedades?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Modelar coleções e registros com arrays e objetos e acessar dados usando estrutura coerente com o problema.",
+            "Use array para coleção de itens semelhantes.",
+            "Use objeto para propriedades relacionadas de um item.",
+            "Mantenha chaves consistentes entre registros."
+          ]
+        }
+      ],
+      "lab_type": "javascript",
+      "position": 6,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Modelar coleções e registros com arrays e objetos e acessar dados usando estrutura coerente com o problema.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "7e5d154b-895c-484f-bccd-35932f381d5f",
+      "title": "Métodos de coleção",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Você precisa obter só os produtos ativos, transformar nomes e calcular total. Um único for faz tudo e fica difícil de ler.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Métodos de array expressam intenções comuns. map transforma cada item; filter seleciona; find encontra o primeiro; some/every verificam condição; reduce acumula. Escolher o método certo melhora leitura porque o código comunica o que pretende fazer. Não é obrigatório usar encadeamentos longos: etapas nomeadas podem ser mais claras e fáceis de depurar.",
+          "type": "concept",
+          "title": "Métodos de coleção"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use filter para subconjuntos.",
+            "Use map quando a saída tem um item correspondente por entrada.",
+            "Use find para primeira ocorrência.",
+            "Nomeie etapas quando o encadeamento fica difícil de entender."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "const ativos=produtos.filter(p=>p.ativo);\\nconst nomes=ativos.map(p=>p.nome);",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Usar map apenas pelos efeitos colaterais e ignorar o array retornado. Nesse caso, forEach ou outro desenho pode ser mais coerente.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "filter",
+            "map",
+            "join"
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual método retorna apenas itens que atendem a uma condição?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Usar map, filter, find, some e reduce conforme a intenção, evitando loops manuais quando a operação de coleção é expressa melhor por um método.",
+            "Use filter para subconjuntos.",
+            "Use map quando a saída tem um item correspondente por entrada.",
+            "Use find para primeira ocorrência."
+          ]
+        }
+      ],
+      "lab_type": "javascript",
+      "position": 7,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Usar map, filter, find, some e reduce conforme a intenção, evitando loops manuais quando a operação de coleção é expressa melhor por um método.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 44
+    },
+    {
+      "id": "645de9d6-26e8-4812-acba-5acb14f08c96",
+      "title": "DOM: selecionar e alterar a página",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A aplicação possui um contador no dado e outro valor diferente no texto da tela. O DOM virou fonte de verdade sem perceber.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "O DOM é a representação da página que JavaScript pode consultar e alterar. querySelector localiza elementos; textContent altera texto; classList gerencia classes; atributos podem ser lidos e escritos. Em interfaces maiores, é saudável tratar os dados da aplicação como estado e renderizar o DOM a partir deles, em vez de extrair regras do texto da tela.",
+          "type": "concept",
+          "title": "DOM: selecionar e alterar a página"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use seletores estáveis e específicos ao componente.",
+            "Prefira textContent para texto simples.",
+            "Use classes para estados visuais.",
+            "Evite espalhar atualizações do mesmo elemento por muitos lugares."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "const totalEl=document.querySelector('[data-total]');\\nfunction render(total){\\n  totalEl.textContent=total.toLocaleString('pt-BR');\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Usar innerHTML com dados não confiáveis sem necessidade. Além de acoplamento, isso pode abrir risco de injeção.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "textContent",
+            "innerHTML sempre",
+            "style"
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual propriedade é adequada para inserir texto simples sem interpretar HTML?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Selecionar elementos do DOM e atualizar conteúdo, atributos e classes mantendo separação entre estado e renderização.",
+            "Use seletores estáveis e específicos ao componente.",
+            "Prefira textContent para texto simples.",
+            "Use classes para estados visuais."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 8,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Selecionar elementos do DOM e atualizar conteúdo, atributos e classes mantendo separação entre estado e renderização.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 46
+    },
+    {
+      "id": "8b1cc43a-03ff-4649-8628-b31469bb67dd",
+      "title": "Eventos e interação do usuário",
+      "status": "draft",
+      "content": [
+        {
+          "body": "Cada render adiciona um novo click listener; depois de alguns minutos, um clique executa a mesma ação várias vezes.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Eventos representam acontecimentos como clique, input, submit e teclado. addEventListener conecta uma função a um evento. O objeto event traz alvo e contexto. A arquitetura deve definir quando listeners são registrados e evitar recriá-los de forma descontrolada. Delegação de eventos pode ser útil para listas dinâmicas, mas exige entender bubbling.",
+          "type": "concept",
+          "title": "Eventos e interação do usuário"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Registre listeners em ponto previsível do ciclo da tela.",
+            "Use submit no formulário em vez de click apenas no botão.",
+            "Conheça preventDefault e bubbling.",
+            "Remova listeners quando componentes realmente precisam ser desmontados."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "form.addEventListener('submit',event=>{\\n  event.preventDefault();\\n  salvar();\\n});",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Colocar lógica de formulário somente no click do botão. Enter e outras formas de submit podem ignorar esse caminho.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "submit",
+            "mouseover",
+            "scroll"
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual evento representa melhor o envio de um formulário?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Registrar listeners, interpretar o objeto de evento e coordenar ações do usuário sem duplicar handlers ou misturar responsabilidades.",
+            "Registre listeners em ponto previsível do ciclo da tela.",
+            "Use submit no formulário em vez de click apenas no botão.",
+            "Conheça preventDefault e bubbling."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 9,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Registrar listeners, interpretar o objeto de evento e coordenar ações do usuário sem duplicar handlers ou misturar responsabilidades.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 44
+    },
+    {
+      "id": "b400bb4a-84f1-405d-8206-b1f3238c7226",
+      "title": "Formulários e validação",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O formulário bloqueia e-mail inválido no navegador, mas a API aceita qualquer payload enviado diretamente.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Validação no cliente melhora experiência, mas não substitui validação no servidor. No frontend, normalize entradas, verifique campos obrigatórios, formatos e relações entre valores, e mostre mensagens próximas ao problema. A regra deve trabalhar com dados, não com aparência. O backend precisa repetir as garantias relevantes porque o cliente pode ser contornado.",
+          "type": "concept",
+          "title": "Formulários e validação"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Normalize trim e conversões antes de validar.",
+            "Associe mensagens ao campo correspondente.",
+            "Valide relações, como confirmação de senha ou intervalos.",
+            "Repita validações críticas no servidor."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "const email=form.email.value.trim();\\nif(!email.includes('@')){\\n  mostrarErro('Informe um e-mail válido');\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Desabilitar o botão e considerar isso segurança. Uma requisição manual pode ignorar completamente a interface.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Porque o cliente pode ser contornado.",
+            "Porque JavaScript não lê strings.",
+            "Porque HTML não tem formulários."
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Por que validação no cliente não basta para segurança?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Validar dados no cliente com regras explícitas, normalização e mensagens úteis, sem confundir validação de interface com segurança do servidor.",
+            "Normalize trim e conversões antes de validar.",
+            "Associe mensagens ao campo correspondente.",
+            "Valide relações, como confirmação de senha ou intervalos."
+          ]
+        }
+      ],
+      "lab_type": "html",
+      "position": 10,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Validar dados no cliente com regras explícitas, normalização e mensagens úteis, sem confundir validação de interface com segurança do servidor.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 46
+    },
+    {
+      "id": "6e4cd40b-9261-4338-ae4d-e1447fdfa9c3",
+      "title": "LocalStorage e estado simples",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O tema escolhido desaparece ao recarregar. Você quer persistir a preferência, mas não precisa de banco remoto.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "localStorage guarda pares chave-valor como texto no navegador. Objetos precisam ser serializados com JSON.stringify e lidos com JSON.parse. É útil para preferências, rascunhos ou estado não sensível. Não deve armazenar segredos ou ser tratado como banco confiável: usuários podem editar dados e múltiplos dispositivos não sincronizam automaticamente.",
+          "type": "concept",
+          "title": "LocalStorage e estado simples"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina chaves com namespace do projeto.",
+            "Serialize objetos explicitamente.",
+            "Trate ausência ou JSON inválido.",
+            "Não armazene senhas, tokens sensíveis ou dados que exigem integridade."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "localStorage.setItem('app:tema','dark');\\nconst tema=localStorage.getItem('app:tema') ?? 'light';",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Confiar em localStorage como fonte de autorização. O usuário controla esse armazenamento.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Serializados como JSON.",
+            "Como funções executáveis.",
+            "Como banco SQL."
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Como objetos são normalmente armazenados em localStorage?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Persistir preferências e dados simples no navegador com localStorage, serializando JSON e reconhecendo limites de segurança e sincronização.",
+            "Defina chaves com namespace do projeto.",
+            "Serialize objetos explicitamente.",
+            "Trate ausência ou JSON inválido."
+          ]
+        }
+      ],
+      "lab_type": "checkpoint",
+      "position": 11,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Persistir preferências e dados simples no navegador com localStorage, serializando JSON e reconhecendo limites de segurança e sincronização.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {
+        "checkpoint": {
+          "answer": 0,
+          "options": [
+            "Serializados como JSON.",
+            "Como funções executáveis.",
+            "Como banco SQL."
+          ],
+          "feedback": "Correto. Você aplicou o conceito da aula.",
+          "question": "Como objetos são normalmente armazenados em localStorage?"
+        }
+      },
+      "estimated_minutes": 38
+    },
+    {
+      "id": "991efc6e-750f-4920-96f8-17948a531d73",
+      "title": "JSON e requisições HTTP",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O frontend envia um objeto JavaScript, mas a API espera JSON e responde 400. É preciso entender representação e protocolo.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "JSON é um formato textual de dados; HTTP é o protocolo que transporta requisições e respostas. Uma requisição possui método, URL, headers e possivelmente corpo. A resposta traz status, headers e corpo. Content-Type comunica o formato. JSON.stringify transforma valor JavaScript em texto JSON; response.json() interpreta um corpo JSON recebido.",
+          "type": "concept",
+          "title": "JSON e requisições HTTP"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Diferencie objeto JavaScript de texto JSON.",
+            "Use Content-Type adequado ao enviar JSON.",
+            "Leia status antes de assumir sucesso.",
+            "Não tente interpretar como JSON uma resposta que não garante esse formato."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "const body=JSON.stringify({nome:'Mouse',preco:120});\\n// POST /api/produtos com Content-Type: application/json",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Assumir que toda resposta HTTP 200 contém o formato esperado. O contrato também precisa ser validado.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Content-Type: application/json",
+            "Accept-Language",
+            "Cache-Control: no-store sempre"
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual header informa que o corpo enviado é JSON?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Ler e produzir JSON e explicar a estrutura básica de uma requisição/resposta HTTP com método, URL, headers, status e corpo.",
+            "Diferencie objeto JavaScript de texto JSON.",
+            "Use Content-Type adequado ao enviar JSON.",
+            "Leia status antes de assumir sucesso."
+          ]
+        }
+      ],
+      "lab_type": "api",
+      "position": 12,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Ler e produzir JSON e explicar a estrutura básica de uma requisição/resposta HTTP com método, URL, headers, status e corpo.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 42
+    },
+    {
+      "id": "b32cb955-609d-4a0f-ae53-9c3e5f82c6e8",
+      "title": "Fetch e consumo de APIs",
+      "status": "draft",
+      "content": [
+        {
+          "body": "A aplicação chama fetch e tenta ler JSON mesmo quando o servidor responde 500, gerando um segundo erro que esconde o primeiro.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "fetch resolve a Promise mesmo para muitos status HTTP de erro; por isso response.ok precisa ser verificado. Falhas de rede podem rejeitar. Uma integração robusta modela pelo menos loading, sucesso e erro e valida os dados recebidos antes de renderizar. O objetivo não é apenas 'pegar dados', mas tornar falhas diagnósticas e recuperáveis.",
+          "type": "concept",
+          "title": "Fetch e consumo de APIs"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Use try/catch para falhas de rede e parsing.",
+            "Verifique response.ok.",
+            "Valide estrutura mínima do payload.",
+            "Mostre estado de carregamento e mensagem de erro útil."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "async function carregar(){\\n const r=await fetch('/api/produtos');\\n if(!r.ok) throw new Error(`HTTP ${r.status}`);\\n const data=await r.json();\\n return data;\\n}",
+          "type": "example",
+          "title": "Exemplo",
+          "language": "javascript"
+        },
+        {
+          "body": "Chamar response.json() e renderizar sem verificar status ou formato. Isso cria erros encadeados difíceis de diagnosticar.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Não; é preciso verificar response.ok/status.",
+            "Sim, sempre.",
+            "Somente em localhost."
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "fetch rejeita automaticamente em toda resposta 404/500?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Consumir APIs com fetch tratando status, falhas de rede, parsing e estados de loading/erro/sucesso.",
+            "Use try/catch para falhas de rede e parsing.",
+            "Verifique response.ok.",
+            "Valide estrutura mínima do payload."
+          ]
+        }
+      ],
+      "lab_type": "api",
+      "position": 13,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Consumir APIs com fetch tratando status, falhas de rede, parsing e estados de loading/erro/sucesso.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 48
+    },
+    {
+      "id": "a531b075-88e4-4b82-925f-0646b424d4e6",
+      "title": "Projeto: aplicação web interativa",
+      "status": "draft",
+      "content": [
+        {
+          "body": "O projeto final precisa ir além de uma página estática: o usuário deve interagir, os dados precisam mudar e os estados de erro precisam ser tratados.",
+          "type": "story",
+          "title": "Cenário"
+        },
+        {
+          "body": "Uma aplicação web interativa conecta dados, regras e interface. A qualidade aparece quando o estado é previsível, eventos têm responsabilidade clara, validações protegem a experiência, integrações tratam falhas e o usuário entende o que está acontecendo. O projeto deve ser pequeno o suficiente para ser concluído, mas completo o bastante para demonstrar fluxo real.",
+          "type": "concept",
+          "title": "Projeto: aplicação web interativa"
+        },
+        {
+          "type": "mechanics",
+          "items": [
+            "Defina um fluxo principal antes de adicionar recursos extras.",
+            "Modele estado em uma estrutura clara.",
+            "Separe funções de dados, renderização e eventos.",
+            "Teste vazio, erro, sucesso e recarregamento."
+          ],
+          "title": "Como aplicar"
+        },
+        {
+          "body": "Exemplo de escopo: catálogo consumido de API + busca/filtro + favoritos persistidos + formulário validado + estados de loading e erro.",
+          "type": "example",
+          "title": "Exemplo"
+        },
+        {
+          "body": "Adicionar funcionalidades até perder o fluxo principal. Projeto de portfólio precisa ser demonstrável e confiável, não apenas grande.",
+          "type": "mistake",
+          "title": "Erro comum"
+        },
+        {
+          "hint": "Escolha a alternativa que mantém o comportamento previsível.",
+          "type": "guided",
+          "answer": 0,
+          "options": [
+            "Fluxo principal funcionando e testado.",
+            "Quantidade máxima de bibliotecas.",
+            "Número de arquivos."
+          ],
+          "feedback": "Correto. Você aplicou a regra da aula.",
+          "question": "Qual critério pesa mais em um projeto interativo?",
+          "feedback_incorrect": "Revise o conceito e teste o exemplo."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Integrar estado, DOM, eventos, validação, persistência e consumo de API em uma aplicação web interativa publicável.",
+            "Defina um fluxo principal antes de adicionar recursos extras.",
+            "Modele estado em uma estrutura clara.",
+            "Separe funções de dados, renderização e eventos."
+          ]
+        }
+      ],
+      "lab_type": "project",
+      "position": 14,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "objective": "Integrar estado, DOM, eventos, validação, persistência e consumo de API em uma aplicação web interativa publicável.",
+      "xp_reward": 100,
+      "difficulty": 1,
+      "lab_config": {},
+      "estimated_minutes": 65
+    }
+  ],
+  "project": {
+    "id": "ad33f1ef-a613-4d46-8d1e-d53e6bfc9924",
+    "title": "LC Programador Master — M4 • Boss Fight: Aplicação JavaScript",
+    "rubric": {
+      "criteria": [
+        {
+          "name": "Fluxo e estado",
+          "weight": 25
+        },
+        {
+          "name": "Qualidade do JavaScript",
+          "weight": 25
+        },
+        {
+          "name": "Interação e validação",
+          "weight": 20
+        },
+        {
+          "name": "Integração API e erros",
+          "weight": 20
+        },
+        {
+          "name": "Publicação e documentação",
+          "weight": 10
+        }
+      ]
+    },
+    "status": "draft",
+    "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+    "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+    "xp_reward": 500,
+    "description": "Construir e publicar uma aplicação JavaScript com estado, eventos, validação, persistência local e integração com uma API, incluindo estados de erro e carregamento.",
+    "project_kind": "boss_fight"
+  },
+  "resources": [
+    {
+      "id": "0d1d4028-df75-427d-8831-f190c49c6162",
+      "title": "LC Programador Master — M4 • Guia JavaScript essencial",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Tipos e coerção",
+              "Condições, laços e funções",
+              "Arrays, objetos e métodos de coleção",
+              "DOM e eventos",
+              "Fetch, JSON e tratamento de erro"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Mapa de sintaxe e decisões usadas ao longo do módulo.",
+      "language": "pt-BR",
+      "position": 1,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "guide"
+    },
+    {
+      "id": "c3a05c3f-87be-40ff-8224-a5758e8ff3dd",
+      "title": "LC Programador Master — M4 • Checklist de depuração",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Reproduzir o erro",
+              "Inspecionar console e network",
+              "Confirmar tipos e estado",
+              "Isolar função/regra",
+              "Testar correção e regressões"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Sequência para investigar comportamento inesperado no navegador.",
+      "language": "pt-BR",
+      "position": 2,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "checklist"
+    },
+    {
+      "id": "2bb0d76e-9447-4957-b235-80bd44d6c57f",
+      "title": "LC Programador Master — M4 • Exercícios de DOM e estado",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Contador com estado separado do DOM",
+              "Filtro de lista por texto",
+              "Formulário com validação",
+              "Favoritos com localStorage",
+              "Tela com loading/erro/sucesso"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Práticas progressivas de interface.",
+      "language": "pt-BR",
+      "position": 3,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "exercise"
+    },
+    {
+      "id": "df29470e-746c-4e6c-b1cf-417dbb55b5ac",
+      "title": "LC Programador Master — M4 • Template de integração API",
+      "status": "draft",
+      "content": {
+        "sections": [
+          {
+            "items": [
+              "Função assíncrona",
+              "Verificação response.ok",
+              "Parsing protegido",
+              "Validação do payload",
+              "Estados da interface"
+            ],
+            "title": "Conteúdo"
+          }
+        ]
+      },
+      "summary": "Estrutura de referência para fetch robusto.",
+      "language": "pt-BR",
+      "position": 4,
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "lesson_id": null,
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "attribution": null,
+      "is_external": false,
+      "license_url": null,
+      "external_url": null,
+      "license_name": null,
+      "resource_type": "template"
+    }
+  ],
+  "assessment": {
+    "row": {
+      "id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+      "title": "LC Programador Master — M4 • Checkpoint JavaScript",
+      "status": "draft",
+      "course_id": "0be53adc-1e10-4a78-9792-775541cd2893",
+      "module_id": "eed73930-cad4-4f9b-a4eb-f65289fd3b00",
+      "pass_score": 70,
+      "max_attempts": 3,
+      "randomize_questions": true
+    },
+    "questions": [
+      {
+        "id": "3047f0ec-735b-4e00-95bb-e6cb5aa8d3fb",
+        "prompt": "Qual papel JavaScript normalmente desempenha em uma página Web?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Comportamento e lógica."
+          },
+          {
+            "id": "b",
+            "label": "Apenas tipografia."
+          },
+          {
+            "id": "c",
+            "label": "Apenas estrutura semântica."
+          }
+        ],
+        "position": 1,
+        "difficulty": 1,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "5e0a2e53-dd0f-4a1d-a111-8704c907fb70",
+        "prompt": "Qual comparação evita coerção implícita entre tipos?",
+        "options": [
+          {
+            "id": "a",
+            "label": "==="
+          },
+          {
+            "id": "b",
+            "label": "=="
+          },
+          {
+            "id": "c",
+            "label": "="
+          }
+        ],
+        "position": 2,
+        "difficulty": 1,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "de79d290-da16-41a2-9ed9-66ea33ee7d81",
+        "prompt": "Para 'a partir de 300', qual operador preserva a fronteira?",
+        "options": [
+          {
+            "id": "a",
+            "label": ">="
+          },
+          {
+            "id": "b",
+            "label": ">"
+          },
+          {
+            "id": "c",
+            "label": "=="
+          }
+        ],
+        "position": 3,
+        "difficulty": 1,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "59cf4c36-5dd1-4526-adcb-969c38f2cd89",
+        "prompt": "Qual laço é direto para percorrer valores de um array?",
+        "options": [
+          {
+            "id": "a",
+            "label": "for...of"
+          },
+          {
+            "id": "b",
+            "label": "switch"
+          },
+          {
+            "id": "c",
+            "label": "try"
+          }
+        ],
+        "position": 4,
+        "difficulty": 1,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "b467ae74-0fe3-433c-8a9f-7590b816f11e",
+        "prompt": "Qual prática torna uma função mais previsível?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Entradas por parâmetros e saída por return."
+          },
+          {
+            "id": "b",
+            "label": "Dependência de várias globais."
+          },
+          {
+            "id": "c",
+            "label": "Alterar DOM e rede sempre."
+          }
+        ],
+        "position": 5,
+        "difficulty": 2,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "4a5e2922-e74a-42ba-ba0d-083932b7a44c",
+        "prompt": "Qual estrutura representa melhor uma coleção de cursos com várias propriedades?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Array de objetos."
+          },
+          {
+            "id": "b",
+            "label": "Uma string gigante."
+          },
+          {
+            "id": "c",
+            "label": "Um booleano."
+          }
+        ],
+        "position": 6,
+        "difficulty": 2,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "17ca65e7-1a29-43a9-9a4c-55c79cd4d905",
+        "prompt": "Qual método retorna apenas itens que atendem a uma condição?",
+        "options": [
+          {
+            "id": "a",
+            "label": "filter"
+          },
+          {
+            "id": "b",
+            "label": "map"
+          },
+          {
+            "id": "c",
+            "label": "join"
+          }
+        ],
+        "position": 7,
+        "difficulty": 2,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "c077c353-0ae7-4228-a272-97e09cf5f7d3",
+        "prompt": "Qual propriedade é adequada para inserir texto simples sem interpretar HTML?",
+        "options": [
+          {
+            "id": "a",
+            "label": "textContent"
+          },
+          {
+            "id": "b",
+            "label": "innerHTML sempre"
+          },
+          {
+            "id": "c",
+            "label": "style"
+          }
+        ],
+        "position": 8,
+        "difficulty": 2,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "ec9cadb0-c79b-48c4-8640-8051c621cb53",
+        "prompt": "Qual evento representa melhor o envio de um formulário?",
+        "options": [
+          {
+            "id": "a",
+            "label": "submit"
+          },
+          {
+            "id": "b",
+            "label": "mouseover"
+          },
+          {
+            "id": "c",
+            "label": "scroll"
+          }
+        ],
+        "position": 9,
+        "difficulty": 2,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "32519cdb-cce7-433d-aa92-ace1e9a33147",
+        "prompt": "Por que validação no cliente não basta para segurança?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Porque o cliente pode ser contornado."
+          },
+          {
+            "id": "b",
+            "label": "Porque JavaScript não lê strings."
+          },
+          {
+            "id": "c",
+            "label": "Porque HTML não tem formulários."
+          }
+        ],
+        "position": 10,
+        "difficulty": 2,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "be253761-1377-4f31-ad88-801be4a1f612",
+        "prompt": "Como objetos são normalmente armazenados em localStorage?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Serializados como JSON."
+          },
+          {
+            "id": "b",
+            "label": "Como funções executáveis."
+          },
+          {
+            "id": "c",
+            "label": "Como banco SQL."
+          }
+        ],
+        "position": 11,
+        "difficulty": 2,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      },
+      {
+        "id": "6b5c57dc-cf6f-4af1-bc65-35eaf39c7c1a",
+        "prompt": "Qual header informa que o corpo enviado é JSON?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Content-Type: application/json"
+          },
+          {
+            "id": "b",
+            "label": "Accept-Language"
+          },
+          {
+            "id": "c",
+            "label": "Cache-Control: no-store sempre"
+          }
+        ],
+        "position": 12,
+        "difficulty": 2,
+        "assessment_id": "fd0f2aa1-50c4-4e44-bb29-af2583b795dc",
+        "question_type": "single_choice",
+        "correct_answer": {
+          "id": "a"
+        },
+        "feedback_correct": "Correto.",
+        "feedback_incorrect": "Revise a aula correspondente."
+      }
+    ]
+  },
+  "references": []
+}
