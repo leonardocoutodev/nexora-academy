@@ -198,18 +198,7 @@ async function auditUrl(context,target,viewport,{interact}={}){
 async function auditLessonStates(context,lesson,viewport){
   const url=`${BASE}/aula.html?id=${lesson.id}&preview=1`;
   const label=`m${moduleById.get(lesson.module_id)?.position||0}-a${lesson.position}-${lesson.title}`;
-  const result=await auditUrl(context,{label,url},viewport,{interact:async page=>{
-    if(viewport==='mobile'){
-      const lessonsBtn=page.locator('#openLessons');
-      if(await lessonsBtn.isVisible().catch(()=>false)){
-        await lessonsBtn.click();
-        await page.waitForTimeout(120);
-        const dlg=page.locator('#lessonsDialog');
-        const box=await dlg.boundingBox();
-        if(box&&(box.x<-2||box.x+box.width>390+2))result?.issues?.push?.({severity:'serious',type:'mobile-lessons-dialog-offscreen',detail:box});
-        await page.locator('#lessonsDialog [data-close-dialog]').click().catch(()=>{});
-      }
-    }
+  return auditUrl(context,{label,url},viewport,{interact:async page=>{
     const inline=page.locator('[data-inline-check]').first();
     if(await inline.isVisible().catch(()=>false)){
       const opt=inline.locator('[data-inline-option]').first();
@@ -217,7 +206,6 @@ async function auditLessonStates(context,lesson,viewport){
       await page.waitForTimeout(80);
     }
   }});
-  return result;
 }
 
 const browser=await chromium.launch({headless:true});
@@ -231,6 +219,15 @@ for(const [viewportName,vp] of Object.entries(VIEWPORTS)){
 
   for(const m of modules){
     results.push(await auditUrl(context,{label:`m${m.position}-apostila-digital-${m.title}`,url:`${BASE}/apostila.html?module=${m.id}`},viewportName));
+    const first=lessons.find(l=>l.module_id===m.id);
+    if(first&&viewportName==='mobile'){
+      results.push(await auditUrl(context,{label:`m${m.position}-mobile-aulas-dialog`,url:`${BASE}/aula.html?id=${first.id}&preview=1`},viewportName,{interact:async page=>{
+        const b=page.locator('#openLessons'); if(await b.isVisible().catch(()=>false)){await b.click();await page.waitForTimeout(120)}
+      }}));
+      results.push(await auditUrl(context,{label:`m${m.position}-mobile-materiais-dialog`,url:`${BASE}/aula.html?id=${first.id}&preview=1`},viewportName,{interact:async page=>{
+        const b=page.locator('#openMaterials'); if(await b.isVisible().catch(()=>false)){await b.click();await page.waitForTimeout(220)}
+      }}));
+    }
   }
   for(const l of lessons){
     results.push(await auditLessonStates(context,l,viewportName));
