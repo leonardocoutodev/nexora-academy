@@ -158,12 +158,22 @@
     };
   }
 
-  function javascriptLab(kind='javascript'){
-    const starter=kind==='typescript'
+  function javascriptLab(kind='javascript',ctx={}) {
+    const t=(ctx.lesson?.title||'').toLowerCase();
+    let starter=kind==='typescript'
       ? 'type Produto = { nome: string; preco: number };\nconst produtos: Produto[] = [{nome:"Mouse",preco:120},{nome:"Monitor",preco:800}];\nconst caros = produtos.filter(p => p.preco > 500);\nconsole.log(caros);'
       : 'const produtos = [{nome:"Mouse",preco:120},{nome:"Monitor",preco:800}];\nconst caros = produtos.filter(p => p.preco > 500);\nconsole.log(caros);';
+    if(kind==='javascript'){
+      if(t.includes('papel da linguagem')) starter='const mensagem = "JavaScript controla comportamento";\nconsole.log(mensagem);';
+      else if(t.includes('variáveis')||t.includes('coerção')) starter='const preco = Number("120");\nconst quantidade = 2;\nconsole.log(preco * quantidade);';
+      else if(t.includes('operadores')) starter='const total = 300;\nconst clienteAtivo = true;\nconst freteGratis = total >= 300 && clienteAtivo;\nconsole.log(freteGratis);';
+      else if(t.includes('condições')||t.includes('repetição')) starter='const pedidos = [80,120,250];\nlet aprovados = 0;\nfor (const total of pedidos) {\n  if (total >= 100) aprovados++;\n}\nconsole.log(aprovados);';
+      else if(t.includes('funções')) starter='function calcularDesconto(total, taxa) {\n  return total * taxa;\n}\nconsole.log(calcularDesconto(200, 0.1));';
+      else if(t.includes('arrays e objetos')) starter='const cursos = [{nome:"JavaScript",ativo:true},{nome:"Python",ativo:false}];\nconsole.log(cursos[0].nome);';
+      else if(t.includes('métodos de coleção')) starter='const produtos = [{nome:"Mouse",preco:120},{nome:"Monitor",preco:800},{nome:"Teclado",preco:250}];\nconst nomesCaros = produtos.filter(p => p.preco > 500).map(p => p.nome);\nconsole.log(nomesCaros);';
+    }
     return frame(kind==='typescript'?'TypeScript Lab':'Console JavaScript',kind,
-      '<p class="v3-lab-instructions">'+(kind==='typescript'?'Edite o exemplo e use o verificador de tipos conceitual. A execução usa JavaScript equivalente no navegador.':'Edite e execute o código sem sair da LC. O console aparece logo abaixo.')+'</p>'+
+      '<p class="v3-lab-instructions">'+(kind==='typescript'?'Edite o exemplo e use o verificador de tipos conceitual. A execução usa JavaScript equivalente no navegador.':'Edite e execute um exemplo ligado ao tema desta aula. O console aparece logo abaixo.')+'</p>'+
       '<textarea class="v3-editor" data-code>'+esc(starter)+'</textarea>'+
       '<div class="v3-toolbar"><button class="v3-btn" type="button" data-run>▶ Executar</button>'+(kind==='typescript'?'<button class="v3-btn secondary" type="button" data-typecheck>Verificar tipos</button>':'')+'</div>'+
       '<pre class="v3-console" data-console>Pronto para executar.</pre>'
@@ -222,10 +232,28 @@
     return out.join('\n')||'Código processado sem saída.';
   }
   function wirePython(root){const ed=root.querySelector('[data-python]'),out=root.querySelector('[data-python-out]'),original=ed.value;root.querySelector('[data-python-reset]').onclick=()=>{ed.value=original;out.textContent='Exemplo restaurado.'};root.querySelector('[data-python-run]').onclick=()=>{try{out.textContent=simulatePython(ed.value);complete({type:'python'})}catch(e){out.textContent='Erro: '+e.message}}}
-  function htmlLab(){
-    const starter='<main>\\n  <h1>Minha primeira página</h1>\\n  <button id="acao">Testar</button>\\n</main>\\n<style>body{font-family:Arial;padding:24px}button{padding:10px 16px}</style>\\n<script>document.querySelector("#acao").onclick=()=>document.querySelector("h1").textContent="Funcionou!"<\\/script>';
+  function htmlLab(ctx={}) {
+    const t=(ctx.lesson?.title||'').toLowerCase();
+    let starter='<main>\n  <h1>Minha primeira página</h1>\n  <button id="acao">Testar</button>\n</main>\n<style>body{font-family:Arial;padding:24px}button{padding:10px 16px}</style>\n<script>document.querySelector("#acao").onclick=()=>document.querySelector("h1").textContent="Funcionou!"<\/script>';
+    if(t.includes('estrutura básica')) starter='<!doctype html>\n<html lang="pt-BR">\n<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Projeto LC</title></head>\n<body><main><h1>Estrutura correta</h1><p>Conteúdo dentro do body.</p></main></body>\n</html>';
+    else if(t.includes('tags e elementos')) starter='<article>\n  <h2>Curso JavaScript</h2>\n  <p>Aprenda a criar interfaces interativas.</p>\n  <button type="button">Começar</button>\n</article>';
+    else if(t.includes('links, imagens')) starter='<main>\n  <a href="#conteudo">Ir ao conteúdo</a>\n  <img src="https://placehold.co/320x160" alt="Exemplo de projeto web">\n  <ul><li>HTML</li><li>CSS</li><li>Acessibilidade</li></ul>\n</main>';
+    else if(t.includes('formulários e elementos')) starter='<form>\n  <label for="email">E-mail</label>\n  <input id="email" name="email" type="email" required>\n  <button type="submit">Enviar</button>\n</form>\n<style>form{display:grid;gap:10px;max-width:320px}</style>';
+    else if(t.includes('semântico')||t.includes('acessibilidade')) starter='<header><h1>LC</h1></header>\n<nav aria-label="Principal"><a href="#cursos">Cursos</a></nav>\n<main id="cursos"><section aria-labelledby="titulo"><h2 id="titulo">Cursos</h2><button>Ver opções</button></section></main>';
+    else if(t.includes('seletores e cascata')) starter='<article class="card"><p>Texto do card</p></article>\n<style>p{color:#64748b}.card p{color:#0f172a}.card{padding:20px;background:#e2e8f0}</style>';
+    else if(t.includes('box model')) starter='<div class="card">Box model controlado</div>\n<style>*,*::before,*::after{box-sizing:border-box}.card{width:280px;padding:24px;border:4px solid #2878ff;margin:20px;background:#eaf2ff}</style>';
+    else if(t.includes('cores, tipografia')) starter='<article><h1>Hierarquia visual</h1><p>Texto com escala, contraste e espaçamento consistentes.</p></article>\n<style>:root{--space:16px;--text:#0f172a;--muted:#475569}body{font:16px/1.65 Arial;color:var(--text);padding:24px}h1{font-size:32px;margin:0 0 var(--space)}p{color:var(--muted)}</style>';
+    else if(t==='flexbox') starter='<div class="toolbar"><strong>Projeto LC</strong><div><button>Salvar</button><button>Publicar</button></div></div>\n<style>.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:18px;background:#eaf2ff}.toolbar div{display:flex;gap:8px}</style>';
+    else if(t.includes('css grid')) starter='<section class="cards"><article>HTML</article><article>CSS</article><article>JavaScript</article><article>Git</article></section>\n<style>.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}.cards article{padding:24px;background:#eaf2ff;border-radius:12px}</style>';
+    else if(t.includes('posicionamento')) starter='<article class="card"><span class="badge">Novo</span><h2>Curso</h2><p>Badge posicionado em relação ao card.</p></article>\n<style>.card{position:relative;margin:30px;padding:24px;background:#eaf2ff}.badge{position:absolute;top:10px;right:10px;background:#2878ff;color:white;padding:5px 8px;border-radius:999px}</style>';
+    else if(t.includes('responsividade')) starter='<main class="layout"><section>Conteúdo principal</section><aside>Resumo</aside></main>\n<style>.layout{display:grid;gap:16px}.layout>*{padding:24px;background:#eaf2ff}@media(min-width:820px){.layout{grid-template-columns:2fr 1fr}}</style>';
+    else if(t.includes('transições')) starter='<button class="acao">Passe o mouse</button>\n<style>.acao{padding:12px 18px;border:0;border-radius:10px;background:#2878ff;color:white;transition:transform .16s ease,filter .16s ease}.acao:hover{transform:translateY(-2px);filter:brightness(1.08)}@media(prefers-reduced-motion:reduce){.acao{transition:none}}</style>';
+    else if(t.includes('organização de css')) starter='<article class="course-card" data-state="selected"><h2 class="course-card__title">Programador Master</h2><p class="course-card__meta">Componente isolado</p></article>\n<style>:root{--card-radius:16px}.course-card{padding:20px;border-radius:var(--card-radius);background:#eaf2ff}.course-card__title{margin:0}.course-card[data-state="selected"]{outline:2px solid #2878ff}</style>';
+    else if(t.includes('dom:')) starter='<main><p>Total: <strong data-total>0</strong></p><button id="somar">Somar 10</button></main>\n<script>let total=0;const out=document.querySelector("[data-total]");document.querySelector("#somar").onclick=()=>{total+=10;out.textContent=total}<\/script>';
+    else if(t.includes('eventos')) starter='<form id="busca"><label>Buscar <input name="q"></label><button>Pesquisar</button></form><p id="saida"></p>\n<script>document.querySelector("#busca").addEventListener("submit",e=>{e.preventDefault();document.querySelector("#saida").textContent="Busca: "+e.currentTarget.q.value})<\/script>';
+    else if(t.includes('formulários e validação')) starter='<form id="cadastro"><label>E-mail <input name="email"></label><button>Validar</button><p id="erro"></p></form>\n<script>document.querySelector("#cadastro").onsubmit=e=>{e.preventDefault();const email=e.currentTarget.email.value.trim();document.querySelector("#erro").textContent=email.includes("@")?"E-mail válido":"Informe um e-mail válido"}<\/script>';
     return frame('Web Lab — HTML/CSS/JS','preview',
-      '<p class="v3-lab-instructions">Edite a página e veja o resultado dentro da aula. O preview roda em um iframe isolado.</p><textarea class="v3-editor" data-html>'+esc(starter)+'</textarea><div class="v3-toolbar"><button class="v3-btn" type="button" data-preview>Atualizar preview</button></div><iframe class="v3-preview" sandbox="allow-scripts" data-preview-frame></iframe>'
+      '<p class="v3-lab-instructions">O exemplo acompanha o tema desta aula. Edite a estrutura ou o estilo e atualize a prévia dentro da LC.</p><textarea class="v3-editor" data-html>'+esc(starter)+'</textarea><div class="v3-toolbar"><button class="v3-btn" type="button" data-preview>Atualizar preview</button></div><iframe class="v3-preview" sandbox="allow-scripts" data-preview-frame></iframe>'
     );
   }
   function wireHtml(root){root.querySelector('[data-preview]').onclick=()=>{root.querySelector('[data-preview-frame]').srcdoc=root.querySelector('[data-html]').value;complete({type:'html'})};}
@@ -289,17 +317,35 @@
     root.querySelector('[data-term-send]').onclick=()=>{const cmd=inp.value.trim();if(cmd!==steps[i]){out.textContent+='\n$ '+cmd+'\nComando válido, mas a missão atual espera: '+steps[i];return}out.textContent+='\n$ '+cmd+'\n'+(cloud?(i===0?'wrangler 4.x':i===1?'Ready on http://localhost:8787':'Deployed successfully ✓'):basic?(i===0?'/home/aluno':i===1?'README.md  src/':i===2?'pasta projeto criada ✓':'diretório atual: projeto ✓'):(i===0?'working tree status exibido':i===1?'changes staged':i===2?'commit criado ✓':'push concluído ✓'));i++;inp.value='';if(i>=steps.length){help.textContent='✓ Sequência concluída.';complete({type:'terminal'})}else{help.textContent='Próximo objetivo: '+steps[i];inp.placeholder=steps[i]}};
   }
 
-  function apiLab(){
+  function apiLab(ctx={}) {
+    const t=(ctx.lesson?.title||'').toLowerCase();
+    let method='GET',path='/api/produtos',body='',note='Envie uma requisição e observe método, status e JSON.';
+    if(t.includes('arquitetura cliente')){path='/api/pedidos';note='Observe o cliente chamando uma API, que representa o limite com o servidor.'}
+    else if(t.includes('http, métodos')){method='POST';body='{"nome":"","preco":"x"}';note='Comece com um payload inválido e observe um status 4xx; depois corrija os campos.'}
+    else if(t.includes('rest e desenho')){path='/api/produtos';note='Teste GET na coleção e POST para criar um recurso usando a mesma URL.'}
+    else if(t.includes('consumindo APIs')){path='/api/produtos';note='Faça GET e use o status/JSON como se a interface fosse renderizar loading, sucesso ou erro.'}
+    else if(t.includes('integrando frontend')){method='POST';path='/api/leads';body='{"nome":"Ana","contato":"ana@exemplo.com"}';note='Envie o contrato esperado pelo backend e depois remova um campo para ver a validação.'}
     return frame('API Playground','http',
-      '<p class="v3-lab-instructions">Envie requisições para uma API simulada da LC. Assim você pratica método, rota, status e JSON sem Postman.</p><div class="v3-api-row"><select data-method><option>GET</option><option>POST</option></select><input data-path value="/api/produtos"><button class="v3-btn" type="button" data-send>Enviar</button></div><textarea class="v3-editor small" data-body style="margin-top:10px" placeholder=\'{"nome":"Teclado","preco":250}\'></textarea><pre class="v3-console" data-api-out>HTTP aguardando requisição...</pre>'
+      '<p class="v3-lab-instructions">'+esc(note)+'</p><div class="v3-api-row"><select data-method><option'+(method==='GET'?' selected':'')+'>GET</option><option'+(method==='POST'?' selected':'')+'>POST</option></select><input data-path value="'+esc(path)+'"><button class="v3-btn" type="button" data-send>Enviar</button></div><textarea class="v3-editor small" data-body style="margin-top:10px" placeholder=\'{"nome":"Teclado","preco":250}\'>'+esc(body)+'</textarea><pre class="v3-console" data-api-out>HTTP aguardando requisição...</pre>'
     );
   }
   function wireApi(root){
     const out=root.querySelector('[data-api-out]');
-    root.querySelector('[data-send]').onclick=()=>{const method=root.querySelector('[data-method]').value,path=root.querySelector('[data-path]').value.trim();if(path!='/api/produtos'){out.textContent='HTTP 404\\n{"error":"Rota não encontrada"}';return}if(method==='GET'){out.textContent='HTTP 200\\n'+JSON.stringify({produtos:[{id:1,nome:'Mouse',preco:120},{id:2,nome:'Monitor',preco:800}]},null,2);complete({type:'api'})}else{try{const body=JSON.parse(root.querySelector('[data-body]').value||'{}');if(!body.nome||!Number.isFinite(Number(body.preco)))throw new Error('nome e preco são obrigatórios');out.textContent='HTTP 201\\n'+JSON.stringify({id:3,...body},null,2);complete({type:'api'})}catch(e){out.textContent='HTTP 422\\n'+JSON.stringify({error:e.message},null,2)}}};
+    root.querySelector('[data-send]').onclick=()=>{
+      const method=root.querySelector('[data-method]').value,path=root.querySelector('[data-path]').value.trim(),raw=root.querySelector('[data-body]').value||'{}';
+      if(path==='/api/pedidos'){
+        if(method!=='GET'){out.textContent='HTTP 405\n{"error":"Método não permitido"}';return}
+        out.textContent='HTTP 200\n'+JSON.stringify({pedidos:[{id:101,total:320,status:'pago'},{id:102,total:89,status:'pendente'}]},null,2);complete({type:'api'});return;
+      }
+      if(path==='/api/leads'){
+        if(method!=='POST'){out.textContent='HTTP 405\n{"error":"Use POST para criar lead"}';return}
+        try{const body=JSON.parse(raw);if(!body.nome||!body.contato)throw new Error('nome e contato são obrigatórios');out.textContent='HTTP 201\n'+JSON.stringify({id:501,...body,status:'novo'},null,2);complete({type:'api'})}catch(e){out.textContent='HTTP 422\n'+JSON.stringify({errors:{payload:e.message}},null,2)}return;
+      }
+      if(path!='/api/produtos'){out.textContent='HTTP 404\n{"error":"Rota não encontrada"}';return}
+      if(method==='GET'){out.textContent='HTTP 200\n'+JSON.stringify({produtos:[{id:1,nome:'Mouse',preco:120},{id:2,nome:'Monitor',preco:800}]},null,2);complete({type:'api'})}
+      else{try{const body=JSON.parse(raw);if(!body.nome||!Number.isFinite(Number(body.preco)))throw new Error('nome e preco são obrigatórios');out.textContent='HTTP 201\n'+JSON.stringify({id:3,...body},null,2);complete({type:'api'})}catch(e){out.textContent='HTTP 422\n'+JSON.stringify({error:e.message},null,2)}}
+    };
   }
-
-
   function automationLab(){
     const steps=[
       {id:'trigger',label:'1. Gatilho',desc:'O evento que inicia o fluxo.'},
@@ -497,14 +543,14 @@
     else if(type==='pseudocode')html=pseudocodeLab();
     else if(type==='prompt')html=promptLab(module);
     else if(type==='spreadsheet')html=spreadsheetLab();
-    else if(type==='javascript')html=javascriptLab('javascript');
-    else if(type==='typescript')html=javascriptLab('typescript');
+    else if(type==='javascript')html=javascriptLab('javascript',ctx);
+    else if(type==='typescript')html=javascriptLab('typescript',ctx);
     else if(type==='python')html=pythonLab(ctx);
     else if(type==='react')html=reactLab();
-    else if(type==='html')html=htmlLab();
+    else if(type==='html')html=htmlLab(ctx);
     else if(type==='sql')html=sqlLab();
     else if(type==='terminal')html=terminalLab(module);
-    else if(type==='api')html=apiLab();
+    else if(type==='api')html=apiLab(ctx);
     else if(type==='automation')html=automationLab();
     else if(type==='agent')html=agentLab();
     else if(type==='rag')html=ragLab();
