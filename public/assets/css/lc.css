@@ -48,6 +48,7 @@ body,button,input,textarea,select{font-family:var(--lc-font)}
 @media(max-width:900px){
   .lc-lesson-page .app-shell{display:block}
   .lc-lesson-page .sidebar{display:none}
+  .lc-course-page .v3-grid{grid-template-columns:1fr}
   .lc-dashboard-layout{grid-template-columns:1fr}
   .lc-dashboard-aside{position:static;grid-template-columns:1fr 1fr}
   .lc-catalog-grid{grid-template-columns:1fr}
@@ -59,6 +60,10 @@ body,button,input,textarea,select{font-family:var(--lc-font)}
   .lc-admin-page .app-shell{display:block}
 }
 @media(max-width:620px){
+  .lc-home-page .public-nav{flex-wrap:wrap;align-items:center}
+  .lc-home-page .public-nav>.brand{flex:1 1 100%}
+  .lc-home-page .public-actions{width:100%;display:grid;grid-template-columns:1fr 1fr}
+  .lc-home-page .public-actions .v3-btn{width:100%;min-width:0;padding-left:10px;padding-right:10px}
   .lc-dashboard-welcome{display:block}
   .lc-dashboard-status{margin-top:14px;justify-content:flex-start}
   .lc-continue-card{min-height:0;grid-template-columns:1fr;padding:24px;border-radius:22px}
