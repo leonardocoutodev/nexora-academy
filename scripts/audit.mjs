@@ -23,6 +23,11 @@ for(const file of files.filter(file=>file.endsWith(".html"))){
   }
 }
 const canonicalCss=fs.readFileSync(path.join(root,"assets/css/lc.css"),"utf8");
+const packageJson=JSON.parse(fs.readFileSync("package.json","utf8"));
+if(packageJson.scripts?.postinstall!=="node scripts/stamp-build.mjs"||packageJson.scripts?.predeploy!=="node scripts/stamp-build.mjs")failures.push("package.json: build stamp não está garantido em instalação e deploy");
+const workerSource=fs.readFileSync("src/index.js","utf8");
+if(!workerSource.includes("LC_SOURCE_BUILD_ID")||!workerSource.includes("./build-id.js"))failures.push("src/index.js: identidade determinística de build ausente");
+if(!fs.existsSync("scripts/stamp-build.mjs")||!fs.existsSync("src/build-id.js"))failures.push("deploy: arquivos de build stamp ausentes");
 const appShellSource=fs.readFileSync(path.join(root,"assets/js/app-shell.js"),"utf8");
 const headersSource=fs.readFileSync(path.join(root,"_headers"),"utf8");
 const countImportant=source=>(source.match(/!important/g)||[]).length;
