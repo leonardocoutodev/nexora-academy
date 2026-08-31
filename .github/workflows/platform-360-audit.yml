@@ -1,0 +1,35 @@
+name: LC Platform 360 Audit
+
+on:
+  push:
+    branches: [audit/platform-360-20260830]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  platform-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install audit tooling
+        run: npm install --no-save --package-lock=false @playwright/test@1.55.0 @axe-core/playwright@4.10.2
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Audit all LC surfaces
+        run: node tests/platform-audit/platform-audit.mjs
+      - name: Upload platform audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lc-platform-360-audit-${{ github.run_id }}
+          path: platform-audit-output
+          if-no-files-found: error
+          retention-days: 14
