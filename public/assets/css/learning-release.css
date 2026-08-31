@@ -722,3 +722,15 @@ html,body{max-width:100%;overflow-x:hidden}
   .nx-lesson-pattern-project .nx-flow-group{padding:18px 16px 18px 54px}
   .nx-lesson-pattern-project .nx-flow-group::before{left:14px;top:17px}
 }
+
+
+/* Programador Master release: semantic heading + minimum readable secondary text */
+.nx-flow-block h2.nx-flow-block-title{
+  margin:0 0 9px;
+  font-size:18px;
+  line-height:1.38;
+  color:var(--lc-white);
+  font-weight:800;
+}
+.lesson-row small{font-size:11px}
+.lesson-row-icon{font-size:11px}
