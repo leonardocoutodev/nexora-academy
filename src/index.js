@@ -1,6 +1,7 @@
+import { LC_SOURCE_BUILD_ID } from "./build-id.js";
 const SUPABASE_URL = "https://kvwsqfnyebyjncfgvqnd.supabase.co";
 const SUPABASE_KEY = "sb_publishable_CssKC6R2Nqtl3McbvR3f4A_jNJtz3hg";
-const buildId=env=>String(env?.LC_BUILD_ID||env?.CF_VERSION_METADATA?.id||"local");
+const buildId=env=>String(env?.LC_BUILD_ID||LC_SOURCE_BUILD_ID||env?.CF_VERSION_METADATA?.id||"local");
 const SECURITY_HEADERS={"x-content-type-options":"nosniff","referrer-policy":"strict-origin-when-cross-origin","permissions-policy":"camera=(), microphone=(), geolocation=()","x-frame-options":"SAMEORIGIN"};
 function json(data,status=200,headers={}) { return new Response(JSON.stringify(data),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store",...SECURITY_HEADERS,...headers}}); }
 async function body(req){ try{return await req.json()}catch{return {}} }
