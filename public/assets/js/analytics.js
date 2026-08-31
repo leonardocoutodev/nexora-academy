@@ -1,5 +1,6 @@
 (()=>{
   const SESSION_KEY='lc.analytics.session';
+  const ATTRIBUTION_KEY='lc.analytics.attribution';
   const SESSION_TIMEOUT=30*60*1000;
   const MAX_PROPERTY_KEYS=24;
   const FORBIDDEN_PROPERTY_KEYS=new Set(['email','name','full_name','phone','telephone','whatsapp','cpf','rg','password','senha','token','access_token','refresh_token','authorization','address','endereco']);
@@ -14,7 +15,25 @@
       const next={id:uuid(),lastAt:t};localStorage.setItem(SESSION_KEY,JSON.stringify(next));return next.id;
     }catch{return uuid()}
   }
+  function loadAttribution(){
+    try{
+      const current={},params=new URLSearchParams(location.search);
+      for(const key of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term']){
+        const value=String(params.get(key)||'').trim();
+        if(value)current[key]=value.slice(0,120);
+      }
+      if(document.referrer){
+        const ref=new URL(document.referrer);
+        if(ref.hostname&&ref.hostname!==location.hostname)current.referrer_host=ref.hostname.slice(0,120);
+      }
+      const stored=JSON.parse(sessionStorage.getItem(ATTRIBUTION_KEY)||'{}');
+      const merged={...stored,...current};
+      if(Object.keys(current).length)sessionStorage.setItem(ATTRIBUTION_KEY,JSON.stringify(merged));
+      return merged;
+    }catch{return{}}
+  }
   let sessionId=loadSession();
+  const attribution=loadAttribution();
   function touchSession(){
     try{
       const raw=localStorage.getItem(SESSION_KEY),parsed=raw?JSON.parse(raw):null,t=now();
@@ -51,7 +70,7 @@
       p_course_id:context.courseId||null,
       p_module_id:context.moduleId||null,
       p_lesson_id:context.lessonId||null,
-      p_properties:cleanProperties(properties),
+      p_properties:cleanProperties({...attribution,...properties}),
       p_device_type:deviceType(),
       p_viewport_width:Math.max(document.documentElement?.clientWidth||0,innerWidth||0)||null,
       p_viewport_height:Math.max(document.documentElement?.clientHeight||0,innerHeight||0)||null
