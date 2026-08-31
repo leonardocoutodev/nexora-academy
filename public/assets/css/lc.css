@@ -3017,6 +3017,7 @@ label{color:#aebfd0;font-size:12px;font-weight:700}
 }
 @media(max-width:420px){
   .main-inner{padding-left:11px;padding-right:11px}
+  .lc-home-page .v3-hero h1{font-size:40px;overflow-wrap:anywhere;word-break:normal}
   .lc-home-page .public-actions{grid-template-columns:1fr}
   .lc-course-page .v3-module .v3-toolbar{grid-template-columns:1fr}
   .lc-course-page .v3-module .v3-toolbar>.v3-btn:first-child{grid-column:auto}
