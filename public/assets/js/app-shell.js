@@ -139,6 +139,7 @@ function decorateLCUI(){
     const t=(card.textContent||'').toLowerCase();
     if(t.includes('ia generativa'))card.classList.add('nx-theme-ai');
     if(t.includes('desenvolvimento de sistemas'))card.classList.add('nx-theme-dev');
+    if(card.classList.contains('catalog-course'))return;
     if(!card.querySelector('.nx-course-art')&&(t.includes('ia generativa')||t.includes('desenvolvimento de sistemas'))){
       const art=document.createElement('img');art.className='nx-course-art';art.alt='';art.loading='lazy';art.src=nxCourseVisual(t);card.appendChild(art);
     }
