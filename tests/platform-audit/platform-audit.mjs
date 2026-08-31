@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {installMockSupabase,IDS} from '../e2e/helpers/mock-supabase.js';
 
-const BASE='https://academy.learnandcreate.workers.dev';
+const BASE='https://academy.learnandcreate.workers.dev'; // production target
 const OUT='platform-audit-output';
 const VIEWPORTS={
   'mobile-320':{width:320,height:844,isMobile:true},
