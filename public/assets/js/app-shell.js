@@ -19,9 +19,7 @@ function applyLCNavigationIcons(root=document){
   root.querySelectorAll('[data-nav]').forEach(a=>{const slot=a.querySelector(':scope > span:first-child');if(slot&&map[a.dataset.nav])slot.innerHTML=lcIcon(map[a.dataset.nav])});
   root.querySelectorAll('[data-more-nav]').forEach(a=>{const slot=a.querySelector(':scope > span:first-child');if(slot&&map[a.dataset.moreNav])slot.innerHTML=lcIcon(map[a.dataset.moreNav])});
 }
-function injectV3(){if(!document.querySelector('link[href*="academy-v3.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='../assets/css/academy-v3.css';l.dataset.v3='1';document.head.appendChild(l)}}
 function enhanceLCShell(active='dashboard'){
-  injectV3();
   qsa('.brand').forEach(el=>{el.innerHTML='<img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span>'});
   const side=qs('.sidebar');if(!side)return;side.setAttribute('aria-label','Navegação principal');
   const nav=qs('nav',side);
@@ -154,7 +152,8 @@ async function lcBoot(active='dashboard'){
   await ensureLCAnalytics();
   const u=await LCSupabase.user();
   if(!u){location.replace('login.html');return null}
-  const profile=await LCSupabase.profile().catch(()=>null);
+  let profile=await LCSupabase.profile().catch(()=>null);
+  if(!profile){try{await LCSupabase.api('/api/lc/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({full_name:u.user_metadata?.full_name||''})});profile=await LCSupabase.profile().catch(()=>null)}catch{}}
   window.LCAnalytics?.identify().catch(()=>{});window.LCAnalytics?.once('app-session',()=>window.LCAnalytics.track('app_session_started',{}, {entry_section:active}));
   const name=profile?.full_name||u.user_metadata?.full_name||u.email?.split('@')[0]||'Aluno';
   qsa('[data-user-name]').forEach(el=>el.textContent=name);const initials=String(name).trim().split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]?.toUpperCase()||'').join('')||'AL';qsa('[data-user-avatar]').forEach(el=>el.textContent=initials);
