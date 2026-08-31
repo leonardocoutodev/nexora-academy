@@ -23,7 +23,7 @@ function injectV3(){if(!document.querySelector('link[href*="academy-v3.css"]')){
 function enhanceLCShell(active='dashboard'){
   injectV3();
   qsa('.brand').forEach(el=>{el.innerHTML='<img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span>'});
-  const side=qs('.sidebar');if(!side)return;
+  const side=qs('.sidebar');if(!side)return;side.setAttribute('aria-label','Navegação principal');
   const nav=qs('nav',side);
   if(nav&&!qs('[data-nav="start"]',nav)){const first=nav.querySelector('a');const a=document.createElement('a');a.href='comece-aqui.html';a.dataset.nav='start';a.innerHTML='<span>'+lcIcon('start')+'</span><span>Comece aqui</span>';if(first)first.after(a);else nav.appendChild(a)}
   if(nav&&!qs('.sidebar-extra',side)){
