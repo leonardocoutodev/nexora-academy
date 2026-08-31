@@ -2409,6 +2409,45 @@ p{color:var(--lc-text-soft)}
 .nx-start-banner h2{margin:5px 0 6px;font-size:22px}
 .nx-start-banner p{margin:0;max-width:760px;font-size:13px;line-height:1.55}
 
+.lc-catalog-controls{
+  display:grid;
+  grid-template-columns:minmax(260px,1.6fr) minmax(150px,.55fr) minmax(170px,.7fr) auto;
+  gap:10px;
+  align-items:end;
+  margin:-10px 0 20px;
+  padding:12px;
+  border:1px solid var(--lc-line);
+  border-radius:16px;
+  background:rgba(10,17,25,.72);
+}
+.lc-catalog-controls label{display:grid;gap:7px;min-width:0}
+.lc-catalog-controls label>span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--lc-muted);font-weight:800}
+.lc-catalog-controls input,.lc-catalog-controls select{width:100%;min-height:46px}
+.lc-catalog-result{
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:0 14px;
+  border:1px solid var(--lc-line);
+  border-radius:11px;
+  background:rgba(255,255,255,.025);
+  color:var(--lc-muted);
+  white-space:nowrap;
+}
+.lc-catalog-result strong{color:var(--lc-text);font-size:17px}
+.lc-catalog-empty{
+  grid-column:1/-1;
+  padding:48px 24px;
+  border:1px dashed var(--lc-line-strong);
+  border-radius:22px;
+  text-align:center;
+  background:rgba(255,255,255,.018);
+}
+.lc-catalog-empty h2{margin:8px 0;font-size:25px}
+.lc-catalog-empty p{margin:0 auto 18px;max-width:520px}
+
 .lc-catalog-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -2953,6 +2992,9 @@ label{color:#aebfd0;font-size:12px;font-weight:700}
   .lc-dashboard-layout{grid-template-columns:1fr}
   .lc-dashboard-aside{position:static;grid-template-columns:1fr 1fr}
   .lc-catalog-grid{grid-template-columns:1fr}
+  .lc-catalog-controls{grid-template-columns:1fr 1fr}
+  .lc-catalog-search{grid-column:1/-1}
+  .lc-catalog-result{grid-column:1/-1;justify-content:flex-start}
   .catalog-course{grid-template-columns:1fr}
   .nx-recommended-course{grid-column:auto;grid-template-columns:1fr}
   .nx-recommended-course .nx-course-cover-frame{height:240px;min-height:0}
@@ -2976,6 +3018,9 @@ label{color:#aebfd0;font-size:12px;font-weight:700}
   .lc-dashboard-aside{grid-template-columns:1fr}
   .lc-dashboard-course-list .v3-course-card{grid-template-columns:1fr}
   .lc-catalog-page .v3-hero{display:block}
+  .lc-catalog-controls{grid-template-columns:1fr;margin-top:0;padding:10px}
+  .lc-catalog-search,.lc-catalog-result{grid-column:auto}
+  .lc-catalog-result{justify-content:flex-start}
   .lc-course-page .v3-grid{grid-template-columns:1fr}
   .lc-course-page .v3-module .v3-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
   .lc-course-page .v3-module .v3-toolbar>.v3-btn{width:100%;min-width:44px;padding-left:10px;padding-right:10px}
