@@ -8,6 +8,16 @@
     return '<section class="v3-lab"><div class="v3-lab-head"><div><span>LABORATÓRIO NA AULA</span><strong>'+esc(title)+'</strong></div><span>'+esc(kind.toUpperCase())+'</span></div><div class="v3-lab-body">'+body+'</div></section>';
   }
   function feedback(el,ok,msg){el.className='v3-feedback '+(ok?'ok':'bad');el.textContent=msg}
+  function enhanceLabAccessibility(root){
+    const labTitle=root.querySelector('.v3-lab-head strong')?.textContent?.trim()||'Laboratório LC';
+    root.querySelectorAll('textarea:not([aria-label])').forEach((el,i)=>el.setAttribute('aria-label',labTitle+' — editor'+(i?(' '+(i+1)):'')));
+    root.querySelectorAll('select:not([aria-label])').forEach((el,i)=>el.setAttribute('aria-label',el.matches('[data-method]')?'Método HTTP':labTitle+' — seleção '+(i+1)));
+    root.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]):not([aria-label])').forEach((el,i)=>{
+      const label=el.matches('[data-path]')?'Rota da API':el.matches('[data-term]')?'Comando do terminal':el.matches('[data-sheet]')?'Resposta da planilha '+(Number(el.dataset.sheet||i)+1):labTitle+' — campo '+(i+1);
+      el.setAttribute('aria-label',label);
+    });
+    root.querySelectorAll('iframe:not([title])').forEach(el=>el.setAttribute('title','Prévia — '+labTitle));
+  }
   function bank(module){
     const t=(module||'').toLowerCase();
     if(t.includes('fundamentos'))return {q:'Qual atitude torna o uso de IA generativa mais confiável?',opts:['Aceitar a primeira resposta','Definir tarefa, contexto e validar fatos','Pedir uma resposta mais longa','Evitar informar restrições'],a:1,ok:'Correto. IA generativa é mais útil quando a tarefa é bem definida e a saída é validada.'};
@@ -182,7 +192,7 @@
   function wireJs(root,kind){
     const ed=root.querySelector('[data-code]'),out=root.querySelector('[data-console]');
     const run=()=>{
-      const iframe=document.createElement('iframe');iframe.sandbox='allow-scripts';iframe.src='../lab-runner.html';iframe.hidden=true;document.body.appendChild(iframe);
+      const iframe=document.createElement('iframe');iframe.sandbox='allow-scripts';iframe.src='../lab-runner.html';iframe.hidden=true;iframe.title='Executor isolado do laboratório';document.body.appendChild(iframe);
       const requestId=crypto.randomUUID();
       const code=kind==='typescript'?ed.value.replace(/type\s+\w+\s*=\s*\{[^}]*\};?/gs,'').replace(/:\s*\w+(\[\])?/g,''):ed.value;
       let finished=false;
@@ -559,7 +569,7 @@
     else if(type==='product')html=productLab(module);
     else if(type==='project'||type==='boss')html=bossLab(module);
     else html=mcq(module,ctx.lesson?.lab_config?.checkpoint);
-    el.innerHTML=html;
+    el.innerHTML=html;enhanceLabAccessibility(el);
     if(type==='logic')wireLogic(el);
     else if(type==='data_model')wireDataModel(el,ctx);
     else if(type==='decision_table')wireDecisionTable(el,ctx);
