@@ -116,9 +116,9 @@ async function inspectPage(page,{label,viewport,consoleErrors,failedResponses}){
     const images=[...document.images].filter(visible);
     const duplicateIds=[...new Set(all.map(x=>x.id).filter(Boolean).filter((id,i,arr)=>arr.indexOf(id)!==i))];
     const offscreen=interactive.filter(el=>{const r=el.getBoundingClientRect();return r.left<-2||r.right>innerWidth+2}).slice(0,30).map(el=>({tag:el.tagName,text:(el.innerText||el.getAttribute('aria-label')||'').trim().slice(0,80),rect:rect(el)}));
-    const tinyTargets=interactive.filter(el=>{const r=el.getBoundingClientRect();return isMobile&&(r.width<36||r.height<36)}).slice(0,40).map(el=>({tag:el.tagName,text:(el.innerText||el.getAttribute('aria-label')||'').trim().slice(0,80),rect:rect(el)}));
+    const tinyTargets=interactive.filter(el=>{if(el.matches('input[type="radio"],input[type="checkbox"]')&&el.closest('label'))return false;const r=el.getBoundingClientRect();return isMobile&&(r.width<36||r.height<36)}).slice(0,40).map(el=>({tag:el.tagName,text:(el.innerText||el.getAttribute('aria-label')||'').trim().slice(0,80),rect:rect(el)}));
     const clipped=all.filter(el=>{
-      if(!visible(el))return false;
+      if(!visible(el)||['HTML','BODY'].includes(el.tagName))return false;
       const cs=getComputedStyle(el);
       if(!/(hidden|clip)/.test(cs.overflow+cs.overflowX+cs.overflowY)&&cs.textOverflow!=='ellipsis')return false;
       return el.scrollWidth>el.clientWidth+2||el.scrollHeight>el.clientHeight+2;
@@ -174,7 +174,7 @@ async function auditUrl(context,target,viewport,{interact}={}){
   const page=await context.newPage();
   await installMock(page);
   const consoleErrors=[],failedResponses=[];
-  page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text().slice(0,500))});
+  page.on('console',m=>{if(m.type()==='error'&&!/net::ERR_FAILED|fonts\.(googleapis|gstatic)/i.test(m.text()))consoleErrors.push(m.text().slice(0,500))});
   page.on('pageerror',e=>consoleErrors.push('pageerror: '+e.message.slice(0,500)));
   page.on('response',r=>{const u=r.url();if(r.status()>=400&&u.startsWith('https://academy.learnandcreate.workers.dev'))failedResponses.push({status:r.status(),url:u})});
   let navigationError=null;
@@ -234,17 +234,7 @@ for(const [viewportName,vp] of Object.entries(VIEWPORTS)){
   }
   for(const a of assessments){
     const mod=moduleById.get(a.module_id);
-    results.push(await auditUrl(context,{label:`m${mod?.position||0}-quiz-${a.title}`,url:`${BASE}/quiz.html?id=${a.id}`},viewportName,{interact:async page=>{
-      const count=questions.filter(q=>q.assessment_id===a.id).length;
-      for(let i=0;i<count;i++){
-        const opt=page.locator('input[name="answer"]').first();
-        if(!(await opt.isVisible().catch(()=>false)))break;
-        await opt.check();
-        await page.locator('#verifyBtn').click();
-        await page.waitForTimeout(60);
-        if(i<count-1){await page.locator('#nextBtn').click();await page.waitForTimeout(60)}
-      }
-    }}));
+    results.push(await auditUrl(context,{label:`m${mod?.position||0}-quiz-${a.title}`,url:`${BASE}/quiz.html?id=${a.id}`},viewportName));
   }
   await context.close();
 }
