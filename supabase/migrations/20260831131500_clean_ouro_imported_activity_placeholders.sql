@@ -16,7 +16,7 @@ set
     )
     else content
   end,
-  lab_type = null,
+  lab_type = 'none',
   lab_config = coalesce(lab_config, '{}'::jsonb) - 'checkpoint',
   updated_at = now()
 where (lab_config->'source_migration'->>'provider') = 'Ouro Moderno'
