@@ -78,7 +78,7 @@ for(const pattern of ["x.name||x.label","revision_requested","score:null,feedbac
 for(const pattern of ["certificate_eligibility","data-issue","Emitir certificado"]){if(!certificatesHtml.includes(pattern))failures.push(`certificados.html: emissão explícita ausente (${pattern})`)}
 for(const pattern of ["data-admin-panel=\"overview\"","data-admin-panel=\"analytics\"","data-admin-panel=\"students\"","data-admin-panel=\"boss\"","data-admin-panel=\"certificates\"","data-admin-panel=\"donations\"","data-admin-panel=\"audit\"","studentDialog","analyticsDays","analyticsLessonCourse"]){if(!adminHtml.includes(pattern))failures.push(`admin/index.html: central operacional incompleta (${pattern})`)}
 for(const pattern of ["admin_operational_summary","admin_student_roster","admin_student_detail","admin_update_profile","admin_update_enrollment","admin_create_enrollment","admin_boss_roster","admin_certificate_roster","admin_audit_feed","review_project_submission","admin_analytics_overview","admin_analytics_funnel","admin_analytics_daily","admin_analytics_courses","admin_analytics_lessons","admin_analytics_devices","admin_analytics_goals","admin_donation_roster","admin_register_manual_donation","loadDonations","loadAnalytics"]){if(!adminSource.includes(pattern))failures.push(`admin.js: operação administrativa ausente (${pattern})`)}
-for(const pattern of ["lc.analytics.session","track_product_event","identify_analytics_session","lesson_engagement","lc:inline-check","lc:lab-complete","keepalive:true","FORBIDDEN_PROPERTY_KEYS"]){if(!analyticsSource.includes(pattern))failures.push(`analytics.js: instrumentação ausente (${pattern})`)}
+for(const pattern of ["lc.analytics.session","lc.analytics.attribution","utm_source","utm_medium","utm_campaign","referrer_host","track_product_event","identify_analytics_session","lesson_engagement","lc:inline-check","lc:lab-complete","keepalive:true","FORBIDDEN_PROPERTY_KEYS"]){if(!analyticsSource.includes(pattern))failures.push(`analytics.js: instrumentação ausente (${pattern})`)}
 for(const rel of ["pages/cadastro.html","pages/login.html","pages/comece-aqui.html","pages/curso.html","pages/aula.html","pages/quiz.html","pages/projetos.html","pages/certificados.html","pages/apoie.html"]){const source=fs.readFileSync(path.join(root,rel),"utf8");if(!source.includes("analytics.js"))failures.push(`${rel}: analytics client ausente`)}
 const criticalSources=[fs.readFileSync("src/index.js","utf8"),fs.readFileSync(".github/workflows/production-quality.yml","utf8"),fs.readFileSync(".github/workflows/deploy.yml","utf8"),fs.readFileSync("supabase/functions/lc-mercadopago-donation/index.ts","utf8")].join("\n");
 if(criticalSources.includes("academy.nexora-84f.workers.dev"))failures.push("produção: URL pública legada ainda presente");
@@ -91,6 +91,12 @@ const supportSource=fs.readFileSync(path.join(root,"pages/apoie.html"),"utf8");
 for(const stale of ["9 cursos e formações","368 missões"]){if(signupSource.includes(stale))failures.push(`cadastro.html: prova social antiga ainda presente (${stale})`)}
 for(const stale of [">368<",">411<",">35<",">44<",">9<"]){if(supportSource.includes(stale))failures.push(`apoie.html: métrica antiga ainda presente (${stale})`)}
 
+const publicHomeSource=fs.readFileSync(path.join(root,"index.html"),"utf8");
+const publicSupportSource=fs.readFileSync(path.join(root,"pages/apoie.html"),"utf8");
+for(const source of [publicHomeSource,publicSupportSource]){
+  if(!source.includes("learnandcreate_edu"))failures.push("página pública: Instagram oficial ausente");
+  if(!source.includes('property="og:image"'))failures.push("página pública: og:image ausente");
+}
 const analyticsPrivacyMigration=fs.readFileSync("supabase/migrations/20260828185500_lc_analytics_privacy_guard.sql","utf8");
 for(const pattern of ["analytics_sensitive_property_rejected","trg_product_events_privacy","access_token","password","email"]){if(!analyticsPrivacyMigration.includes(pattern))failures.push(`analytics privacy guard ausente (${pattern})`)}
 if(/['"]NX['"]/.test(appShellSource)||appShellSource.includes('side-avatar">N'))failures.push("app-shell.js: fallback visual legado NX/N ainda presente");
