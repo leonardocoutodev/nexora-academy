@@ -19,7 +19,7 @@
       '<div class="v3-rubric">'+criteria.map(x=>'<div><b>'+esc(x.weight)+'%</b><br>'+esc(x.name||x.label||'Critério')+'</div>').join('')+'</div>'+
       '<div class="v3-hud"><span class="v3-pill xp">+'+(p.xp_reward||400)+' XP</span><span class="v3-pill">'+esc(statusLabels[s?.status]||'Não enviado')+'</span>'+(s?.score!=null?'<span class="v3-pill">Nota '+Number(s.score).toFixed(0)+'%</span>':'')+'</div>'+
       '<div style="margin-top:14px"><label style="display:block;font-size:12px;font-weight:800;margin-bottom:7px">Link da entrega</label><div class="v3-api-row">'+
-      '<input data-url="'+p.id+'" value="'+esc(s?.submission_url||'')+'" placeholder="https://..." '+(passed?'readonly':'')+'>'+
+      '<input aria-label="Link da entrega" data-url="'+p.id+'" value="'+esc(s?.submission_url||'')+'" placeholder="https://..." '+(passed?'readonly':'')+'>'+
       '<button class="v3-btn" type="button" data-submit="'+p.id+'" data-status="'+esc(s?.status||'')+'" '+(passed?'disabled':'')+'>'+actionLabel+'</button></div>'+
       '<small class="muted">'+(revision?'O avaliador pediu ajustes. Corrija a entrega e envie novamente para uma nova avaliação.':'Use uma URL pública ou acessível ao avaliador: GitHub, deploy, Drive, planilha, imagem ou demonstração.')+'</small>'+
       '<div class="v3-feedback" data-msg="'+p.id+'" style="display:none"></div></div>'+
