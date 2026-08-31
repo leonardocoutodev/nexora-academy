@@ -30,7 +30,7 @@ function enhanceLCShell(active='dashboard'){
     nav.after(extra);
   }
   let foot=qs('.side-footer',side);if(!foot){foot=document.createElement('div');foot.className='side-footer';side.appendChild(foot)}
-  foot.innerHTML='<div id="sideGame" class="v3-gamification-mini"><div class="top"><span>NÍVEL <strong data-level>1</strong></span><span><strong data-xp>0</strong> XP</span></div><div class="v3-xpbar"><span data-xpbar style="width:0%"></span></div><div class="v3-streak"><span aria-hidden="true">🔥</span> <span data-streak>0</span> dias de sequência</div></div><a class="lc-credit-link" href="https://wa.me/5573981250366?text=Ol%C3%A1%2C%20conheci%20a%20plataforma%20LC." target="_blank" rel="noopener"><img src="../assets/brand/lc-mark.svg" alt="" aria-hidden="true"><span><b>IDEALIZADA E DESENVOLVIDA POR LEONARDO COUTO</b><small>LC Soluções Digitais ↗</small></span></a><div class="side-user"><span class="side-avatar" data-user-avatar>AL</span><div><b data-user-name>Aluno</b><small data-user-role>Estudante</small></div></div>';
+  foot.innerHTML='<div id="sideGame" class="v3-gamification-mini"><div class="top"><span>NÍVEL <strong data-level>1</strong></span><span><strong data-xp>0</strong> XP</span></div><div class="v3-xpbar"><span data-xpbar style="width:0%"></span></div><div class="v3-streak"><span aria-hidden="true">🔥</span> <span data-streak>0</span> dias de sequência</div></div><div class="side-user"><span class="side-avatar" data-user-avatar>AL</span><div><b data-user-name>Aluno</b><small data-user-role>Estudante</small></div></div>';
   applyLCNavigationIcons(side);enhanceMobileNavigation(active);
 }
 function enhanceMobileNavigation(active='dashboard'){
@@ -53,15 +53,39 @@ function enhanceMobileNavigation(active='dashboard'){
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)close()});
 }
 
-function nxCourseVisual(title){
-  const t=(title||'').toLowerCase();
-  if(t.includes('ia generativa'))return '../assets/visuals/course-ai.svg';
-  if(t.includes('desenvolvimento de sistemas'))return '../assets/visuals/course-dev.svg';
-  if(/lógica|pensamento computacional|pseudocódigo|matemática/.test(t))return '../assets/visuals/visual-logic-web.svg';
-  if(/terminal|git/.test(t))return '../assets/visuals/visual-data-api.svg';
-  if(/introdução à web/.test(t))return '../assets/visuals/visual-logic-web.svg';
-  if(/python/.test(t))return '../assets/visuals/visual-react.svg';
-  return '../assets/visuals/landing-orbit.svg';
+function nxHash(value){let h=2166136261;for(const ch of String(value||'')){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function nxSvgText(value){return String(value||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[ch]))}
+function nxCourseInitials(title){
+  const stop=new Set(['de','da','do','das','dos','e','em','com','para','a','o']);
+  const words=String(title||'LC').trim().split(/\s+/).filter(Boolean).filter(w=>!stop.has(w.toLowerCase()));
+  return (words.length>1?words.slice(0,3).map(w=>w[0]):[words[0]?.slice(0,3)||'LC']).join('').toUpperCase().slice(0,3);
+}
+function nxCourseDomain(title,category=''){
+  const t=(String(title||'')+' '+String(category||'')).toLowerCase();
+  if(/canva|design|gráfico|corel|projetista|arte/.test(t))return'DESIGN';
+  if(/marketing|mídia|social|youtuber|vendedor digital|tráfego/.test(t))return'MÍDIA';
+  if(/program|desenvolv|web|python|java|app|games|lógica|algorit|git|código/.test(t))return'CODE';
+  if(/excel|word|office|windows|informática|computador/.test(t))return'DIGITAL';
+  if(/finance|contáb|cobrança|caixa|crédito/.test(t))return'FIN';
+  if(/rh|recursos humanos|liderança|pessoal|administr|empresarial|escritório|comercial|vendas|telemarketing/.test(t))return'GESTÃO';
+  if(/farmácia|saúde/.test(t))return'SAÚDE';
+  if(/logística|drone/.test(t))return'OPERAÇÃO';
+  return String(category||'FORMAÇÃO').toUpperCase().slice(0,12);
+}
+function nxCourseVisual(title,category=''){
+  const key=String(title||'LC')+'|'+String(category||''),h=nxHash(key),variant=h%5;
+  const initials=nxSvgText(nxCourseInitials(title)),domain=nxSvgText(nxCourseDomain(title,category));
+  const x1=80+(h%180),y1=48+((h>>>5)%110),x2=440+((h>>>9)%180),y2=170+((h>>>13)%120);
+  const accent=variant%2===0?'#2878FF':'#38E6B0',accent2=variant%2===0?'#38E6B0':'#2878FF';
+  const motif=[
+    '<path d="M70 280 C210 110 370 360 700 120" fill="none" stroke="'+accent+'" stroke-width="3" opacity=".34"/><circle cx="'+x2+'" cy="'+y2+'" r="72" fill="none" stroke="'+accent2+'" opacity=".18"/>',
+    '<g fill="none" stroke="'+accent+'" opacity=".26"><rect x="66" y="72" width="164" height="104" rx="18"/><rect x="520" y="178" width="170" height="110" rx="18"/></g><path d="M230 124H520" stroke="'+accent2+'" stroke-width="3" stroke-dasharray="9 13" opacity=".3"/>',
+    '<circle cx="'+x1+'" cy="'+y1+'" r="96" fill="'+accent+'" opacity=".12"/><circle cx="'+x2+'" cy="'+y2+'" r="128" fill="'+accent2+'" opacity=".08"/><path d="M72 316H700" stroke="#9DACC1" opacity=".13"/>',
+    '<g stroke="'+accent+'" fill="none" opacity=".25"><path d="M72 100h210v92H72z"/><path d="M490 154h212v128H490z"/><path d="M282 146h208"/></g><circle cx="386" cy="146" r="10" fill="'+accent2+'" opacity=".75"/>',
+    '<path d="M40 278 210 74l136 154 124-102 250 190" fill="none" stroke="'+accent+'" stroke-width="4" opacity=".22"/><path d="M48 318H720" stroke="'+accent2+'" stroke-width="2" opacity=".2"/>'
+  ][variant];
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" role="img" aria-label="'+nxSvgText(title)+'"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111F"/><stop offset="1" stop-color="#0D1B2E"/></linearGradient><radialGradient id="glow"><stop stop-color="'+accent+'" stop-opacity=".22"/><stop offset="1" stop-color="'+accent+'" stop-opacity="0"/></radialGradient></defs><rect width="760" height="360" fill="url(#bg)"/><circle cx="'+x1+'" cy="'+y1+'" r="190" fill="url(#glow)"/>'+motif+'<g font-family="Inter,Segoe UI,Arial,sans-serif"><text x="58" y="286" fill="#F6F8FC" font-size="82" font-weight="800" letter-spacing="-5">'+initials+'</text><text x="62" y="322" fill="#9DACC1" font-size="17" font-weight="700" letter-spacing="3">'+domain+'</text></g><rect x="58" y="42" width="54" height="4" rx="2" fill="'+accent+'"/><rect x="116" y="42" width="24" height="4" rx="2" fill="'+accent2+'" opacity=".72"/></svg>';
+  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
 }
 function nxModuleVisual(title,courseTitle=''){
   const t=(title||'').toLowerCase();
