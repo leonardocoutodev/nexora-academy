@@ -7,10 +7,10 @@
   <link rel="icon" type="image/svg+xml" href="../../assets/brand/lc-mark.svg">
   <link rel="manifest" href="../../manifest.webmanifest">
   <title>Operações — LC</title>
-  <link rel="stylesheet" href="../../assets/css/styles.css">
-  <link rel="stylesheet" href="../../assets/css/academy-v3.css">
-</head>
-<body>
+  
+  
+<link rel="stylesheet" href="../../assets/css/lc.css"></head>
+<body class="lc-app-page lc-admin-page">
 <div class="app-shell">
   <aside class="sidebar">
     <div class="brand"><img src="../../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div>
@@ -149,8 +149,8 @@
           </div>
           <div class="lc-admin-filterbar">
             <input id="studentSearch" type="search" placeholder="Nome ou e-mail">
-            <select id="studentStatus"><option value="">Todos os status</option><option value="active">Ativo</option><option value="inactive">Inativo</option><option value="blocked">Bloqueado</option></select>
-            <select id="studentCourse"><option value="">Todos os cursos</option></select>
+            <select id="studentStatus" aria-label="Status do aluno"><option value="">Todos os status</option><option value="active">Ativo</option><option value="inactive">Inativo</option><option value="blocked">Bloqueado</option></select>
+            <select id="studentCourse" aria-label="Curso do aluno"><option value="">Todos os cursos</option></select>
             <button id="studentApply" class="v3-btn secondary" type="button">Filtrar</button>
           </div>
           <div id="studentList" class="lc-admin-table"></div>
@@ -162,8 +162,8 @@
             <span class="v3-pill" id="bossCount">0 entregas</span>
           </div>
           <div class="lc-admin-filterbar">
-            <select id="bossStatus"><option value="">Todos os status</option><option value="submitted">Em avaliação</option><option value="revision_requested">Ajustes solicitados</option><option value="approved">Aprovado</option><option value="reviewed">Avaliado</option></select>
-            <select id="bossCourse"><option value="">Todos os cursos</option></select>
+            <select id="bossStatus" aria-label="Status do Boss Fight"><option value="">Todos os status</option><option value="submitted">Em avaliação</option><option value="revision_requested">Ajustes solicitados</option><option value="approved">Aprovado</option><option value="reviewed">Avaliado</option></select>
+            <select id="bossCourse" aria-label="Curso do Boss Fight"><option value="">Todos os cursos</option></select>
             <button id="bossApply" class="v3-btn secondary" type="button">Filtrar</button>
           </div>
           <div id="bossList" class="lc-admin-stack"></div>
@@ -176,7 +176,7 @@
           </div>
           <div class="lc-admin-filterbar">
             <input id="certificateSearch" type="search" placeholder="Aluno, e-mail ou código">
-            <select id="certificateCourse"><option value="">Todos os cursos</option></select>
+            <select id="certificateCourse" aria-label="Curso do certificado"><option value="">Todos os cursos</option></select>
             <button id="certificateApply" class="v3-btn secondary" type="button">Filtrar</button>
           </div>
           <div id="certificateList" class="lc-admin-stack"></div>
@@ -188,7 +188,7 @@
             <span class="v3-pill" id="donationCount">0 contribuições</span>
           </div>
           <div class="lc-admin-filterbar">
-            <select id="donationStatus"><option value="">Todos os status</option><option value="approved">Aprovadas</option><option value="pending">Pendentes</option><option value="rejected">Rejeitadas</option><option value="refunded">Reembolsadas</option><option value="cancelled">Canceladas</option></select>
+            <select id="donationStatus" aria-label="Status da contribuição"><option value="">Todos os status</option><option value="approved">Aprovadas</option><option value="pending">Pendentes</option><option value="rejected">Rejeitadas</option><option value="refunded">Reembolsadas</option><option value="cancelled">Canceladas</option></select>
             <button id="donationApply" class="v3-btn secondary" type="button">Atualizar</button>
           </div>
           <div class="lc-admin-detail-grid">
@@ -220,7 +220,7 @@
       </section>
     </div>
 
-    <nav class="bottom-nav nx-admin-mobile-nav">
+    <nav class="bottom-nav nx-admin-mobile-nav" aria-label="Navegação administrativa móvel">
       <button type="button" data-admin-tab="overview"><span>⌂</span><span>Resumo</span></button>
       <button type="button" data-admin-tab="analytics"><span>⌁</span><span>Dados</span></button>
       <button type="button" data-admin-tab="students"><span>◎</span><span>Alunos</span></button>

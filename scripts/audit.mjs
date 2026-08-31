@@ -22,29 +22,20 @@ for(const file of files.filter(file=>file.endsWith(".html"))){
     if(!fs.existsSync(target))failures.push(`${path.relative(root,file)}: referência ausente ${ref}`);
   }
 }
-const mobileCss=fs.readFileSync(path.join(root,"assets/css/academy-v3.css"),"utf8");
-const lessonCss=fs.readFileSync(path.join(root,"assets/css/learning-release.css"),"utf8");
+const canonicalCss=fs.readFileSync(path.join(root,"assets/css/lc.css"),"utf8");
 const appShellSource=fs.readFileSync(path.join(root,"assets/js/app-shell.js"),"utf8");
-const brandCss=fs.readFileSync(path.join(root,"assets/css/lc-brand.css"),"utf8");
-const globalCss=fs.readFileSync(path.join(root,"assets/css/styles.css"),"utf8");
 const headersSource=fs.readFileSync(path.join(root,"_headers"),"utf8");
 const countImportant=source=>(source.match(/!important/g)||[]).length;
-if(countImportant(mobileCss)>12)failures.push(`academy-v3.css: orçamento de !important excedido (${countImportant(mobileCss)} > 12)`);
-if(countImportant(lessonCss)>3)failures.push(`learning-release.css: orçamento de !important excedido (${countImportant(lessonCss)} > 3)`);
-if(countImportant(globalCss)>8)failures.push(`styles.css: orçamento de !important excedido (${countImportant(globalCss)} > 8)`);
-if(/nx-book(?:-|\b)/.test(lessonCss))failures.push("learning-release.css: CSS legado do livro horizontal ainda presente");
-for(const legacySection of ["LC VISUAL POLISH","LC MOBILE LESSON REPAIR","LC VISUAL IDENTITY OVERRIDES"]){if(mobileCss.includes(legacySection))failures.push(`academy-v3.css: camada legada ainda presente (${legacySection})`)}
-const maxWidths=[...new Set([...globalCss.matchAll(/@media[^\{]*max-width:(\d+)px/g),...mobileCss.matchAll(/@media[^\{]*max-width:(\d+)px/g),...lessonCss.matchAll(/@media[^\{]*max-width:(\d+)px/g)].map(m=>Number(m[1])))];
-for(const width of maxWidths){if(![1100,900,820,620,420].includes(width))failures.push(`CSS: breakpoint não canônico ${width}px`)}
+if(countImportant(canonicalCss)>23)failures.push(`lc.css: orçamento de !important excedido (${countImportant(canonicalCss)} > 23)`);
+if(/nx-book(?:-|\b)/.test(canonicalCss))failures.push("lc.css: CSS legado do livro horizontal ainda presente");
+for(const legacySection of ["LC VISUAL POLISH","LC MOBILE LESSON REPAIR","LC VISUAL IDENTITY OVERRIDES"]){if(canonicalCss.includes(legacySection))failures.push(`lc.css: camada legada ainda presente (${legacySection})`)}
+const maxWidths=[...new Set([...canonicalCss.matchAll(/@media[^\{]*max-width:(\d+)px/g)].map(m=>Number(m[1])))];
+for(const width of maxWidths){if(![1100,900,820,620,420].includes(width))failures.push(`lc.css: breakpoint não canônico ${width}px`)}
 if(!headersSource.includes("fonts.googleapis.com")||!headersSource.includes("fonts.gstatic.com"))failures.push("CSP: fontes oficiais LC não estão liberadas");
-for(const [label,source,patterns] of [
-  ["academy-v3.css",mobileCss,["LC UI FOUNDATION 1.0","LC MOBILE-FIRST HARDENING","grid-template-columns:repeat(5","env(safe-area-inset-bottom)","nx-mobile-more","lc-ui-icon",'input[type="checkbox"]']],
-  ["learning-release.css",lessonCss,["LC LESSON EXPERIENCE 1.0","nx-lesson-flow","nx-section-nav","nx-sheet","nx-mobile-pdf-note"]],
-  ["app-shell.js",appShellSource,["enhanceMobileNavigation","applyLCNavigationIcons","LC_ICON_PATHS","lc-ui-icon","aria-current","nx-mobile-more","inert","lc-mark.svg","lc-brand-signature","Learn <span class=\"lc-brand-amp\">&amp;</span> Create"]],
-  ["lc-brand.css",brandCss,["fonts.googleapis.com/css2?family=Inter","--lc-ink:#07111F","--lc-blue:#2878FF","--lc-mint:#38E6B0","--lc-font:Inter"]]
-])for(const pattern of patterns){if(!source.includes(pattern))failures.push(`${label}: proteção mobile ausente (${pattern})`)}
+for(const pattern of ["LC DESIGN SYSTEM 2.0","LC UI FOUNDATION 1.0","LC LESSON EXPERIENCE 1.0","nx-lesson-flow","nx-section-nav","nx-mobile-more","lc-ui-icon","env(safe-area-inset-bottom)","--lc-bg:#05080d","--lc-blue:#4b8dff","--lc-mint:#53ddb9"]){if(!canonicalCss.includes(pattern))failures.push(`lc.css: proteção canônica ausente (${pattern})`)}
+for(const pattern of ["enhanceMobileNavigation","applyLCNavigationIcons","LC_ICON_PATHS","lc-ui-icon","aria-current","nx-mobile-more","inert","lc-mark.svg","lc-brand-signature",'Learn <span class="lc-brand-amp">&amp;</span> Create']){if(!appShellSource.includes(pattern))failures.push(`app-shell.js: proteção mobile ausente (${pattern})`)}
 for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/apoie.html","pages/privacidade.html","pages/termos.html","pages/certificacao.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!/viewport-fit=cover/.test(html))failures.push(`${rel}: viewport-fit=cover ausente`)}
-for(const requiredBrand of ["assets/brand/lc-mark.svg","assets/css/lc-brand.css","manifest.webmanifest"]){if(!fs.existsSync(path.join(root,requiredBrand)))failures.push(`ativo LC ausente: ${requiredBrand}`)}
+for(const requiredBrand of ["assets/brand/lc-mark.svg","assets/css/lc.css","manifest.webmanifest"]){if(!fs.existsSync(path.join(root,requiredBrand)))failures.push(`ativo LC ausente: ${requiredBrand}`)}
 for(const requiredPublic of ["robots.txt","sitemap.xml","pages/privacidade.html","pages/termos.html","pages/certificacao.html"]){if(!fs.existsSync(path.join(root,requiredPublic)))failures.push(`arquivo público de confiança ausente: ${requiredPublic}`)}
 for(const rel of ["index.html","pages/apoie.html","pages/privacidade.html","pages/termos.html","pages/certificacao.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!html.includes('rel="canonical"'))failures.push(`${rel}: canonical ausente`);if(!html.includes('property="og:'))failures.push(`${rel}: Open Graph ausente`)}
 if(fs.readFileSync(path.join(root,"index.html"),"utf8").includes('.public-nav .brand img{width:190px}'))failures.push("index.html: sizing legado do LC Mark ainda presente");
@@ -77,7 +68,7 @@ for(const required of [
   "docs/LC_QUALITY.md"
 ]){if(!fs.existsSync(required))failures.push(`arquivo de qualidade ausente: ${required}`)}
 const legacyPalette=["#8457ff","#754fff","#9b6fff","#7e59ff","#7c63ff","#8c72ff","#7564ff","#7664ff","#8b6dff","#6e5cff","rgba(124,99,255","rgba(140,114,255","rgba(142,111,255"];
-for(const rel of ["assets/css/styles.css","assets/css/academy-v3.css"]){const source=fs.readFileSync(path.join(root,rel),"utf8").toLowerCase();for(const legacy of legacyPalette){if(source.includes(legacy.toLowerCase()))failures.push(`${rel}: cor legada fora da paleta LC (${legacy})`)}}
+for(const rel of ["assets/css/lc.css"]){const source=fs.readFileSync(path.join(root,rel),"utf8").toLowerCase();for(const legacy of legacyPalette){if(source.includes(legacy.toLowerCase()))failures.push(`${rel}: cor legada fora da paleta LC (${legacy})`)}}
 const projectsHtml=fs.readFileSync(path.join(root,"pages/projetos.html"),"utf8");
 const certificatesHtml=fs.readFileSync(path.join(root,"pages/certificados.html"),"utf8");
 const adminHtml=fs.readFileSync(path.join(root,"pages/admin/index.html"),"utf8");

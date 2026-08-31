@@ -16,9 +16,9 @@ for(const file of htmlFiles){
   if(dup.length)failures.push(file+': IDs duplicados '+[...new Set(dup)].join(', '));
   if(/<img(?![^>]*\balt=)[^>]*>/i.test(staticHtml))failures.push(file+': imagem sem alt');
 }
-const css=fs.readFileSync('public/assets/css/academy-v3.css','utf8');
-if(!css.includes('@media(max-width:820px)'))failures.push('academy-v3.css: breakpoint mobile principal ausente');
-if((css.match(/!important/g)||[]).length>12)failures.push('academy-v3.css: orçamento de !important excedido');
+const css=fs.readFileSync('public/assets/css/lc.css','utf8');
+if(!css.includes('@media(max-width:820px)'))failures.push('lc.css: breakpoint mobile principal ausente');
+if((css.match(/!important/g)||[]).length>23)failures.push('lc.css: orçamento de !important excedido');
 
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 console.log('Quality static checks passed for '+htmlFiles.length+' HTML pages.');
