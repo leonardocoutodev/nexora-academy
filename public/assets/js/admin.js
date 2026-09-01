@@ -160,6 +160,58 @@ const AdminOps=(()=>{
     }catch(e){toast('Afiliados: '+e.message,'bad')}
   }
 
+  async function loadGrowth(){
+    const days=Number(qs('#growthDays')?.value||30);
+    try{
+      const [g,reviews]=await Promise.all([
+        LCSupabase.adminGrowth(days),
+        LCSupabase.rpc('admin_course_review_roster',{p_status:null})
+      ]);
+      const acquisition=g?.acquisition||{},activation=g?.activation||{},retention=g?.retention||{},learning=g?.learning||{},commerce=g?.commerce||{},social=g?.social||{};
+      const metricMap={
+        growthSessions:acquisition.sessions,
+        growthAccounts:activation.new_accounts,
+        growthActivated:activation.activated_users,
+        growthThreeLessons:activation.three_lesson_users,
+        growthActive7:retention.active_7d,
+        growthPaidOrders:commerce.paid_orders,
+        growthRevenue:moneyCents(commerce.gross_cents),
+        growthReferrals:social.student_referrals
+      };
+      Object.entries(metricMap).forEach(([id,v])=>{const el=qs('#'+id);if(el)el.textContent=typeof v==='string'?v:num(v||0)});
+      const stages=[
+        ['Novas contas',activation.new_accounts],
+        ['Diagnóstico',activation.diagnostic_users],
+        ['1ª aula concluída',activation.first_lesson_users],
+        ['Aluno ativado',activation.activated_users],
+        ['3+ aulas',activation.three_lesson_users]
+      ],max=Math.max(1,...stages.map(x=>Number(x[1]||0)));
+      qs('#growthActivation').innerHTML=stages.map(([label,value])=>'<div class="lc-funnel-row"><span><b>'+esc(label)+'</b><small>'+num(value||0)+' pessoa(s)</small></span><div><i style="width:'+Math.round(Number(value||0)/max*100)+'%"></i></div><strong>'+num(value||0)+'</strong></div>').join('');
+      renderBars(qs('#growthSources'),Array.isArray(acquisition.sources)?acquisition.sources:[],r=>r.source||'(direct)',r=>Number(r.count||0),r=>num(r.count||0)+' evento(s)/sessão(ões) atribuídos');
+      qs('#growthLearning').innerHTML=[
+        ['Aulas concluídas',learning.completed_lessons],
+        ['Tentativas de avaliação',learning.assessment_attempts],
+        ['Boss Fights enviados',learning.project_submissions],
+        ['Cursos concluídos',learning.completed_enrollments],
+        ['Certificados',learning.certificates],
+        ['Streak ativo',retention.streak_users]
+      ].map(([label,value])=>'<div><span><b>'+esc(label)+'</b></span><strong>'+num(value||0)+'</strong></div>').join('');
+      qs('#growthCommerce').innerHTML=[
+        ['Visitas LC Pro',commerce.pro_views],
+        ['Pedidos criados',commerce.orders],
+        ['Vendas pagas',commerce.paid_orders],
+        ['Receita',moneyCents(commerce.gross_cents)],
+        ['Reviews recebidos',social.reviews],
+        ['Reviews públicos',social.public_reviews],
+        ['Cliques afiliados',social.affiliate_clicks],
+        ['Vendas afiliadas',social.affiliate_sales]
+      ].map(([label,value])=>'<div><span><b>'+esc(label)+'</b></span><strong>'+esc(typeof value==='string'?value:num(value||0))+'</strong></div>').join('');
+      const rr=Array.isArray(reviews)?reviews:[];
+      qs('#growthReviewList').innerHTML=rr.length?rr.map(r=>'<article class="lc-review-moderation-row"><div><div class="eyebrow">'+esc(r.course_title)+'</div><h4>'+esc(r.student_name)+'</h4><div class="lc-review-stars">'+('★'.repeat(Number(r.rating||0)))+('☆'.repeat(Math.max(0,5-Number(r.rating||0))))+'</div><p>'+esc(r.comment||'Sem comentário.')+'</p><small>'+esc(fmtDate(r.created_at))+' • '+(r.consent_public?'autorizou publicação':'não autorizou publicação')+'</small></div><div class="lc-review-moderation-actions"><span class="lc-status '+statusClass(r.status)+'">'+esc(statusLabel(r.status))+'</span>'+(r.status==='pending'?'<button class="v3-btn secondary" type="button" data-review-action="approve" data-review-id="'+r.review_id+'" '+(!r.consent_public?'disabled title="Sem autorização para publicação"':'')+'>Aprovar público</button><button class="v3-btn secondary" type="button" data-review-action="reject" data-review-id="'+r.review_id+'">Rejeitar</button>':'')+'</div></article>').join(''):'<div class="lc-admin-empty">Nenhuma avaliação de curso recebida ainda.</div>';
+      qsa('[data-review-action]').forEach(btn=>btn.onclick=async()=>{btn.disabled=true;try{await LCSupabase.moderateCourseReview({id:btn.dataset.reviewId,status:btn.dataset.reviewAction==='approve'?'approved':'rejected'});toast(btn.dataset.reviewAction==='approve'?'Avaliação aprovada para exibição pública.':'Avaliação rejeitada.');await loadGrowth()}catch(e){toast(e.message,'bad');btn.disabled=false}});
+    }catch(e){toast('Growth Center: '+e.message,'bad')}
+  }
+
   async function loadDonations(){
     const status=qs('#donationStatus')?.value||'';
     const rows=await LCSupabase.rpc('admin_donation_roster',{p_status:status||null,p_limit:100});
@@ -206,14 +258,14 @@ const AdminOps=(()=>{
       qsa('[data-admin-tab]').forEach(b=>b.onclick=()=>setTab(b.dataset.adminTab));
       qs('#studentDialogClose').onclick=()=>qs('#studentDialog').close();
       qs('#studentDialog').addEventListener('click',e=>{if(e.target===qs('#studentDialog'))qs('#studentDialog').close()});
-      wireFilters();qs('#analyticsDays').onchange=()=>loadAnalytics();qs('#analyticsLessonCourse').onchange=()=>loadLessonAnalytics();
+      wireFilters();qs('#analyticsDays').onchange=()=>loadAnalytics();qs('#analyticsLessonCourse').onchange=()=>loadLessonAnalytics();qs('#growthDays').onchange=()=>loadGrowth();qs('#growthRefresh').onclick=()=>loadGrowth();
       qs('#affiliateRefresh').onclick=()=>loadAffiliates();qs('#affiliatePayoutStatus').onchange=()=>loadAffiliates();
       qs('#donationApply').onclick=()=>loadDonations();qs('#donationStatus').onchange=()=>loadDonations();qs('#manualDonationSave').onclick=()=>saveManualDonation();
-      await Promise.all([loadSummary(),loadStudents(),loadBoss(),loadCertificates(),loadAffiliates(),loadDonations(),loadAudit(),loadAnalytics()]);
+      await Promise.all([loadSummary(),loadStudents(),loadBoss(),loadCertificates(),loadAffiliates(),loadDonations(),loadAudit(),loadAnalytics(),loadGrowth()]);
       qs('#state').classList.add('hidden');qs('#content').classList.remove('hidden');
-      const initial=location.hash.replace('#','');setTab(['overview','analytics','students','boss','certificates','affiliates','donations','audit'].includes(initial)?initial:'overview');
+      const initial=location.hash.replace('#','');setTab(['overview','analytics','growth','students','boss','certificates','affiliates','donations','audit'].includes(initial)?initial:'overview');
     }catch(e){setState(qs('#state'),'error',e.message)}
   }
-  return{init,setTab,loadStudents,loadBoss,loadCertificates,loadAffiliates,loadDonations,loadAudit,loadAnalytics,loadLessonAnalytics}
+  return{init,setTab,loadStudents,loadBoss,loadCertificates,loadAffiliates,loadDonations,loadAudit,loadAnalytics,loadLessonAnalytics,loadGrowth}
 })();
 AdminOps.init();
