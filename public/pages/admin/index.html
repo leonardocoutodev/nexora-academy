@@ -38,6 +38,7 @@
         <div class="lc-admin-tabs" role="tablist" aria-label="Áreas administrativas">
           <button type="button" role="tab" data-admin-tab="overview">Visão geral</button>
           <button type="button" role="tab" data-admin-tab="analytics">Analytics</button>
+          <button type="button" role="tab" data-admin-tab="growth">Growth</button>
           <button type="button" role="tab" data-admin-tab="students">Alunos</button>
           <button type="button" role="tab" data-admin-tab="boss">Boss Fights</button>
           <button type="button" role="tab" data-admin-tab="certificates">Certificados</button>
@@ -140,6 +141,83 @@
               <label class="lc-admin-inline-label" for="analyticsLessonCourse">Curso para diagnóstico<select id="analyticsLessonCourse"><option value="">Selecione um curso</option></select></label>
             </div>
             <div id="analyticsLessons" class="lc-analytics-table"><div class="lc-admin-empty">Selecione um curso para analisar as aulas.</div></div>
+          </section>
+        </section>
+
+        <section data-admin-panel="growth" hidden>
+          <div class="v3-section-head lc-analytics-head">
+            <div>
+              <div class="eyebrow">LC GROWTH CENTER</div>
+              <h2>Aquisição → ativação → retenção → receita</h2>
+              <p class="muted">Funil de crescimento sem misturar navegação administrativa com comportamento real de alunos.</p>
+            </div>
+            <label class="lc-analytics-period">Período
+              <select id="growthDays">
+                <option value="7">7 dias</option>
+                <option value="30" selected>30 dias</option>
+                <option value="90">90 dias</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="v3-metrics lc-growth-metrics">
+            <div class="v3-metric"><small>Sessões qualificadas</small><strong id="growthSessions">0</strong></div>
+            <div class="v3-metric"><small>Novas contas</small><strong id="growthAccounts">0</strong></div>
+            <div class="v3-metric"><small>Alunos ativados</small><strong id="growthActivated">0</strong></div>
+            <div class="v3-metric"><small>3+ aulas</small><strong id="growthThreeLessons">0</strong></div>
+            <div class="v3-metric"><small>Ativos 7d</small><strong id="growthActive7">0</strong></div>
+            <div class="v3-metric"><small>Vendas Pro</small><strong id="growthPaidOrders">0</strong></div>
+            <div class="v3-metric"><small>Receita</small><strong id="growthRevenue">R$ 0</strong></div>
+            <div class="v3-metric"><small>Indicações alunos</small><strong id="growthReferrals">0</strong></div>
+          </div>
+
+          <div class="lc-growth-grid">
+            <section class="card card-pad">
+              <div class="eyebrow">ATIVAÇÃO</div>
+              <h3>Primeiro valor entregue</h3>
+              <div id="growthActivation" class="lc-funnel"></div>
+            </section>
+            <section class="card card-pad">
+              <div class="eyebrow">AQUISIÇÃO</div>
+              <h3>Origem das sessões</h3>
+              <div id="growthSources" class="lc-analytics-bars"></div>
+            </section>
+          </div>
+
+          <div class="lc-growth-grid">
+            <section class="card card-pad">
+              <div class="eyebrow">APRENDIZAGEM E RETENÇÃO</div>
+              <div id="growthLearning" class="soft-list"></div>
+            </section>
+            <section class="card card-pad">
+              <div class="eyebrow">COMMERCE E DISTRIBUIÇÃO</div>
+              <div id="growthCommerce" class="soft-list"></div>
+            </section>
+          </div>
+
+          <section class="card card-pad lc-growth-section">
+            <div class="v3-section-head">
+              <div>
+                <div class="eyebrow">PROVA SOCIAL REAL</div>
+                <h3>Avaliações aguardando moderação</h3>
+                <p class="muted">Somente comentários autorizados pelo aluno podem ser aprovados para exibição pública.</p>
+              </div>
+              <button id="growthRefresh" class="v3-btn secondary" type="button">Atualizar</button>
+            </div>
+            <div id="growthReviewList" class="lc-review-moderation-list"></div>
+          </section>
+
+          <section class="card card-pad lc-growth-section">
+            <div class="eyebrow">PADRÃO DE DIVULGAÇÃO</div>
+            <h3>UTM oficial da LC</h3>
+            <p class="muted">Use sempre origem, mídia, campanha e conteúdo. Isso permite separar Instagram, afiliados, comunidades e tráfego orgânico no Growth Center.</p>
+            <div class="lc-utm-pattern"><code>?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign=lc_free&amp;utm_content=reel_logica</code></div>
+            <div class="soft-list">
+              <div><span><b>LC Free</b><small>Descoberta, aula demonstrativa e cadastro.</small></span><strong>aquisição</strong></div>
+              <div><span><b>LC Pro</b><small>Página pública → conta → checkout.</small></span><strong>receita</strong></div>
+              <div><span><b>Afiliados</b><small>Link individual + disclosure transparente.</small></span><strong>distribuição</strong></div>
+              <div><span><b>Comunidades</b><small>Conteúdo útil e pedido de feedback, sem spam.</small></span><strong>confiança</strong></div>
+            </div>
           </section>
         </section>
 
