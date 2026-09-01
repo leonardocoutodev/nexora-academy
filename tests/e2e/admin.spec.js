@@ -59,3 +59,21 @@ test('admin can reconcile a confirmed direct Pix contribution',async({page})=>{
   await page.locator('#manualDonationSave').click();
   await expect(page.locator('#adminToast')).toContainText('Pix direto registrado e conciliado');
 });
+
+
+test('Growth Center builds a valid attributable UTM link',async({page})=>{
+  await page.goto('/pages/admin/#growth');
+  await expect(page.getByRole('heading',{name:'Growth Center'})).toBeVisible();
+  await page.locator('#growthUtmUrl').fill('https://academy.learnandcreate.workers.dev/cursos/');
+  await page.locator('#growthUtmSource').fill('instagram');
+  await page.locator('#growthUtmMedium').fill('social');
+  await page.locator('#growthUtmCampaign').fill('lc_free');
+  await page.locator('#growthUtmContent').fill('qa_growth');
+  const value=await page.locator('#growthUtmResult').inputValue();
+  const parsed=new URL(value);
+  expect(parsed.origin+parsed.pathname).toBe('https://academy.learnandcreate.workers.dev/cursos/');
+  expect(parsed.searchParams.get('utm_source')).toBe('instagram');
+  expect(parsed.searchParams.get('utm_medium')).toBe('social');
+  expect(parsed.searchParams.get('utm_campaign')).toBe('lc_free');
+  expect(parsed.searchParams.get('utm_content')).toBe('qa_growth');
+});

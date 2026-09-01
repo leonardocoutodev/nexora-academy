@@ -38,7 +38,7 @@ export async function installMockSupabase(page,{role='student'}={}){
     if(path==='/rest/v1/rpc/get_gamification_summary')return json(route,[{xp_total:650,level:2,current_streak:4}]);
 
     if(path==='/rest/v1/courses'){
-      return json(route,[{id:IDS.course,slug:'logica-programacao-basica',title:'Lógica de Programação Básica',description:'Aprenda a estruturar problemas antes de programar.',minimum_score:70,position:1,course_type:'foundation',level_label:'Iniciante',category_label:'Fundamentos de Programação',is_recommended_start:true,recommendation_note:'Comece por aqui.'}]);
+      return json(route,[{id:IDS.course,slug:'logica-programacao-basica',title:'Lógica de Programação Básica',description:'Aprenda a estruturar problemas antes de programar.',minimum_score:70,position:1,course_type:'foundation',access_tier:'free',level_label:'Iniciante',category_label:'Fundamentos de Programação',is_recommended_start:true,recommendation_note:'Comece por aqui.'}]);
     }
     if(path==='/rest/v1/modules')return json(route,[{id:IDS.module,course_id:IDS.course,title:'Pensar antes de programar',description:'Fundamentos do raciocínio lógico.',position:1,prerequisite_module_id:null}]);
     if(path==='/rest/v1/lessons'){

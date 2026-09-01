@@ -13,6 +13,15 @@ test('@compat course map renders authenticated learning flow',async({page})=>{
   await expectNoHorizontalOverflow(page);
 });
 
+
+test('completed free programming course exposes contextual LC Pro next step',async({page})=>{
+  await page.goto('/pages/curso.html?id='+IDS.course);
+  const card=page.locator('#contextualProCard');
+  await expect(card).toBeVisible();
+  await expect(card.getByRole('heading',{name:/conectar frontend, backend, banco, segurança e deploy/i})).toBeVisible();
+  await expect(card.getByRole('link',{name:/Conhecer Full Stack Pro/})).toHaveAttribute('href',/programador-full-stack-pro/);
+});
+
 test('lesson lab unlocks completion and persists mission',async({page})=>{
   await page.goto('/pages/aula.html?id='+IDS.lesson);
   await expect(page.getByRole('heading',{name:'O que é programar'})).toBeVisible();
