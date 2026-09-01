@@ -18,8 +18,11 @@ for(const file of files.filter(file=>file.endsWith(".html"))){
   for(const match of html.matchAll(/(?:href|src)=["']([^"']+)["']/gi)){
     const ref=match[1];
     if(!ref||/^(?:#|https?:|mailto:|tel:|data:|javascript:)/.test(ref)||ref.includes("${"))continue;
+    const rel=path.relative(root,file);
+    const workerServedCourse=rel==="cursos/index.html"&&/^[a-z0-9][a-z0-9-]{1,119}\/$/.test(ref);
+    if(workerServedCourse)continue;
     const target=path.resolve(path.dirname(file),ref.split(/[?#]/)[0]);
-    if(!fs.existsSync(target))failures.push(`${path.relative(root,file)}: referência ausente ${ref}`);
+    if(!fs.existsSync(target))failures.push(`${rel}: referência ausente ${ref}`);
   }
 }
 const canonicalCss=fs.readFileSync(path.join(root,"assets/css/lc.css"),"utf8");
@@ -38,7 +41,7 @@ if(countImportant(canonicalCss)>23)failures.push(`lc.css: orçamento de !importa
 if(/nx-book(?:-|\b)/.test(canonicalCss))failures.push("lc.css: CSS legado do livro horizontal ainda presente");
 for(const legacySection of ["LC VISUAL POLISH","LC MOBILE LESSON REPAIR","LC VISUAL IDENTITY OVERRIDES"]){if(canonicalCss.includes(legacySection))failures.push(`lc.css: camada legada ainda presente (${legacySection})`)}
 const maxWidths=[...new Set([...canonicalCss.matchAll(/@media[^\{]*max-width:(\d+)px/g)].map(m=>Number(m[1])))];
-for(const width of maxWidths){if(![1100,980,900,820,700,620,420].includes(width))failures.push(`lc.css: breakpoint não canônico ${width}px`)}
+for(const width of maxWidths){if(![1100,980,900,820,800,700,620,420].includes(width))failures.push(`lc.css: breakpoint não canônico ${width}px`)}
 if(!headersSource.includes("fonts.googleapis.com")||!headersSource.includes("fonts.gstatic.com"))failures.push("CSP: fontes oficiais LC não estão liberadas");
 for(const pattern of ["LC DESIGN SYSTEM 2.0","LC UI FOUNDATION 1.0","LC LESSON EXPERIENCE 1.0","nx-lesson-flow","nx-section-nav","nx-mobile-more","lc-ui-icon","env(safe-area-inset-bottom)","--lc-bg:#05080d","--lc-blue:#4b8dff","--lc-mint:#53ddb9"]){if(!canonicalCss.includes(pattern))failures.push(`lc.css: proteção canônica ausente (${pattern})`)}
 for(const pattern of ["enhanceMobileNavigation","applyLCNavigationIcons","LC_ICON_PATHS","lc-ui-icon","aria-current","nx-mobile-more","inert","lc-mark.svg","lc-brand-signature",'Learn <span class="lc-brand-amp">&amp;</span> Create']){if(!appShellSource.includes(pattern))failures.push(`app-shell.js: proteção mobile ausente (${pattern})`)}
@@ -94,6 +97,7 @@ if(!criticalSources.includes("academy.learnandcreate.workers.dev"))failures.push
 if(!appShellSource.includes("ensureLCAnalytics")||!appShellSource.includes("app_session_started"))failures.push("app-shell.js: sessão analítica autenticada ausente");
 if(appShellSource.includes("academy-v3.css"))failures.push("app-shell.js: stylesheet legado inexistente voltou a ser injetado");
 if(!appShellSource.includes("/api/lc/profile"))failures.push("app-shell.js: auto-recuperação de perfil acadêmico ausente");
+if(!workerSource.includes("public_course_detail")||!workerSource.includes("publicCoursePage"))failures.push("src/index.js: rota pública de detalhes dos cursos ausente");
 const signupSource=fs.readFileSync(path.join(root,"pages/cadastro.html"),"utf8");
 const supportSource=fs.readFileSync(path.join(root,"pages/apoie.html"),"utf8");
 for(const stale of ["9 cursos e formações","368 missões"]){if(signupSource.includes(stale))failures.push(`cadastro.html: prova social antiga ainda presente (${stale})`)}
