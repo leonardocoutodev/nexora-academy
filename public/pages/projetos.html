@@ -24,8 +24,10 @@
       '<small class="muted">'+(revision?'O avaliador pediu ajustes. Corrija a entrega e envie novamente para uma nova avaliação.':'Use uma URL pública ou acessível ao avaliador: GitHub, deploy, Drive, planilha, imagem ou demonstração.')+'</small>'+
       '<div class="v3-feedback" data-msg="'+p.id+'" style="display:none"></div></div>'+
       (s?.feedback?'<div class="v3-feedback '+(revision?'bad':'')+'" style="margin-top:12px"><b>Feedback do avaliador:</b> '+esc(s.feedback)+'</div>':'')+
+      (passed?'<div class="lc-share-actions" style="margin-top:12px"><button class="btn-secondary" type="button" data-boss-share="whatsapp" data-project="'+p.id+'">Compartilhar no WhatsApp</button><button class="btn-secondary" type="button" data-boss-share="linkedin" data-project="'+p.id+'">LinkedIn</button></div>':'')+
       '</article>';
   }).join('');
+  qs('#grid').addEventListener('click',async e=>{const b=e.target.closest('[data-boss-share]');if(!b)return;const p=projects.find(x=>x.id===b.dataset.project),s=smap.get(p?.id),course=cmap.get(p?.course_id);if(!p||!s)return;const url=s.submission_url||location.origin+location.pathname+'#'+p.id;await LCShare.share({channel:b.dataset.bossShare,title:'Boss Fight LC',text:'Concluí o Boss Fight "'+p.title+'" na LC'+(course?' em '+course.title:'')+'.',url});LCAnalytics.track('learning_milestone_shared',{courseId:p.course_id||null},{channel:b.dataset.bossShare,kind:'boss',project_id:p.id})});
   qsa('[data-submit]:not([disabled])').forEach(btn=>btn.onclick=async()=>{
     const pid=btn.dataset.submit,input=qs('[data-url="'+pid+'"]'),msg=qs('[data-msg="'+pid+'"]'),url=input.value.trim();
     try{const parsed=new URL(url);if(!/^https?:$/.test(parsed.protocol))throw new Error()}catch{msg.style.display='block';msg.className='v3-feedback bad';msg.textContent='Informe uma URL http ou https válida para a entrega.';return}
