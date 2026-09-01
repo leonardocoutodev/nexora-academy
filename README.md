@@ -1,5 +1,11 @@
 # LC — Learn & Create
 
+[![Acesso gratuito](https://img.shields.io/badge/ACESSO-GRATUITO-2563EB?style=for-the-badge)](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_badge&utm_campaign=lc_divulgacao_2026)
+[![Tecnologia](https://img.shields.io/badge/CURSOS-TECNOLOGIA-111827?style=for-the-badge)](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_badge&utm_campaign=lc_divulgacao_2026)
+[![Português](https://img.shields.io/badge/IDIOMA-PORTUGUÊS-16A34A?style=for-the-badge)](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_badge&utm_campaign=lc_divulgacao_2026)
+
+> **Aprenda, pratique e crie gratuitamente.** Acesse agora: [academy.learnandcreate.workers.dev](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_hero&utm_campaign=lc_divulgacao_2026)
+
 A **LC — Learn & Create** é uma plataforma gratuita de educação em tecnologia, programação e inteligência artificial, idealizada e desenvolvida por **Leonardo Couto**.
 
 A plataforma foi desenhada para unir conteúdo aprofundado, prática guiada, laboratórios internos, avaliações objetivas, projetos funcionais e materiais de apoio. O acesso acadêmico não depende de pagamento.
@@ -44,6 +50,8 @@ URL oficial: `https://academy.learnandcreate.workers.dev/`
 - Feedback público e lançamento: https://github.com/leonardocoutodev/nexora-academy/issues/45
 
 Se a LC ajudar no seu aprendizado, compartilhe o projeto com outras pessoas que estejam estudando programação, tecnologia ou inteligência artificial.
+
+- [Textos prontos para divulgar a LC em português e inglês](DIVULGUE-A-LC.md)
 
 ## Deploy
 
