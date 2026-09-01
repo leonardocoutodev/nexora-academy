@@ -37,6 +37,14 @@ Todos os cursos, aulas, laboratórios, avaliações e certificados seguem as mes
 
 URL oficial: `https://academy.learnandcreate.workers.dev/`
 
+## Comece agora
+
+- Plataforma: https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=repository&utm_campaign=lc_launch_2026
+- Instagram: https://www.instagram.com/learnandcreate_edu/
+- Feedback público e lançamento: https://github.com/leonardocoutodev/nexora-academy/issues/45
+
+Se a LC ajudar no seu aprendizado, compartilhe o projeto com outras pessoas que estejam estudando programação, tecnologia ou inteligência artificial.
+
 ## Deploy
 
 ```bash
