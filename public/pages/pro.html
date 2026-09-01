@@ -1,0 +1,46 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07111F"><link rel="icon" type="image/svg+xml" href="../assets/brand/lc-mark.svg"><link rel="manifest" href="../manifest.webmanifest"><title>LC Pro — Formação profissional</title><link rel="stylesheet" href="../assets/css/lc.css"></head><body class="lc-app-page lc-pro-page"><div class="app-shell"><aside class="sidebar"><div class="brand"><img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div><nav><a data-nav="dashboard" href="dashboard.html"><span>⌂</span><span>Visão geral</span></a><a data-nav="courses" href="cursos.html"><span>▤</span><span>Cursos</span></a><a data-nav="projects" href="projetos.html"><span>◇</span><span>Boss Fights</span></a><a data-nav="library" href="biblioteca.html"><span>▥</span><span>Biblioteca</span></a><a data-nav="certs" href="certificados.html"><span>▣</span><span>Certificados</span></a><a data-nav="profile" href="perfil.html"><span>⚙</span><span>Perfil</span></a></nav><div class="side-footer"></div></aside><main class="main"><header class="mobile-header"><div class="brand"><img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div><button class="btn-ghost" data-logout>Sair</button></header><div class="main-inner"><div id="state" class="loading">Carregando formação LC Pro</div><section id="content" class="hidden lc-pro-detail"><div class="lc-pro-detail-hero"><div><div class="lc-pro-badge">LC PRO</div><h1 id="title"></h1><p id="description"></p><div class="v3-hud"><span class="v3-pill">Formação profissional</span><span class="v3-pill">Projeto final</span><span class="v3-pill">Portfólio</span><span class="v3-pill">Certificado Pro</span></div></div><div class="lc-pro-detail-cover"><img id="cover" alt=""></div></div><div class="lc-pro-detail-grid"><section class="v3-stack"><article class="card card-pad"><div class="eyebrow">O QUE MUDA NO PRO</div><h2>Uma formação integrada, não um curso gratuito com cadeados.</h2><p class="muted">A LC Free continua completa. A LC Pro conecta múltiplas competências em projetos profissionais, checkpoints e uma entrega final que pode compor portfólio.</p><div id="features" class="lc-pro-feature-grid"></div></article><article class="card card-pad"><div class="eyebrow">CURRÍCULO</div><h2>Da base ao produto em produção</h2><div id="curriculum" class="lc-pro-curriculum"></div></article><article class="card card-pad"><div class="eyebrow">CERTIFICAÇÃO</div><h2>Conclusão com critérios acadêmicos.</h2><p class="muted">O certificado LC Pro exige conclusão das aulas obrigatórias, aprovação nos checkpoints, avaliação final e projeto integrador final. Pagamento não substitui nenhum requisito acadêmico.</p></article></section><aside class="lc-pro-buybox"><div class="card card-pad"><div id="salesStatus" class="eyebrow"></div><small>Preço cheio</small><div class="lc-pro-list-price" id="listPrice"></div><div class="lc-pro-current-price" id="currentPrice"></div><p class="muted">Pagamento único • acesso permanente à formação adquirida.</p><button id="buyBtn" class="v3-btn" type="button"></button><div id="paymentMsg" class="v3-feedback" style="display:none"></div><div class="lc-pro-guarantees"><span>✓ LC Free permanece gratuita</span><span>✓ Conteúdo Pro liberado por entitlement</span><span>✓ Acesso acadêmico separado da cobrança</span></div></div><a class="btn-secondary" href="cursos.html">← Voltar ao catálogo</a></aside></div></section></div><nav class="bottom-nav"><a data-nav="dashboard" href="dashboard.html"><span>⌂</span><span>Início</span></a><a data-nav="courses" href="cursos.html"><span>▤</span><span>Cursos</span></a><a data-nav="projects" href="projetos.html"><span>◇</span><span>Boss</span></a><a data-nav="profile" href="perfil.html"><span>⚙</span><span>Perfil</span></a></nav></main></div><script src="../assets/js/ui.js"></script><script src="../assets/js/supabase-lc.js"></script><script src="../assets/js/analytics.js"></script><script src="../assets/js/app-shell.js"></script><script>
+(async()=>{
+  const ctx=await lcBoot('courses');if(!ctx)return;
+  const params=new URLSearchParams(location.search),slug=params.get('slug')||'programador-full-stack-pro',payment=params.get('payment'),state=qs('#state');
+  try{
+    const products=await LCSupabase.proProducts(),product=products.find(p=>p.slug===slug);
+    if(!product)throw new Error('Formação LC Pro não encontrada.');
+    const[links,entitlements]=await Promise.all([LCSupabase.productCourses(product.id).catch(()=>[]),LCSupabase.entitlements().catch(()=>[])]);
+    const ownedCourseIds=new Set(entitlements.map(x=>x.course_id)),owns=links.length>0&&links.every(x=>ownedCourseIds.has(x.course_id));
+    const money=cents=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:product.currency||'BRL'}).format(Number(cents||0)/100);
+    qs('#title').textContent=product.title.replace(/^LC Pro\s*[—-]\s*/i,'');
+    qs('#description').textContent=product.description||'Formação profissional integrada.';
+    qs('#cover').src=LCVisuals.course(product.title,'Programação');qs('#cover').alt='Capa da formação '+product.title;
+    qs('#listPrice').innerHTML='<s>'+money(product.list_price_cents)+'</s>';
+    qs('#currentPrice').textContent=money(product.current_price_cents);
+    qs('#features').innerHTML=(Array.isArray(product.features)?product.features:[]).map((x,i)=>'<div><span>'+String(i+1).padStart(2,'0')+'</span><strong>'+esc(x)+'</strong></div>').join('');
+    qs('#curriculum').innerHTML=(Array.isArray(product.curriculum)?product.curriculum:[]).map((x,i)=>'<div><span>'+String(i+1).padStart(2,'0')+'</span><strong>'+esc(x)+'</strong></div>').join('');
+    const btn=qs('#buyBtn'),status=qs('#salesStatus'),msg=qs('#paymentMsg');
+    if(owns){
+      status.textContent='ACESSO LIBERADO';btn.textContent='Abrir formação →';btn.onclick=()=>{location.href='curso.html?id='+encodeURIComponent(links[0].course_id)};
+    }else if(product.sales_status!=='active'){
+      status.textContent='EM PREPARAÇÃO';btn.textContent='Inscrições ainda não abertas';btn.disabled=true;
+    }else{
+      status.textContent='INSCRIÇÕES ABERTAS';btn.textContent='Comprar por '+money(product.current_price_cents)+' →';
+      btn.onclick=async()=>{
+        btn.disabled=true;btn.textContent='Abrindo checkout...';msg.style.display='none';
+        try{
+          LCAnalytics?.track?.('pro_checkout_started',{}, {product_slug:product.slug,amount_cents:product.current_price_cents});
+          const out=await LCSupabase.checkoutPro(product.slug);
+          if(out.already_owned){location.reload();return}
+          if(!out.init_point)throw new Error('Checkout não disponível.');
+          location.href=out.init_point;
+        }catch(e){btn.disabled=false;btn.textContent='Tentar novamente';msg.className='v3-feedback bad';msg.textContent=e.message||'Não foi possível abrir o checkout.';msg.style.display='block'}
+      };
+    }
+    if(payment){
+      msg.style.display='block';
+      if(payment==='success'){msg.className='v3-feedback ok';msg.textContent=owns?'Pagamento confirmado. Seu acesso já está liberado.':'Pagamento enviado. O acesso é liberado automaticamente após a confirmação do Mercado Pago.'}
+      else if(payment==='pending'){msg.className='v3-feedback';msg.textContent='Pagamento pendente. O acesso será liberado automaticamente quando houver aprovação.'}
+      else{msg.className='v3-feedback bad';msg.textContent='O pagamento não foi concluído. Nenhum acesso foi alterado.'}
+    }
+    LCAnalytics?.once?.('pro-view-'+product.slug,()=>LCAnalytics.track('pro_product_viewed',{}, {product_slug:product.slug,sales_status:product.sales_status}));
+    state.classList.add('hidden');qs('#content').classList.remove('hidden');decorateLCUI();
+  }catch(e){setState(state,'error',e.message)}
+})();
+</script></body></html>
