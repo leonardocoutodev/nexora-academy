@@ -54,7 +54,7 @@ for(const file of files.filter(file=>/^cursos[\\/][^\\/]+[\\/]index\\.html$/.tes
   if(!/viewport-fit=cover/i.test(html))failures.push(`${rel}: viewport-fit=cover ausente`);
   for(const marker of ['rel="canonical"','property="og:title"','property="og:description"','property="og:url"','property="og:image"'])if(!html.includes(marker))failures.push(`${rel}: metadado público ausente (${marker})`);
   if(!html.includes("assets/js/analytics.js")||!html.includes("public_course_viewed"))failures.push(`${rel}: analytics público do curso ausente`);
-  if(!/pages\\/cadastro\\.html/i.test(html))failures.push(`${rel}: CTA de cadastro ausente`);
+  if(!html.includes("pages/cadastro.html"))failures.push(`${rel}: CTA de cadastro ausente`);
 }
 if(fs.readFileSync(path.join(root,"index.html"),"utf8").includes('.public-nav .brand img{width:190px}'))failures.push("index.html: sizing legado do LC Mark ainda presente");
 for(const file of files.filter(file=>/\.(?:html|js|css|sql|svg|txt)$/.test(file))){
