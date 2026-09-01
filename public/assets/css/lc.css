@@ -3228,3 +3228,63 @@ label{color:#aebfd0;font-size:12px;font-weight:700}
   .lc-course-page .v3-module>div:nth-child(2){min-width:0}
   .lc-course-page .v3-module .v3-toolbar{max-width:100%}
 }
+
+
+/* LC Pro commerce */
+.lc-pro-catalog{margin:22px 0 26px}
+.lc-pro-section-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin:0 0 12px}
+.lc-pro-section-head h2{margin:4px 0 6px;font-size:clamp(25px,3vw,34px)}
+.lc-pro-section-head p{max-width:760px;margin:0;color:var(--lc-muted);font-size:13px;line-height:1.65}
+.lc-pro-card{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 250px;
+  gap:26px;
+  align-items:center;
+  padding:26px;
+  border:1px solid rgba(56,230,176,.18);
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(56,230,176,.045),rgba(40,120,255,.055) 55%,rgba(9,15,23,.94));
+  box-shadow:0 18px 50px rgba(0,0,0,.18);
+}
+.lc-pro-card-main h3{margin:8px 0 10px;font-size:clamp(26px,3.2vw,38px)}
+.lc-pro-card-main p{max-width:760px;margin:0 0 14px;color:var(--lc-text-soft);line-height:1.65}
+.lc-pro-card-main ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;margin:14px 0 0;padding:0;list-style:none}
+.lc-pro-card-main li{position:relative;padding-left:17px;color:#bdd0e2;font-size:12px;line-height:1.5}
+.lc-pro-card-main li::before{content:"✓";position:absolute;left:0;color:var(--lc-mint)}
+.lc-pro-badge{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:999px;background:rgba(56,230,176,.10);color:var(--lc-mint);font-size:10px;font-weight:850;letter-spacing:.12em}
+.lc-pro-offer{display:grid;gap:7px;align-content:center;padding-left:22px;border-left:1px solid rgba(177,196,217,.10)}
+.lc-pro-offer small{color:var(--lc-muted);font-size:11px}
+.lc-pro-offer strong{font-size:34px;line-height:1;color:var(--lc-text)}
+.lc-pro-status{font-size:10px;font-weight:850;letter-spacing:.1em;color:var(--lc-mint)}
+.lc-pro-detail{padding-bottom:28px}
+.lc-pro-detail-hero{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:36px;align-items:center;padding:34px 0 28px;border-bottom:1px solid var(--lc-line)}
+.lc-pro-detail-hero h1{margin:10px 0 12px;max-width:900px;font-size:clamp(42px,6vw,72px);line-height:.98}
+.lc-pro-detail-hero p{max-width:760px;color:var(--lc-text-soft);font-size:16px;line-height:1.7}
+.lc-pro-detail-cover{height:260px;overflow:hidden;border-radius:22px;background:#0b131d}
+.lc-pro-detail-cover img{width:100%;height:100%;object-fit:cover}
+.lc-pro-detail-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;margin-top:24px}
+.lc-pro-buybox{position:sticky;top:18px;align-self:start;display:grid;gap:10px}
+.lc-pro-list-price{margin-top:3px;color:var(--lc-muted);font-size:16px}
+.lc-pro-current-price{margin:5px 0 4px;font-size:42px;font-weight:850;letter-spacing:-.04em;color:var(--lc-text)}
+.lc-pro-guarantees{display:grid;gap:7px;margin-top:14px;padding-top:14px;border-top:1px solid var(--lc-line);color:#aebfd0;font-size:11px}
+.lc-pro-feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.lc-pro-feature-grid>div,.lc-pro-curriculum>div{display:flex;gap:12px;align-items:flex-start;padding:13px;border:1px solid var(--lc-line);border-radius:13px;background:rgba(255,255,255,.018)}
+.lc-pro-feature-grid span,.lc-pro-curriculum span{flex:0 0 auto;color:var(--lc-blue-2);font:800 10px/1.5 ui-monospace,monospace}
+.lc-pro-feature-grid strong,.lc-pro-curriculum strong{font-size:12px;line-height:1.5}
+.lc-pro-curriculum{display:grid;gap:8px;margin-top:16px}
+@media(max-width:900px){
+  .lc-pro-card{grid-template-columns:1fr}
+  .lc-pro-offer{padding:18px 0 0;border-left:0;border-top:1px solid rgba(177,196,217,.10)}
+  .lc-pro-detail-hero{grid-template-columns:1fr}
+  .lc-pro-detail-cover{height:220px}
+  .lc-pro-detail-grid{grid-template-columns:1fr}
+  .lc-pro-buybox{position:static}
+}
+@media(max-width:620px){
+  .lc-pro-card{padding:18px;border-radius:18px}
+  .lc-pro-card-main ul,.lc-pro-feature-grid{grid-template-columns:1fr}
+  .lc-pro-detail-hero{gap:18px;padding-top:20px}
+  .lc-pro-detail-hero h1{font-size:40px}
+  .lc-pro-detail-cover{height:190px;border-radius:18px}
+  .lc-pro-current-price{font-size:36px}
+}
