@@ -35,7 +35,7 @@ window.LCSupabase={
  entitlements:async()=>{const u=await authUser();if(!u)return[];return sbRest("nexora",`course_entitlements?user_id=eq.${encodeURIComponent(u.id)}&status=eq.active&select=id,course_id,product_id,order_id,source,status,granted_at,expires_at`)},
  claimFreeCourse:async courseId=>{const r=await sbRest("nexora","rpc/claim_free_course",{method:"POST",body:JSON.stringify({p_course_id:courseId})});return Array.isArray(r)?r[0]:r},
  trackAffiliateClick:payload=>sbRequest("/functions/v1/lc-affiliate-track",{method:"POST",body:JSON.stringify(payload||{})}),
- affiliateJoin:async()=>{const r=await sbRest("nexora","rpc/affiliate_join",{method:"POST",body:"{}"});return Array.isArray(r)?r[0]:r},
+ affiliateJoin:async()=>{const r=await sbRest("nexora","rpc/affiliate_join",{method:"POST",body:JSON.stringify({p_terms_version:"2026-09-01",p_accept_terms:true})});return Array.isArray(r)?r[0]:r},
  affiliateDashboard:async()=>{const r=await sbRest("nexora","rpc/affiliate_dashboard",{method:"POST",body:"{}"});return Array.isArray(r)?r[0]:r},
  affiliateSetPayout:async({pixKey,holderName})=>{const r=await sbRest("nexora","rpc/affiliate_set_payout_account",{method:"POST",body:JSON.stringify({p_pix_key:pixKey,p_holder_name:holderName})});return Array.isArray(r)?r[0]:r},
  affiliateRequestPayout:async()=>{const r=await sbRest("nexora","rpc/affiliate_request_payout",{method:"POST",body:"{}"});return Array.isArray(r)?r[0]:r},
