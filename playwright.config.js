@@ -18,10 +18,10 @@ export default defineConfig({
     navigationTimeout:15_000
   },
   webServer:process.env.LC_E2E_BASE_URL?undefined:{
-    command:'npx wrangler dev --port 8787 --ip 127.0.0.1',
+    command:'node scripts/serve-public.mjs',
     url:'http://127.0.0.1:8787/api/health',
     reuseExistingServer:!process.env.CI,
-    timeout:60_000
+    timeout:30_000
   },
   projects:[
     {name:'chromium',use:{...devices['Desktop Chrome'],viewport:{width:1440,height:900}}},

@@ -88,14 +88,16 @@ jobs:
       - run: npm ci
       - name: Install Lighthouse CI
         run: npm install --no-save --package-lock=false @lhci/cli@0.14.0
-      - name: Start local LC Worker
+      - name: Start local LC QA server
         run: |
-          npx wrangler dev --port 8787 --ip 127.0.0.1 > /tmp/lc-wrangler.log 2>&1 &
-          for i in $(seq 1 30); do
-            curl -fsS http://127.0.0.1:8787/api/health >/dev/null && exit 0
+          node scripts/serve-public.mjs > /tmp/lc-qa-server.log 2>&1 &
+          for i in $(seq 1 20); do
+            if curl -fsS --max-time 3 http://127.0.0.1:8787/api/health >/dev/null; then
+              exit 0
+            fi
             sleep 1
           done
-          cat /tmp/lc-wrangler.log
+          cat /tmp/lc-qa-server.log
           exit 1
       - name: Lighthouse budgets
         run: npx lhci autorun --config=./lighthouserc.cjs
