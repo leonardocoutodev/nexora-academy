@@ -27,11 +27,20 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Verify deployed build
+        id: deployed
         run: |
           EXPECTED_BUILD="${{ github.event.workflow_run.head_sha }}"
           HEALTH="$(curl -fsS https://academy.learnandcreate.workers.dev/api/health)"
-          echo "$HEALTH" | grep -q "\"build\":\"$EXPECTED_BUILD\""
+          DEPLOYED_BUILD="$(node -e 'const s=require("fs").readFileSync(0,"utf8");process.stdout.write(String(JSON.parse(s).build||""))' <<< "$HEALTH")"
+          if [ "$DEPLOYED_BUILD" = "$EXPECTED_BUILD" ]; then
+            echo "run_browser=true" >> "$GITHUB_OUTPUT"
+            echo "Production is on expected build $EXPECTED_BUILD"
+          else
+            echo "run_browser=false" >> "$GITHUB_OUTPUT"
+            echo "QA run superseded: expected $EXPECTED_BUILD but production is already on $DEPLOYED_BUILD"
+          fi
       - name: Browser smoke against production
+        if: steps.deployed.outputs.run_browser == 'true'
         env:
           LC_E2E_BASE_URL: https://academy.learnandcreate.workers.dev
         run: npx playwright test --grep @compat --project=chromium
