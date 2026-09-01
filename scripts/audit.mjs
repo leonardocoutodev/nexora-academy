@@ -82,6 +82,9 @@ for(const required of [
   "tests/e2e/visual.spec.js",
   "scripts/quality-static.mjs",
   "scripts/serve-public.mjs",
+  "scripts/check-db-governance.mjs",
+  "docs/LC_DATABASE_GOVERNANCE.md",
+  "supabase/README.md",
   ".github/workflows/quality.yml",
   ".github/workflows/production-quality.yml",
   "docs/LC_QUALITY.md"

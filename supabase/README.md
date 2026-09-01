@@ -1,14 +1,17 @@
 # Supabase da LC
 
-Projeto atual (identificadores técnicos legados preservados por compatibilidade): `kvwsqfnyebyjncfgvqnd`, com dados no schema exposto `nexora` e funções auxiliares no schema privado `nexora_private`. Esses nomes são identificadores internos legados e não representam a marca pública.
+Este diretório contém somente artefatos de banco e Edge Functions usados pela LC — Learn & Create.
 
-As migrations anteriores permanecem registradas no projeto remoto. Novas alterações devem ser adicionadas em `supabase/migrations`, revisadas pelos advisors de segurança e desempenho e aplicadas primeiro em uma branch de desenvolvimento.
+**Atenção:** o projeto Supabase conectado possui histórico compartilhado com outros sistemas. Este repositório controla o domínio `nexora`/`nexora_private`, não o banco inteiro.
 
-As Edge Functions versionadas nesta pasta dependem dos secrets gerenciados pelo Supabase: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `MERCADOPAGO_ACCESS_TOKEN`, `MERCADOPAGO_WEBHOOK_SECRET` e `LC_ALLOWED_ORIGINS` (com fallback legado para `NEXORA_ALLOWED_ORIGINS`).
+Não use comandos de sincronização global como `supabase db push`, `supabase db reset` ou `supabase migration up`.
 
-Nunca grave valores desses secrets no GitHub.
+Para alterações de schema:
 
+1. escreva uma migration específica;
+2. revise o escopo;
+3. aplique somente essa migration de forma controlada;
+4. valide RLS, grants, funções e advisors;
+5. mantenha o arquivo versionado aqui.
 
-## Edge Functions LC
-
-As funções canônicas da contribuição voluntária são `lc-mercadopago-donation` e `lc-mercadopago-webhook`. As funções com prefixo `nexora-` permanecem ativas apenas para processar preferências/pagamentos já emitidos antes da migração da marca.
+Leia `../docs/LC_DATABASE_GOVERNANCE.md`.

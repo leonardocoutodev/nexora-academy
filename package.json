@@ -8,10 +8,11 @@
     "dev": "wrangler dev",
     "audit": "node scripts/audit.mjs",
     "test": "node --test",
-    "check": "npm run audit && npm run quality:static && npm test && wrangler deploy --dry-run",
+    "check": "npm run audit && npm run quality:static && npm run db:governance && npm test && wrangler deploy --dry-run",
     "quality:static": "node scripts/quality-static.mjs",
     "postinstall": "node scripts/stamp-build.mjs",
-    "predeploy": "node scripts/stamp-build.mjs"
+    "predeploy": "node scripts/stamp-build.mjs",
+    "db:governance": "node scripts/check-db-governance.mjs"
   },
   "devDependencies": {
     "wrangler": "4.127.0"

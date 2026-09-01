@@ -89,7 +89,8 @@ O comando `check` executa a auditoria de HTML, JavaScript e links locais, os tes
 - O webhook de contribuição LC valida assinatura do Mercado Pago antes de consultar e atualizar pagamentos.
 - O checkout LC Pro cria o pedido no servidor; a liberação de acesso ocorre somente após o webhook validar a assinatura HMAC do Mercado Pago, consultar o pagamento real e conferir referência externa, valor e moeda.
 - A atribuição de afiliados é validada novamente no checkout; comissão é registrada de forma idempotente somente após pagamento aprovado e pode ser revertida em reembolso/chargeback.
-- Alterações de banco ficam versionadas em `supabase/migrations`.
+- Alterações de banco da LC ficam versionadas em `supabase/migrations`.
+- O projeto Supabase é compartilhado historicamente com outros sistemas. **Não execute `supabase db push`, `supabase db reset` ou `supabase migration up` neste repositório.** A LC controla somente o domínio `nexora`/`nexora_private`; migrations são aplicadas de forma explícita e auditada, uma por vez, e depois registradas no Git. Consulte `docs/LC_DATABASE_GOVERNANCE.md`.
 - As Edge Functions versionadas em `supabase/functions` exigem segredos configurados no Supabase; nunca adicione chaves ao repositório.
 
 Variáveis esperadas pelas funções de pagamento:
