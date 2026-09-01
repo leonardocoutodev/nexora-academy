@@ -1,6 +1,6 @@
 # Divulgue a LC — Learn & Create
 
-Ajude mais pessoas a encontrarem educação gratuita em tecnologia, programação e inteligência artificial.
+Ajude mais pessoas a encontrarem o catálogo LC Free de educação gratuita em tecnologia, programação e inteligência artificial.
 
 ## Link oficial com rastreamento
 
@@ -8,7 +8,7 @@ https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=communi
 
 ## Texto curto em português
 
-Conheça a LC — Learn & Create: uma plataforma gratuita para aprender tecnologia, programação e inteligência artificial com aulas, atividades práticas, laboratórios, projetos e avaliações.
+Conheça a LC — Learn & Create: uma plataforma com catálogo LC Free gratuito para aprender tecnologia, programação e inteligência artificial com aulas, atividades práticas, laboratórios, projetos e avaliações. Formações LC Pro opcionais aparecem separadamente.
 
 Acesse gratuitamente:
 https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=community_share&utm_campaign=lc_divulgacao_2026
@@ -17,14 +17,14 @@ https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=communi
 
 Para quem está começando ou quer evoluir em tecnologia: a LC — Learn & Create reúne cursos gratuitos, prática guiada, laboratórios, quizzes e projetos em uma plataforma desenvolvida no Brasil.
 
-O acesso acadêmico não depende de mensalidade. Feedbacks sobre conteúdo, usabilidade, acessibilidade e experiência mobile são bem-vindos.
+A LC Free não depende de mensalidade ou cartão. Formações LC Pro opcionais são vendidas separadamente. Feedbacks sobre conteúdo, usabilidade, acessibilidade e experiência mobile são bem-vindos.
 
 Conheça:
 https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=developer_community&utm_campaign=lc_divulgacao_2026
 
 ## English version
 
-LC — Learn & Create is a free learning platform for technology, programming and artificial intelligence. It combines complete lessons, guided practice, labs, quizzes and hands-on projects.
+LC — Learn & Create includes a free LC Free catalog for technology, programming and artificial intelligence, plus optional paid LC Pro professional formations. The free catalog combines complete lessons, guided practice, labs, quizzes and hands-on projects.
 
 Try it and share feedback:
 https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=international_community&utm_campaign=lc_divulgacao_2026
