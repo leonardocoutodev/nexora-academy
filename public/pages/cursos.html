@@ -1,23 +1,83 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07111F"><link rel="icon" type="image/svg+xml" href="../assets/brand/lc-mark.svg"><link rel="manifest" href="../manifest.webmanifest"><title>Formações — LC</title><link rel="stylesheet" href="../assets/css/lc.css"></head><body class="lc-app-page lc-catalog-page"><div class="app-shell"><aside class="sidebar"><div class="brand"><img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div><nav><a data-nav="dashboard" href="dashboard.html"><span>⌂</span><span>Visão geral</span></a><a data-nav="courses" href="cursos.html"><span>▤</span><span>Cursos</span></a><a data-nav="projects" href="projetos.html"><span>◇</span><span>Boss Fights</span></a><a data-nav="library" href="biblioteca.html"><span>▥</span><span>Biblioteca</span></a><a data-nav="certs" href="certificados.html"><span>▣</span><span>Certificados</span></a><a data-nav="profile" href="perfil.html"><span>⚙</span><span>Perfil</span></a></nav><div class="side-footer"></div></aside><main class="main"><header class="mobile-header"><div class="brand"><img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div><button class="btn-ghost" data-logout>Sair</button></header><div class="main-inner"><div class="v3-hero"><div class="eyebrow">CURSOS E FORMAÇÕES GRATUITAS</div><h1>Comece pela base e avance até formações profissionais.</h1><p>Cursos curtos de fundamentos, formações completas, laboratórios internos, checkpoints objetivos, XP e projetos funcionais.</p><div class="v3-hud"><span class="v3-pill xp"><b data-xp>0</b> XP</span><span class="v3-pill">Nível <b data-level>1</b></span><span class="v3-pill streak">🔥 <b data-streak>0</b> dias</span></div></div><section class="nx-start-banner"><div><div class="eyebrow">NOVO EM PROGRAMAÇÃO?</div><h2>Comece pela base certa.</h2><p>A Lógica de Programação Básica é a recomendação padrão da LC. Quem já possui base pode fazer o diagnóstico e avançar sem repetir conteúdo.</p></div><a class="v3-btn" href="comece-aqui.html">Descobrir meu caminho →</a></section><section class="lc-catalog-controls" aria-label="Filtrar catálogo"><label class="lc-catalog-search"><span>Buscar curso</span><input id="catalogSearch" type="search" inputmode="search" autocomplete="off" placeholder="Ex.: Excel, vendas, programação"></label><label><span>Formato</span><select id="typeFilter"><option value="">Todos</option><option value="foundation">Fundamentos</option><option value="short_course">Cursos livres</option><option value="formation">Formações profissionais</option></select></label><label><span>Área</span><select id="categoryFilter"><option value="">Todas as áreas</option></select></label><div class="lc-catalog-result" aria-live="polite"><strong id="catalogCount">0</strong><span>resultados</span></div></section><div id="state" class="loading">Carregando cursos</div><div id="grid" class="lc-catalog-grid hidden"></div></div><nav class="bottom-nav"><a data-nav="dashboard" href="dashboard.html"><span>⌂</span><span>Início</span></a><a data-nav="courses" href="cursos.html"><span>▤</span><span>Cursos</span></a><a data-nav="projects" href="projetos.html"><span>◇</span><span>Boss</span></a><a data-nav="profile" href="perfil.html"><span>⚙</span><span>Perfil</span></a></nav></main></div><script src="../assets/js/ui.js"></script><script src="../assets/js/supabase-lc.js"></script><script src="../assets/js/app-shell.js"></script><script>
-(async()=>{const ctx=await lcBoot('courses');if(!ctx)return;const params=new URLSearchParams(location.search),adminPreview=params.get('preview')==='1'&&ctx.profile?.role==='admin',migratedOnly=adminPreview&&params.get('migrated')==='1',previewSuffix=adminPreview?'&preview=1':'';try{const courseRequest=adminPreview?LCSupabase.rest('courses?'+(migratedOnly?'status=eq.draft&':'')+'select=id,slug,title,description,minimum_score,position,course_type,level_label,category_label,is_recommended_start,recommendation_note,status&order=position.asc'):LCSupabase.courses();const[courses,enrolls,mods,lessons,progress]=await Promise.all([courseRequest,LCSupabase.enrollments(),LCSupabase.rest('modules?select=id,course_id,title'),LCSupabase.rest((adminPreview?'lessons?':'lessons?status=eq.published&')+'select=id,module_id,estimated_minutes,xp_reward,status'),LCSupabase.progress()]);if(adminPreview){const hero=qs('.v3-hero');hero.querySelector('.eyebrow').textContent=migratedOnly?'PRÉVIA ADMIN • CURSOS MIGRADOS':'PRÉVIA ADMIN • CATÁLOGO COMPLETO';hero.querySelector('h1').textContent=migratedOnly?'Cursos migrados da Ouro, prontos para revisão.':'Catálogo completo, incluindo conteúdos em draft.';hero.querySelector('p').textContent='Esta visão é exclusiva do administrador. Abrir um curso em prévia não publica nem registra progresso acadêmico.';qs('.nx-start-banner')?.classList.add('hidden')}const pmap=new Map(progress.map(p=>[p.lesson_id,Number(p.progress||0)])),g=qs('#grid'),searchEl=qs('#catalogSearch'),typeEl=qs('#typeFilter'),categoryEl=qs('#categoryFilter'),countEl=qs('#catalogCount');
-const categories=[...new Set(courses.map(c=>String(c.category_label||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));categoryEl.innerHTML='<option value="">Todas as áreas</option>'+categories.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join('');
-const normalize=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-function renderCatalog(){
-  const query=normalize(searchEl.value),type=typeEl.value,category=categoryEl.value;
-  const filtered=courses.filter(c=>{
-    const hay=normalize([c.title,c.description,c.category_label,c.level_label].join(' '));
-    return(!query||hay.includes(query))&&(!type||(c.course_type||'formation')===type)&&(!category||c.category_label===category);
-  });
-  countEl.textContent=filtered.length;
-  let lastType='';
-  g.innerHTML=filtered.map(c=>{
-    const type=c.course_type||'formation',typeLabel=type==='foundation'?'FUNDAMENTOS':type==='short_course'?'CURSOS LIVRES':'FORMAÇÕES PROFISSIONAIS',typeCopy=type==='foundation'?'Comece pequeno e construa uma base forte':type==='short_course'?'Cursos objetivos para desenvolver habilidades específicas':'Avance para trilhas completas e portfólio';
-    const typeHead=type!==lastType?'<div class="nx-catalog-section"><span>'+typeLabel+'</span><strong>'+typeCopy+'</strong></div>':'';lastType=type;
-    const cm=mods.filter(m=>m.course_id===c.id),mids=new Set(cm.map(m=>m.id)),ls=lessons.filter(l=>mids.has(l.module_id)),done=ls.filter(l=>(pmap.get(l.id)||0)>=100).length,pct=ls.length?Math.round(done/ls.length*100):0,mins=ls.reduce((s,l)=>s+(l.estimated_minutes||0),0),xp=ls.reduce((s,l)=>s+(l.xp_reward||0),0);
-    return typeHead+'<article class="v3-course-card catalog-course '+(c.is_recommended_start?'nx-recommended-course':'')+'"><div class="nx-course-cover-frame"><img loading="lazy" decoding="async" src="'+LCVisuals.course(c.title,c.category_label)+'" alt="Capa da formação '+esc(c.title)+'"><span>'+cm.length+' módulos</span></div><div><div class="eyebrow">'+(adminPreview&&c.status==='draft'?'PRÉVIA • CONTEÚDO EM REVISÃO':c.is_recommended_start?'★ COMECE POR AQUI':done>0?(c.course_type==='foundation'?'CURSO ATIVO':'FORMAÇÃO ATIVA'):'100% GRATUITO')+'</div><h3>'+esc(c.title)+'</h3><p>'+esc(c.description||'Formação prática orientada a missões.')+'</p><div class="v3-hud"><span class="v3-pill">'+esc(c.level_label||'')+'</span><span class="v3-pill">'+cm.length+' módulos</span><span class="v3-pill">'+ls.length+' missões</span><span class="v3-pill">'+Math.round(mins/60)+'h estimadas</span><span class="v3-pill xp">'+xp+' XP</span></div><div class="v3-progress" aria-label="'+pct+'% concluído"><span style="width:'+pct+'%"></span></div><small class="muted">'+done+'/'+ls.length+' missões concluídas • '+pct+'%</small></div><div><a class="v3-btn" href="curso.html?id='+encodeURIComponent(c.id)+previewSuffix+'">'+(done>0?'Continuar':'Começar agora')+' →</a></div></article>';
-  }).join('')||'<div class="lc-catalog-empty"><div class="eyebrow">SEM RESULTADOS</div><h2>Nenhum curso corresponde aos filtros.</h2><p>Limpe a busca ou selecione outra área para continuar explorando.</p><button class="v3-btn secondary" type="button" id="clearCatalog">Limpar filtros</button></div>';
-  qs('#clearCatalog')?.addEventListener('click',()=>{searchEl.value='';typeEl.value='';categoryEl.value='';renderCatalog()});
-  decorateLCUI();
-}
-searchEl.addEventListener('input',renderCatalog);typeEl.addEventListener('change',renderCatalog);categoryEl.addEventListener('change',renderCatalog);renderCatalog();qs('#state').classList.add('hidden');g.classList.remove('hidden')}catch(e){setState(qs('#state'),'error',e.message)}})();
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07111F"><link rel="icon" type="image/svg+xml" href="../assets/brand/lc-mark.svg"><link rel="manifest" href="../manifest.webmanifest"><title>Formações — LC</title><link rel="stylesheet" href="../assets/css/lc.css"></head><body class="lc-app-page lc-catalog-page"><div class="app-shell"><aside class="sidebar"><div class="brand"><img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div><nav><a data-nav="dashboard" href="dashboard.html"><span>⌂</span><span>Visão geral</span></a><a data-nav="courses" href="cursos.html"><span>▤</span><span>Cursos</span></a><a data-nav="projects" href="projetos.html"><span>◇</span><span>Boss Fights</span></a><a data-nav="library" href="biblioteca.html"><span>▥</span><span>Biblioteca</span></a><a data-nav="certs" href="certificados.html"><span>▣</span><span>Certificados</span></a><a data-nav="profile" href="perfil.html"><span>⚙</span><span>Perfil</span></a></nav><div class="side-footer"></div></aside><main class="main"><header class="mobile-header"><div class="brand"><img src="../assets/brand/lc-mark.svg" alt="LC"><span class="lc-brand-signature">Learn <span class="lc-brand-amp">&amp;</span> Create</span></div><button class="btn-ghost" data-logout>Sair</button></header><div class="main-inner"><div class="v3-hero"><div class="eyebrow">LC FREE + LC PRO</div><h1>Aprenda gratuitamente. Avance para uma formação profissional quando fizer sentido.</h1><p>A LC Free continua completa. A LC Pro adiciona trilhas profissionais integradas, projetos de portfólio e projeto final — sem retirar recursos dos cursos gratuitos.</p><div class="v3-hud"><span class="v3-pill xp"><b data-xp>0</b> XP</span><span class="v3-pill">Nível <b data-level>1</b></span><span class="v3-pill streak">🔥 <b data-streak>0</b> dias</span></div></div><section class="nx-start-banner"><div><div class="eyebrow">NOVO EM PROGRAMAÇÃO?</div><h2>Comece pela base certa.</h2><p>A Lógica de Programação Básica é a recomendação padrão da LC. Quem já possui base pode fazer o diagnóstico e avançar sem repetir conteúdo.</p></div><a class="v3-btn" href="comece-aqui.html">Descobrir meu caminho →</a></section><section id="proCatalog" class="lc-pro-catalog hidden" aria-label="Formações LC Pro"></section><section class="lc-catalog-controls" aria-label="Filtrar catálogo"><label class="lc-catalog-search"><span>Buscar curso</span><input id="catalogSearch" type="search" inputmode="search" autocomplete="off" placeholder="Ex.: Excel, vendas, programação"></label><label><span>Formato</span><select id="typeFilter"><option value="">Todos</option><option value="foundation">Fundamentos</option><option value="short_course">Cursos livres</option><option value="formation">Formações profissionais</option></select></label><label><span>Área</span><select id="categoryFilter"><option value="">Todas as áreas</option></select></label><div class="lc-catalog-result" aria-live="polite"><strong id="catalogCount">0</strong><span>resultados</span></div></section><div id="state" class="loading">Carregando cursos</div><div id="grid" class="lc-catalog-grid hidden"></div></div><nav class="bottom-nav"><a data-nav="dashboard" href="dashboard.html"><span>⌂</span><span>Início</span></a><a data-nav="courses" href="cursos.html"><span>▤</span><span>Cursos</span></a><a data-nav="projects" href="projetos.html"><span>◇</span><span>Boss</span></a><a data-nav="profile" href="perfil.html"><span>⚙</span><span>Perfil</span></a></nav></main></div><script src="../assets/js/ui.js"></script><script src="../assets/js/supabase-lc.js"></script><script src="../assets/js/app-shell.js"></script><script>
+(async()=>{
+  const ctx=await lcBoot('courses');if(!ctx)return;
+  const params=new URLSearchParams(location.search),adminPreview=params.get('preview')==='1'&&ctx.profile?.role==='admin',migratedOnly=adminPreview&&params.get('migrated')==='1',previewSuffix=adminPreview?'&preview=1':'';
+  try{
+    const courseRequest=adminPreview
+      ?LCSupabase.rest('courses?'+(migratedOnly?'status=eq.draft&':'')+'select=id,slug,title,description,minimum_score,position,course_type,level_label,category_label,is_recommended_start,recommendation_note,status,access_tier,certificate_type&order=position.asc')
+      :LCSupabase.catalogCourses();
+    const[courses,products,enrolls,mods,lessons,progress]=await Promise.all([
+      courseRequest,
+      adminPreview?Promise.resolve([]):LCSupabase.proProducts().catch(()=>[]),
+      LCSupabase.enrollments(),
+      LCSupabase.rest('modules?select=id,course_id,title'),
+      LCSupabase.rest((adminPreview?'lessons?':'lessons?status=eq.published&')+'select=id,module_id,estimated_minutes,xp_reward,status'),
+      LCSupabase.progress()
+    ]);
+
+    if(adminPreview){
+      const hero=qs('.v3-hero');
+      hero.querySelector('.eyebrow').textContent=migratedOnly?'PRÉVIA ADMIN • CURSOS MIGRADOS':'PRÉVIA ADMIN • CATÁLOGO COMPLETO';
+      hero.querySelector('h1').textContent=migratedOnly?'Cursos migrados da Ouro, prontos para revisão.':'Catálogo completo, incluindo conteúdos em draft.';
+      hero.querySelector('p').textContent='Esta visão é exclusiva do administrador. Abrir um curso em prévia não publica nem registra progresso acadêmico.';
+      qs('.nx-start-banner')?.classList.add('hidden');
+    }
+
+    const money=(cents,currency='BRL')=>new Intl.NumberFormat('pt-BR',{style:'currency',currency}).format(Number(cents||0)/100);
+    const proHost=qs('#proCatalog');
+    if(!adminPreview&&products.length){
+      proHost.innerHTML='<div class="lc-pro-section-head"><div><div class="eyebrow">LC PRO</div><h2>Formação profissional sem enfraquecer o gratuito.</h2><p>Projetos integradores, portfólio e certificação profissional em uma jornada separada dos cursos gratuitos.</p></div></div>'+
+        products.map(p=>{
+          const features=(Array.isArray(p.features)?p.features:[]).slice(0,4);
+          const active=p.sales_status==='active';
+          return '<article class="lc-pro-card"><div class="lc-pro-card-main"><div class="lc-pro-badge">LC PRO</div><h3>'+esc(p.title.replace(/^LC Pro\s*[—-]\s*/i,''))+'</h3><p>'+esc(p.description||'Formação profissional integrada.')+'</p><ul>'+features.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div><div class="lc-pro-offer"><span class="lc-pro-status">'+(active?'INSCRIÇÕES ABERTAS':'EM PREPARAÇÃO')+'</span><small>Preço cheio <s>'+money(p.list_price_cents,p.currency)+'</s></small><strong>'+money(p.current_price_cents,p.currency)+'</strong><small>pagamento único • acesso permanente</small><a class="v3-btn" href="pro.html?slug='+encodeURIComponent(p.slug)+'">'+(active?'Ver formação e comprar':'Conhecer formação')+' →</a></div></article>';
+        }).join('');
+      proHost.classList.remove('hidden');
+    }
+
+    const pmap=new Map(progress.map(p=>[p.lesson_id,Number(p.progress||0)])),enrolledSet=new Set(enrolls.filter(e=>['active','completed'].includes(e.status)).map(e=>e.course_id));
+    const g=qs('#grid'),searchEl=qs('#catalogSearch'),typeEl=qs('#typeFilter'),categoryEl=qs('#categoryFilter'),countEl=qs('#catalogCount');
+    const categories=[...new Set(courses.map(c=>String(c.category_label||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+    categoryEl.innerHTML='<option value="">Todas as áreas</option>'+categories.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join('');
+    const normalize=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+
+    function renderCatalog(){
+      const query=normalize(searchEl.value),type=typeEl.value,category=categoryEl.value;
+      const filtered=courses.filter(c=>{
+        const hay=normalize([c.title,c.description,c.category_label,c.level_label].join(' '));
+        return(!query||hay.includes(query))&&(!type||(c.course_type||'formation')===type)&&(!category||c.category_label===category);
+      });
+      countEl.textContent=filtered.length;
+      let lastType='';
+      g.innerHTML=filtered.map(c=>{
+        const type=c.course_type||'formation',typeLabel=type==='foundation'?'FUNDAMENTOS':type==='short_course'?'CURSOS LIVRES':'FORMAÇÕES PROFISSIONAIS',typeCopy=type==='foundation'?'Comece pequeno e construa uma base forte':type==='short_course'?'Cursos objetivos para desenvolver habilidades específicas':'Avance para trilhas completas e portfólio';
+        const typeHead=type!==lastType?'<div class="nx-catalog-section"><span>'+typeLabel+'</span><strong>'+typeCopy+'</strong></div>':'';lastType=type;
+        const cm=mods.filter(m=>m.course_id===c.id),mids=new Set(cm.map(m=>m.id)),ls=lessons.filter(l=>mids.has(l.module_id));
+        const moduleCount=Number(c.module_count??cm.length),lessonCount=Number(c.lesson_count??ls.length),done=Number(c.completed_lessons??ls.filter(l=>(pmap.get(l.id)||0)>=100).length);
+        const pct=Number(c.progress_pct??(lessonCount?Math.round(done/lessonCount*100):0)),mins=Number(c.estimated_minutes??ls.reduce((s,l)=>s+(l.estimated_minutes||0),0)),xp=Number(c.xp_total??ls.reduce((s,l)=>s+(l.xp_reward||0),0));
+        const isEnrolled=c.is_enrolled??enrolledSet.has(c.id),isPro=c.access_tier==='pro';
+        const cta=!adminPreview&&c.access_tier==='free'&&!isEnrolled
+          ?'<button class="v3-btn" type="button" data-claim-course="'+c.id+'">Começar grátis →</button>'
+          :'<a class="v3-btn" href="curso.html?id='+encodeURIComponent(c.id)+previewSuffix+'">'+(done>0?'Continuar':isPro?'Abrir LC Pro':'Começar agora')+' →</a>';
+        return typeHead+'<article class="v3-course-card catalog-course '+(c.is_recommended_start?'nx-recommended-course':'')+'"><div class="nx-course-cover-frame"><img loading="lazy" decoding="async" src="'+LCVisuals.course(c.title,c.category_label)+'" alt="Capa da formação '+esc(c.title)+'"><span>'+moduleCount+' módulos</span></div><div><div class="eyebrow">'+(adminPreview&&c.status==='draft'?'PRÉVIA • CONTEÚDO EM REVISÃO':isPro?'LC PRO':c.is_recommended_start?'★ COMECE POR AQUI':done>0?(c.course_type==='foundation'?'CURSO ATIVO':'FORMAÇÃO ATIVA'):'GRÁTIS')+'</div><h3>'+esc(c.title)+'</h3><p>'+esc(c.description||'Formação prática orientada a missões.')+'</p><div class="v3-hud"><span class="v3-pill">'+esc(c.level_label||'')+'</span><span class="v3-pill">'+moduleCount+' módulos</span><span class="v3-pill">'+lessonCount+' missões</span><span class="v3-pill">'+Math.round(mins/60)+'h estimadas</span><span class="v3-pill xp">'+xp+' XP</span></div><div class="v3-progress" aria-label="'+pct+'% concluído"><span style="width:'+pct+'%"></span></div><small class="muted">'+done+'/'+lessonCount+' missões concluídas • '+pct+'%</small></div><div>'+cta+'</div></article>';
+      }).join('')||'<div class="lc-catalog-empty"><div class="eyebrow">SEM RESULTADOS</div><h2>Nenhum curso corresponde aos filtros.</h2><p>Limpe a busca ou selecione outra área para continuar explorando.</p><button class="v3-btn secondary" type="button" id="clearCatalog">Limpar filtros</button></div>';
+
+      qs('#clearCatalog')?.addEventListener('click',()=>{searchEl.value='';typeEl.value='';categoryEl.value='';renderCatalog()});
+      qsa('[data-claim-course]').forEach(btn=>btn.onclick=async()=>{
+        const courseId=btn.dataset.claimCourse;
+        btn.disabled=true;btn.textContent='Liberando acesso...';
+        try{
+          await LCSupabase.claimFreeCourse(courseId);
+          location.href='curso.html?id='+encodeURIComponent(courseId);
+        }catch(e){
+          btn.disabled=false;btn.textContent='Tentar novamente';
+          alert(e.message||'Não foi possível liberar o curso.');
+        }
+      });
+      decorateLCUI();
+    }
+    searchEl.addEventListener('input',renderCatalog);typeEl.addEventListener('change',renderCatalog);categoryEl.addEventListener('change',renderCatalog);
+    renderCatalog();qs('#state').classList.add('hidden');g.classList.remove('hidden');
+  }catch(e){setState(qs('#state'),'error',e.message)}
+})();
 </script></body></html>
