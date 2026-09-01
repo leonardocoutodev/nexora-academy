@@ -43,5 +43,20 @@ async function staticAsset(req,env){
   }
   return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
 }
-async function router(req,env){ const url=new URL(req.url); if(url.pathname==="/api/health")return json({ok:true,service:"lc-learn-supabase",database:"supabase",build:buildId(env),time:new Date().toISOString()}); const publicCourseMatch=url.pathname.match(/^\/cursos\/([a-z0-9][a-z0-9-]{1,119})\/?$/); if(publicCourseMatch&&req.method==="GET")return publicCoursePage(req,publicCourseMatch[1]); const apiPath=url.pathname.replace(/^\/api\/nexora\//,"/api/lc/"); if(apiPath==="/api/lc/profile"&&req.method==="POST")return createProfile(req); if(apiPath==="/api/lc/me")return me(req); if(apiPath==="/api/lc/courses")return courses(req); if(apiPath==="/api/lc/progress"&&req.method==="POST")return progress(req); return staticAsset(req,env); }
+async function router(req,env){
+  const url=new URL(req.url);
+  if(url.pathname==="/api/health")return json({ok:true,service:"lc-learn-supabase",database:"supabase",build:buildId(env),time:new Date().toISOString()});
+  const publicCourseMatch=url.pathname.match(/^\/cursos\/([a-z0-9][a-z0-9-]{1,119})\/?$/);
+  if(publicCourseMatch&&req.method==="GET"){
+    const staticResponse=await staticAsset(req,env);
+    if(staticResponse&&staticResponse.status!==404)return staticResponse;
+    return publicCoursePage(req,publicCourseMatch[1]);
+  }
+  const apiPath=url.pathname.replace(/^\/api\/nexora\//,"/api/lc/");
+  if(apiPath==="/api/lc/profile"&&req.method==="POST")return createProfile(req);
+  if(apiPath==="/api/lc/me")return me(req);
+  if(apiPath==="/api/lc/courses")return courses(req);
+  if(apiPath==="/api/lc/progress"&&req.method==="POST")return progress(req);
+  return staticAsset(req,env);
+}
 export default {async fetch(req,env,ctx){try{return await router(req,env)}catch(e){return json({error:e.message||"Erro interno"},e.status||500)}}};
