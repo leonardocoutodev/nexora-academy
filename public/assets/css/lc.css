@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;/* LC — Learn & Create
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional");
+
+/* LC — Learn & Create
    Canonical stylesheet. Legacy visual files were consolidated here on 2026-08-31.
    Order is intentional: brand tokens → structural base → components → learning → Design System 2.0.
 */
-
-500;600;700;800&display=optional");
 
 :root{
   --lc-ink:#07111F;
