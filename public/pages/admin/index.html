@@ -41,6 +41,7 @@
           <button type="button" role="tab" data-admin-tab="students">Alunos</button>
           <button type="button" role="tab" data-admin-tab="boss">Boss Fights</button>
           <button type="button" role="tab" data-admin-tab="certificates">Certificados</button>
+          <button type="button" role="tab" data-admin-tab="affiliates">Afiliados</button>
           <button type="button" role="tab" data-admin-tab="donations">Apoios</button>
           <button type="button" role="tab" data-admin-tab="audit">Auditoria</button>
         </div>
@@ -180,6 +181,31 @@
             <button id="certificateApply" class="v3-btn secondary" type="button">Filtrar</button>
           </div>
           <div id="certificateList" class="lc-admin-stack"></div>
+        </section>
+
+        <section data-admin-panel="affiliates" hidden>
+          <div class="v3-section-head">
+            <div><div class="eyebrow">AFILIADOS LC PRO</div><h2>Vendas, comissões e saques</h2><p class="muted">Acompanhe atribuição, saldo e conciliação dos afiliados. O repasse atual é conciliado por Pix; Split/OAuth do Mercado Pago permanece como etapa de automação futura.</p></div>
+            <a class="v3-btn secondary" href="../afiliados.html" target="_blank" rel="noopener">Página pública ↗</a>
+          </div>
+          <div class="v3-metrics lc-admin-metrics">
+            <div class="v3-metric"><small>Afiliados</small><strong id="affiliateCount">0</strong></div>
+            <div class="v3-metric"><small>Ativos</small><strong id="affiliateActive">0</strong></div>
+            <div class="v3-metric"><small>Cliques 30d</small><strong id="affiliateClicks">0</strong></div>
+            <div class="v3-metric"><small>Vendas</small><strong id="affiliateSales">0</strong></div>
+            <div class="v3-metric"><small>Comissão pendente</small><strong id="affiliatePending">R$ 0</strong></div>
+            <div class="v3-metric"><small>Disponível</small><strong id="affiliateAvailable">R$ 0</strong></div>
+            <div class="v3-metric"><small>Saques em análise</small><strong id="affiliatePayoutsOpen">R$ 0</strong></div>
+            <div class="v3-metric"><small>Já pago</small><strong id="affiliatePaid">R$ 0</strong></div>
+          </div>
+          <section class="card card-pad lc-analytics-section">
+            <div class="v3-section-head"><div><div class="eyebrow">PARCEIROS</div><h3>Afiliados cadastrados</h3></div><button id="affiliateRefresh" class="v3-btn secondary" type="button">Atualizar</button></div>
+            <div id="affiliateList" class="lc-admin-affiliate-list"></div>
+          </section>
+          <section class="card card-pad lc-analytics-section">
+            <div class="v3-section-head"><div><div class="eyebrow">SAQUES</div><h3>Conciliação por Pix</h3></div><label class="lc-admin-inline-label">Status<select id="affiliatePayoutStatus"><option value="">Todos</option><option value="requested">Solicitados</option><option value="approved">Aprovados</option><option value="paid">Pagos</option><option value="rejected">Rejeitados</option></select></label></div>
+            <div id="affiliatePayoutList" class="lc-admin-stack"></div>
+          </section>
         </section>
 
         <section data-admin-panel="donations" hidden>
