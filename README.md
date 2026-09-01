@@ -32,6 +32,12 @@ O conteúdo deve funcionar sozinho dentro da LC. Materiais de apoio aprofundam o
 
 Doar não libera LC Pro e não concede vantagem acadêmica. Comprar uma formação Pro libera acesso somente à formação adquirida; certificado continua condicionado às regras acadêmicas.
 
+## Programa de afiliados LC Pro
+
+O programa possui código individual, atribuição por referência, comissão por produto, bloqueio de autoindicação, maturação de comissão, reversão em reembolso/chargeback e solicitação de saque por Pix. O painel administrativo permite suspender parceiros, definir comissão personalizada e conciliar pagamentos.
+
+A divisão automática via Mercado Pago Marketplace/Split não é presumida: ela depende de habilitação Marketplace e OAuth dos recebedores. Até essa habilitação, o ledger é automático e o repasse é conciliado no admin.
+
 ## Autoria e atuação profissional
 
 **Idealizada e desenvolvida por Leonardo Couto.** A LC também funciona como demonstração prática de competências aplicadas em desenvolvimento de plataformas, sistemas, automações, dashboards e soluções digitais vinculadas à atuação profissional de Leonardo Couto / LC Soluções Digitais.
@@ -81,7 +87,8 @@ O comando `check` executa a auditoria de HTML, JavaScript e links locais, os tes
 - Cada deploy publica `LC_BUILD_ID` com o SHA do commit para rastrear Worker e assets da mesma release.
 - Analytics público possui allowlist, proteção de propriedades sensíveis e rate limiting por sessão.
 - O webhook de contribuição LC valida assinatura do Mercado Pago antes de consultar e atualizar pagamentos.
-- O checkout LC Pro cria o pedido no servidor; a liberação de acesso ocorre somente após o webhook consultar o pagamento real no Mercado Pago e validar referência externa, valor e moeda.
+- O checkout LC Pro cria o pedido no servidor; a liberação de acesso ocorre somente após o webhook validar a assinatura HMAC do Mercado Pago, consultar o pagamento real e conferir referência externa, valor e moeda.
+- A atribuição de afiliados é validada novamente no checkout; comissão é registrada de forma idempotente somente após pagamento aprovado e pode ser revertida em reembolso/chargeback.
 - Alterações de banco ficam versionadas em `supabase/migrations`.
 - As Edge Functions versionadas em `supabase/functions` exigem segredos configurados no Supabase; nunca adicione chaves ao repositório.
 
