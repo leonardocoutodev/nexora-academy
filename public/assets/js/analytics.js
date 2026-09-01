@@ -1,6 +1,8 @@
 (()=>{
   const SESSION_KEY='lc.analytics.session';
   const ATTRIBUTION_KEY='lc.analytics.attribution';
+  const AFFILIATE_KEY='lc.affiliate.ref';
+  const AFFILIATE_TTL=30*24*60*60*1000;
   const SESSION_TIMEOUT=30*60*1000;
   const MAX_PROPERTY_KEYS=24;
   const FORBIDDEN_PROPERTY_KEYS=new Set(['email','name','full_name','phone','telephone','whatsapp','cpf','rg','password','senha','token','access_token','refresh_token','authorization','address','endereco']);
@@ -32,8 +34,22 @@
       return merged;
     }catch{return{}}
   }
+  function loadAffiliateRef(){
+    try{
+      const params=new URLSearchParams(location.search),raw=String(params.get('ref')||'').trim().toUpperCase(),t=now();
+      let stored=JSON.parse(localStorage.getItem(AFFILIATE_KEY)||'null');
+      if(stored?.captured_at&&t-new Date(stored.captured_at).getTime()>AFFILIATE_TTL){localStorage.removeItem(AFFILIATE_KEY);stored=null}
+      if(/^[A-Z0-9]{8,20}$/.test(raw)){
+        stored={code:raw,captured_at:new Date(t).toISOString(),expires_at:new Date(t+AFFILIATE_TTL).toISOString()};
+        localStorage.setItem(AFFILIATE_KEY,JSON.stringify(stored));
+      }
+      return stored?.code?stored:null;
+    }catch{return null}
+  }
   let sessionId=loadSession();
+  const affiliateRef=loadAffiliateRef();
   const attribution=loadAttribution();
+  if(affiliateRef?.code)attribution.affiliate_ref=affiliateRef.code;
   function touchSession(){
     try{
       const raw=localStorage.getItem(SESSION_KEY),parsed=raw?JSON.parse(raw):null,t=now();
@@ -153,6 +169,14 @@
       }
     }catch{}
   }
+  function currentAffiliateRef(){const ref=loadAffiliateRef();return ref?.code?ref:null}
+  async function recordAffiliateLanding(){
+    const params=new URLSearchParams(location.search),code=String(params.get('ref')||'').trim().toUpperCase();
+    if(!/^[A-Z0-9]{8,20}$/.test(code)||!window.LCSupabase?.trackAffiliateClick)return;
+    try{await LCSupabase.trackAffiliateClick({code,session_id:touchSession(),product_slug:params.get('product')||null,landing_path:location.pathname,attribution})}catch{}
+  }
+  window.LCAffiliate={current:currentAffiliateRef,code:()=>currentAffiliateRef()?.code||null,clear:()=>{try{localStorage.removeItem(AFFILIATE_KEY)}catch{}}};
   window.LCAnalytics={track,identify,once,beginLesson,sessionId:()=>sessionId,deviceType};
+  recordAffiliateLanding();
   exposePrimaryAdminNavigation();
 })();
