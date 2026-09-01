@@ -181,6 +181,20 @@ async function lcBoot(active='dashboard'){
   let profile=await LCSupabase.profile().catch(()=>null);
   if(!profile){try{await LCSupabase.api('/api/lc/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({full_name:u.user_metadata?.full_name||''})});profile=await LCSupabase.profile().catch(()=>null)}catch{}}
   window.LCAnalytics?.identify().catch(()=>{});window.LCAnalytics?.once('app-session',()=>window.LCAnalytics.track('app_session_started',{}, {entry_section:active}));
+  const studentRef=window.LCStudentReferral?.code?.();
+  if(studentRef&&window.LCSupabase?.claimStudentReferral){
+    try{
+      const claimed=await LCSupabase.claimStudentReferral(studentRef);
+      if(claimed?.claimed||['already_attributed','self_referral_blocked','code_not_found','invalid_code'].includes(claimed?.reason)){
+        window.LCStudentReferral?.clear?.();
+      }
+      if(claimed?.claimed)window.LCAnalytics?.track?.('student_referral_claimed',{}, {source:'student_referral'});
+    }catch{}
+  }
+  if(active==='dashboard'&&profile?.role!=='admin'){
+    const pref=await LCSupabase.learningPreference().catch(()=>null);
+    if(!pref){location.replace('comece-aqui.html?first=1');return null}
+  }
   const name=profile?.full_name||u.user_metadata?.full_name||u.email?.split('@')[0]||'Aluno';
   qsa('[data-user-name]').forEach(el=>el.textContent=name);const initials=String(name).trim().split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]?.toUpperCase()||'').join('')||'AL';qsa('[data-user-avatar]').forEach(el=>el.textContent=initials);
   qsa('[data-user-role]').forEach(el=>el.textContent=profile?.role==='admin'?'Administrador':'Estudante');
@@ -189,4 +203,12 @@ async function lcBoot(active='dashboard'){
   const gamification=await loadGamification();
   return {u,profile,name,gamification};
 }
-window.lcIcon=lcIcon;window.applyLCNavigationIcons=applyLCNavigationIcons;window.lcBoot=lcBoot;window.loadGamification=loadGamification;window.decorateLCUI=decorateLCUI;window.LCVisuals={course:nxCourseVisual,module:nxModuleVisual};window.LCCelebrate=showLCCelebration;
+function lcShareUrl({title='LC — Learn & Create',text='',url=location.href,channel='copy'}={}){
+  const cleanUrl=String(url||location.href),message=[text,cleanUrl].filter(Boolean).join('\n');
+  if(channel==='whatsapp'){window.open('https://wa.me/?text='+encodeURIComponent(message),'_blank','noopener');return true}
+  if(channel==='linkedin'){window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(cleanUrl),'_blank','noopener');return true}
+  if(channel==='native'&&navigator.share){return navigator.share({title,text,url:cleanUrl}).then(()=>true).catch(()=>false)}
+  if(navigator.clipboard?.writeText)return navigator.clipboard.writeText(message).then(()=>true).catch(()=>false);
+  try{const t=document.createElement('textarea');t.value=message;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();return true}catch{return false}
+}
+window.lcIcon=lcIcon;window.applyLCNavigationIcons=applyLCNavigationIcons;window.lcBoot=lcBoot;window.loadGamification=loadGamification;window.decorateLCUI=decorateLCUI;window.LCVisuals={course:nxCourseVisual,module:nxModuleVisual};window.LCCelebrate=showLCCelebration;window.LCShare={share:lcShareUrl};
