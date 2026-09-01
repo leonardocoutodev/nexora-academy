@@ -32,7 +32,7 @@ test('lesson lab unlocks completion and persists mission',async({page})=>{
   await expect(page.locator('[data-feedback]')).toContainText('Algoritmo bem estruturado');
   await expect(complete).toBeEnabled();
   await complete.click();
-  await expect(page.getByText(/Aula concluída/)).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Aula concluída',exact:true})).toBeVisible();
 });
 
 test('data model lab classifies roles before completion',async({page})=>{

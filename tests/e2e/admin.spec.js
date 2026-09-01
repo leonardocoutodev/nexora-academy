@@ -63,7 +63,8 @@ test('admin can reconcile a confirmed direct Pix contribution',async({page})=>{
 
 test('Growth Center builds a valid attributable UTM link',async({page})=>{
   await page.goto('/pages/admin/#growth');
-  await expect(page.getByRole('heading',{name:'Growth Center'})).toBeVisible();
+  await expect(page.locator('[data-admin-panel="growth"]')).toBeVisible();
+  await expect(page.getByRole('heading',{name:'UTM oficial da LC',exact:true})).toBeVisible();
   await page.locator('#growthUtmUrl').fill('https://academy.learnandcreate.workers.dev/cursos/');
   await page.locator('#growthUtmSource').fill('instagram');
   await page.locator('#growthUtmMedium').fill('social');
