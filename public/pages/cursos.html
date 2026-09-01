@@ -30,7 +30,7 @@
         products.map(p=>{
           const features=(Array.isArray(p.features)?p.features:[]).slice(0,4);
           const active=p.sales_status==='active';
-          return '<article class="lc-pro-card"><div class="lc-pro-card-main"><div class="lc-pro-badge">LC PRO</div><h3>'+esc(p.title.replace(/^LC Pro\s*[—-]\s*/i,''))+'</h3><p>'+esc(p.description||'Formação profissional integrada.')+'</p><ul>'+features.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div><div class="lc-pro-offer"><span class="lc-pro-status">'+(active?'INSCRIÇÕES ABERTAS':'EM PREPARAÇÃO')+'</span><small>Preço cheio <s>'+money(p.list_price_cents,p.currency)+'</s></small><strong>'+money(p.current_price_cents,p.currency)+'</strong><small>pagamento único • acesso permanente</small><a class="v3-btn" href="pro.html?slug='+encodeURIComponent(p.slug)+'">'+(active?'Ver formação e comprar':'Conhecer formação')+' →</a></div></article>';
+          return '<article class="lc-pro-card"><div class="lc-pro-card-main"><div class="lc-pro-badge">LC PRO</div><h3>'+esc(p.title.replace(/^LC Pro\s*[—-]\s*/i,''))+'</h3><p>'+esc(p.description||'Formação profissional integrada.')+'</p><ul>'+features.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div><div class="lc-pro-offer"><span class="lc-pro-status">'+(active?'INSCRIÇÕES ABERTAS':'EM PREPARAÇÃO')+'</span><small>Preço cheio <s>'+money(p.list_price_cents,p.currency)+'</s></small><strong>'+money(p.current_price_cents,p.currency)+'</strong><small>pagamento único • acesso permanente</small><a class="v3-btn" href="pro.html?slug='+encodeURIComponent(p.slug)+'">'+(active?'Ver formação Pro':'Conhecer formação')+' →</a></div></article>';
         }).join('');
       proHost.classList.remove('hidden');
     }
