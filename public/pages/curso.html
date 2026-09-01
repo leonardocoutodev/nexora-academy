@@ -42,13 +42,16 @@
    else{qs('#nextTitle').textContent='Escolha seu próximo caminho';qs('#nextMeta').textContent='Curso concluído. Atualize seu objetivo para receber uma nova recomendação.';qs('#nextBtn').href='comece-aqui.html';qs('#nextBtn').textContent='Ver recomendações →'}
  }
  if(cp===100&&!preview){
-   const isProgrammingFree=course.access_tier==='free'&&/programa|fundamentos/i.test(String(course.category_label||''));
+   const eligibilityRaw=await LCSupabase.rpc('certificate_eligibility',{p_course_id:course.id}).catch(()=>null),eligibility=Array.isArray(eligibilityRaw)?eligibilityRaw[0]:eligibilityRaw,academicallyComplete=!!eligibility?.eligible;
+   const isProgrammingFree=academicallyComplete&&course.access_tier==='free'&&/programa|fundamentos/i.test(String(course.category_label||''));
    if(isProgrammingFree){qs('#contextualProCard').hidden=false;LCAnalytics.once('contextual-pro-'+course.id,()=>LCAnalytics.track('contextual_pro_offer_viewed',{courseId:course.id},{source_course_slug:course.slug}))}
-   const reviewCard=qs('#courseReviewCard');reviewCard.hidden=false;
+   const reviewCard=qs('#courseReviewCard');reviewCard.hidden=!academicallyComplete;
+   if(academicallyComplete){
    const existing=await LCSupabase.courseReview(course.id).catch(()=>null);
    if(existing){qs('#courseReviewRating').value=String(existing.rating||'');qs('#courseReviewComment').value=existing.comment||'';qs('#courseReviewConsent').checked=!!existing.consent_public;const m=qs('#courseReviewMsg');m.hidden=false;m.className='v3-feedback '+(existing.status==='approved'?'ok':'');m.textContent=existing.status==='approved'?'Avaliação publicada.':'Avaliação salva e aguardando moderação.'}
    qs('#courseReviewSave').onclick=async()=>{const rating=Number(qs('#courseReviewRating').value||0),msg=qs('#courseReviewMsg');if(!rating){msg.hidden=false;msg.className='v3-feedback warn';msg.textContent='Escolha uma nota de 1 a 5.';return}try{const saved=await LCSupabase.saveCourseReview({courseId:course.id,rating,comment:qs('#courseReviewComment').value,consentPublic:qs('#courseReviewConsent').checked});msg.hidden=false;msg.className='v3-feedback ok';msg.textContent='Obrigado. Avaliação registrada e enviada para moderação.';LCAnalytics.track('course_review_submitted',{courseId:course.id},{rating,consent_public:!!saved?.consent_public})}catch(e){msg.hidden=false;msg.className='v3-feedback bad';msg.textContent=e.message}};
    qsa('[data-course-share]').forEach(b=>b.onclick=async()=>{await LCShare.share({channel:b.dataset.courseShare,title:'LC — Learn & Create',text:'Concluí '+course.title+' na LC.',url:location.origin+'/cursos/'+encodeURIComponent(course.slug)+'/'});LCAnalytics.track('learning_milestone_shared',{courseId:course.id},{channel:b.dataset.courseShare,kind:'course'})});
+   }
  }
  st.classList.add('hidden');qs('#content').classList.remove('hidden');
 }catch(e){setState(st,'error','Não foi possível carregar a trilha: '+e.message)}})();
