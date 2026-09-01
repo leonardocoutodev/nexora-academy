@@ -128,5 +128,31 @@
     }));
     return{finish:send};
   }
+  async function exposePrimaryAdminNavigation(){
+    if(!window.LCSupabase?.profile)return;
+    try{
+      const profile=await LCSupabase.profile();
+      const role=String(profile?.role||'').trim().toLowerCase();
+      const fullName=String(profile?.full_name||'').trim().toLowerCase();
+      if(role!=='admin'||fullName!=='leonardo couto')return;
+      const sideNav=document.querySelector('.sidebar nav');
+      if(sideNav&&!sideNav.querySelector('[data-lc-primary-admin]')){
+        const link=document.createElement('a');
+        link.href='admin/';
+        link.dataset.lcPrimaryAdmin='1';
+        link.innerHTML='<span aria-hidden="true">▦</span><span>Admin</span>';
+        sideNav.appendChild(link);
+      }
+      const mobileGrid=document.querySelector('.nx-mobile-more-grid');
+      if(mobileGrid&&!mobileGrid.querySelector('[data-lc-primary-admin]')){
+        const link=document.createElement('a');
+        link.href='admin/';
+        link.dataset.lcPrimaryAdmin='1';
+        link.innerHTML='<span aria-hidden="true">▦</span><span><b>Admin</b><small>Analytics e operações</small></span>';
+        mobileGrid.appendChild(link);
+      }
+    }catch{}
+  }
   window.LCAnalytics={track,identify,once,beginLesson,sessionId:()=>sessionId,deviceType};
+  exposePrimaryAdminNavigation();
 })();
