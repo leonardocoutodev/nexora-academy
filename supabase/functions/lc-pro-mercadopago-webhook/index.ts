@@ -1,16 +1,23 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-const SUPABASE_URL=Deno.env.get("SUPABASE_URL")!;const SERVICE=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;const MP=Deno.env.get("MERCADOPAGO_ACCESS_TOKEN")||"";const json=(b:any,s=200)=>new Response(JSON.stringify(b),{status:s,headers:{"Content-Type":"application/json"}});
+const SUPABASE_URL=Deno.env.get("SUPABASE_URL")!;const SERVICE=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;const MP=Deno.env.get("MERCADOPAGO_ACCESS_TOKEN")||"";const WEBHOOK_SECRET=Deno.env.get("MERCADOPAGO_WEBHOOK_SECRET")||"";const json=(b:any,s=200)=>new Response(JSON.stringify(b),{status:s,headers:{"Content-Type":"application/json"}});
 async function rest(path:string,init:RequestInit={}){const r=await fetch(`${SUPABASE_URL}/rest/v1/${path}`,{...init,headers:{apikey:SERVICE,Authorization:`Bearer ${SERVICE}`,"Content-Type":"application/json","Accept-Profile":"nexora","Content-Profile":"nexora",...(init.headers||{})}});const t=await r.text();const d=t?JSON.parse(t):null;if(!r.ok)throw new Error(d?.message||`DB ${r.status}`);return d}
+function signatureParts(value:string){const out:Record<string,string>={};for(const part of value.split(",")){const i=part.indexOf("=");if(i>0)out[part.slice(0,i).trim()]=part.slice(i+1).trim()}return out}
+function safeEqual(a:string,b:string){if(a.length!==b.length)return false;let diff=0;for(let i=0;i<a.length;i++)diff|=a.charCodeAt(i)^b.charCodeAt(i);return diff===0}
+async function hmacHex(secret:string,message:string){const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(secret),{name:"HMAC",hash:"SHA-256"},false,["sign"]);const signature=await crypto.subtle.sign("HMAC",key,new TextEncoder().encode(message));return Array.from(new Uint8Array(signature)).map(x=>x.toString(16).padStart(2,"0")).join("")}
+async function validSignature(req:Request,dataId:string){if(!WEBHOOK_SECRET)return false;const parts=signatureParts(req.headers.get("x-signature")||""),requestId=(req.headers.get("x-request-id")||"").trim(),ts=(parts.ts||"").trim(),expected=(parts.v1||"").trim().toLowerCase();if(!ts||!expected||!requestId||!dataId)return false;const manifest=`id:${dataId.toLowerCase()};request-id:${requestId};ts:${ts};`;return safeEqual(await hmacHex(WEBHOOK_SECRET,manifest),expected)}
+
 function mappedStatus(status:string){if(status==="approved")return "paid";if(status==="rejected")return "rejected";if(status==="cancelled")return "cancelled";if(status==="refunded")return "refunded";if(status==="charged_back")return "chargeback";return "pending"}
 Deno.serve(async req=>{
   if(req.method!=="POST"&&req.method!=="GET")return json({error:"method_not_allowed"},405);
   if(!MP)return json({error:"mercadopago_not_configured"},503);
+  if(!WEBHOOK_SECRET)return json({error:"webhook_secret_not_configured"},503);
   try{
     const url=new URL(req.url),body=req.method==="POST"?await req.json().catch(()=>({})):{};
     const type=String(body?.type||body?.topic||url.searchParams.get("type")||url.searchParams.get("topic")||"");
     const paymentId=String(body?.data?.id||url.searchParams.get("data.id")||url.searchParams.get("id")||"");
     if(type&&type!=="payment")return json({ok:true,ignored:true});
     if(!paymentId)return json({ok:true,ignored:true});
+    if(!(await validSignature(req,paymentId)))return json({error:"invalid_signature"},401);
 
     const pr=await fetch(`https://api.mercadopago.com/v1/payments/${encodeURIComponent(paymentId)}`,{headers:{Authorization:`Bearer ${MP}`}});
     if(!pr.ok)return json({error:"payment_lookup_failed"},502);
