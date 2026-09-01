@@ -1,14 +1,14 @@
 # LC — Learn & Create
 
-[![Acesso gratuito](https://img.shields.io/badge/ACESSO-GRATUITO-2563EB?style=for-the-badge)](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_badge&utm_campaign=lc_divulgacao_2026)
+[![LC Free](https://img.shields.io/badge/LC_FREE-GRATUITA-2563EB?style=for-the-badge)](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_badge&utm_campaign=lc_divulgacao_2026)
 [![Tecnologia](https://img.shields.io/badge/CURSOS-TECNOLOGIA-111827?style=for-the-badge)](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_badge&utm_campaign=lc_divulgacao_2026)
 [![Português](https://img.shields.io/badge/IDIOMA-PORTUGUÊS-16A34A?style=for-the-badge)](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_badge&utm_campaign=lc_divulgacao_2026)
 
-> **Aprenda, pratique e crie gratuitamente.** Acesse agora: [academy.learnandcreate.workers.dev](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_hero&utm_campaign=lc_divulgacao_2026)
+> **Comece gratuitamente na LC Free. Formações LC Pro são opcionais.** Acesse agora: [academy.learnandcreate.workers.dev](https://academy.learnandcreate.workers.dev/?utm_source=github&utm_medium=readme_hero&utm_campaign=lc_divulgacao_2026)
 
-A **LC — Learn & Create** é uma plataforma gratuita de educação em tecnologia, programação e inteligência artificial, idealizada e desenvolvida por **Leonardo Couto**.
+A **LC — Learn & Create** é uma plataforma de educação em tecnologia, programação e inteligência artificial com **LC Free** gratuita e formações profissionais opcionais **LC Pro**, idealizada e desenvolvida por **Leonardo Couto**.
 
-A plataforma foi desenhada para unir conteúdo aprofundado, prática guiada, laboratórios internos, avaliações objetivas, projetos funcionais e materiais de apoio. O acesso acadêmico não depende de pagamento.
+A plataforma foi desenhada para unir conteúdo aprofundado, prática guiada, laboratórios internos, avaliações objetivas, projetos funcionais e materiais de apoio. A LC Free não exige pagamento; uma formação LC Pro exige compra para acesso, mas pagamento nunca substitui os critérios acadêmicos de aprovação e certificação.
 
 ## Experiência de aprendizagem
 
@@ -24,9 +24,13 @@ A plataforma foi desenhada para unir conteúdo aprofundado, prática guiada, lab
 
 O conteúdo deve funcionar sozinho dentro da LC. Materiais de apoio aprofundam o aprendizado, mas não substituem aulas completas. Recursos visuais são usados quando explicam um conceito específico; não devem ser repetidos apenas para preencher espaço. A revisão editorial inclui português, clareza, consistência terminológica e correção pedagógica.
 
-## Gratuidade e contribuições
+## LC Free, LC Pro e contribuições
 
-Todos os cursos, aulas, laboratórios, avaliações e certificados seguem as mesmas regras para todos. Contribuições são voluntárias e podem ser feitas com **qualquer valor a partir de R$ 1**. Doar não concede vantagem acadêmica.
+- **LC Free:** catálogo gratuito, sem assinatura ou cartão obrigatório.
+- **LC Pro:** formações profissionais adicionais, vendidas separadamente e protegidas por entitlement + matrícula.
+- **Contribuições voluntárias:** podem ser feitas com **qualquer valor a partir de R$ 1** e são independentes das compras LC Pro.
+
+Doar não libera LC Pro e não concede vantagem acadêmica. Comprar uma formação Pro libera acesso somente à formação adquirida; certificado continua condicionado às regras acadêmicas.
 
 ## Autoria e atuação profissional
 
@@ -77,6 +81,7 @@ O comando `check` executa a auditoria de HTML, JavaScript e links locais, os tes
 - Cada deploy publica `LC_BUILD_ID` com o SHA do commit para rastrear Worker e assets da mesma release.
 - Analytics público possui allowlist, proteção de propriedades sensíveis e rate limiting por sessão.
 - O webhook de contribuição LC valida assinatura do Mercado Pago antes de consultar e atualizar pagamentos.
+- O checkout LC Pro cria o pedido no servidor; a liberação de acesso ocorre somente após o webhook consultar o pagamento real no Mercado Pago e validar referência externa, valor e moeda.
 - Alterações de banco ficam versionadas em `supabase/migrations`.
 - As Edge Functions versionadas em `supabase/functions` exigem segredos configurados no Supabase; nunca adicione chaves ao repositório.
 
@@ -88,7 +93,6 @@ Variáveis esperadas pelas funções de pagamento:
 - `MERCADOPAGO_WEBHOOK_SECRET`
 - `LC_APP_URL` (preferencial; `NEXORA_APP_URL` é aceito apenas como fallback legado)
 - `LC_ALLOWED_ORIGINS` (preferencial; `NEXORA_ALLOWED_ORIGINS` permanece como fallback legado)
-- `MERCADOPAGO_WEBHOOK_SECRET` (obrigatório para validar a assinatura das notificações LC)
 
 ## Política de mudanças
 
