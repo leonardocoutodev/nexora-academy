@@ -1,14 +1,15 @@
 const AdminOps=(()=>{
-  const state={courses:[],activeTab:'overview',studentRows:[],bossRows:[],certificateRows:[],donationRows:[]};
+  const state={courses:[],activeTab:'overview',studentRows:[],bossRows:[],certificateRows:[],donationRows:[],affiliateRows:[],affiliatePayoutRows:[]};
   const one=x=>Array.isArray(x)?x[0]:x;
   const fmtDate=v=>v?new Date(v).toLocaleString('pt-BR'):'—';
   const pct=v=>Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
   const num=v=>Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:1});
   const money=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const moneyCents=v=>money(Number(v||0)/100);
   const donationStatusLabel=v=>({approved:'Aprovada',pending:'Pendente',rejected:'Rejeitada',refunded:'Reembolsada',cancelled:'Cancelada',in_process:'Em processamento',unknown:'Desconhecida'}[v]||v||'—');
   const goalLabel=v=>({primeiro_emprego:'Primeiro emprego',web:'Sites e sistemas',automacao:'Python e automação',dados:'Dados',ia:'IA no trabalho',fundamentos:'Fundamentos','não informado':'Não informado'}[v]||v||'Não informado');
-  const statusLabel=v=>({active:'Ativo',blocked:'Bloqueado',inactive:'Inativo',completed:'Concluída',paused:'Pausada',cancelled:'Cancelada',submitted:'Em avaliação',revision_requested:'Ajustes solicitados',approved:'Aprovado',reviewed:'Avaliado'}[v]||v||'—');
-  const statusClass=v=>['active','completed','approved','reviewed'].includes(v)?'ok':['blocked','cancelled'].includes(v)?'bad':['submitted','revision_requested','paused'].includes(v)?'warn':'';
+  const statusLabel=v=>({active:'Ativo',blocked:'Bloqueado',inactive:'Inativo',completed:'Concluída',paused:'Pausada',cancelled:'Cancelada',submitted:'Em avaliação',revision_requested:'Ajustes solicitados',approved:'Aprovado',reviewed:'Avaliado',suspended:'Suspenso',closed:'Encerrado',requested:'Solicitado',paid:'Pago',rejected:'Rejeitado'}[v]||v||'—');
+  const statusClass=v=>['active','completed','approved','reviewed','paid'].includes(v)?'ok':['blocked','cancelled','rejected','closed'].includes(v)?'bad':['submitted','revision_requested','paused','requested','suspended'].includes(v)?'warn':'';
   function toast(msg,kind='ok'){const el=qs('#adminToast');el.textContent=msg;el.className='lc-admin-toast '+kind;el.hidden=false;clearTimeout(window.__adminToastTimer);window.__adminToastTimer=setTimeout(()=>el.hidden=true,3200)}
   function setTab(name){
     state.activeTab=name;
@@ -132,6 +133,33 @@ const AdminOps=(()=>{
     }catch(e){toast('Analytics: '+e.message,'bad')}
   }
 
+  async function loadAffiliates(){
+    const payoutStatus=qs('#affiliatePayoutStatus')?.value||'';
+    try{
+      const[summaryRaw,rows,payouts]=await Promise.all([
+        LCSupabase.rpc('admin_affiliate_summary',{}),
+        LCSupabase.rpc('admin_affiliate_roster',{}),
+        LCSupabase.rpc('admin_affiliate_payout_roster',{p_status:payoutStatus||null})
+      ]);
+      const s=one(summaryRaw)||{};
+      const metrics={
+        affiliateCount:s.affiliates,affiliateActive:s.active_affiliates,affiliateClicks:s.clicks_30d,affiliateSales:s.paid_sales,
+        affiliatePending:moneyCents(s.commission_pending_cents),affiliateAvailable:moneyCents(s.commission_available_cents),
+        affiliatePayoutsOpen:moneyCents(s.payouts_requested_cents),affiliatePaid:moneyCents(s.payouts_paid_cents)
+      };
+      Object.entries(metrics).forEach(([id,v])=>{const el=qs('#'+id);if(el)el.textContent=typeof v==='number'?Number(v||0).toLocaleString('pt-BR'):v});
+      state.affiliateRows=Array.isArray(rows)?rows:[];
+      state.affiliatePayoutRows=Array.isArray(payouts)?payouts:[];
+      const host=qs('#affiliateList');
+      if(host)host.innerHTML=state.affiliateRows.length?state.affiliateRows.map(r=>'<article class="lc-admin-affiliate-row"><span><b>'+esc(r.full_name||'Afiliado LC')+'</b><small>'+esc(r.email||'')+' • '+esc(r.code)+'</small></span><span><small>Status</small><b class="lc-status '+statusClass(r.status)+'">'+esc(statusLabel(r.status))+'</b></span><span><small>Cliques</small><b>'+Number(r.clicks||0).toLocaleString('pt-BR')+'</b></span><span><small>Vendas</small><b>'+Number(r.paid_sales||0).toLocaleString('pt-BR')+'</b></span><span><small>Disponível / pago</small><b>'+moneyCents(r.available_cents)+'</b><small>'+moneyCents(r.paid_cents)+' pagos</small></span><span class="lc-admin-affiliate-actions"><label><small>Comissão personalizada (%)</small><input type="number" min="0" max="100" step="0.01" placeholder="padrão" data-aff-commission="'+r.affiliate_id+'" value="'+(r.commission_bps_override==null?'':Number(r.commission_bps_override)/100)+'"></label><button class="v3-btn secondary" type="button" data-aff-save="'+r.affiliate_id+'">Salvar</button><button class="v3-btn secondary" type="button" data-aff-toggle="'+r.affiliate_id+'" data-next-status="'+(r.status==='active'?'suspended':'active')+'">'+(r.status==='active'?'Suspender':'Reativar')+'</button></span></article>').join(''):'<div class="lc-admin-empty">Nenhum afiliado cadastrado ainda.</div>';
+      qsa('[data-aff-save]').forEach(btn=>btn.onclick=async()=>{const id=btn.dataset.affSave,input=qs('[data-aff-commission="'+id+'"]'),raw=(input?.value||'').trim(),clear=raw==='',pctv=clear?null:Number(raw);if(!clear&&(!Number.isFinite(pctv)||pctv<0||pctv>100))return toast('Informe comissão entre 0% e 100%.','bad');btn.disabled=true;try{await LCSupabase.rpc('admin_update_affiliate',{p_affiliate_id:id,p_status:null,p_commission_bps_override:clear?null:Math.round(pctv*100),p_clear_override:clear});toast(clear?'Comissão voltou ao padrão do produto.':'Comissão personalizada atualizada.');await Promise.all([loadAffiliates(),loadAudit()])}catch(e){toast(e.message,'bad')}finally{btn.disabled=false}});
+      qsa('[data-aff-toggle]').forEach(btn=>btn.onclick=async()=>{btn.disabled=true;try{await LCSupabase.rpc('admin_update_affiliate',{p_affiliate_id:btn.dataset.affToggle,p_status:btn.dataset.nextStatus,p_commission_bps_override:null,p_clear_override:false});toast(btn.dataset.nextStatus==='active'?'Afiliado reativado.':'Afiliado suspenso.');await Promise.all([loadAffiliates(),loadAudit()])}catch(e){toast(e.message,'bad')}finally{btn.disabled=false}});
+      const ph=qs('#affiliatePayoutList');
+      if(ph)ph.innerHTML=state.affiliatePayoutRows.length?state.affiliatePayoutRows.map(r=>'<article class="lc-admin-payout"><span><b>'+esc(r.full_name||'Afiliado LC')+'</b><small>'+esc(r.email||'')+' • '+esc(r.code)+'</small></span><span><small>Valor</small><b>'+moneyCents(r.amount_cents)+'</b><small>bruto '+moneyCents(r.gross_commission_cents)+(Number(r.clawback_offset_cents||0)>0?' • ajuste -'+moneyCents(r.clawback_offset_cents):'')+'</small></span><span><small>Pix</small><b>'+esc(r.pix_key||'Não cadastrado')+'</b><small>'+esc(r.holder_name||'')+'</small></span><span><small>Status</small><b class="lc-status '+statusClass(r.status)+'">'+esc(statusLabel(r.status))+'</b><small>'+esc(fmtDate(r.requested_at))+'</small></span>'+(['requested','approved'].includes(r.status)?'<div class="lc-admin-payout-actions"><label>Referência do pagamento<input data-payout-ref="'+r.payout_id+'" placeholder="ID/comprovante do Pix"></label>'+(r.status==='requested'?'<button class="v3-btn secondary" data-payout-action="approve" data-payout-id="'+r.payout_id+'" type="button">Aprovar</button>':'')+'<button class="v3-btn" data-payout-action="paid" data-payout-id="'+r.payout_id+'" type="button">Marcar pago</button><button class="v3-btn secondary" data-payout-action="reject" data-payout-id="'+r.payout_id+'" type="button">Rejeitar</button></div>':'')+'</article>').join(''):'<div class="lc-admin-empty">Nenhum saque encontrado.</div>';
+      qsa('[data-payout-action]').forEach(btn=>btn.onclick=async()=>{const id=btn.dataset.payoutId,action=btn.dataset.payoutAction,ref=(qs('[data-payout-ref="'+id+'"]')?.value||'').trim();if(action==='paid'&&ref.length<3)return toast('Informe a referência do Pix antes de marcar como pago.','bad');qsa('[data-payout-id="'+id+'"]').forEach(x=>x.disabled=true);try{await LCSupabase.rpc('admin_review_affiliate_payout',{p_request_id:id,p_action:action,p_payment_reference:ref||null,p_notes:null});toast(action==='paid'?'Saque conciliado como pago.':action==='approve'?'Saque aprovado.':'Saque rejeitado.');await Promise.all([loadAffiliates(),loadAudit()])}catch(e){toast(e.message,'bad');qsa('[data-payout-id="'+id+'"]').forEach(x=>x.disabled=false)}});
+    }catch(e){toast('Afiliados: '+e.message,'bad')}
+  }
+
   async function loadDonations(){
     const status=qs('#donationStatus')?.value||'';
     const rows=await LCSupabase.rpc('admin_donation_roster',{p_status:status||null,p_limit:100});
@@ -179,12 +207,13 @@ const AdminOps=(()=>{
       qs('#studentDialogClose').onclick=()=>qs('#studentDialog').close();
       qs('#studentDialog').addEventListener('click',e=>{if(e.target===qs('#studentDialog'))qs('#studentDialog').close()});
       wireFilters();qs('#analyticsDays').onchange=()=>loadAnalytics();qs('#analyticsLessonCourse').onchange=()=>loadLessonAnalytics();
+      qs('#affiliateRefresh').onclick=()=>loadAffiliates();qs('#affiliatePayoutStatus').onchange=()=>loadAffiliates();
       qs('#donationApply').onclick=()=>loadDonations();qs('#donationStatus').onchange=()=>loadDonations();qs('#manualDonationSave').onclick=()=>saveManualDonation();
-      await Promise.all([loadSummary(),loadStudents(),loadBoss(),loadCertificates(),loadDonations(),loadAudit(),loadAnalytics()]);
+      await Promise.all([loadSummary(),loadStudents(),loadBoss(),loadCertificates(),loadAffiliates(),loadDonations(),loadAudit(),loadAnalytics()]);
       qs('#state').classList.add('hidden');qs('#content').classList.remove('hidden');
-      const initial=location.hash.replace('#','');setTab(['overview','analytics','students','boss','certificates','donations','audit'].includes(initial)?initial:'overview');
+      const initial=location.hash.replace('#','');setTab(['overview','analytics','students','boss','certificates','affiliates','donations','audit'].includes(initial)?initial:'overview');
     }catch(e){setState(qs('#state'),'error',e.message)}
   }
-  return{init,setTab,loadStudents,loadBoss,loadCertificates,loadDonations,loadAudit,loadAnalytics,loadLessonAnalytics}
+  return{init,setTab,loadStudents,loadBoss,loadCertificates,loadAffiliates,loadDonations,loadAudit,loadAnalytics,loadLessonAnalytics}
 })();
 AdminOps.init();
