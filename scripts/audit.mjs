@@ -49,6 +49,13 @@ for(const rel of ["index.html","pages/login.html","pages/cadastro.html","pages/a
 for(const requiredBrand of ["assets/brand/lc-mark.svg","assets/css/lc.css","manifest.webmanifest"]){if(!fs.existsSync(path.join(root,requiredBrand)))failures.push(`ativo LC ausente: ${requiredBrand}`)}
 for(const requiredPublic of ["robots.txt","sitemap.xml","pages/privacidade.html","pages/termos.html","pages/certificacao.html"]){if(!fs.existsSync(path.join(root,requiredPublic)))failures.push(`arquivo público de confiança ausente: ${requiredPublic}`)}
 for(const rel of ["index.html","pages/apoie.html","pages/privacidade.html","pages/termos.html","pages/certificacao.html"]){const html=fs.readFileSync(path.join(root,rel),"utf8");if(!html.includes('rel="canonical"'))failures.push(`${rel}: canonical ausente`);if(!html.includes('property="og:'))failures.push(`${rel}: Open Graph ausente`)}
+for(const file of files.filter(file=>/^cursos[\\/][^\\/]+[\\/]index\\.html$/.test(path.relative(root,file)))){
+  const rel=path.relative(root,file),html=fs.readFileSync(file,"utf8");
+  if(!/viewport-fit=cover/i.test(html))failures.push(`${rel}: viewport-fit=cover ausente`);
+  for(const marker of ['rel="canonical"','property="og:title"','property="og:description"','property="og:url"','property="og:image"'])if(!html.includes(marker))failures.push(`${rel}: metadado público ausente (${marker})`);
+  if(!html.includes("assets/js/analytics.js")||!html.includes("public_course_viewed"))failures.push(`${rel}: analytics público do curso ausente`);
+  if(!/pages\\/cadastro\\.html/i.test(html))failures.push(`${rel}: CTA de cadastro ausente`);
+}
 if(fs.readFileSync(path.join(root,"index.html"),"utf8").includes('.public-nav .brand img{width:190px}'))failures.push("index.html: sizing legado do LC Mark ainda presente");
 for(const file of files.filter(file=>/\.(?:html|js|css|sql|svg|txt)$/.test(file))){
   const source=fs.readFileSync(file,"utf8"),rel=path.relative(root,file);
@@ -74,6 +81,7 @@ for(const required of [
   "tests/e2e/responsive.spec.js",
   "tests/e2e/visual.spec.js",
   "scripts/quality-static.mjs",
+  "scripts/serve-public.mjs",
   ".github/workflows/quality.yml",
   ".github/workflows/production-quality.yml",
   "docs/LC_QUALITY.md"
