@@ -40,7 +40,7 @@ async function mediaManifest(req){
     url:`/api/lc/media/file?lesson=${encodeURIComponent(lesson)}&kind=${encodeURIComponent(kind)}&index=${Number(item.index||0)}`
   }));
   const videos=decorate(manifest.videos,"video"),audio=decorate(manifest.audio,"audio"),images=decorate(manifest.images,"image"),documents=decorate(manifest.documents,"document");
-  return json({lesson_id:lesson,available:Boolean(manifest.available),videos,audio,images,documents,video_count:videos.length,audio_count:audio.length,image_count:images.length,document_count:documents.length});
+  return json({lesson_id:lesson,available:Boolean(manifest.available),videos,audio,images,documents,video_count:Number(manifest.video_count??videos.length),audio_count:Number(manifest.audio_count??audio.length),image_count:Number(manifest.image_count??images.length),document_count:Number(manifest.document_count??documents.length)});
 }
 async function mediaFile(req){
   await requireUser(req);
