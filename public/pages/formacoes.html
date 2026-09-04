@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#05080d">
+  <link rel="icon" type="image/svg+xml" href="../assets/brand/lc-mark.svg">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <title>Minhas formações — Learn & Create</title>
+  <link rel="stylesheet" href="../assets/css/lc.css">
+  <link rel="stylesheet" href="../assets/css/commerce.css">
+</head>
+<body class="lc-app-page lc-formations-page">
+<div class="app-shell">
+  <aside class="sidebar"><div class="brand"></div><nav>
+    <a data-nav="dashboard" href="dashboard.html"><span></span><span>Visão geral</span></a>
+    <a data-nav="courses" href="cursos.html"><span></span><span>Catálogo</span></a>
+    <a data-nav="formations" href="formacoes.html"><span></span><span>Minhas formações</span></a>
+    <a data-nav="projects" href="projetos.html"><span></span><span>Boss Fights</span></a>
+    <a data-nav="library" href="biblioteca.html"><span></span><span>Biblioteca</span></a>
+    <a data-nav="certs" href="certificados.html"><span></span><span>Certificados</span></a>
+    <a data-nav="profile" href="perfil.html"><span></span><span>Perfil</span></a>
+  </nav><div class="side-footer"></div></aside>
+  <main class="main">
+    <header class="mobile-header"><div class="brand"></div><button class="btn-ghost" data-logout>Sair</button></header>
+    <div class="main-inner">
+      <section class="lc-commerce-hero">
+        <div class="eyebrow">SUA ÁREA ACADÊMICA</div>
+        <h1>Minhas formações.</h1>
+        <p>As formações profissionais em que você está matriculado aparecem aqui, separadas dos cursos gratuitos do catálogo.</p>
+      </section>
+      <div id="state" class="loading">Carregando suas formações...</div>
+      <section id="content" hidden>
+        <div id="formationGrid" class="academic-formation-grid"></div>
+      </section>
+    </div>
+    <nav class="bottom-nav"></nav>
+  </main>
+</div>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/supabase-lc.js"></script>
+<script src="../assets/js/app-shell.js"></script>
+<script src="../assets/js/analytics.js"></script>
+<script>
+(async()=>{
+  const ctx=await lcBoot('formations');if(!ctx)return;
+  const state=qs('#state'),content=qs('#content'),grid=qs('#formationGrid');
+  try{
+    const rows=await LCSupabase.rpc('my_academic_formations');
+    if(!rows.length){
+      state.className='academic-empty';
+      state.innerHTML='<strong>Você ainda não tem uma formação profissional ativa.</strong><span>Explore o catálogo para conhecer as formações disponíveis.</span><div class="lc-commerce-actions"><a class="v3-btn" href="cursos.html">Explorar formações →</a></div>';
+      return;
+    }
+    grid.innerHTML=rows.map(item=>{
+      const pct=Math.max(0,Math.min(100,Number(item.progress_pct||0)));
+      return '<article class="academic-formation-card">'+
+        '<span class="lc-tier-chip pro">Formação profissional</span>'+
+        '<h2>'+esc(item.title)+'</h2>'+
+        '<p class="muted">'+esc(item.description||'Formação ativa na sua conta.')+'</p>'+
+        '<div class="academic-progress"><span style="width:'+pct+'%"></span></div>'+
+        '<div class="meta"><strong>'+pct+'%</strong> concluído · '+Number(item.completed_lessons||0)+'/'+Number(item.lesson_count||0)+' aulas</div>'+
+        '<div class="lc-commerce-actions"><a class="v3-btn" href="curso.html?id='+encodeURIComponent(item.course_id)+'">Continuar formação →</a></div>'+
+      '</article>';
+    }).join('');
+    state.hidden=true;content.hidden=false;
+  }catch(error){setState(state,'error','Não foi possível carregar suas formações: '+error.message)}
+})();
+</script>
+</body>
+</html>
