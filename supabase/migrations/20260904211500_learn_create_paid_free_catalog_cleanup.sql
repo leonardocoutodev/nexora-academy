@@ -53,7 +53,7 @@ with imported_formations as (
   join imported_formations f
     on f.id<>c.id
    and f.norm=lower(regexp_replace(translate(c.title,
-      'ÁÀÂÃÄáàâãäÉÈÊËéèêëÍìîïÓÒÔÕÖóòôõöÚÙÛÜúùûüÇç',
+      'ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÔÕÖóòôõöÚÙÛÜúùûüÇç',
       'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuCc'
    ),'[^A-Za-z0-9]+','','g'))
   where c.access_tier='free' and c.course_type='short_course'
