@@ -36,6 +36,8 @@ raw as (
   from source_row where coalesce(source_assets->>'intro_video','')<>''
   union all select 'video',1,v.ord,v.value from source_row,
     lateral jsonb_array_elements_text(coalesce(source_assets->'videos','[]'::jsonb)) with ordinality v(value,ord)
+  union all select 'video',1,v.ord,v.value from source_row,
+    lateral jsonb_array_elements_text(coalesce(source_assets->'mp4','[]'::jsonb)) with ordinality v(value,ord)
   union all select 'video',2,v.ord,v.value from source_row,
     lateral jsonb_array_elements_text(coalesce(source_assets->'step_assets'->'videos','[]'::jsonb)) with ordinality v(value,ord)
   union all select 'audio',1,a.ord,a.value from source_row,
