@@ -19,9 +19,11 @@ for(const file of files.filter(file=>file.endsWith(".html"))){
     const ref=match[1];
     if(!ref||/^(?:#|https?:|mailto:|tel:|data:|javascript:)/.test(ref)||ref.includes("${"))continue;
     const rel=path.relative(root,file);
-    const workerServedCourse=rel==="cursos/index.html"&&/^[a-z0-9][a-z0-9-]{1,119}\/$/.test(ref);
+    const cleanRef=ref.split(/[?#]/)[0];
+    const resolvedPublicPath=path.relative(root,path.resolve(path.dirname(file),cleanRef)).replace(/\\/g,'/');
+    const workerServedCourse=/^cursos\/[a-z0-9][a-z0-9-]{1,119}\/?$/.test(resolvedPublicPath);
     if(workerServedCourse)continue;
-    const target=path.resolve(path.dirname(file),ref.split(/[?#]/)[0]);
+    const target=path.resolve(path.dirname(file),cleanRef);
     if(!fs.existsSync(target))failures.push(`${rel}: referência ausente ${ref}`);
   }
 }
