@@ -64,7 +64,7 @@
 (async()=>{
   const ctx=await lcBoot('courses');if(!ctx)return;
   const state=qs('#state'),grid=qs('#grid'),search=qs('#catalogSearch'),category=qs('#categoryFilter'),type=qs('#typeFilter'),count=qs('#catalogCount');
-  let tier='all',courses=[];
+  let tier=['free','pro','mine'].includes(new URLSearchParams(location.search).get('tier'))?new URLSearchParams(location.search).get('tier'):'all',courses=[];
   const normalize=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const mins=v=>{const n=Number(v||0);return n?Math.max(1,Math.round(n/60))+'h aprox.':''};
   try{
@@ -89,7 +89,7 @@
     count.textContent=rows.length;
     grid.innerHTML=rows.length?rows.map(c=>{
       const paid=c.access_tier==='pro',enrolled=!!c.is_enrolled;
-      const href=paid&&!enrolled?'../cursos/'+encodeURIComponent(c.slug)+'/':'curso.html?id='+encodeURIComponent(c.id);
+      const href=paid&&!enrolled?(c.slug==='lc-pro-programador-full-stack'?'../programador-full-stack-pro/':'../cursos/'+encodeURIComponent(c.slug)+'/'):'curso.html?id='+encodeURIComponent(c.id);
       const cta=paid&&!enrolled?'Conhecer formação →':enrolled?'Continuar →':'Começar agora →';
       const chip=paid?'FORMAÇÃO PAGA':'GRATUITO';
       const note=paid&&!enrolled?'Acesso às aulas após matrícula.':enrolled?'Matrícula ativa na sua conta.':'Acesso liberado sem cobrança.';
@@ -101,7 +101,7 @@
         '<div class="card-actions"><a class="v3-btn '+(paid&&!enrolled?'':'secondary')+'" href="'+href+'">'+cta+'</a></div></article>';
     }).join(''):'<div class="academic-empty">Nenhum resultado encontrado.</div>';
   }
-  qsa('[data-tier-filter]').forEach(btn=>btn.onclick=()=>{tier=btn.dataset.tierFilter;qsa('[data-tier-filter]').forEach(x=>x.classList.toggle('active',x===btn));render()});
+  qsa('[data-tier-filter]').forEach(btn=>{btn.classList.toggle('active',btn.dataset.tierFilter===tier||(tier==='all'&&btn.dataset.tierFilter==='all'));btn.onclick=()=>{tier=btn.dataset.tierFilter;qsa('[data-tier-filter]').forEach(x=>x.classList.toggle('active',x===btn));render()}});
   search.addEventListener('input',render);category.addEventListener('change',render);type.addEventListener('change',render);
 })();
 </script>
