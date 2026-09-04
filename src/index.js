@@ -6,14 +6,68 @@ const SECURITY_HEADERS={"x-content-type-options":"nosniff","referrer-policy":"st
 function json(data,status=200,headers={}) { return new Response(JSON.stringify(data),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store",...SECURITY_HEADERS,...headers}}); }
 async function body(req){ try{return await req.json()}catch{return {}} }
 function bearer(req){const h=req.headers.get("authorization")||"";return h.startsWith("Bearer ")?h.slice(7):null}
+function cookieValue(req,name){const raw=req.headers.get("cookie")||"";const hit=raw.split(";").map(x=>x.trim()).find(x=>x.startsWith(name+"="));if(!hit)return null;try{return decodeURIComponent(hit.slice(name.length+1))}catch{return null}}
+function authToken(req){return bearer(req)||cookieValue(req,"lc_media_session")}
 function esc(value){return String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]))}
-async function supabaseUser(req){ const token=bearer(req); if(!token)return null; const r=await fetch(SUPABASE_URL+"/auth/v1/user",{headers:{apikey:SUPABASE_KEY,authorization:`Bearer ${token}`}}); if(!r.ok)return null; return await r.json(); }
+async function supabaseUser(req){ const token=authToken(req); if(!token)return null; const r=await fetch(SUPABASE_URL+"/auth/v1/user",{headers:{apikey:SUPABASE_KEY,authorization:`Bearer ${token}`}}); if(!r.ok)return null; return await r.json(); }
 async function requireUser(req){const u=await supabaseUser(req);if(!u)throw Object.assign(new Error("Não autenticado"),{status:401});return u}
-async function rest(req,path,options={}){ const token=bearer(req); const headers={apikey:SUPABASE_KEY,"content-type":"application/json","accept-profile":"nexora","content-profile":"nexora",...(token?{authorization:`Bearer ${token}`}:{ } ),...(options.headers||{})}; return fetch(SUPABASE_URL+"/rest/v1/"+path,{...options,headers}); }
+async function rest(req,path,options={}){ const token=authToken(req); const headers={apikey:SUPABASE_KEY,"content-type":"application/json","accept-profile":"nexora","content-profile":"nexora",...(token?{authorization:`Bearer ${token}`}:{ } ),...(options.headers||{})}; return fetch(SUPABASE_URL+"/rest/v1/"+path,{...options,headers}); }
 async function createProfile(req){ const u=await requireUser(req), b=await body(req); const r=await rest(req,"profiles",{method:"POST",headers:{Prefer:"resolution=merge-duplicates,return=representation"},body:JSON.stringify({id:u.id,full_name:String(b.full_name||u.user_metadata?.full_name||""),role:"student",status:"active"})}); const data=await r.json().catch(()=>({})); if(!r.ok)return json({error:data.message||"Falha ao criar perfil"},r.status); return json({profile:Array.isArray(data)?data[0]:data}); }
 async function me(req){ const u=await requireUser(req); const r=await rest(req,`profiles?id=eq.${encodeURIComponent(u.id)}&select=id,full_name,role,status`); const data=await r.json(); return json({user:u,profile:data[0]||null}); }
 async function courses(req){ await requireUser(req); const r=await rest(req,"courses?select=id,slug,title,description,status,minimum_score,position&order=position.asc"); const data=await r.json(); return json({courses:data}); }
 async function progress(req){ const u=await requireUser(req), b=await body(req); const payload={user_id:u.id,lesson_id:b.lesson_id,progress:Math.max(0,Math.min(100,Number(b.progress??100))),updated_at:new Date().toISOString(),completed_at:Number(b.progress??100)>=100?new Date().toISOString():null}; const r=await rest(req,"lesson_progress?on_conflict=user_id,lesson_id",{method:"POST",headers:{Prefer:"resolution=merge-duplicates,return=representation"},body:JSON.stringify(payload)}); const data=await r.json().catch(()=>({})); if(!r.ok)return json({error:data.message||"Falha ao salvar progresso"},r.status);return json({ok:true,data}); }
+
+function validUuid(value){return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value||""))}
+async function mediaSession(req){
+  if(req.method==="DELETE")return json({ok:true},200,{"set-cookie":"lc_media_session=; Path=/api/lc/media; Max-Age=0; HttpOnly; Secure; SameSite=Strict"});
+  const token=bearer(req);if(!token)throw Object.assign(new Error("Não autenticado"),{status:401});
+  await requireUser(req);
+  return json({ok:true},200,{"set-cookie":`lc_media_session=${encodeURIComponent(token)}; Path=/api/lc/media; Max-Age=3600; HttpOnly; Secure; SameSite=Strict`});
+}
+async function mediaManifest(req){
+  await requireUser(req);
+  const url=new URL(req.url),lesson=url.searchParams.get("lesson");
+  if(!validUuid(lesson))return json({error:"Aula inválida"},400);
+  const r=await rest(req,"rpc/lesson_media_manifest",{method:"POST",body:JSON.stringify({p_lesson_id:lesson})});
+  const data=await r.json().catch(()=>null);
+  if(!r.ok)return json({error:data?.message||"Não foi possível carregar a mídia da aula"},r.status);
+  const manifest=Array.isArray(data)?data[0]:data;
+  if(!manifest||typeof manifest!=="object")return json({lesson_id:lesson,available:false,videos:[],audio:[],images:[],documents:[]});
+  const decorate=(items,kind)=>(Array.isArray(items)?items:[]).map(item=>({
+    index:Number(item.index||0),
+    label:String(item.label||kind),
+    mime:String(item.mime||"application/octet-stream"),
+    url:`/api/lc/media/file?lesson=${encodeURIComponent(lesson)}&kind=${encodeURIComponent(kind)}&index=${Number(item.index||0)}`
+  }));
+  const videos=decorate(manifest.videos,"video"),audio=decorate(manifest.audio,"audio"),images=decorate(manifest.images,"image"),documents=decorate(manifest.documents,"document");
+  return json({lesson_id:lesson,available:Boolean(manifest.available),videos,audio,images,documents,video_count:videos.length,audio_count:audio.length,image_count:images.length,document_count:documents.length});
+}
+async function mediaFile(req){
+  await requireUser(req);
+  if(!["GET","HEAD"].includes(req.method))return new Response(null,{status:405,headers:{allow:"GET, HEAD",...SECURITY_HEADERS}});
+  const url=new URL(req.url),lesson=url.searchParams.get("lesson"),kind=url.searchParams.get("kind"),index=Number(url.searchParams.get("index"));
+  if(!validUuid(lesson)||!["video","audio","image","document"].includes(kind)||!Number.isInteger(index)||index<0)return new Response("Mídia inválida",{status:400,headers:{"content-type":"text/plain; charset=utf-8",...SECURITY_HEADERS}});
+  const r=await rest(req,"rpc/lesson_media_resolve",{method:"POST",body:JSON.stringify({p_lesson_id:lesson,p_kind:kind,p_index:index})});
+  const data=await r.json().catch(()=>null);
+  if(!r.ok)return new Response("Mídia indisponível",{status:r.status,headers:SECURITY_HEADERS});
+  const resolved=Array.isArray(data)?data[0]:data;
+  if(!resolved?.url)return new Response("Mídia não encontrada",{status:404,headers:SECURITY_HEADERS});
+  let upstreamUrl;
+  try{upstreamUrl=new URL(resolved.url)}catch{return new Response("Origem de mídia inválida",{status:502,headers:SECURITY_HEADERS})}
+  if(upstreamUrl.protocol!=="https:"||upstreamUrl.hostname.toLowerCase()!=="jupiter.omcursos.com.br")return new Response("Origem de mídia não permitida",{status:502,headers:SECURITY_HEADERS});
+  const upstreamHeaders=new Headers();
+  for(const name of ["range","if-range","if-none-match","if-modified-since"]){const value=req.headers.get(name);if(value)upstreamHeaders.set(name,value)}
+  upstreamHeaders.set("accept",req.headers.get("accept")||"*/*");
+  const upstream=await fetch(upstreamUrl.toString(),{method:req.method,headers:upstreamHeaders,redirect:"follow"});
+  const headers=new Headers();
+  for(const name of ["content-type","content-length","content-range","accept-ranges","etag","last-modified"]){const value=upstream.headers.get(name);if(value)headers.set(name,value)}
+  if(!headers.get("content-type")&&resolved.mime)headers.set("content-type",String(resolved.mime));
+  headers.set("cache-control","private, max-age=300");
+  headers.set("cross-origin-resource-policy","same-origin");
+  headers.set("content-disposition","inline");
+  Object.entries(SECURITY_HEADERS).forEach(([name,value])=>headers.set(name,value));
+  return new Response(req.method==="HEAD"?null:upstream.body,{status:upstream.status,statusText:upstream.statusText,headers});
+}
 async function publicCoursePage(req,slug){
   const r=await rest(req,"rpc/public_course_detail",{method:"POST",body:JSON.stringify({p_slug:slug})});
   const course=await r.json().catch(()=>null);
@@ -71,6 +125,9 @@ async function router(req,env){
   if(apiPath==="/api/lc/me")return me(req);
   if(apiPath==="/api/lc/courses")return courses(req);
   if(apiPath==="/api/lc/progress"&&req.method==="POST")return progress(req);
+  if(apiPath==="/api/lc/media/session"&&(req.method==="POST"||req.method==="DELETE"))return mediaSession(req);
+  if(apiPath==="/api/lc/media/manifest"&&req.method==="GET")return mediaManifest(req);
+  if(apiPath==="/api/lc/media/file"&&(req.method==="GET"||req.method==="HEAD"))return mediaFile(req);
   return staticAsset(req,env);
 }
 export default {async fetch(req,env,ctx){try{return await router(req,env)}catch(e){return json({error:e.message||"Erro interno"},e.status||500)}}};
