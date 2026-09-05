@@ -69,5 +69,19 @@ window.LCSupabase={
  adminGrowth:async days=>{const r=await sbRest("nexora","rpc/admin_growth_summary",{method:"POST",body:JSON.stringify({p_days:Number(days||30)})});return Array.isArray(r)?r[0]:r},
  adminCourseReviews:()=>sbRest("nexora","course_reviews?select=id,user_id,course_id,rating,comment,consent_public,status,created_at,updated_at&order=created_at.desc&limit=200"),
  moderateCourseReview:async({id,status})=>{const r=await sbRest("nexora",`course_reviews?id=eq.${encodeURIComponent(id)}`,{method:"PATCH",headers:{Prefer:"return=representation"},body:JSON.stringify({status,updated_at:new Date().toISOString()})});return r[0]||r},
- completeLesson:async lessonId=>{const r=await sbRest("nexora","rpc/complete_lesson_mission",{method:"POST",body:JSON.stringify({p_lesson_id:lessonId})});return Array.isArray(r)?r[0]:r}
+ completeLesson:async lessonId=>{
+   try{
+     const r=await sbRest("nexora","rpc/complete_lesson_mission",{method:"POST",body:JSON.stringify({p_lesson_id:lessonId})});
+     return Array.isArray(r)?r[0]:r;
+   }catch(error){
+     const message=String(error?.message||'');
+     if(!/xp_events|xp_check|constraint/i.test(message))throw error;
+     const session=loadSession();
+     if(!session?.access_token)throw error;
+     const res=await fetch("/api/lc/progress",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${session.access_token}`},body:JSON.stringify({lesson_id:lessonId,progress:100})});
+     const data=await res.json().catch(()=>({}));
+     if(!res.ok)throw new Error(data.error||"Não foi possível salvar a conclusão da aula.");
+     return {xp_awarded:0,current_streak:null,level:null,fallback_completion:true};
+   }
+ }
 };
