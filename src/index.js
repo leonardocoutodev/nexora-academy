@@ -58,6 +58,9 @@ async function mediaFile(req){
   const upstreamHeaders=new Headers();
   for(const name of ["range","if-range","if-none-match","if-modified-since"]){const value=req.headers.get(name);if(value)upstreamHeaders.set(name,value)}
   upstreamHeaders.set("accept",req.headers.get("accept")||"*/*");
+  upstreamHeaders.set("referer",upstreamUrl.origin+"/ead/");
+  upstreamHeaders.set("user-agent","Mozilla/5.0 (compatible; LearnCreateMedia/1.0)");
+  upstreamHeaders.set("accept-language","pt-BR,pt;q=0.9,en;q=0.6");
   const upstream=await fetch(upstreamUrl.toString(),{method:req.method,headers:upstreamHeaders,redirect:"follow"});
   const headers=new Headers();
   for(const name of ["content-type","content-length","content-range","accept-ranges","etag","last-modified"]){const value=upstream.headers.get(name);if(value)headers.set(name,value)}
